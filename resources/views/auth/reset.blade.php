@@ -11,7 +11,8 @@
 	<link rel="stylesheet" href="{{asset('assets/plugins/fontawesome/css/fontawesome.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/css/feathericon.min.css')}}">
 	<link rel="stylesheet" href="{{asset('assets/plugins/morris/morris.css')}}">
-	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}"> </head>
+	<link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+</head>
 
 <body>
     @error('password')
