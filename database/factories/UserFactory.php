@@ -19,14 +19,14 @@ class UserFactory extends Factory
     {
         return [
             'email' => function() {
-                $email = [null, 'student@gmail.com', 'employee@gmail.com'];
+                $email = [null, 'admin@gmail.com'];
                 $i = User::max('id');
 
                 return $email[$i + 1];
             },
             'password' => bcrypt('password'),
             'role' => function() {
-                $role = [null, 'student', 'teacher'];
+                $role = [null, 'admin'];
                 $i = User::max('id');
 
                 return $role[$i + 1];

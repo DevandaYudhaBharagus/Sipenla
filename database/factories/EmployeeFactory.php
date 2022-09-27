@@ -20,7 +20,7 @@ class EmployeeFactory extends Factory
             'user_id' => function () {
                 $i = Employee::max('user_id');
 
-                return $i + 2;
+                return $i + 1;
             },
             'first_name' => function () {
                 $firstName = [null];
@@ -33,7 +33,7 @@ class EmployeeFactory extends Factory
                 return $firstName[$i + 1];
             },
             'last_name' => function () {
-                $lastName = [null,'Employee'];
+                $lastName = [null,'Admin'];
                 $i = Employee::max('employee_id');
 
                 return $lastName[$i + 1];

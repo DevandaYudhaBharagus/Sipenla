@@ -21,4 +21,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('users')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/forgot', [AuthController::class, 'forgot']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('/registerstudent', [AuthController::class, 'registerStudent']);
+        Route::post('/registeremployee', [AuthController::class, 'registerEmployee']);
+        Route::post('/registerguardian', [AuthController::class, 'registerGuardian']);
+    });
 });
