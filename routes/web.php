@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Reset Password
+Route::get('otp/{token}', [ResetPasswordController::class, 'getPassword']);
+Route::post('otp', [ResetPasswordController::class, 'updatePassword'])->name('resetpass');

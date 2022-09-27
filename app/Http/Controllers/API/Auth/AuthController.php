@@ -304,6 +304,10 @@ class AuthController extends Controller
 
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
+            $email = PasswordReset::where('email', '=', $request->email);
+            if ($email->exists()) {
+                $email->delete();
+            }
             $token = Str::random(60);
 
             PasswordReset::create([

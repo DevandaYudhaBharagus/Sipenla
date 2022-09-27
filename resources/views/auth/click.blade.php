@@ -1,235 +1,366 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
-    <meta charset="utf-8">
-    <meta name="x-apple-disable-message-reformatting">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
-    <!--[if mso]>
-    <xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml>
+    <meta charset="utf-8"> <!-- utf-8 works for most cases -->
+    <meta name="viewport" content="width=device-width"> <!-- Forcing initial-scale shouldn't be necessary -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> <!-- Use the latest (edge) version of IE rendering engine -->
+    <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
+    <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+
+    <!-- CSS Reset : BEGIN -->
     <style>
-      td,th,div,p,a,h1,h2,h3,h4,h5,h6 {font-family: "Segoe UI", sans-serif; mso-line-height-rule: exactly;}
+
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+body {
+    margin: 0 auto !important;
+    padding: 0 !important;
+    height: 100% !important;
+    width: 100% !important;
+    background: #f1f1f1;
+}
+
+/* What it does: Stops email clients resizing small text. */
+* {
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+/* What it does: Centers email on Android 4.4 */
+div[style*="margin: 16px 0"] {
+    margin: 0 !important;
+}
+
+/* What it does: Stops Outlook from adding extra spacing to tables. */
+table,
+td {
+    mso-table-lspace: 0pt !important;
+    mso-table-rspace: 0pt !important;
+}
+
+/* What it does: Fixes webkit padding issue. */
+table {
+    border-spacing: 0 !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+    margin: 0 auto !important;
+}
+
+/* What it does: Uses a better rendering method when resizing images in IE. */
+img {
+    -ms-interpolation-mode:bicubic;
+}
+
+/* What it does: Prevents Windows 10 Mail from underlining links despite inline CSS. Styles for underlined links should be inline. */
+a {
+    text-decoration: none;
+}
+
+/* What it does: A work-around for email clients meddling in triggered links. */
+*[x-apple-data-detectors],  /* iOS */
+.unstyle-auto-detected-links *,
+.aBn {
+    border-bottom: 0 !important;
+    cursor: default !important;
+    color: inherit !important;
+    text-decoration: none !important;
+    font-size: inherit !important;
+    font-family: inherit !important;
+    font-weight: inherit !important;
+    line-height: inherit !important;
+}
+
+/* What it does: Prevents Gmail from displaying a download button on large, non-linked images. */
+.a6S {
+    display: none !important;
+    opacity: 0.01 !important;
+}
+
+/* What it does: Prevents Gmail from changing the text color in conversation threads. */
+.im {
+    color: inherit !important;
+}
+
+/* If the above doesn't work, add a .g-img class to any image in question. */
+img.g-img + div {
+    display: none !important;
+}
+
+/* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
+/* Create one of these media queries for each additional viewport size you'd like to fix */
+
+/* iPhone 4, 4S, 5, 5S, 5C, and 5SE */
+@media only screen and (min-device-width: 320px) and (max-device-width: 374px) {
+    u ~ div .email-container {
+        min-width: 320px !important;
+    }
+}
+/* iPhone 6, 6S, 7, 8, and X */
+@media only screen and (min-device-width: 375px) and (max-device-width: 413px) {
+    u ~ div .email-container {
+        min-width: 375px !important;
+    }
+}
+/* iPhone 6+, 7+, and 8+ */
+@media only screen and (min-device-width: 414px) {
+    u ~ div .email-container {
+        min-width: 414px !important;
+    }
+}
+
     </style>
-  <![endif]-->
-    <title>Reset your Password</title>
-    <link
-        href="https://fonts.googleapis.com/css?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700"
-        rel="stylesheet" media="screen">
+
+    <!-- CSS Reset : END -->
+
+    <!-- Progressive Enhancements : BEGIN -->
     <style>
-        .hover-underline:hover {
-            text-decoration: underline !important;
-        }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+	    .primary{
+	background: #30e3ca;
+}
+.bg_white{
+	background: #ffffff;
+}
+.bg_light{
+	background: #fafafa;
+}
+.bg_black{
+	background: #000000;
+}
+.bg_dark{
+	background: rgba(0,0,0,.8);
+}
+.email-section{
+	padding:2.5em;
+}
 
-        @keyframes ping {
+/*BUTTON*/
+.btn{
+	padding: 10px 15px;
+	display: inline-block;
+}
+.btn.btn-primary{
+	border-radius: 5px;
+	background: #30e3ca;
+	color: #ffffff;
+}
+.btn.btn-white{
+	border-radius: 5px;
+	background: #ffffff;
+	color: #000000;
+}
+.btn.btn-white-outline{
+	border-radius: 5px;
+	background: transparent;
+	border: 1px solid #fff;
+	color: #fff;
+}
+.btn.btn-black-outline{
+	border-radius: 0px;
+	background: transparent;
+	border: 2px solid #000;
+	color: #000;
+	font-weight: 700;
+}
 
-            75%,
-            100% {
-                transform: scale(2);
-                opacity: 0;
-            }
-        }
+h1,h2,h3,h4,h5,h6{
+	font-family: 'Lato', sans-serif;
+	color: #000000;
+	margin-top: 0;
+	font-weight: 400;
+}
 
-        @keyframes pulse {
-            50% {
-                opacity: .5;
-            }
-        }
+body{
+	font-family: 'Lato', sans-serif;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 1.8;
+	color: rgba(0,0,0,.4);
+}
 
-        @keyframes bounce {
+a{
+	color: #30e3ca;
+}
 
-            0%,
-            100% {
-                transform: translateY(-25%);
-                animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-            }
+table{
+}
+/*LOGO*/
 
-            50% {
-                transform: none;
-                animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-            }
-        }
+.logo h1{
+	margin: 0;
+}
+.logo h1 a{
+	color: #30e3ca;
+	font-size: 24px;
+	font-weight: 700;
+	font-family: 'Lato', sans-serif;
+}
 
-        @media (max-width: 600px) {
-            .sm-px-24 {
-                padding-left: 24px !important;
-                padding-right: 24px !important;
-            }
+/*HERO*/
+.hero{
+	position: relative;
+	z-index: 0;
+}
 
-            .sm-py-32 {
-                padding-top: 32px !important;
-                padding-bottom: 32px !important;
-            }
+.hero .text{
+	color: rgba(0,0,0,.3);
+}
+.hero .text h2{
+	color: #000;
+	font-size: 40px;
+	margin-bottom: 0;
+	font-weight: 400;
+	line-height: 1.4;
+}
+.hero .text h3{
+	font-size: 24px;
+	font-weight: 300;
+}
+.hero .text h2 span{
+	font-weight: 600;
+	color: #30e3ca;
+}
 
-            .sm-w-full {
-                width: 100% !important;
-            }
-        }
+
+/*HEADING SECTION*/
+.heading-section{
+}
+.heading-section h2{
+	color: #000000;
+	font-size: 28px;
+	margin-top: 0;
+	line-height: 1.4;
+	font-weight: 400;
+}
+.heading-section .subheading{
+	margin-bottom: 20px !important;
+	display: inline-block;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: rgba(0,0,0,.4);
+	position: relative;
+}
+.heading-section .subheading::after{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -10px;
+	content: '';
+	width: 100%;
+	height: 2px;
+	background: #30e3ca;
+	margin: 0 auto;
+}
+
+.heading-section-white{
+	color: rgba(255,255,255,.8);
+}
+.heading-section-white h2{
+	font-family:
+	line-height: 1;
+	padding-bottom: 0;
+}
+.heading-section-white h2{
+	color: #ffffff;
+}
+.heading-section-white .subheading{
+	margin-bottom: 0;
+	display: inline-block;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: rgba(255,255,255,.4);
+}
+
+
+ul.social{
+	padding: 0;
+}
+ul.social li{
+	display: inline-block;
+	margin-right: 10px;
+}
+
+/*FOOTER*/
+
+.footer{
+	border-top: 1px solid rgba(0,0,0,.05);
+	color: rgba(0,0,0,.5);
+}
+.footer .heading{
+	color: #000;
+	font-size: 20px;
+}
+.footer ul{
+	margin: 0;
+	padding: 0;
+}
+.footer ul li{
+	list-style: none;
+	margin-bottom: 10px;
+}
+.footer ul li a{
+	color: rgba(0,0,0,1);
+}
+
+
+@media screen and (max-width: 500px) {
+
+
+}
+
 
     </style>
+
+
 </head>
 
-<body
-    style="margin: 0; padding: 0; width: 100%; word-break: break-word; -webkit-font-smoothing: antialiased; --bg-opacity: 1; background-color: #eceff1; background-color: rgba(236, 239, 241, var(--bg-opacity));"
-    data-new-gr-c-s-check-loaded="14.1050.0" data-gr-ext-installed="">
-    <div style="display: none;">A request to reset password was received from your PixInvent Account</div>
-    <div role="article" aria-roledescription="email" aria-label="Reset your Password" lang="en">
-        <table style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; width: 100%;" width="100%"
-            cellpadding="0" cellspacing="0" role="presentation">
-            <tbody>
-                <tr>
-                    <td align="center"
-                        style="--bg-opacity: 1; background-color: #eceff1; background-color: rgba(236, 239, 241, var(--bg-opacity)); font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif;"
-                        bgcolor="rgba(236, 239, 241, var(--bg-opacity))">
-                        <table class="sm-w-full" style="font-family: 'Montserrat',Arial,sans-serif; width: 600px;"
-                            width="600" cellpadding="0" cellspacing="0" role="presentation">
-                            <tbody>
-                                <tr>
-                                    <td class="sm-py-32 sm-px-24"
-                                        style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; padding: 48px; text-align: center;"
-                                        align="center">
-                                        <a href="https://1.envato.market/vuexy_admin">
-                                            <img src="images/logo.png" width="155" alt="Vuexy Admin"
-                                                style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle;">
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="center" class="sm-px-24"
-                                        style="font-family: 'Montserrat',Arial,sans-serif;">
-                                        <table style="font-family: 'Montserrat',Arial,sans-serif; width: 100%;"
-                                            width="100%" cellpadding="0" cellspacing="0" role="presentation">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="sm-px-24"
-                                                        style="--bg-opacity: 1; background-color: #ffffff; background-color: rgba(255, 255, 255, var(--bg-opacity)); border-radius: 4px; font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; font-size: 14px; line-height: 24px; padding: 48px; text-align: left; --text-opacity: 1; color: #626262; color: rgba(98, 98, 98, var(--text-opacity));"
-                                                        bgcolor="rgba(255, 255, 255, var(--bg-opacity))" align="left">
-                                                        <p style="font-weight: 600; font-size: 18px; margin-bottom: 0;">
-                                                            Hey</p>
-                                                        <p
-                                                            style="font-weight: 700; font-size: 20px; margin-top: 0; --text-opacity: 1; color: #ff5850; color: rgba(255, 88, 80, var(--text-opacity));">
-                                                            Aziiz P</p>
-                                                        <p style="margin: 0 0 24px;">
-                                                            A request to reset password was received from your
-                                                            <span style="font-weight: 600;">PixInvent</span> Account -
-                                                            <a href="mailto:john@example.com" class="hover-underline"
-                                                                style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">john@example.com</a>
-                                                            (ID: 8632698) from the IP - <span
-                                                                style="font-weight: 600;">49.34.185.199</span> .
-                                                        </p>
-                                                        <p style="margin: 0 0 24px;">Use this link to reset your
-                                                            password and login.</p>
-                                                        <a href="{{ url('/otp/' . $token) }}"
-                                                            style="display: block; font-size: 14px; line-height: 100%; margin-bottom: 24px; --text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">This
-                                                            Link</a>
-                                                        <table style="font-family: 'Montserrat',Arial,sans-serif;"
-                                                            cellpadding="0" cellspacing="0" role="presentation">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="mso-padding-alt: 16px 24px; --bg-opacity: 1; background-color: #7367f0; background-color: rgba(115, 103, 240, var(--bg-opacity)); border-radius: 4px; font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif;"
-                                                                        bgcolor="rgba(115, 103, 240, var(--bg-opacity))">
-                                                                        <a href="{{ url('/otp/' . $token) }}"
-                                                                            style="display: block; font-weight: 600; font-size: 14px; line-height: 100%; padding: 16px 24px; --text-opacity: 1; color: #ffffff; color: rgba(255, 255, 255, var(--text-opacity)); text-decoration: none;">Reset
-                                                                            Password →</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p style="margin: 24px 0;">
-                                                            <span style="font-weight: 600;">Note:</span> This link is
-                                                            valid for 1 hour from the time it was
-                                                            sent to you and can be used to change your password only
-                                                            once.
-                                                        </p>
-                                                        <p style="margin: 0;">
-                                                            If you did not intend to deactivate your account or need our
-                                                            help keeping the account, please
-                                                            contact us at
-                                                            <a href="mailto:support@example.com" class="hover-underline"
-                                                                style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">support@example.com</a>
-                                                        </p>
-                                                        <table
-                                                            style="font-family: 'Montserrat',Arial,sans-serif; width: 100%;"
-                                                            width="100%" cellpadding="0" cellspacing="0"
-                                                            role="presentation">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td
-                                                                        style="font-family: 'Montserrat',Arial,sans-serif; padding-top: 32px; padding-bottom: 32px;">
-                                                                        <div
-                                                                            style="--bg-opacity: 1; background-color: #eceff1; background-color: rgba(236, 239, 241, var(--bg-opacity)); height: 1px; line-height: 1px;">
-                                                                            &zwnj;</div>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                        <p style="margin: 0 0 16px;">
-                                                            Not sure why you received this email? Please
-                                                            <a href="mailto:support@example.com" class="hover-underline"
-                                                                style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">let
-                                                                us know</a>.
-                                                        </p>
-                                                        <p style="margin: 0 0 16px;">Thanks, <br>The PixInvent Team</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-family: 'Montserrat',Arial,sans-serif; height: 20px;"
-                                                        height="20"></td>
-                                                </tr>
-                                                <tr>
-                                                    <td
-                                                        style="font-family: Montserrat, -apple-system, 'Segoe UI', sans-serif; font-size: 12px; padding-left: 48px; padding-right: 48px; --text-opacity: 1; color: #eceff1; color: rgba(236, 239, 241, var(--text-opacity));">
-                                                        <p align="center" style="cursor: default; margin-bottom: 16px;">
-                                                            <a href="https://www.facebook.com/pixinvents"
-                                                                style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                                    src="images/facebook.png" width="17" alt="Facebook"
-                                                                    style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
-                                                            •
-                                                            <a href="https://twitter.com/pixinvents"
-                                                                style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                                    src="images/twitter.png" width="17" alt="Twitter"
-                                                                    style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
-                                                            •
-                                                            <a href="https://www.instagram.com/pixinvents"
-                                                                style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity)); text-decoration: none;"><img
-                                                                    src="images/instagram.png" width="17"
-                                                                    alt="Instagram"
-                                                                    style="border: 0; max-width: 100%; line-height: 100%; vertical-align: middle; margin-right: 12px;"></a>
-                                                        </p>
-                                                        <p
-                                                            style="--text-opacity: 1; color: #263238; color: rgba(38, 50, 56, var(--text-opacity));">
-                                                            Use of our service and website is subject to our
-                                                            <a href="https://pixinvent.com/" class="hover-underline"
-                                                                style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">Terms
-                                                                of Use</a> and
-                                                            <a href="https://pixinvent.com/" class="hover-underline"
-                                                                style="--text-opacity: 1; color: #7367f0; color: rgba(115, 103, 240, var(--text-opacity)); text-decoration: none;">Privacy
-                                                                Policy</a>.
-                                                        </p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="font-family: 'Montserrat',Arial,sans-serif; height: 16px;"
-                                                        height="16"></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+<body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f1f1f1;">
+	<center style="width: 100%; background-color: #f1f1f1;">
+    <div style="display: none; font-size: 1px;max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden; mso-hide: all; font-family: sans-serif;">
+      &zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;
     </div>
-
-
+    <div style="max-width: 600px; margin: 0 auto;" class="email-container">
+    	<!-- BEGIN BODY -->
+      <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin: auto;">
+      	<tr>
+          <td valign="top" class="bg_white" style="padding: 1em 2.5em 0 2.5em;">
+          	<table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%">
+          		<tr>
+          			<td class="logo" style="text-align: center;">
+			            <h1><a href="#">Sipenla</a></h1>
+			          </td>
+          		</tr>
+          	</table>
+          </td>
+	      </tr><!-- end tr -->
+	      <tr>
+          <td valign="middle" class="hero bg_white" style="padding: 3em 0 2em 0;">
+            <img src="{{asset('assets/img/email.png')}}" alt="" style="width: 300px; max-width: 600px; height: auto; margin: auto; display: block;">
+          </td>
+	      </tr><!-- end tr -->
+				<tr>
+          <td valign="middle" class="hero bg_white" style="padding: 2em 0 4em 0;">
+            <table>
+            	<tr>
+            		<td>
+            			<div class="text" style="padding: 0 2.5em; text-align: center;">
+            				<h2>Holla!</h2>
+            				<h3>To Reset Password, Please Click Button Bellow</h3>
+            				<p><a href="{{ url('/otp/' . $token) }}" class="btn btn-primary">Reset</a></p>
+            			</div>
+            		</td>
+            	</tr>
+            </table>
+          </td>
+	      </tr><!-- end tr -->
+      <!-- 1 Column Text + Button : END -->
+      </table>
+    </div>
+  </center>
+</body>
 </html>
