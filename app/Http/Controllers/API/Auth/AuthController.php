@@ -257,7 +257,10 @@ class AuthController extends Controller
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'student' => $student
+                    'name' => [
+                        'first_name' => $student->first_name,
+                        'last_name' => $student->last_name,
+                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }else if($user->role == "walimurid"){
@@ -266,7 +269,10 @@ class AuthController extends Controller
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'student' => $guardian
+                    'name' => [
+                        'first_name' => $guardian->first_name,
+                        'last_name' => $guardian->last_name,
+                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }else{
@@ -275,7 +281,10 @@ class AuthController extends Controller
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'employee' => $employee
+                    'name' => [
+                        'first_name' => $employee->first_name,
+                        'last_name' => $employee->last_name,
+                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }
