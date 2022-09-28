@@ -50,6 +50,10 @@ class AuthController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
+            if($request->role == "admin"){
+                return ResponseFormatter::error("sorry you can't register admin", 400);
+            }
+
             $test = User::where('email', '=', $request->email);
             $test1 = Employee::where('nik', '=', $request->nik);
             if ($test->exists() || $test1->exists()) {
@@ -308,7 +312,7 @@ class AuthController extends Controller
             if ($email->exists()) {
                 $email->delete();
             }
-            $token = Str::random(60);
+            $token = mt_rand(1000, 9999);
 
             PasswordReset::create([
                 'email' => $request->email,
@@ -327,6 +331,61 @@ class AuthController extends Controller
 
             return ResponseFormatter::success($response, 'Email Was Sent');
         } catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getOtp(Request $request){
+        try{
+            $token = $request->only('token');
+
+            $request->validate([
+                'token' => 'required'
+            ]);
+
+            $user = PasswordReset::where(['token' => $token])->first();
+            if(!$user) return ResponseFormatter::error('Invalid Token', 400);
+
+            $response = [
+                $token
+            ];
+            return ResponseFormatter::success($response, 'Lets Change Password');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function updatePass(Request $request){
+        try{
+            $token = $request->only('token');
+
+            $request->validate([
+                'token' => 'required',
+                'password' => 'required|confirmed'
+            ]);
+
+            $user = PasswordReset::where(['token' => $token])->first();
+            if(!$user) return ResponseFormatter::error('Invalid Token', 400);
+
+            User::where('email', $user->email)->update(['password' => bcrypt($request->password)]);
+            PasswordReset::where(['email' => $user->email, 'token' => $token])->delete();
+
+            return ResponseFormatter::success('Your password has been changed!');
+        }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
 

@@ -350,8 +350,7 @@ ul.social li{
             		<td>
             			<div class="text" style="padding: 0 2.5em; text-align: center;">
             				<h2>Holla!</h2>
-            				<h3>To Reset Password, Please Click Button Bellow</h3>
-            				<p><a href="{{ url('/otp/' . $token) }}" class="btn btn-primary">Reset</a></p>
+            				<h3>To Reset Password, This is OTP code {{ $token }}</h3>
             			</div>
             		</td>
             	</tr>
