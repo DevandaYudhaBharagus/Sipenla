@@ -6,6 +6,7 @@ use App\Helpers\DateHelpers;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Employee;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,11 +16,28 @@ class ProfileController extends Controller
     {
         try {
             $user = Auth::user();
-            $response = [
-                $user,
-            ];
+            if($user->role == "student"){
+                $student = Student::where('user_id', '=', $user->id)->first();
+                $response = [
+                    $student,
+                ];
 
-            return ResponseFormatter::success($response, 'Get User');
+                return ResponseFormatter::success($response, 'Get User');
+            }else if($user->role == "walimurid"){
+                $guardian = Guardian::where('user_id', '=', $user->id)->first();
+                $response = [
+                    $guardian,
+                ];
+
+                return ResponseFormatter::success($response, 'Get User');
+            }else{
+                $employee = Employee::where('user_id', '=', $user->id)->first();
+                $response = [
+                    $employee,
+                ];
+
+                return ResponseFormatter::success($response, 'Get User');
+            }
         }
         catch (Exception $e) {
             $response = [
