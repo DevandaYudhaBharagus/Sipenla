@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Auth\AuthController;
+use App\Http\Controllers\API\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,6 @@ Route::prefix('users')->group(function () {
         Route::post('/registerstudent', [AuthController::class, 'registerStudent']);
         Route::post('/registeremployee', [AuthController::class, 'registerEmployee']);
         Route::post('/registerguardian', [AuthController::class, 'registerGuardian']);
+        Route::get('/profile', [ProfileController::class, 'getProfile']);
     });
 });
