@@ -20,6 +20,8 @@ class ProfileController extends Controller
             $user = Auth::user();
             if($user->role == "student"){
                 $student = Student::where('user_id', '=', $user->id)->first();
+                $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
+                $student->date_of_birth = $date;
                 $response = [
                     $student,
                 ];
@@ -27,6 +29,8 @@ class ProfileController extends Controller
                 return ResponseFormatter::success($response, 'Get User');
             }else if($user->role == "walimurid"){
                 $guardian = Guardian::where('user_id', '=', $user->id)->first();
+                $date = ($guardian->date_of_birth !== null) ? date('d F Y', strtotime($guardian->date_of_birth)) : '';
+                $guardian->date_of_birth = $date;
                 $response = [
                     $guardian,
                 ];
@@ -34,6 +38,8 @@ class ProfileController extends Controller
                 return ResponseFormatter::success($response, 'Get User');
             }else{
                 $employee = Employee::where('user_id', '=', $user->id)->first();
+                $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
+                $employee->date_of_birth = $date;
                 $response = [
                     $employee,
                 ];
