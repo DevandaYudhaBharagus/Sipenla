@@ -16,7 +16,8 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id('student_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('nisn');
+            $table->string('nisn')->unique();
+            $table->string('nik', 16)->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('father_name');
@@ -26,6 +27,8 @@ class CreateStudentsTable extends Migration
             $table->string('place_of_birth');
             $table->date('date_of_birth');
             $table->text('address');
+            $table->string('religion');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

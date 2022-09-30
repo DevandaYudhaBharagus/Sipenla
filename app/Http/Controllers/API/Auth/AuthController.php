@@ -165,6 +165,7 @@ class AuthController extends Controller
                 'email' => 'required|email',
                 'password' => 'required',
                 'nisn' => 'required',
+                'nik' => 'required',
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'father_name' => 'required',
@@ -172,6 +173,7 @@ class AuthController extends Controller
                 'place_of_birth' => 'required',
                 'date_of_birth' => 'required',
                 'gender' => 'required',
+                'religion' => 'required',
                 'address' => 'required',
                 'phone' => 'required|max:13',
             ]);
@@ -186,8 +188,9 @@ class AuthController extends Controller
 
             $test = User::where('email', '=', $request->email);
             $test1 = Student::where('nisn', '=', $request->nisn);
-            if ($test->exists() || $test1->exists()) {
-                return ResponseFormatter::error("Email or Residential NISN already taken", 400);
+            $test2 = Student::where('nik', '=', $request->nik);
+            if ($test->exists() || $test1->exists() || $test2->exists()) {
+                return ResponseFormatter::error("Email or NISN or NIK already taken", 400);
             }
 
             $userData = User::create([
@@ -199,12 +202,14 @@ class AuthController extends Controller
             $createStudent = Student::create([
                 'user_id' => $userData['id'],
                 'nisn' => $data['nisn'],
+                'nik' => $data['nik'],
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'father_name' => $data['father_name'],
                 'mother_name' => $data['mother_name'],
                 'gender' => $data['gender'],
                 'phone' => $data['phone'],
+                'religion' => $data['religion'],
                 'place_of_birth' => $data['place_of_birth'],
                 'date_of_birth' => $data['date_of_birth'],
                 'address' => $data['address']

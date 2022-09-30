@@ -20,7 +20,9 @@ class CreateStudentGuardiansTable extends Migration
             $table->string('guardian_name');
             $table->string('no_kk');
             $table->string('phone', 13);
+            $table->string('religion');
             $table->text('address');
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

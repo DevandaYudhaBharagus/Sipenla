@@ -45,6 +45,7 @@ class EmployeeFactory extends Factory
             'address' => $this->faker->address,
             'phone' => $this->faker->numerify('#############'),
             'image' => null,
+            'religion' => 'islam',
         ];
     }
 }

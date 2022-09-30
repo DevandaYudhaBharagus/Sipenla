@@ -24,6 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->string('gender', 6);
             $table->text('address');
             $table->string('phone', 13);
+            $table->string('religion');
             $table->string('image')->nullable();
             $table->timestamps();
         });

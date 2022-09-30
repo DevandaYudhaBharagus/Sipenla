@@ -7,6 +7,8 @@ use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Employee;
+use App\Models\Student;
+use App\Models\Guardian;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +21,8 @@ class ProfileController extends Controller
             if($user->role == "student"){
                 $student = Student::where('user_id', '=', $user->id)->first();
                 $response = [
+                    $user->email,
+                    $user->role,
                     $student,
                 ];
 
@@ -26,6 +30,8 @@ class ProfileController extends Controller
             }else if($user->role == "walimurid"){
                 $guardian = Guardian::where('user_id', '=', $user->id)->first();
                 $response = [
+                    $user->email,
+                    $user->role,
                     $guardian,
                 ];
 
@@ -33,6 +39,8 @@ class ProfileController extends Controller
             }else{
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 $response = [
+                    $user->email,
+                    $user->role,
                     $employee,
                 ];
 
