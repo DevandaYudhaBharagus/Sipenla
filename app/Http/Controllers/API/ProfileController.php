@@ -21,8 +21,6 @@ class ProfileController extends Controller
             if($user->role == "student"){
                 $student = Student::where('user_id', '=', $user->id)->first();
                 $response = [
-                    $user->email,
-                    $user->role,
                     $student,
                 ];
 
@@ -30,8 +28,6 @@ class ProfileController extends Controller
             }else if($user->role == "walimurid"){
                 $guardian = Guardian::where('user_id', '=', $user->id)->first();
                 $response = [
-                    $user->email,
-                    $user->role,
                     $guardian,
                 ];
 
@@ -39,8 +35,6 @@ class ProfileController extends Controller
             }else{
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 $response = [
-                    $user->email,
-                    $user->role,
                     $employee,
                 ];
 
