@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,5 +31,13 @@ Route::prefix('users')->group(function () {
         Route::post('/registeremployee', [AuthController::class, 'registerEmployee']);
         Route::post('/registerguardian', [AuthController::class, 'registerGuardian']);
         Route::get('/profile', [ProfileController::class, 'getProfile']);
+    });
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('news')->group(function () {
+        Route::get('/', [NewsController::class, 'getAllNews']);
+        Route::post('/{id}', [NewsController::class, 'updateNews']);
+        Route::delete('/{id}', [NewsController::class, 'deleteNews']);
     });
 });
