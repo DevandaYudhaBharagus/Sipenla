@@ -20,8 +20,10 @@ class NewsController extends Controller
             }
 
             foreach ($news as $n) {
+                $test1 = ($n->news_image !== null) ? env('APP_URL') . "/storage/$n->news_image" : '';
                 $time = $n->created_at;
                 $test2 = ($n->created_at !== null) ? date('d F Y', strtotime($time)) : '';
+                $n->news_image = $test1;
                 $n->date = $test2;
             }
 
@@ -41,12 +43,17 @@ class NewsController extends Controller
     public function updateNews(Request $request, $id)
     {
         try{
+            if ($request->file('news_image')) {
+                $test['news_image'] = $request->file('news_image')->store('news-images');
+            }
+
             $edit = [
                 "news_title" => $request->news_title,
                 "news_content" => $request->news_content,
-                "news_image" => $request->image,
+                "news_image" => $test['news_image'],
                 "updated_at" => Carbon::now()
             ];
+
 
             $updateNews = News::where('news_id', '=', $id)
                             ->update($edit);
