@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\NewsController;
+use App\Http\Controllers\API\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,5 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/', [NewsController::class, 'getAllNews']);
         Route::post('/{id}', [NewsController::class, 'updateNews']);
         Route::delete('/{id}', [NewsController::class, 'deleteNews']);
+    });
+
+    Route::prefix('attendances')->group(function () {
+        Route::post('/addleave', [AttendanceController::class, 'addLeave']);
+        Route::post('/addduty', [AttendanceController::class, 'addDuty']);
     });
 });

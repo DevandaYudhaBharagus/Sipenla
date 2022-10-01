@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\User;
 use App\Models\Student;
 use App\Models\Guardian;
+use App\Models\LeaveBalance;
 use App\Models\PasswordReset;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -75,7 +76,13 @@ class AuthController extends Controller
                 'date_of_birth' => $data['date_of_birth'],
                 'gender' => $data['gender'],
                 'address' => $data['address'],
-                'phone' => $data['phone']
+                'phone' => $data['phone'],
+                'religion' => $data['religion']
+            ]);
+
+            $createLeaveBalance = LeaveBalance::create([
+                'employee_id' => $createEmployee['employee_id'],
+                'total_balance' => 12
             ]);
 
             return ResponseFormatter::success( "Succeed to added account.");
