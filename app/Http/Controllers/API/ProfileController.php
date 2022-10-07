@@ -20,10 +20,30 @@ class ProfileController extends Controller
             $user = Auth::user();
             if($user->role == "student"){
                 $student = Student::where('user_id', '=', $user->id)->first();
+                if(!$student){
+                    $response = [
+                        'status' => 'false'
+                    ];
+
+                    return ResponseFormatter::success($response, 'Get User');
+                }
                 $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
                 $student->date_of_birth = $date;
                 $response = [
-                    $student,
+                    'nisn' => $student->nisn,
+                    'nik' => $student->nik,
+                    'first_name' => $student->first_name,
+                    'last_name' => $student->last_name,
+                    'father_name' => $student->father_name,
+                    'mother_name' => $student->mother_name,
+                    'gender' => $student->gender,
+                    'phone' => $student->phone,
+                    'place_of_birth' => $student->place_of_birth,
+                    'date_of_birth' => $student->date_of_birth,
+                    'address' => $student->address,
+                    'religion' => $student->religion,
+                    'image' => $student->image,
+                    'status' => 'true'
                 ];
 
                 return ResponseFormatter::success($response, 'Get User');

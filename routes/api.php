@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Auth\AuthController;
 use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\AttendanceController;
+use App\Http\Controllers\API\AdmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +18,6 @@ use App\Http\Controllers\API\AttendanceController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::prefix('users')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
@@ -45,5 +42,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('attendances')->group(function () {
         Route::post('/addleave', [AttendanceController::class, 'addLeave']);
         Route::post('/addduty', [AttendanceController::class, 'addDuty']);
+        Route::get('/gettype', [AttendanceController::class, 'getLeaveType']);
+    });
+
+    Route::prefix('admission')->group(function () {
+        Route::post('/addemployee', [AdmissionController::class, 'addEmployee']);
+        Route::post('/addstudent', [AdmissionController::class, 'addStudent']);
     });
 });

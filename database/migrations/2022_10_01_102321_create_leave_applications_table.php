@@ -21,6 +21,7 @@ class CreateLeaveApplicationsTable extends Migration
             $table->dateTime('application_to_date');
             $table->date('application_date');
             $table->text('purpose');
+            $table->string('abandoned_job');
             $table->timestamps();
         });
     }

@@ -39,11 +39,17 @@ class EmployeeFactory extends Factory
                 return $lastName[$i + 1];
             },
             'nik' => $this->faker->randomNumber(9) . $this->faker->randomNumber(7),
+            'nuptk' => $this->faker->randomNumber(9) . $this->faker->randomNumber(7),
+            'npsn' => $this->faker->randomNumber(9) . $this->faker->randomNumber(7),
             'place_of_birth' => $this->faker->city,
             'date_of_birth' => $this->faker->date,
             'gender' => $this->faker->randomElement(['Male', 'Female']),
             'address' => $this->faker->address,
             'phone' => $this->faker->numerify('#############'),
+            'education' => 'sma',
+            'family_name' => 'johan',
+            'family_address' => $this->faker->address,
+            'position' => 'manajer',
             'image' => null,
             'religion' => 'islam',
         ];

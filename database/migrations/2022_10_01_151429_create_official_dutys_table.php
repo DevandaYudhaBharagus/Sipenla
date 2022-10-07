@@ -20,6 +20,9 @@ class CreateOfficialDutysTable extends Migration
             $table->dateTime('duty_to_date');
             $table->date('duty_date');
             $table->text('purpose');
+            $table->dateTime('time');
+            $table->string('place');
+            $table->string('abandoned_job');
             $table->string('attachment')->nullable();
             $table->timestamps();
         });

@@ -25,22 +25,13 @@ class AuthController extends Controller
     {
         try {
             $data = $request->all();
-            $data['password'] = bcrypt($data['password']);
 
             $employeeData = $data;
 
             $validate = Validator::make($data, [
                 'email' => 'required|email',
-                'password' => 'required',
+                'password' => 'required|confirmed',
                 'role' => 'required',
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'nik' => 'required',
-                'place_of_birth' => 'required',
-                'date_of_birth' => 'required',
-                'gender' => 'required',
-                'address' => 'required',
-                'phone' => 'required|max:13',
             ]);
 
             if ($validate->fails()) {
@@ -55,34 +46,10 @@ class AuthController extends Controller
                 return ResponseFormatter::error("sorry you can't register admin", 400);
             }
 
-            $test = User::where('email', '=', $request->email);
-            $test1 = Employee::where('nik', '=', $request->nik);
-            if ($test->exists() || $test1->exists()) {
-                return ResponseFormatter::error("Email or Residential Identity Card already taken", 400);
-            }
-
             $userData = User::create([
                 'email' => $data['email'],
-                'password' => $data['password'],
+                'password' => bcrypt($data['password']),
                 'role' => $data['role']
-            ]);
-
-            $createEmployee = Employee::create([
-                'user_id' => $userData['id'],
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'nik' => $data['nik'],
-                'place_of_birth' => $data['place_of_birth'],
-                'date_of_birth' => $data['date_of_birth'],
-                'gender' => $data['gender'],
-                'address' => $data['address'],
-                'phone' => $data['phone'],
-                'religion' => $data['religion']
-            ]);
-
-            $createLeaveBalance = LeaveBalance::create([
-                'employee_id' => $createEmployee['employee_id'],
-                'total_balance' => 12
             ]);
 
             return ResponseFormatter::success( "Succeed to added account.");
@@ -103,18 +70,12 @@ class AuthController extends Controller
     {
         try {
             $data = $request->all();
-            $data['password'] = bcrypt($data['password']);
 
             $guardianData = $data;
 
             $validate = Validator::make($data, [
                 'email' => 'required|email',
-                'student_id' => 'required',
-                'password' => 'required',
-                'guardian_name' => 'required',
-                'no_kk' => 'required',
-                'phone' => 'required|max:13',
-                'address' => 'required',
+                'password' => 'required|confirmed',
             ]);
 
             if ($validate->fails()) {
@@ -125,25 +86,10 @@ class AuthController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $test = User::where('email', '=', $request->email);
-            $test1 = Guardian::where('no_kk', '=', $request->no_kk);
-            if ($test->exists() || $test1->exists()) {
-                return ResponseFormatter::error("Email or Family Card already taken", 400);
-            }
-
             $userData = User::create([
                 'email' => $data['email'],
-                'password' => $data['password'],
+                'password' => bcrypt($data['password']),
                 'role' => 'walimurid'
-            ]);
-
-            $createGuardian = Guardian::create([
-                'user_id' => $userData['id'],
-                'student_id' => $data['student_id'],
-                'guardian_name' => $data['guardian_name'],
-                'no_kk' => $data['no_kk'],
-                'phone' => $data['phone'],
-                'address' => $data['address']
             ]);
 
             return ResponseFormatter::success( "Succeed to added account.");
@@ -164,25 +110,12 @@ class AuthController extends Controller
     {
         try {
             $data = $request->all();
-            $data['password'] = bcrypt($data['password']);
 
             $studentData = $data;
 
             $validate = Validator::make($data, [
                 'email' => 'required|email',
-                'password' => 'required',
-                'nisn' => 'required',
-                'nik' => 'required',
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'father_name' => 'required',
-                'mother_name' => 'required',
-                'place_of_birth' => 'required',
-                'date_of_birth' => 'required',
-                'gender' => 'required',
-                'religion' => 'required',
-                'address' => 'required',
-                'phone' => 'required|max:13',
+                'password' => 'required|confirmed',
             ]);
 
             if ($validate->fails()) {
@@ -193,33 +126,10 @@ class AuthController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $test = User::where('email', '=', $request->email);
-            $test1 = Student::where('nisn', '=', $request->nisn);
-            $test2 = Student::where('nik', '=', $request->nik);
-            if ($test->exists() || $test1->exists() || $test2->exists()) {
-                return ResponseFormatter::error("Email or NISN or NIK already taken", 400);
-            }
-
             $userData = User::create([
                 'email' => $data['email'],
-                'password' => $data['password'],
+                'password' => bcrypt($data['password']),
                 'role' => 'student'
-            ]);
-
-            $createStudent = Student::create([
-                'user_id' => $userData['id'],
-                'nisn' => $data['nisn'],
-                'nik' => $data['nik'],
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'father_name' => $data['father_name'],
-                'mother_name' => $data['mother_name'],
-                'gender' => $data['gender'],
-                'phone' => $data['phone'],
-                'religion' => $data['religion'],
-                'place_of_birth' => $data['place_of_birth'],
-                'date_of_birth' => $data['date_of_birth'],
-                'address' => $data['address']
             ]);
 
             return ResponseFormatter::success( "Succeed to added account.");
@@ -264,39 +174,24 @@ class AuthController extends Controller
             $token = $user->createToken('auth_token')->plainTextToken;
 
             if($user->role == "student"){
-                $student = Student::where('user_id', $user->id)->firstOrFail();
                 $response = [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'name' => [
-                        'first_name' => $student->first_name,
-                        'last_name' => $student->last_name,
-                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }else if($user->role == "walimurid"){
-                $guardian = Guardian::where('user_id', $user->id)->firstOrFail();
                 $response = [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'name' => [
-                        'first_name' => $guardian->first_name,
-                        'last_name' => $guardian->last_name,
-                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }else{
-                $employee = Employee::where('user_id', $user->id)->firstOrFail();
                 $response = [
                     'access_token' => $token,
                     'token_type' => 'Bearer',
                     'user' => $user,
-                    'name' => [
-                        'first_name' => $employee->first_name,
-                        'last_name' => $employee->last_name,
-                    ]
                 ];
                 return ResponseFormatter::success($response, 'Authenticated Success');
             }

@@ -19,12 +19,18 @@ class CreateEmployeesTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('nik', 16)->unique();
+            $table->string('nuptk', 16)->unique();
+            $table->string('npsn', 16)->unique();
             $table->string('place_of_birth');
             $table->date('date_of_birth');
             $table->string('gender', 6);
             $table->text('address');
             $table->string('phone', 13);
             $table->string('religion');
+            $table->string('education');
+            $table->string('family_name');
+            $table->text('family_address');
+            $table->string('position');
             $table->string('image')->nullable();
             $table->timestamps();
         });
