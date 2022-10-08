@@ -12,6 +12,7 @@ use App\Models\LeaveApplication;
 use App\Models\Employee;
 use App\Models\OfficialDuty;
 use App\Models\LeaveType;
+use App\Models\Attendance;
 use Illuminate\Support\Str;
 
 class AttendanceController extends Controller
@@ -124,6 +125,51 @@ class AttendanceController extends Controller
             ]);
 
             return ResponseFormatter::success( "Succeed to added duty.");
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function checkIn()
+    {
+        try{
+            $timeNow = Carbon::now();
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+
+            $return = Attendance::create([
+                "employee_id" => $employee->employee_id,
+                "date" => $timeNow,
+                "check_in" => $timeNow,
+            ]);
+            return ResponseFormatter::success( "Succeed Check-in.");
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function checkOut()
+    {
+        try{
+            $timeNow = Carbon::now();
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+
+            $checkOut = Attendance::where('employee_id', '=', $employee->employee_id)->whereDate('date', $timeNow);
+
+            $data = [
+                "check_out" => $timeNow,
+                "status" => "ac"
+            ];
+
+            $checkOut->update($data);
+            return ResponseFormatter::success( "Succeed Check-out.");
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

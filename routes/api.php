@@ -43,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('attendances')->group(function () {
         Route::post('/addleave', [AttendanceController::class, 'addLeave']);
         Route::post('/addduty', [AttendanceController::class, 'addDuty']);
+        Route::post('/checkin', [AttendanceController::class, 'checkIn']);
+        Route::post('/checkout', [AttendanceController::class, 'checkOut']);
         Route::get('/gettype', [AttendanceController::class, 'getLeaveType']);
     });
 
