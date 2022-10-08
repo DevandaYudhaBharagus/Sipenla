@@ -169,4 +169,26 @@ class AdmissionController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
         }
     }
+
+    public function getStudent()
+    {
+        try{
+            $user = Auth::user();
+            $student = Student::where('user_id', '=', $user->id)->first();
+            $response = [
+                $student
+            ];
+
+            return ResponseFormatter::success($response, 'Get Student');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
 }

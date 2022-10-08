@@ -76,6 +76,7 @@ class AuthController extends Controller
             $validate = Validator::make($data, [
                 'email' => 'required|email',
                 'password' => 'required|confirmed',
+                'student_id' => 'required',
             ]);
 
             if ($validate->fails()) {
@@ -90,6 +91,11 @@ class AuthController extends Controller
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'role' => 'walimurid'
+            ]);
+
+            $userData = Guardian::create([
+                'user_id' => $userData['id'],
+                'student_id' => $data['student_id']
             ]);
 
             return ResponseFormatter::success( "Succeed to added account.");

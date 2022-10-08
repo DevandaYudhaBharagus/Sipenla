@@ -17,11 +17,7 @@ class CreateStudentGuardiansTable extends Migration
             $table->id('guardian_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
-            $table->string('guardian_name');
-            $table->string('no_kk');
-            $table->string('phone', 13);
-            $table->string('religion');
-            $table->text('address');
+            $table->string('phone', 13)->nullable();
             $table->string('image')->nullable();
             $table->timestamps();
         });

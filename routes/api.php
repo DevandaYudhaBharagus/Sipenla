@@ -29,6 +29,7 @@ Route::prefix('users')->group(function () {
         Route::post('/registeremployee', [AuthController::class, 'registerEmployee']);
         Route::post('/registerguardian', [AuthController::class, 'registerGuardian']);
         Route::get('/profile', [ProfileController::class, 'getProfile']);
+        Route::get('/student', [ProfileController::class, 'getDataStudent']);
     });
 });
 
@@ -48,5 +49,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('admission')->group(function () {
         Route::post('/addemployee', [AdmissionController::class, 'addEmployee']);
         Route::post('/addstudent', [AdmissionController::class, 'addStudent']);
+        Route::get('/getstudent', [AdmissionController::class, 'getStudent']);
     });
 });

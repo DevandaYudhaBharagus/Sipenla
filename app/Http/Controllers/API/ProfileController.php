@@ -22,6 +22,19 @@ class ProfileController extends Controller
                 $student = Student::where('user_id', '=', $user->id)->first();
                 if(!$student){
                     $response = [
+                        'nisn' => null,
+                        'nik' => null,
+                        'first_name' => null,
+                        'last_name' => null,
+                        'father_name' => null,
+                        'mother_name' => null,
+                        'gender' => null,
+                        'phone' => null,
+                        'place_of_birth' => null,
+                        'date_of_birth' => null,
+                        'address' => null,
+                        'religion' => null,
+                        'image' => null,
                         'status' => 'false'
                     ];
 
@@ -58,6 +71,13 @@ class ProfileController extends Controller
                 return ResponseFormatter::success($response, 'Get User');
             }else{
                 $employee = Employee::where('user_id', '=', $user->id)->first();
+                if(!$employee){
+                    $response = [
+                        'status' => 'false'
+                    ];
+
+                    return ResponseFormatter::success($response, 'Get User');
+                }
                 $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
                 $employee->date_of_birth = $date;
                 $response = [
@@ -68,6 +88,24 @@ class ProfileController extends Controller
             }
         }
         catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getDataStudent()
+    {
+        try{
+            $student = Student::get(['student_id', 'first_name', 'last_name']);
+            $response = [
+                $student
+            ];
+
+            return ResponseFormatter::success($response, 'Get Student');
+
+        }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
             ];
