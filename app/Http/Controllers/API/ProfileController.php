@@ -73,6 +73,21 @@ class ProfileController extends Controller
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 if(!$employee){
                     $response = [
+                        'nuptk' => "-",
+                        'first_name' => "-",
+                        'last_name' => "-",
+                        'nik' => "-",
+                        'npsn' => "-",
+                        'place_of_birth' => "-",
+                        'date_of_birth' => "-",
+                        'gender' => "-",
+                        'religion' => "-",
+                        'address' => "-",
+                        'education' => "-",
+                        'family_name' => "-",
+                        'family_address' => "-",
+                        'position' => "-",
+                        'image' => null,
                         'status' => 'false'
                     ];
 
@@ -81,7 +96,22 @@ class ProfileController extends Controller
                 $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
                 $employee->date_of_birth = $date;
                 $response = [
-                    $employee,
+                    'nuptk' => $employee->nuptk,
+                    'first_name' => $employee->first_name,
+                    'last_name' => $employee->last_name,
+                    'nik' => $employee->nik,
+                    'npsn' => $employee->npsn,
+                    'place_of_birth' => $employee->place_of_birth,
+                    'date_of_birth' => $employee->date_of_birth,
+                    'gender' => $employee->gender,
+                    'religion' => $employee->religion,
+                    'address' => $employee->address,
+                    'education' => $employee->education,
+                    'family_name' => $employee->family_name,
+                    'family_address' => $employee->family_address,
+                    'position' => $employee->position,
+                    'image' => $employee->image,
+                    'status' => 'true'
                 ];
 
                 return ResponseFormatter::success($response, 'Get User');
