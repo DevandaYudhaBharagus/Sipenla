@@ -22,18 +22,18 @@ class ProfileController extends Controller
                 $student = Student::where('user_id', '=', $user->id)->first();
                 if(!$student){
                     $response = [
-                        'nisn' => null,
-                        'nik' => null,
-                        'first_name' => null,
-                        'last_name' => null,
-                        'father_name' => null,
-                        'mother_name' => null,
-                        'gender' => null,
-                        'phone' => null,
-                        'place_of_birth' => null,
-                        'date_of_birth' => null,
-                        'address' => null,
-                        'religion' => null,
+                        'nisn' => "-",
+                        'nik' => "-",
+                        'first_name' => "-",
+                        'last_name' => "-",
+                        'father_name' => "-",
+                        'mother_name' => "-",
+                        'gender' => "-",
+                        'phone' => "-",
+                        'place_of_birth' => "-",
+                        'date_of_birth' => "-",
+                        'address' => "-",
+                        'religion' => "-",
                         'image' => null,
                         'status' => 'false'
                     ];
