@@ -27,6 +27,8 @@ class AdmissionController extends Controller
                 'npsn' => 'required|unique:employees,npsn|size:16',
                 'place_of_birth' => 'required',
                 'date_of_birth' => 'required',
+                'date_school_now' => 'required',
+                'family_profession' => 'required',
                 'gender' => 'required',
                 'religion' => 'required',
                 'address' => 'required',
@@ -66,6 +68,8 @@ class AdmissionController extends Controller
                 'family_address' => $data['family_address'],
                 'position' => $data['position'],
                 'phone' => $data['phone'],
+                'phone' => $data['date_school_now'],
+                'phone' => $data['family_profession'],
                 "image" => $test['profile_employee'],
             ]);
 

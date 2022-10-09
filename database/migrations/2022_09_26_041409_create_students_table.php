@@ -26,6 +26,7 @@ class CreateStudentsTable extends Migration
             $table->string('phone', 13);
             $table->string('place_of_birth');
             $table->date('date_of_birth');
+            $table->date('date_school_now');
             $table->text('address');
             $table->string('religion');
             $table->string('school_origin');
@@ -37,6 +38,7 @@ class CreateStudentsTable extends Migration
             $table->text('father_education');
             $table->text('family_name');
             $table->text('family_address');
+            $table->string('family_profession');
             $table->string('image')->nullable();
             $table->timestamps();
         });
