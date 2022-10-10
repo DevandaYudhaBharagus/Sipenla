@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
 use App\Models\Student;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use URL;
+
 
 class AdmissionController extends Controller
 {
@@ -27,8 +32,6 @@ class AdmissionController extends Controller
                 'npsn' => 'required|unique:employees,npsn|size:16',
                 'place_of_birth' => 'required',
                 'date_of_birth' => 'required',
-                'date_school_now' => 'required',
-                'family_profession' => 'required',
                 'gender' => 'required',
                 'religion' => 'required',
                 'address' => 'required',
@@ -47,8 +50,13 @@ class AdmissionController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            if ($request->file('profile_employee')) {
-                $test['profile_employee'] = $request->file('profile_employee')->store('profile-employee');
+            if($request->profile_employee !== null){
+                $path = 'public';
+                $fileName = time() . 'png';
+                Storage::disk($path)->put($fileName, base64_decode($request->profile_employee));
+                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
+            }else{
+                $final = null;
             }
 
             $employeeData = Employee::create([
@@ -68,9 +76,7 @@ class AdmissionController extends Controller
                 'family_address' => $data['family_address'],
                 'position' => $data['position'],
                 'phone' => $data['phone'],
-                'phone' => $data['date_school_now'],
-                'phone' => $data['family_profession'],
-                "image" => $test['profile_employee'],
+                "image" => $final,
             ]);
 
             $leaveBalance = LeaveBalance::create([
@@ -96,13 +102,12 @@ class AdmissionController extends Controller
         try{
             $user = Auth::user();
             $data = $request->all();
-            // dd($data);
 
             $validate = Validator::make($data, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'nik' => 'required|unique:employees,nik|size:16',
-                'nisn' => 'required|unique:employees,nik|size:16',
+                'nik' => 'required|unique:students,nik|size:16',
+                'nisn' => 'required|unique:students,nik|size:16',
                 'father_name' => 'required',
                 'mother_name' => 'required',
                 'gender' => 'required',
@@ -120,6 +125,8 @@ class AdmissionController extends Controller
                 'father_profession' => 'required',
                 'mother_education' => 'required',
                 'father_education' => 'required',
+                'date_school_now' => 'required',
+                'family_profession' => 'required',
             ]);
 
             if ($validate->fails()) {
@@ -131,8 +138,13 @@ class AdmissionController extends Controller
             }
 
 
-            if ($request->file('profile_student')) {
-                $test['profile_student'] = $request->file('profile_student')->store('profile-student');
+            if($request->profile_student !== null){
+                $path = 'public';
+                $fileName = time() . 'png';
+                Storage::disk($path)->put($fileName, base64_decode($request->profile_student));
+                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
+            }else{
+                $final = null;
             }
 
             $studentData = Student::create([
@@ -157,8 +169,10 @@ class AdmissionController extends Controller
                 'father_profession' => $data['father_profession'],
                 'mother_education' => $data['mother_education'],
                 'father_education' => $data['father_education'],
+                'date_school_now' => $data['date_school_now'],
+                'family_profession' => $data['family_profession'],
                 'phone' => $data['phone'],
-                'image' => $test['profile_student'],
+                'image' => $final,
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");

@@ -43,14 +43,19 @@ class NewsController extends Controller
     public function updateNews(Request $request, $id)
     {
         try{
-            if ($request->file('news_image')) {
-                $test['news_image'] = $request->file('news_image')->store('news-images');
+            if($request->news_image !== null){
+                $path = 'public';
+                $fileName = time() . 'png';
+                Storage::disk($path)->put($fileName, base64_decode($request->news_image));
+                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
+            }else{
+                $final = null;
             }
 
             $edit = [
                 "news_title" => $request->news_title,
                 "news_content" => $request->news_content,
-                "news_image" => $test['news_image'],
+                "news_image" => $$final,
                 "updated_at" => Carbon::now()
             ];
 
