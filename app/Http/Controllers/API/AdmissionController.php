@@ -18,6 +18,33 @@ use URL;
 
 class AdmissionController extends Controller
 {
+
+    public function saveImage($image, $path='public')
+    {
+        try{
+            if (!$image) {
+                return null;
+            }
+
+            $filename = time() . '.png';
+            // save image
+            Storage::disk($path)->put($filename, base64_decode($image));
+
+            //return the path
+            // Url is the base url exp: localhost:8000
+            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
     public function addEmployee(Request $request)
     {
         try{
@@ -50,14 +77,7 @@ class AdmissionController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            if($request->profile_employee !== null){
-                $path = 'public';
-                $fileName = time() . 'png';
-                Storage::disk($path)->put($fileName, base64_decode($request->profile_employee));
-                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
-            }else{
-                $final = null;
-            }
+            $image = $this->saveImage($request->profile_employee, "posts");
 
             $employeeData = Employee::create([
                 'user_id' => $user->id,
@@ -76,7 +96,7 @@ class AdmissionController extends Controller
                 'family_address' => $data['family_address'],
                 'position' => $data['position'],
                 'phone' => $data['phone'],
-                "image" => $final,
+                "image" => $image,
             ]);
 
             $leaveBalance = LeaveBalance::create([
@@ -137,15 +157,7 @@ class AdmissionController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-
-            if($request->profile_student !== null){
-                $path = 'public';
-                $fileName = time() . 'png';
-                Storage::disk($path)->put($fileName, base64_decode($request->profile_student));
-                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
-            }else{
-                $final = null;
-            }
+            $image = $this->saveImage($request->profile_student, "students");
 
             $studentData = Student::create([
                 'user_id' => $user->id,
@@ -172,7 +184,7 @@ class AdmissionController extends Controller
                 'date_school_now' => $data['date_school_now'],
                 'family_profession' => $data['family_profession'],
                 'phone' => $data['phone'],
-                'image' => $final,
+                'image' => $image,
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");

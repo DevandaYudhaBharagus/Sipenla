@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('npsn', 16)->unique();
             $table->string('place_of_birth');
             $table->date('date_of_birth');
-            $table->string('gender', 6);
+            $table->string('gender');
             $table->text('address');
             $table->string('phone', 13);
             $table->string('religion');
