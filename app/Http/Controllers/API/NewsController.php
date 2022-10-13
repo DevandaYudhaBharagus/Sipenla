@@ -74,7 +74,7 @@ class NewsController extends Controller
             $edit = [
                 "news_title" => $request->news_title,
                 "news_content" => $request->news_content,
-                "news_image" => $final,
+                "news_image" => $image,
                 "updated_at" => Carbon::now()
             ];
 
