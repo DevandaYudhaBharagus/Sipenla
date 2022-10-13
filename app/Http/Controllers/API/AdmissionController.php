@@ -238,9 +238,7 @@ class AdmissionController extends Controller
                 'family_name' => $student->family_name,
                 'family_address' => $student->family_address,
                 'family_profession' => $student->family_profession,
-                'image' => $student->image,
-                'created_at' => $student->created_at,
-                'updated_at' => $student->updated_at,
+                'image' => $student->image
             ];
 
             return ResponseFormatter::success($response, 'Get Student');
@@ -284,9 +282,7 @@ class AdmissionController extends Controller
                 'family_address' => $employee->family_address,
                 'family_name' => $employee->family_name,
                 'position' => $employee->position,
-                'image' => $employee->image,
-                'created_at' => $employee->created_at,
-                'updated_at' => $employee->updated_at
+                'image' => $employee->image
             ];
 
             return ResponseFormatter::success($response, 'Get Employee');
