@@ -205,8 +205,42 @@ class AdmissionController extends Controller
         try{
             $user = Auth::user();
             $student = Student::where('user_id', '=', $user->id)->first();
+            if(!$student){
+                return ResponseFormatter::error('Not Found', 404);
+            }
+            $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
+            $dateSchool = ($student->date_school_now !== null) ? date('d F Y', strtotime($student->date_school_now)) : '';
+            $student->date_of_birth = $date;
+            $student->date_school_now = $dateSchool;
             $response = [
-                $student
+                'student_id' => $student->student_id,
+                'user_id' => $student->user_id,
+                'nisn' => $student->nisn,
+                'nik' => $student->nik,
+                'first_name' => $student->first_name,
+                'last_name' => $student->last_name,
+                'mother_name' => $student->mother_name,
+                'father_name' => $student->father_name,
+                'gender' => $student->gender,
+                'phone' => $student->phone,
+                'place_of_birth' => $student->place_of_birth,
+                'date_of_birth' => $student->date_of_birth,
+                'date_school_now' => $student->date_school_now,
+                'address' => $student->address,
+                'religion' => $student->religion,
+                'school_origin' => $student->school_origin,
+                'school_now' => $student->school_now,
+                'parent_address' => $student->parent_address,
+                'mother_profession' => $student->mother_profession,
+                'father_profession' => $student->father_profession,
+                'father_education' => $student->father_education,
+                'mother_education' => $student->mother_education,
+                'family_name' => $student->family_name,
+                'family_address' => $student->family_address,
+                'family_profession' => $student->family_profession,
+                'image' => $student->image,
+                'created_at' => $student->created_at,
+                'updated_at' => $student->updated_at,
             ];
 
             return ResponseFormatter::success($response, 'Get Student');
@@ -226,9 +260,33 @@ class AdmissionController extends Controller
     {
         try{
             $user = Auth::user();
-            $student = Employee::where('user_id', '=', $user->id)->first();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            if(!$employee){
+                return ResponseFormatter::error('Not Found', 404);
+            }
+            $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
+            $employee->date_of_birth = $date;
             $response = [
-                $student
+                'employee_id' => $employee->employee_id,
+                'user_id' => $employee->user_id,
+                'first_name' => $employee->first_name,
+                'last_name' => $employee->last_name,
+                'nik' => $employee->nik,
+                'nuptk' => $employee->nuptk,
+                'npsn' => $employee->npsn,
+                'place_of_birth' => $employee->place_of_birth,
+                'date_of_birth' => $employee->date_of_birth,
+                'gender' => $employee->gender,
+                'address' => $employee->address,
+                'phone' => $employee->phone,
+                'education' => $employee->education,
+                'religion' => $employee->religion,
+                'family_address' => $employee->family_address,
+                'family_name' => $employee->family_name,
+                'position' => $employee->position,
+                'image' => $employee->image,
+                'created_at' => $employee->created_at,
+                'updated_at' => $employee->updated_at
             ];
 
             return ResponseFormatter::success($response, 'Get Employee');
