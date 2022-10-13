@@ -10,6 +10,32 @@ use Carbon\Carbon;
 
 class NewsController extends Controller
 {
+    public function saveImage($image, $path='public')
+    {
+        try{
+            if (!$image) {
+                return null;
+            }
+
+            $filename = time() . '.png';
+            // save image
+            Storage::disk($path)->put($filename, base64_decode($image));
+
+            //return the path
+            // Url is the base url exp: localhost:8000
+            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
     public function getAllNews()
     {
         try{
@@ -43,19 +69,12 @@ class NewsController extends Controller
     public function updateNews(Request $request, $id)
     {
         try{
-            if($request->news_image !== null){
-                $path = 'public';
-                $fileName = time() . 'png';
-                Storage::disk($path)->put($fileName, base64_decode($request->news_image));
-                $final = URL::to('/') . '/storage/' . $path . '/' . $fileName ;
-            }else{
-                $final = null;
-            }
+            $image = $this->saveImage($request->news_image, "news");
 
             $edit = [
                 "news_title" => $request->news_title,
                 "news_content" => $request->news_content,
-                "news_image" => $$final,
+                "news_image" => $final,
                 "updated_at" => Carbon::now()
             ];
 
