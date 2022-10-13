@@ -149,6 +149,7 @@ class ProfileController extends Controller
             $guardian = Guardian::join('students', 'student_guardians.student_id', '=', 'students.student_id')->first([
                 'student_guardians.user_id',
                 'student_guardians.student_id',
+                'student_guardians.image',
                 'guardian_id',
                 'nisn',
                 'nik',
@@ -206,6 +207,7 @@ class ProfileController extends Controller
                 'family_address' => $guardian->family_address,
                 'family_profession' => $guardian->family_profession,
                 'phone' => $guardian->phone,
+                'image' => $guardian->image,
                 'status' => 'true',
             ];
             return ResponseFormatter::success($response, 'Get Wali Murid');
