@@ -30,6 +30,7 @@ Route::prefix('users')->group(function () {
         Route::post('/registerguardian', [AuthController::class, 'registerGuardian']);
         Route::get('/profile', [ProfileController::class, 'getProfile']);
         Route::get('/student', [ProfileController::class, 'getDataStudent']);
+        Route::get('/guardian', [ProfileController::class, 'getGuardian']);
     });
 });
 
