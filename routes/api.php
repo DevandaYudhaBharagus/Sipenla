@@ -37,6 +37,7 @@ Route::prefix('users')->group(function () {
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('news')->group(function () {
         Route::get('/', [NewsController::class, 'getAllNews']);
+        Route::post('/addnews', [NewsController::class, 'addNews']);
         Route::post('/{id}', [NewsController::class, 'updateNews']);
         Route::delete('/{id}', [NewsController::class, 'deleteNews']);
     });

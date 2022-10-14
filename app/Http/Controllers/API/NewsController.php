@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use URL;
 use Carbon\Carbon;
 
 class NewsController extends Controller
@@ -58,6 +62,32 @@ class NewsController extends Controller
             ];
 
             return ResponseFormatter::success($response, 'Get News Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function addNews(Request $request)
+    {
+        try{
+            $data = $request->all();
+
+            $validate = Validator::make($data, [
+                "news_title" => "required",
+                "news_content" => "required",
+            ]);
+
+            $image = $this->saveImage($request->news_image, "news");
+
+            $createNews = News::create([
+                'news_title' => $data['news_title'],
+                'news_content' => $data['news_content'],
+                'news_image' => $image,
+            ]);
+            return ResponseFormatter::success('News Has Been Added');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
