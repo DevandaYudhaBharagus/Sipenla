@@ -185,6 +185,7 @@ class AttendanceController extends Controller
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
             $attendance = Attendance::where('employee_id', '=', $employee->employee_id)
+                        ->orderBy('created_at', 'asc')
                         ->get()
                         ->groupBy(function($date){
                             return Carbon::parse($date->created_at)->format('W');
@@ -196,9 +197,7 @@ class AttendanceController extends Controller
                 array_push($week, $att->all());
             }
 
-            $response = [
-                'week' => $week
-            ];
+            $response = $week;
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
