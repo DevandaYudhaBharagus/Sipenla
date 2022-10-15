@@ -43,17 +43,15 @@ class NewsController extends Controller
     public function getAllNews()
     {
         try{
-            $news = News::paginate(3);
+            $news = News::orderBy('created_at', 'desc')->paginate(3);
 
             if(is_null($news)){
                 return ResponseFormatter::error('Not Found', 404);
             }
 
             foreach ($news as $n) {
-                $test1 = ($n->news_image !== null) ? env('APP_URL') . "/storage/$n->news_image" : '';
                 $time = $n->created_at;
                 $test2 = ($n->created_at !== null) ? date('d F Y', strtotime($time)) : '';
-                $n->news_image = $test1;
                 $n->date = $test2;
             }
 
