@@ -14,6 +14,7 @@ use App\Models\OfficialDuty;
 use App\Models\LeaveType;
 use App\Models\Attendance;
 use Illuminate\Support\Str;
+use DateTime;
 
 class AttendanceController extends Controller
 {
@@ -170,6 +171,36 @@ class AttendanceController extends Controller
 
             $checkOut->update($data);
             return ResponseFormatter::success( "Succeed Check-out.");
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyAttendance()
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $attendance = Attendance::where('employee_id', '=', $employee->employee_id)
+                        ->get()
+                        ->groupBy(function($date){
+                            return Carbon::parse($date->created_at)->format('W');
+                        });
+
+            $week = [];
+
+            foreach ($attendance as $att) {
+                array_push($week, $att->all());
+            }
+
+            $response = [
+                'week' => $week
+            ];
+
+            return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
