@@ -186,19 +186,42 @@ class AttendanceController extends Controller
             $employee = Employee::where('user_id', '=', $user->id)->first();
             $attendance = Attendance::where('employee_id', '=', $employee->employee_id)
                         ->orderBy('created_at', 'asc')
-                        ->get()
-                        ->groupBy(function($date){
-                            return Carbon::parse($date->created_at)->format('W');
-                        });
+                        ->get();
 
             $week = [];
 
+
             foreach ($attendance as $att) {
-                array_push($week, $att->all());
+                $x = Carbon::parse($att->date)->format('W');
+                array_push($week, (object)["week"=>$x]);
             }
 
-            $response = $week;
+            $response =  $week;
 
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyAll()
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $attendance = Attendance::where('employee_id', '=', $employee->employee_id)
+                        ->get();
+
+            foreach ($attendance as $att) {
+                $time = $att->date;
+                $test2 = ($att->created_at !== null) ? date('d F Y', strtotime($time)) : '';
+                $att->date = $test2;
+            }
+
+            $response =  $attendance;
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
             $response = [
