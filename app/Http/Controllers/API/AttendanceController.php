@@ -15,6 +15,7 @@ use App\Models\LeaveType;
 use App\Models\Attendance;
 use Illuminate\Support\Str;
 use DateTime;
+use Illuminate\Support\Facades\DB;
 
 class AttendanceController extends Controller
 {
@@ -188,15 +189,17 @@ class AttendanceController extends Controller
                         ->orderBy('created_at', 'asc')
                         ->get();
 
+            $unique = $attendance->unique('date');
             $week = [];
 
 
-            foreach ($attendance as $att) {
+            foreach ($unique as $att) {
                 $x = Carbon::parse($att->date)->format('W');
                 array_push($week, (object)["week"=>$x]);
             }
 
-            $response =  $week;
+
+            $response = $week;
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
