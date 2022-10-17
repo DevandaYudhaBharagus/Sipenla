@@ -189,17 +189,18 @@ class AttendanceController extends Controller
                         ->orderBy('created_at', 'asc')
                         ->get();
 
-            $unique = $attendance->unique('date');
+            // $unique = $attendance->unique('date');
             $week = [];
 
 
-            foreach ($unique as $att) {
+            foreach ($attendance as $att) {
                 $x = Carbon::parse($att->date)->format('W');
                 array_push($week, (object)["week"=>$x]);
             }
 
+            $unique = collect($week)->unique('week')->all();
 
-            $response = $week;
+            $response = $unique;
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
