@@ -57,5 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/addstudent', [AdmissionController::class, 'addStudent']);
         Route::get('/getstudent', [AdmissionController::class, 'getStudent']);
         Route::get('/getemployee', [AdmissionController::class, 'getEmployee']);
+        Route::post('/updatestudent/{id}', [AdmissionController::class, 'updateStudent']);
+        Route::post('/updateemployee/{id}', [AdmissionController::class, 'updateEmployee']);
     });
 });

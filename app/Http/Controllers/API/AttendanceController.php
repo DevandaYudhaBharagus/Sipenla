@@ -196,7 +196,7 @@ class AttendanceController extends Controller
                 array_push($week, (object)["week"=>$x]);
             }
 
-            $unique = collect($week)->unique('week')->all();
+            $unique = collect($week)->unique('week')->values()->all();
 
             $response = $unique;
 
