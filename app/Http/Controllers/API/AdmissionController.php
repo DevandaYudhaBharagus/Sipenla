@@ -297,4 +297,54 @@ class AdmissionController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
         }
     }
+
+    public function updateStudent(Request $request, $id)
+    {
+        try{
+            $image = $this->saveImage($request->profile_student, "students");
+
+            $edit = [
+                "image" => $image,
+            ];
+
+            $updateStudent = Student::where('student_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Profile Student Has Been Updated');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function updateEmployee(Request $request, $id)
+    {
+        try{
+            $image = $this->saveImage($request->profile_employee, "posts");
+
+            $edit = [
+                "image" => $image,
+            ];
+
+            $updateEmployee = Employee::where('employee_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Profile Employee Has Been Updated');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
 }
