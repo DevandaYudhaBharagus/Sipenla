@@ -149,7 +149,7 @@ class ProfileController extends Controller
             $guardian = Guardian::join('students', 'student_guardians.student_id', '=', 'students.student_id')->first([
                 'student_guardians.user_id',
                 'student_guardians.student_id',
-                'student_guardians.image',
+                'students.image',
                 'guardian_id',
                 'nisn',
                 'nik',
