@@ -22,6 +22,7 @@ class ProfileController extends Controller
                 $student = Student::where('user_id', '=', $user->id)->first();
                 if(!$student){
                     $response = [
+                        'student_id' => "-",
                         'nisn' => "-",
                         'nik' => "-",
                         'first_name' => "-",
@@ -43,6 +44,7 @@ class ProfileController extends Controller
                 $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
                 $student->date_of_birth = $date;
                 $response = [
+                    'student_id' => $student->student_id,
                     'nisn' => $student->nisn,
                     'nik' => $student->nik,
                     'first_name' => $student->first_name,
@@ -73,6 +75,7 @@ class ProfileController extends Controller
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 if(!$employee){
                     $response = [
+                        'employee_id' => "-",
                         'nuptk' => "-",
                         'first_name' => "-",
                         'last_name' => "-",
@@ -96,6 +99,7 @@ class ProfileController extends Controller
                 $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
                 $employee->date_of_birth = $date;
                 $response = [
+                    'employee_id' => $employee->employee_id,
                     'nuptk' => $employee->nuptk,
                     'first_name' => $employee->first_name,
                     'last_name' => $employee->last_name,
