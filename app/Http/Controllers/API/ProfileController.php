@@ -150,7 +150,10 @@ class ProfileController extends Controller
     public function getGuardian()
     {
         try{
-            $guardian = Guardian::join('students', 'student_guardians.student_id', '=', 'students.student_id')->first([
+            $user = Auth::user();
+            $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
+            ->join('students', 'student_guardians.student_id', '=', 'students.student_id')
+            ->first([
                 'student_guardians.user_id',
                 'student_guardians.student_id',
                 'students.image',
