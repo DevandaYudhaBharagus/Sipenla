@@ -20,6 +20,7 @@ class CreateAttendancesTable extends Migration
             $table->date('date');
             $table->dateTime('check_in');
             $table->dateTime('check_out')->nullable();
+            $table->string('image')->nullable();
             $table->char('status', 5)->nullable();
             $table->timestamps();
         });

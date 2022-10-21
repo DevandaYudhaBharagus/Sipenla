@@ -96,6 +96,7 @@ class AdmissionController extends Controller
                 'family_address' => $data['family_address'],
                 'position' => $data['position'],
                 'phone' => $data['phone'],
+                'company_id' => 1,
                 "image" => $image,
             ]);
 

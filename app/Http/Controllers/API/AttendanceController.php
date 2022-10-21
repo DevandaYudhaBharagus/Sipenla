@@ -12,13 +12,44 @@ use App\Models\LeaveApplication;
 use App\Models\Employee;
 use App\Models\OfficialDuty;
 use App\Models\LeaveType;
+use App\Models\Workday;
 use App\Models\Attendance;
 use Illuminate\Support\Str;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use URL;
 
 class AttendanceController extends Controller
 {
+
+    public function saveImage($image, $path='public')
+    {
+        try{
+            if (!$image) {
+                return null;
+            }
+
+            $filename = time() . '.png';
+            // save image
+            Storage::disk($path)->put($filename, base64_decode($image));
+
+            //return the path
+            // Url is the base url exp: localhost:8000
+            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
     public function addLeave(Request $request)
     {
         try{
@@ -135,17 +166,57 @@ class AttendanceController extends Controller
         }
     }
 
-    public function checkIn()
+    public function checkIn(Request $request)
     {
         try{
             $timeNow = Carbon::now();
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
+            $day = Carbon::parse($timeNow)->format('l');
+
+            $date = Carbon::parse($timeNow)->format('Y-m-d');
+            $leave = LeaveApplication::where('employee_id', '=', $employee->employee_id)
+                    -> whereDate('application_from_date', '<=', $timeNow)
+                    -> whereDate('application_to_date', '>=', $timeNow)
+                    ->get();
+
+            $duty = OfficialDuty::where('employee_id', '=', $employee->employee_id)
+                    -> whereDate('duty_from_date', '<=', $timeNow)
+                    -> whereDate('duty_to_date', '>=', $timeNow)
+                    ->get();
+
+            $hasCheckedIn = Attendance::whereDate('date', $timeNow)
+                            ->where('employee_id', $employee->employee_id)
+                            ->exists();
+
+            $notWorkingDay = Workday::join('days', 'workdays.days_id', '=', 'days.day_id')
+                            ->where('days.day_name', '=', $day)
+                            ->where('workdays.company_id', '=', $employee->company_id)
+                            ->get();
+
+            if (count($leave) > 0) {
+                return ResponseFormatter::error([], 'Anda sedang dalam periode cuti/izin', 400);
+            }
+
+            if (count($duty) > 0) {
+                return ResponseFormatter::error([], 'Anda sedang dalam periode Tugas Dinas', 400);
+            }
+
+            if (count($notWorkingDay) <= 0) {
+                return ResponseFormatter::error([], 'Hari ini bukan hari kerja', 400);
+            }
+
+            if($hasCheckedIn){
+                return ResponseFormatter::error([], "Anda sudah Check In hari ini", 400);
+            }
+
+            $image = $this->saveImage($request->attendance_image, "attendances");
 
             $return = Attendance::create([
                 "employee_id" => $employee->employee_id,
                 "date" => $timeNow,
                 "check_in" => $timeNow,
+                "image" => $image
             ]);
             return ResponseFormatter::success( "Succeed Check-in.");
         }catch (Exception $e) {
@@ -165,13 +236,28 @@ class AttendanceController extends Controller
 
             $checkOut = Attendance::where('employee_id', '=', $employee->employee_id)->whereDate('date', $timeNow);
 
+            $hasCheckedIn = Attendance::whereDate('date', $timeNow)
+                            ->where('employee_id', $employee->employee_id)
+                            ->exists();
+
+            $notCheckOut = Attendance::where('employee_id', $employee->employee_id)
+                            ->whereDate('date', $timeNow);
+
+            if(!is_null($notCheckOut->first()->check_out)){
+                return ResponseFormatter::error([], 'Anda sudah check out', 400);
+            }
+
+            if(!$hasCheckedIn){
+                return ResponseFormatter::error([], "Anda harus check in terlebih dahulu", 400);
+            }
+
             $data = [
                 "check_out" => $timeNow,
                 "status" => "ac"
             ];
 
             $checkOut->update($data);
-            return ResponseFormatter::success( "Succeed Check-out.");
+            return ResponseFormatter::success("Succeed Check-out.");
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
