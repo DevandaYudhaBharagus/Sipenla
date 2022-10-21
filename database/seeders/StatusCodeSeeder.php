@@ -15,15 +15,18 @@ class StatusCodeSeeder extends Seeder
     public function run()
     {
         $codes = [
-            'ac'
+            'ac',
+            'aab'
         ];
 
         $shorts = [
-            'Check In'
+            'Check In',
+            'Absence'
         ];
 
         $longs = [
-            'Attendance Check In'
+            'Attendance Check In',
+            'Attendance Absence'
         ];
 
         for ($i = 0; $i < count($codes); $i++) {
