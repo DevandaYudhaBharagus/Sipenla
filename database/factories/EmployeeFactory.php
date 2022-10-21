@@ -50,6 +50,7 @@ class EmployeeFactory extends Factory
             'family_name' => 'johan',
             'family_address' => $this->faker->address,
             'position' => 'manajer',
+            'company_id' => 1,
             'image' => null,
             'religion' => 'islam',
         ];

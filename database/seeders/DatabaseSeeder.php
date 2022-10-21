@@ -19,6 +19,9 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
             LeaveTypeSeeder::class,
             StatusCodeSeeder::class,
+            DaySeeder::class,
+            CompanySeeder::class,
+            WorkdaySeeder::class,
         ]);
     }
 }

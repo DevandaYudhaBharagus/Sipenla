@@ -31,6 +31,7 @@ class CreateEmployeesTable extends Migration
             $table->string('family_name');
             $table->text('family_address');
             $table->string('position');
+            $table->unsignedBigInteger('company_id');
             $table->string('image')->nullable();
             $table->timestamps();
         });
