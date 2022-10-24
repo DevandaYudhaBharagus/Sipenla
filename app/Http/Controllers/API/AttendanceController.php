@@ -332,9 +332,13 @@ class AttendanceController extends Controller
                         ->where('status', '=', 'aab')
                         ->count();
 
+            $leave = LeaveApplication::where('employee_id', '=', $employee->employee_id)
+                        ->count();
+
             $response = [
                 "attend" => $attend,
-                "absence" => $absence
+                "absence" => $absence,
+                "leave" => $leave
             ];
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
