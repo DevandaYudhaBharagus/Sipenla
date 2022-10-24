@@ -97,6 +97,17 @@ class NewsController extends Controller
     public function updateNews(Request $request, $id)
     {
         try{
+            if($request->news_image == null){
+                $edit = [
+                    "news_title" => $request->news_title,
+                    "news_content" => $request->news_content,
+                    "updated_at" => Carbon::now()
+                ];
+                $updateNews = News::where('news_id', '=', $id)
+                            ->update($edit);
+
+                return ResponseFormatter::success('News Has Been Updated');
+            }
             $image = $this->saveImage($request->news_image, "news");
 
             $edit = [
