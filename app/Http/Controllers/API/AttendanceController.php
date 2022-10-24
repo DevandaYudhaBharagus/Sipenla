@@ -54,7 +54,6 @@ class AttendanceController extends Controller
     {
         try{
             $data = $request->all();
-            // dd($data);
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
 
@@ -310,6 +309,37 @@ class AttendanceController extends Controller
             }
 
             $response =  $attendance;
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function statistic()
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+
+            $attend = Attendance::where('employee_id', '=', $employee->employee_id)
+                        ->where('status', '=', 'ac')
+                        ->count();
+
+            $absence = Attendance::where('employee_id', '=', $employee->employee_id)
+                        ->where('status', '=', 'aab')
+                        ->count();
+
+            $leave = LeaveApplication::where('employee_id', '=', $employee->employee_id)
+                        ->count();
+
+            $response = [
+                "attend" => $attend,
+                "absence" => $absence,
+                "leave" => $leave
+            ];
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
             $response = [

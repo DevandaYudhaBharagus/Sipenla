@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/gettype', [AttendanceController::class, 'getLeaveType']);
         Route::get('/history', [AttendanceController::class, 'historyAttendance']);
         Route::get('/historyall', [AttendanceController::class, 'historyAll']);
+        Route::get('/statistic', [AttendanceController::class, 'statistic']);
     });
 
     Route::prefix('admission')->group(function () {
