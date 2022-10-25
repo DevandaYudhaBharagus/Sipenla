@@ -191,6 +191,7 @@ class AttendanceController extends Controller
             $notWorkingDay = Workday::join('days', 'workdays.days_id', '=', 'days.day_id')
                             ->where('days.day_name', '=', $day)
                             ->where('workdays.company_id', '=', $employee->company_id)
+                            ->where('workdays.workshift_id', '=', $employee->workshift_id)
                             ->get();
 
             if (count($leave) > 0) {

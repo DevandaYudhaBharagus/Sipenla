@@ -32,6 +32,7 @@ class CreateEmployeesTable extends Migration
             $table->text('family_address');
             $table->string('position');
             $table->unsignedBigInteger('company_id');
+            $table->bigInteger('workshift_id');
             $table->string('image')->nullable();
             $table->timestamps();
         });
