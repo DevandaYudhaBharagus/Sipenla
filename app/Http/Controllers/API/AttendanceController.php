@@ -191,6 +191,7 @@ class AttendanceController extends Controller
             $notWorkingDay = Workday::join('days', 'workdays.days_id', '=', 'days.day_id')
                             ->where('days.day_name', '=', $day)
                             ->where('workdays.company_id', '=', $employee->company_id)
+                            ->where('workdays.workshift_id', '=', $employee->workshift_id)
                             ->get();
 
             if (count($leave) > 0) {
@@ -209,13 +210,13 @@ class AttendanceController extends Controller
                 return ResponseFormatter::error([], "Anda sudah Check In hari ini", 400);
             }
 
-            $image = $this->saveImage($request->attendance_image, "attendances");
+            $image = $this->saveImage($request->attendance_check_in, "attendances_check_in");
 
             $return = Attendance::create([
                 "employee_id" => $employee->employee_id,
                 "date" => $timeNow,
                 "check_in" => $timeNow,
-                "image" => $image
+                "image_check_in" => $image
             ]);
             return ResponseFormatter::success( "Succeed Check-in.");
         }catch (Exception $e) {
@@ -226,7 +227,7 @@ class AttendanceController extends Controller
         }
     }
 
-    public function checkOut()
+    public function checkOut(Request $request)
     {
         try{
             $timeNow = Carbon::now();
@@ -250,8 +251,11 @@ class AttendanceController extends Controller
                 return ResponseFormatter::error([], "Anda harus check in terlebih dahulu", 400);
             }
 
+            $image = $this->saveImage($request->attendance_check_out, "attendances_check_out");
+
             $data = [
                 "check_out" => $timeNow,
+                "image_check_out" => $image,
                 "status" => "ac"
             ];
 

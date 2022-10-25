@@ -37,7 +37,22 @@ class Kernel extends ConsoleKernel
                     ]);
                 }
             }
-        })->everyMinute();
+        })->dailyAt("17.00");
+
+        $schedule->call(function () {
+            $date = Carbon::now();
+            $checks = Attendance::leftJoin('employees', 'attendances.employee_id', '=', 'employees.employee_id')
+                    ->leftJoin('workshifts', 'employees.workshift_id', '=', 'workshifts.workshift_id')
+                    ->where('workshifts.end_time', '<', $date)
+                    ->whereNull('attendances.check_out')
+                    ->get();
+            foreach ($checks as $check) {
+                    Attendance::where('id', $check->id)
+                        ->update([
+                            'check_out'     => $date,
+                        ]);
+                }
+        })->dailyAt("17.00");
     }
 
     /**

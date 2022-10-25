@@ -63,9 +63,16 @@ return [
             'visibility' => 'public',
         ],
 
-        'attendances' => [
+        'attendances_check_in' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/attendances'),
+            'root' => storage_path('app/public/attendances_check_in'),
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+        ],
+
+        'attendances_check_out' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/attendances_check_out'),
             'url' => env('APP_URL') . '/storage',
             'visibility' => 'public',
         ],

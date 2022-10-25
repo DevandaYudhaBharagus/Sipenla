@@ -20,6 +20,7 @@ class WorkdaySeeder extends Seeder
         $datas = [
             [
                 'company_id' => 1,
+                'workshift_id' =>1
             ]
         ];
 
@@ -27,6 +28,7 @@ class WorkdaySeeder extends Seeder
             for($i = 2; $i <= 6; $i++){
                 Workday::create([
                     'company_id' => $data['company_id'],
+                    'workshift_id' => $data['workshift_id'],
                     'days_id' => $i
                 ]);
             }

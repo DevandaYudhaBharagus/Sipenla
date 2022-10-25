@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
 use App\Models\Student;
+use App\Models\Workshift;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseFormatter;
@@ -67,6 +68,7 @@ class AdmissionController extends Controller
                 'family_address' => 'required',
                 'position' => 'required',
                 'phone' => 'required',
+                'workshift_id' => 'required'
             ]);
 
             if ($validate->fails()) {
@@ -97,6 +99,7 @@ class AdmissionController extends Controller
                 'position' => $data['position'],
                 'phone' => $data['phone'],
                 'company_id' => 1,
+                'workshift_id' => $data['workshift_id'],
                 "image" => $image,
             ]);
 
@@ -337,6 +340,27 @@ class AdmissionController extends Controller
                             ->update($edit);
 
             return ResponseFormatter::success('Profile Employee Has Been Updated');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getShift()
+    {
+        try{
+            $shift = Workshift::get(['workshift_id', 'shift_name']);
+            $response = [
+                $shift
+            ];
+
+            return ResponseFormatter::success($response, 'Get Student');
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();

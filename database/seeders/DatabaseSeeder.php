@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             DaySeeder::class,
             CompanySeeder::class,
             WorkdaySeeder::class,
+            WorkshiftSeeder::class,
         ]);
     }
 }
