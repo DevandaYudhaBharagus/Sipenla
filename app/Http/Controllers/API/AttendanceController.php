@@ -342,11 +342,22 @@ class AttendanceController extends Controller
             $duty = OfficialDuty::where('employee_id', '=', $employee->employee_id)
                         ->count();
 
+            $days_work = 480;
+            $days_presence_percentages = ($attend / $days_work) * 100;
+            $days_absent_percentages = ($absence / $days_work) * 100;
+            $days_leave_percentages = ($leave / $days_work) * 100;
+            $days_duty_percentages = ($duty / $days_work) * 100;
+
+            $fixAttend = round($days_presence_percentages, 0);
+            $fixAbsence = round($days_absent_percentages, 0);
+            $fixLeave = round($days_leave_percentages, 0);
+            $fixDuty = round($days_duty_percentages, 0);
+
             $response = [
-                "attend" => $attend,
-                "absence" => $absence,
-                "leave" => $leave,
-                "duty" => $duty
+                "attend" => "$fixAttend",
+                "absence" => "$fixAbsence",
+                "leave" => "$fixLeave",
+                "duty" => "$fixDuty"
             ];
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
