@@ -22,7 +22,7 @@ class ProfileController extends Controller
                 $student = Student::where('user_id', '=', $user->id)->first();
                 if(!$student){
                     $response = [
-                        'student_id' => "-",
+                        'student_id' => 0,
                         'nisn' => "-",
                         'nik' => "-",
                         'first_name' => "-",
@@ -75,7 +75,7 @@ class ProfileController extends Controller
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 if(!$employee){
                     $response = [
-                        'employee_id' => "-",
+                        'employee_id' => 0,
                         'nuptk' => "-",
                         'first_name' => "-",
                         'last_name' => "-",
