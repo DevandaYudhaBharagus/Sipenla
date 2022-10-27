@@ -23,6 +23,7 @@ class DaySeeder extends Seeder
                 'Kamis',
                 'Jumat',
                 'Sabtu',
+                'Semua'
             ];
 
         foreach ($datas as $data) {
