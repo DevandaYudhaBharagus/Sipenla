@@ -314,7 +314,11 @@ class AdmissionController extends Controller
             $updateStudent = Student::where('student_id', '=', $id)
                             ->update($edit);
 
-            return ResponseFormatter::success('Profile Student Has Been Updated');
+                $response = [
+                    "image" => $image
+                ];
+
+            return ResponseFormatter::success($response, 'Profile Student Has Been Updated');
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
@@ -339,7 +343,11 @@ class AdmissionController extends Controller
             $updateEmployee = Employee::where('employee_id', '=', $id)
                             ->update($edit);
 
-            return ResponseFormatter::success('Profile Employee Has Been Updated');
+            $response = [
+                "image" => $image
+            ];
+
+            return ResponseFormatter::success($response, 'Profile Employee Has Been Updated');
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();

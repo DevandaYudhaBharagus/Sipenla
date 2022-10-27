@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Student;
 use Illuminate\Database\Seeder;
 
-class UserSeeder extends Seeder
+class StudentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,8 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 2; $i++) {
-            User::factory()->create();
+        for ($i = 0; $i < 1; $i++) {
+            Student::factory()->create();
         }
     }
 }

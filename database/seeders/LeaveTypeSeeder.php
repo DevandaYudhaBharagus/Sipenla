@@ -14,7 +14,7 @@ class LeaveTypeSeeder extends Seeder
      */
     public function run()
     {
-        $leaveTypes = ['Annual Leave', 'Big Leave', 'Maternity Leave', 'Sick Leave', 'Important Leave', 'Unpaid Leave'];
+        $leaveTypes = ['Cuti Melahirkan', 'Cuti Berobat', 'Cuti Kematian Ahli Keluarga', 'Cuti Haji/Umroh', 'Cuti Lain - Lain'];
 
         foreach ($leaveTypes as $leaveType) {
             LeaveType::create([

@@ -7,6 +7,7 @@ use App\Http\Controllers\API\ProfileController;
 use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\AdmissionController;
+use App\Http\Controllers\API\LessonScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,5 +62,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/updatestudent/{id}', [AdmissionController::class, 'updateStudent']);
         Route::post('/updateemployee/{id}', [AdmissionController::class, 'updateEmployee']);
         Route::get('/getshift', [AdmissionController::class, 'getShift']);
+    });
+
+    Route::prefix('lessonschedule')->group(function () {
+        Route::get('/getschedule/{grade}', [LessonScheduleController::class, 'getSchedule']);
+        Route::get('/getschedule/{grade}/{day}', [LessonScheduleController::class, 'getByDay']);
+        Route::get('/getday', [LessonScheduleController::class, 'getDay']);
+        Route::get('/getgrade', [LessonScheduleController::class, 'getGrade']);
     });
 });
