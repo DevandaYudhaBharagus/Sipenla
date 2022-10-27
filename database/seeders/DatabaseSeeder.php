@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             CompanySeeder::class,
             WorkdaySeeder::class,
             WorkshiftSeeder::class,
+            StudentSeeder::class,
         ]);
     }
 }

@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id('student_id');
             $table->unsignedBigInteger('user_id');
             $table->string('nisn')->unique();
-            $table->string('nik', 16)->unique();
+            $table->string('nik')->unique();
             $table->string('first_name');
             $table->string('last_name');
             $table->string('father_name');

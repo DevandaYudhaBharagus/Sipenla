@@ -16,13 +16,13 @@ class DaySeeder extends Seeder
     {
         $datas =
             [
-                'Sunday',
-                'Monday',
-                'Tuesday',
-                'Wednesday',
-                'Thursday',
-                'Friday',
-                'Saturday',
+                'Minggu',
+                'Senin',
+                'Selasa',
+                'Rabu',
+                'Kamis',
+                'Jumat',
+                'Sabtu',
             ];
 
         foreach ($datas as $data) {
