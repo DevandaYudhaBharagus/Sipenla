@@ -37,7 +37,8 @@ class AttendanceController extends Controller
 
             //return the path
             // Url is the base url exp: localhost:8000
-            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+            $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
+            return $urls;
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
@@ -210,7 +211,7 @@ class AttendanceController extends Controller
                 return ResponseFormatter::error([], "Anda sudah Check In hari ini", 400);
             }
 
-            $image = $this->saveImage($request->attendance_check_in, "attendances_check_in");
+            $image = $this->saveImage($request->attendance_check_in, "azure");
 
             $return = Attendance::create([
                 "employee_id" => $employee->employee_id,
@@ -251,7 +252,7 @@ class AttendanceController extends Controller
                 return ResponseFormatter::error([], "Anda harus check in terlebih dahulu", 400);
             }
 
-            $image = $this->saveImage($request->attendance_check_out, "attendances_check_out");
+            $image = $this->saveImage($request->attendance_check_out, "azure");
 
             $data = [
                 "check_out" => $timeNow,

@@ -33,7 +33,8 @@ class AdmissionController extends Controller
 
             //return the path
             // Url is the base url exp: localhost:8000
-            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+            $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
+            return $urls;
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
@@ -79,7 +80,7 @@ class AdmissionController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $image = $this->saveImage($request->profile_employee, "posts");
+            $image = $this->saveImage($request->profile_employee, "azure");
 
             $employeeData = Employee::create([
                 'user_id' => $user->id,
@@ -161,7 +162,7 @@ class AdmissionController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $image = $this->saveImage($request->profile_student, "students");
+            $image = $this->saveImage($request->profile_student, "azure");
 
             $studentData = Student::create([
                 'user_id' => $user->id,
@@ -305,7 +306,7 @@ class AdmissionController extends Controller
     public function updateStudent(Request $request, $id)
     {
         try{
-            $image = $this->saveImage($request->profile_student, "students");
+            $image = $this->saveImage($request->profile_student, "azure");
 
             $edit = [
                 "image" => $image,
@@ -334,7 +335,7 @@ class AdmissionController extends Controller
     public function updateEmployee(Request $request, $id)
     {
         try{
-            $image = $this->saveImage($request->profile_employee, "posts");
+            $image = $this->saveImage($request->profile_employee, "azure");
 
             $edit = [
                 "image" => $image,

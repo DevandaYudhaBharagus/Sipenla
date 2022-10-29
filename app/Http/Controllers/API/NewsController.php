@@ -27,7 +27,8 @@ class NewsController extends Controller
 
             //return the path
             // Url is the base url exp: localhost:8000
-            return URL::to('/') . '/storage/' . $path . '/' . $filename;
+            $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
+            return $urls;
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
@@ -78,7 +79,7 @@ class NewsController extends Controller
                 "news_content" => "required",
             ]);
 
-            $image = $this->saveImage($request->news_image, "news");
+            $image = $this->saveImage($request->news_image, "azure");
 
             $createNews = News::create([
                 'news_title' => $data['news_title'],
@@ -108,7 +109,7 @@ class NewsController extends Controller
 
                 return ResponseFormatter::success('News Has Been Updated');
             }
-            $image = $this->saveImage($request->news_image, "news");
+            $image = $this->saveImage($request->news_image, "azure");
 
             $edit = [
                 "news_title" => $request->news_title,
