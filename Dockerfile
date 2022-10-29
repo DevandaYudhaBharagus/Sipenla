@@ -13,5 +13,8 @@ COPY . .
 # Expose Port
 EXPOSE 8000
 
+# Run Composer Update
+RUN ["compose", "update"]
+
 # Run script
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
