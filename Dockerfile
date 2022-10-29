@@ -14,7 +14,7 @@ COPY . .
 EXPOSE 8000
 
 # Run Composer Update
-RUN composer update
+RUN composer update && cp .env.example .env && php artisan key:generate
 
 # Run script
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
