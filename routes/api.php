@@ -69,5 +69,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getschedule/{grade}/{day}', [LessonScheduleController::class, 'getByDay']);
         Route::get('/getday', [LessonScheduleController::class, 'getDay']);
         Route::get('/getgrade', [LessonScheduleController::class, 'getGrade']);
+        Route::get('/getsubject', [LessonScheduleController::class, 'getSubject']);
+        Route::get('/getteacher', [LessonScheduleController::class, 'getTeacher']);
+        Route::post('/updateschedule/{id}', [LessonScheduleController::class, 'editSchedule']);
     });
 });

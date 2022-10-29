@@ -19,24 +19,78 @@ class ProfileController extends Controller
         try {
             $user = Auth::user();
             if($user->role == "student"){
-                $student = Student::where('user_id', '=', $user->id)->first();
+                $student = Student::join('grades', 'students.student_id', '=', 'grades.student_id')
+                            ->leftJoin('employees', 'grades.teacher_id', '=', 'employees.employee_id')
+                            ->where('students.user_id', '=', $user->id)
+                            ->first([
+                                'students.student_id',
+                                'students.nisn',
+                                'students.nik',
+                                'students.father_name',
+                                'students.mother_name',
+                                'students.gender',
+                                'students.phone',
+                                'students.place_of_birth',
+                                'students.date_of_birth',
+                                'students.address',
+                                'students.religion',
+                                'students.image',
+                                'students.first_name as student_first_name',
+                                'students.last_name as student_last_name',
+                                'employees.first_name as employee_first_name',
+                                'employees.last_name as employee_last_name',
+                                'grades.grade_id',
+                                'grades.grade_name',
+                            ]);
                 if(!$student){
+                    $murid = Student::where('user_id', '=', $user->id)->first();
+                    if(!$murid){
+                        $response = [
+                            'student_id' => 0,
+                            'nisn' => "-",
+                            'nik' => "-",
+                            'student_first_name' => "-",
+                            'student_last_name' => "-",
+                            'father_name' => "-",
+                            'mother_name' => "-",
+                            'gender' => "-",
+                            'phone' => "-",
+                            'place_of_birth' => "-",
+                            'date_of_birth' => "-",
+                            'address' => "-",
+                            'religion' => "-",
+                            'image' => null,
+                            'grade_id' => 0,
+                            'grade_name' =>"-",
+                            'employee_first_name' => "-",
+                            'employee_last_name' => "-",
+                            'status' => 'false'
+                        ];
+
+                        return ResponseFormatter::success($response, 'Get User');
+                    }
+                    $date = ($murid->date_of_birth !== null) ? date('d F Y', strtotime($murid->date_of_birth)) : '';
+                    $murid->date_of_birth = $date;
                     $response = [
-                        'student_id' => 0,
-                        'nisn' => "-",
-                        'nik' => "-",
-                        'first_name' => "-",
-                        'last_name' => "-",
-                        'father_name' => "-",
-                        'mother_name' => "-",
-                        'gender' => "-",
-                        'phone' => "-",
-                        'place_of_birth' => "-",
-                        'date_of_birth' => "-",
-                        'address' => "-",
-                        'religion' => "-",
-                        'image' => null,
-                        'status' => 'false'
+                        'student_id' => $murid->student_id,
+                        'nisn' => $murid->nisn,
+                        'nik' => $murid->nik,
+                        'student_first_name' => $murid->first_name,
+                        'student_last_name' => $murid->last_name,
+                        'father_name' => $murid->father_name,
+                        'mother_name' => $murid->mother_name,
+                        'gender' => $murid->gender,
+                        'phone' => $murid->phone,
+                        'place_of_birth' => $murid->place_of_birth,
+                        'date_of_birth' => $murid->date_of_birth,
+                        'address' => $murid->address,
+                        'religion' => $murid->religion,
+                        'image' => $murid->image,
+                        'grade_id' => 0,
+                        'grade_name' => "-",
+                        'employee_first_name' => "-",
+                        'employee_last_name' => "-",
+                        'status' => 'true'
                     ];
 
                     return ResponseFormatter::success($response, 'Get User');
@@ -47,8 +101,8 @@ class ProfileController extends Controller
                     'student_id' => $student->student_id,
                     'nisn' => $student->nisn,
                     'nik' => $student->nik,
-                    'first_name' => $student->first_name,
-                    'last_name' => $student->last_name,
+                    'student_first_name' => $student->student_first_name,
+                    'student_last_name' => $student->student_last_name,
                     'father_name' => $student->father_name,
                     'mother_name' => $student->mother_name,
                     'gender' => $student->gender,
@@ -58,6 +112,10 @@ class ProfileController extends Controller
                     'address' => $student->address,
                     'religion' => $student->religion,
                     'image' => $student->image,
+                    'grade_id' => $student->grade_id,
+                    'grade_name' => $student->grade_name,
+                    'employee_first_name' => $student->employee_first_name,
+                    'employee_last_name' => $student->employee_last_name,
                     'status' => 'true'
                 ];
 
