@@ -15,9 +15,15 @@ use App\Http\Controllers\ResetPasswordController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pages.home');
+});
+Route::get('/registrasi', function() {
+    return view('pages.registrasi');
+});
+Route::get('/login', function() {
+    return view('pages.login');
 });
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
