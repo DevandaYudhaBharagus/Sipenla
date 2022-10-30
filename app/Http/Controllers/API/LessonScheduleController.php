@@ -6,9 +6,11 @@ use App\Models\LessonSchedule;
 use App\Models\Day;
 use App\Models\Grade;
 use App\Models\Subject;
+use App\Models\Employee;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
+use Illuminate\Support\Facades\Auth;
 
 class LessonScheduleController extends Controller
 {
@@ -20,7 +22,17 @@ class LessonScheduleController extends Controller
                 ->join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
                 ->join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
                 ->where('lesson_schedules.grade_id', '=', $grade)
-                ->get(['lesson_schedule_id', 'day_name', 'subject_name', 'start_time', 'end_time', 'first_name', 'last_name']);
+                ->get([
+                    'lesson_schedule_id',
+                    'day_name',
+                    'subject_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                    'lesson_schedules.days_id',
+                    'lesson_schedules.subject_id'
+                ]);
 
             $response = $schedule;
 
@@ -116,7 +128,7 @@ class LessonScheduleController extends Controller
 
             $response = $teacher;
 
-            return ResponseFormatter::success($response, 'Get Subject Success');
+            return ResponseFormatter::success($response, 'Get Teacher Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
@@ -140,6 +152,91 @@ class LessonScheduleController extends Controller
                             ->update($edit);
 
             return ResponseFormatter::success('Schedule Has Been Updated');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getScheduleByTeacher()
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $schedule = LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)->get([
+                            'day_name',
+                            'grade_name',
+                            'start_time',
+                            'end_time',
+                            'subject_name'
+                        ]);
+
+            $response = $schedule;
+
+            return ResponseFormatter::success($response, 'Get Schedule Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getScheduleByDay($day)
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $schedule = LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)
+                        ->where('lesson_schedules.days_id', '=', $day)
+                        ->get([
+                            'day_name',
+                            'grade_name',
+                            'start_time',
+                            'end_time',
+                            'subject_name'
+                        ]);
+
+            $response = $schedule;
+
+            return ResponseFormatter::success($response, 'Get Schedule Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getScheduleBySubject($subject)
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $schedule = LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)
+                        ->where('lesson_schedules.subject_id', '=', $subject)
+                        ->get([
+                            'day_name',
+                            'grade_name',
+                            'start_time',
+                            'end_time',
+                            'subject_name'
+                        ]);
+
+            $response = $schedule;
+
+            return ResponseFormatter::success($response, 'Get Schedule Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

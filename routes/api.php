@@ -72,5 +72,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getsubject', [LessonScheduleController::class, 'getSubject']);
         Route::get('/getteacher', [LessonScheduleController::class, 'getTeacher']);
         Route::post('/updateschedule/{id}', [LessonScheduleController::class, 'editSchedule']);
+        Route::get('/getlessonteacher', [LessonScheduleController::class, 'getScheduleByTeacher']);
+        Route::get('/getlessonteacher/{day}', [LessonScheduleController::class, 'getScheduleByDay']);
+        Route::get('/getlesson/{subject}', [LessonScheduleController::class, 'getScheduleBySubject']);
     });
 });
