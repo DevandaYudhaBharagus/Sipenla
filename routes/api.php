@@ -75,5 +75,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getlessonteacher', [LessonScheduleController::class, 'getScheduleByTeacher']);
         Route::get('/getlessonteacher/{day}', [LessonScheduleController::class, 'getScheduleByDay']);
         Route::get('/getlesson/{subject}', [LessonScheduleController::class, 'getScheduleBySubject']);
+        Route::get('/getworkday/{day}', [LessonScheduleController::class, 'getWorkday']);
     });
 });

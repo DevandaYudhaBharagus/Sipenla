@@ -7,6 +7,7 @@ use App\Models\Day;
 use App\Models\Grade;
 use App\Models\Subject;
 use App\Models\Employee;
+use App\Models\Workday;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
@@ -235,6 +236,30 @@ class LessonScheduleController extends Controller
                         ]);
 
             $response = $schedule;
+
+            return ResponseFormatter::success($response, 'Get Schedule Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getWorkday($day)
+    {
+        try{
+            $workday = Workday::join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
+                    ->join('days', 'workdays.days_id', '=', 'days.day_id')
+                    ->where('days_id', '=', $day)
+                    ->get([
+                        'day_name',
+                        'shift_name',
+                        'start_time',
+                        'end_time',
+                    ]);
+
+            $response = $workday;
 
             return ResponseFormatter::success($response, 'Get Schedule Success');
         }catch (Exception $e) {
