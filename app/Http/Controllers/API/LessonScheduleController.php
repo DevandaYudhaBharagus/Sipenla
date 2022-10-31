@@ -282,4 +282,30 @@ class LessonScheduleController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function editWorkday(Request $request, $id)
+    {
+        try{
+            $edit = [
+                "days_id" => $request->days_id,
+            ];
+
+            $editEmployee = [
+                "workshift_id" => $request->workshift_id,
+            ];
+
+            $updateSchedule = Workday::where('workdays_id', '=', $id)
+                            ->update($edit);
+
+            $updateEmployee = Employee::where('employee_id', '=', $request->employee_id)
+                            ->update($editEmployee);
+
+            return ResponseFormatter::success('Schedule Has Been Updated');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
