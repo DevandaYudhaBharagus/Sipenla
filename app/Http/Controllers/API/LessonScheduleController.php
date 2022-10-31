@@ -259,17 +259,52 @@ class LessonScheduleController extends Controller
         }
     }
 
+    public function getWork()
+    {
+        try{
+            $workday = Workday::join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
+                    ->join('days', 'workdays.days_id', '=', 'days.day_id')
+                    ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
+                    ->get([
+                        'day_name',
+                        'shift_name',
+                        'start_time',
+                        'end_time',
+                        'workdays.workshift_id',
+                        'workdays.days_id',
+                        'employees.employee_id',
+                        'employees.first_name',
+                        'employees.last_name'
+                    ]);
+
+            $response = $workday;
+
+            return ResponseFormatter::success($response, 'Get Schedule Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
     public function getWorkday($day)
     {
         try{
             $workday = Workday::join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
                     ->join('days', 'workdays.days_id', '=', 'days.day_id')
+                    ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
                     ->where('days_id', '=', $day)
                     ->get([
                         'day_name',
                         'shift_name',
                         'start_time',
                         'end_time',
+                        'workdays.workshift_id',
+                        'workdays.days_id',
+                        'employees.employee_id',
+                        'employees.first_name',
+                        'employees.last_name'
                     ]);
 
             $response = $workday;
