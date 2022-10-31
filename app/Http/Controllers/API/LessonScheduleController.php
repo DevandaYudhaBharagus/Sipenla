@@ -32,7 +32,8 @@ class LessonScheduleController extends Controller
                     'first_name',
                     'last_name',
                     'lesson_schedules.days_id',
-                    'lesson_schedules.subject_id'
+                    'lesson_schedules.subject_id',
+                    'lesson_schedules.teacher_id'
                 ]);
 
             $response = $schedule;
@@ -72,7 +73,18 @@ class LessonScheduleController extends Controller
                 ->join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
                 ->where('lesson_schedules.grade_id', '=', $grade)
                 ->where('lesson_schedules.days_id', '=', $day)
-                ->get(['lesson_schedule_id', 'day_name', 'subject_name', 'start_time', 'end_time', 'first_name', 'last_name']);
+                ->get([
+                    'lesson_schedule_id',
+                    'day_name',
+                    'subject_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                    'lesson_schedules.days_id',
+                    'lesson_schedules.subject_id',
+                    'lesson_schedules.teacher_id'
+                ]);
 
             $response = $schedule;
 
