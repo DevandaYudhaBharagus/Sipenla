@@ -23,7 +23,12 @@ Route::get('/registrasi', function() {
 Route::get('/login', function() {
     return view('pages.login');
 });
-
+Route::get('dashboard', function(){
+    return view('pages.dashboard');
+});
+Route::get('formulir', function(){
+    return view('pages.siswa.formulir');
+});
 // Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
