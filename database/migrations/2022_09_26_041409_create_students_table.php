@@ -39,6 +39,7 @@ class CreateStudentsTable extends Migration
             $table->text('family_name');
             $table->text('family_address');
             $table->string('family_profession');
+            $table->unsignedBigInteger('extracurricular_id');
             $table->string('image')->nullable();
             $table->timestamps();
         });

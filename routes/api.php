@@ -8,6 +8,7 @@ use App\Http\Controllers\API\NewsController;
 use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\AdmissionController;
 use App\Http\Controllers\API\LessonScheduleController;
+use App\Http\Controllers\API\ExtraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +77,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getlessonteacher/{day}', [LessonScheduleController::class, 'getScheduleByDay']);
         Route::get('/getlesson/{subject}', [LessonScheduleController::class, 'getScheduleBySubject']);
         Route::get('/getworkday/{day}', [LessonScheduleController::class, 'getWorkday']);
+    });
+
+    Route::prefix('extraschedule')->group(function () {
+        Route::get('/getschedule/{extra}', [ExtraController::class, 'getScheduleExtra']);
+        Route::get('/getschedule/{extra}/{day}', [ExtraController::class, 'getByDayExtra']);
+        Route::get('/getextra', [ExtraController::class, 'getExtra']);
+        Route::post('/updateschedule/{id}', [ExtraController::class, 'updateExtra']);
+        Route::get('/getpembina', [ExtraController::class, 'getPembina']);
     });
 });
