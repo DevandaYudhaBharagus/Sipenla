@@ -132,9 +132,10 @@ class LessonScheduleController extends Controller
     public function getTeacher()
     {
         try{
-            $teacher = LessonSchedule::join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+            $teacher = Employee::join('users', 'employees.user_id', '=', 'users.id')
+                        ->where('role', '=', 'guru')
                         ->get([
-                            'teacher_id',
+                            'employee_id',
                             'first_name',
                             'last_name'
                         ]);
