@@ -189,6 +189,7 @@ class AdmissionController extends Controller
                 'date_school_now' => $data['date_school_now'],
                 'family_profession' => $data['family_profession'],
                 'phone' => $data['phone'],
+                'extracurricular_id' => $data['extracurricular_id'],
                 'image' => $image,
             ]);
 

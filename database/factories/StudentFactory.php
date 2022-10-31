@@ -60,6 +60,7 @@ class StudentFactory extends Factory
             'family_name' => $this->faker->name,
             'family_address' => $this->faker->address,
             'family_profession' => "Manajer",
+            'extracurricular_id' => 1,
             'image' => null,
         ];
     }

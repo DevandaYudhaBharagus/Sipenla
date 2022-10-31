@@ -104,7 +104,7 @@ class LessonScheduleController extends Controller
 
             $response = $grade;
 
-            return ResponseFormatter::success($response, 'Get Day Success');
+            return ResponseFormatter::success($response, 'Get Grade Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
