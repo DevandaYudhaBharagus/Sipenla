@@ -8,6 +8,7 @@ use App\Models\Grade;
 use App\Models\Subject;
 use App\Models\Employee;
 use App\Models\Workday;
+use App\Models\Workshift;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Helpers\ResponseFormatter;
@@ -336,6 +337,45 @@ class LessonScheduleController extends Controller
                             ->update($editEmployee);
 
             return ResponseFormatter::success('Schedule Has Been Updated');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getEmployee()
+    {
+        try{
+            $employee = Employee::get([
+                            'employee_id',
+                            'first_name',
+                            'last_name'
+                        ]);
+
+            $response = $employee;
+
+            return ResponseFormatter::success($response, 'Get Employee Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getShift()
+    {
+        try{
+            $shift = Workshift::get([
+                'workshift_id',
+                'shift_name'
+            ]);
+
+            $response = $shift;
+
+            return ResponseFormatter::success($response, 'Get Shift Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

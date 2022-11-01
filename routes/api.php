@@ -79,6 +79,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getworkday/{day}', [LessonScheduleController::class, 'getWorkday']);
         Route::post('/updateworkday/{id}', [LessonScheduleController::class, 'editWorkday']);
         Route::get('/getwork', [LessonScheduleController::class, 'getWork']);
+        Route::get('/getemployee', [LessonScheduleController::class, 'getEmployee']);
+        Route::get('/getshift', [LessonScheduleController::class, 'getShift']);
     });
 
     Route::prefix('extraschedule')->group(function () {
