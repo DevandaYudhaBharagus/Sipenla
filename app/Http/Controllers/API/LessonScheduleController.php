@@ -279,6 +279,8 @@ class LessonScheduleController extends Controller
                         'employees.last_name'
                     ]);
 
+            dd($workday);
+
             $response = $workday;
 
             return ResponseFormatter::success($response, 'Get Schedule Success');
@@ -326,6 +328,7 @@ class LessonScheduleController extends Controller
         try{
             $edit = [
                 "days_id" => $request->days_id,
+                "workshift_id" => $request->workshift_id,
             ];
 
             $editEmployee = [
