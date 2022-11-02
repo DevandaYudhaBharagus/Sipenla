@@ -267,6 +267,7 @@ class LessonScheduleController extends Controller
                     ->join('days', 'workdays.days_id', '=', 'days.day_id')
                     ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
                     ->get([
+                        'workdays.workdays_id',
                         'day_name',
                         'shift_name',
                         'start_time',
@@ -297,6 +298,7 @@ class LessonScheduleController extends Controller
                     ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
                     ->where('days_id', '=', $day)
                     ->get([
+                        'workdays.workdays_id',
                         'day_name',
                         'shift_name',
                         'start_time',
@@ -376,6 +378,34 @@ class LessonScheduleController extends Controller
             $response = $shift;
 
             return ResponseFormatter::success($response, 'Get Shift Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getWorkByEmployee()
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $workday = Workday::join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
+                        ->join('days', 'workdays.days_id', '=', 'days.day_id')
+                        ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
+                        ->where('employees.employee_id', '=', $employee->employee_id)
+                        ->get([
+                            'day_name',
+                            'employees.first_name',
+                            'employees.last_name',
+                            'workshifts.start_time',
+                            'workshifts.end_time',
+                        ]);
+
+            $response = $workday;
+
+            return ResponseFormatter::success($response, 'Get Workday Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
