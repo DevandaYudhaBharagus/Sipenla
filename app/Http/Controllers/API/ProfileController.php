@@ -21,6 +21,7 @@ class ProfileController extends Controller
             if($user->role == "student"){
                 $student = Student::join('grades', 'students.student_id', '=', 'grades.student_id')
                             ->leftJoin('employees', 'grades.teacher_id', '=', 'employees.employee_id')
+                            ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
                             ->where('students.user_id', '=', $user->id)
                             ->first([
                                 'students.student_id',
@@ -41,9 +42,13 @@ class ProfileController extends Controller
                                 'employees.last_name as employee_last_name',
                                 'grades.grade_id',
                                 'grades.grade_name',
+                                'extracurriculars.extracurricular_id',
+                                'extracurriculars.extracurricular_name'
                             ]);
                 if(!$student){
-                    $murid = Student::where('user_id', '=', $user->id)->first();
+                    $murid = Student::where('user_id', '=', $user->id)
+                            ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                            ->first();
                     if(!$murid){
                         $response = [
                             'student_id' => 0,
@@ -64,6 +69,8 @@ class ProfileController extends Controller
                             'grade_name' =>"-",
                             'employee_first_name' => "-",
                             'employee_last_name' => "-",
+                            'extracurricular_id' => 0,
+                            'extracurricular_name' => "-",
                             'status' => 'false'
                         ];
 
@@ -90,6 +97,8 @@ class ProfileController extends Controller
                         'grade_name' => "-",
                         'employee_first_name' => "-",
                         'employee_last_name' => "-",
+                        'extracurricular_id' => $murid->extracurricular_id,
+                        'extracurricular_name' => $murid->extracurricular_name,
                         'status' => 'true'
                     ];
 
@@ -116,6 +125,8 @@ class ProfileController extends Controller
                     'grade_name' => $student->grade_name,
                     'employee_first_name' => $student->employee_first_name,
                     'employee_last_name' => $student->employee_last_name,
+                    'extracurricular_id' => $student->extracurricular_id,
+                    'extracurricular_name' => $student->extracurricular_name,
                     'status' => 'true'
                 ];
 

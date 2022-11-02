@@ -82,6 +82,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getemployee', [LessonScheduleController::class, 'getEmployee']);
         Route::get('/getshift', [LessonScheduleController::class, 'getShift']);
         Route::get('/getworkbyemployee', [LessonScheduleController::class, 'getWorkByEmployee']);
+        Route::get('/getworkemployeebyday/{day}', [LessonScheduleController::class, 'getWorkEmployeeByDay']);
     });
 
     Route::prefix('extraschedule')->group(function () {

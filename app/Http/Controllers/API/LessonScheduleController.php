@@ -414,4 +414,33 @@ class LessonScheduleController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getWorkEmployeeByDay($day)
+    {
+        try{
+            $user = Auth::user();
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $workday = Workday::join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
+                        ->join('days', 'workdays.days_id', '=', 'days.day_id')
+                        ->join('employees', 'workshifts.workshift_id', '=', 'employees.workshift_id')
+                        ->where('employees.employee_id', '=', $employee->employee_id)
+                        ->where('workdays.days_id', '=', $day)
+                        ->get([
+                            'day_name',
+                            'employees.first_name',
+                            'employees.last_name',
+                            'workshifts.start_time',
+                            'workshifts.end_time',
+                        ]);
+
+            $response = $workday;
+
+            return ResponseFormatter::success($response, 'Get Workday Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
