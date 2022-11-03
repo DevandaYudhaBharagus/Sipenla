@@ -45,61 +45,63 @@
                     <hr class="border-form" />
                     <div class="biodata-text-form">BIODATA PESERTA DIDIK</div>
                 </div>
-                <form action="" method="post">
+                <form action="{{ route('formstudent') }}" method="post">
+                    @csrf
                     <div class="box-form-input">
                         <div class="mb-3">
                             <label for="" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="namaLengkap" placeholder="Nama Lengkap" />
+                            <input type="text" name="first_name" class="form-control" id="namaLengkap" placeholder="Nama Lengkap" />
+                            <input type="text" name="last_name" class="form-control" id="namaLengkap" placeholder="Nama Lengkap" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">NIK</label>
-                            <input type="number" class="form-control" id="nik" placeholder="No Induk Keluarga" />
+                            <input type="number" name="nik" class="form-control" id="nik" placeholder="No Induk Keluarga" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">NISN</label>
-                            <input type="number" class="form-control" id="nisn"
+                            <input type="number" name="nisn" class="form-control" id="nisn"
                                 placeholder="No Induk Siswa Nasional" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Tempat, Tanggal Lahir</label>
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="text" class="form-control" id="tempatLahir"
+                                    <input type="text" name="place_of_birth" class="form-control" id="tempatLahir"
                                         placeholder="Tempat Lahir" />
                                 </div>
                                 <div class="col-6">
-                                    <input type="date" class="form-control" id="tglLahir" />
+                                    <input type="date" name="date_of_birth" class="form-control" id="tglLahir" />
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">NISN</label>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" name="gender" aria-label="Default select example">
                                 <option selected>Pilih Jenis Kelamin</option>
-                                <option value="1">Laki-Laki</option>
-                                <option value="2">Perempuan</option>
+                                <option value="Laki-Laki">Laki-Laki</option>
+                                <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Agama</label>
-                            <input type="text" class="form-control" id="agama" placeholder="Agama" />
+                            <input type="text" name="religion" class="form-control" id="agama" placeholder="Agama" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Alamat Lengkap"></textarea>
+                            <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="3" placeholder="Alamat Lengkap"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Asal Sekolah</label>
-                            <input type="text" class="form-control" id="asalSekolah" placeholder="Asal Sekolah" />
+                            <input type="text" name="school_origin" class="form-control" id="asalSekolah" placeholder="Asal Sekolah" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Diterima di Sekolah ini</label>
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="text" class="form-control" id="kelas" placeholder="Kelas" />
+                                    <input type="text" name="school_now" class="form-control" id="kelas" placeholder="Kelas" />
                                 </div>
                                 <div class="col-6">
-                                    <input type="date" class="form-control" id="tglMasuk" />
+                                    <input type="date" name="date_school_now" class="form-control" id="tglMasuk" />
                                 </div>
                             </div>
                         </div>
@@ -107,28 +109,28 @@
                             <label for="" class="form-label">Nama Orang Tua</label>
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-3">
-                                    <input type="text" class="form-control" id="ayah" placeholder="Nama Ayah" />
+                                    <input type="text" name="father_name" class="form-control" id="ayah" placeholder="Nama Ayah" />
                                 </div>
                                 <div class="col-md-6 col-12">
-                                    <input type="text" class="form-control" id="ibu" placeholder="Nama Ibu" />
+                                    <input type="text" name="mother_name" class="form-control" id="ibu" placeholder="Nama Ibu" />
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat Orang Tua</label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                                placeholder="Alamat Lengkap Orang Tua"></textarea>
+                                placeholder="Alamat Lengkap Orang Tua" name="parent_address"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Pekerjaan Orang Tua</label>
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-3">
                                     <input type="text" class="form-control" id="pekerjaanAyah"
-                                        placeholder="Pekerjaan Ayah" />
+                                        placeholder="Pekerjaan Ayah" name="father_profession" />
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <input type="text" class="form-control" id="pekerjaanIbu"
-                                        placeholder="Pekerjaan Ibu" />
+                                        placeholder="Pekerjaan Ibu" name="mother_profession" />
                                 </div>
                             </div>
                         </div>
@@ -137,21 +139,40 @@
                             <div class="row">
                                 <div class="col-md-6 col-12 mb-3">
                                     <input type="text" class="form-control" id="pendidikanAyah"
-                                        placeholder="Pendidikan Ayah" />
+                                        placeholder="Pendidikan Ayah" name="father_education" />
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <input type="text" class="form-control" id="penddikanIbu"
-                                        placeholder="Pendidikan Ibu" />
+                                        placeholder="Pendidikan Ibu" name="mother_education" />
                                 </div>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Nama Wali</label>
-                            <input type="text" class="form-control" id="wali" placeholder="Nama Wali" />
+                            <input type="text" name="family_name" class="form-control" id="wali" placeholder="Nama Wali" />
                         </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Alamat Wali</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                placeholder="Alamat Lengkap Orang Tua" name="family_address"></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">phone</label>
+                            <input type="number" name="phone" class="form-control" id="nisn"
+                                placeholder="No Induk Siswa Nasional" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="" class="form-label">Pekerjaan Wali</label>
+                            <input type="text" name="family_profession" class="form-control" id="nisn"
+                                placeholder="No Induk Siswa Nasional" />
+                        </div>
+
                         <div class="mb-3">
                             <label for="" class="form-label">Upload Foto</label>
-                            <input type="file" class="form-control" id="fotoSiswa" style="display: none" multiple />
+                            <input type="file" name="image" class="form-control" id="fotoSiswa" style="display: none" multiple />
                             <div class="col-md-6 col-12">
                                 <button class="d-block btn-photo-siswa" type="button" onclick="uploadPhotoSiswa()">
                                     Upload Photo

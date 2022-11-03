@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,15 +23,17 @@ Route::get('/', function () {
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
 });
-Route::get('/login', function() {
-    return view('pages.login');
-});
-Route::get('dashboard', function(){
-    return view('pages.dashboard');
-});
-Route::get('formulir', function(){
-    return view('pages.siswa.formulir');
-});
-// Auth::routes();
+// Route::get('formulir', function(){
+//     return view('pages.siswa.formulir');
+// });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Auth::routes();
+
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::prefix('dashboard')->group(function () {
+        Route::get('/', [HomeController::class, 'index'])->name('dashboard');
+        Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
+    });
+});
