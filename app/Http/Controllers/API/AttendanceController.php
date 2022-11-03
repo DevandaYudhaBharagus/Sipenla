@@ -172,7 +172,8 @@ class AttendanceController extends Controller
             $timeNow = Carbon::now();
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
-            $day = Carbon::parse($timeNow)->format('l');
+            $day = Carbon::parse($timeNow);
+            $day->settings(['formatFunction' => 'translatedFormat']);
 
             $date = Carbon::parse($timeNow)->format('Y-m-d');
             $leave = LeaveApplication::where('employee_id', '=', $employee->employee_id)
@@ -190,7 +191,8 @@ class AttendanceController extends Controller
                             ->exists();
 
             $notWorkingDay = Workday::join('days', 'workdays.days_id', '=', 'days.day_id')
-                            ->where('days.day_name', '=', $day)
+                            ->join('workshifts', 'workdays.workshift_id', '=', 'workshifts.workshift_id')
+                            ->where('days.day_name', '=', $day->format('l'))
                             ->where('workdays.company_id', '=', $employee->company_id)
                             ->where('workdays.workshift_id', '=', $employee->workshift_id)
                             ->get();
@@ -207,7 +209,16 @@ class AttendanceController extends Controller
                 return ResponseFormatter::error([], 'Hari ini bukan hari kerja', 400);
             }
 
-            if($hasCheckedIn){
+            foreach($notWorkingDay as $work) {
+                if($timeNow > $work->end_time) {
+                    return ResponseFormatter::error([], 'Jam Kerja Telah Usai', 400);
+                } elseif($timeNow < $work->start_time) {
+                    return ResponseFormatter::error([], 'Jam Kerja Belum Mulai', 400);
+                }
+            }
+
+
+            if($hasCheckedIn) {
                 return ResponseFormatter::error([], "Anda sudah Check In hari ini", 400);
             }
 
