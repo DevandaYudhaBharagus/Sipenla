@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">NISN</label>
+                            <label for="" class="form-label">Jenis Kelamin</label>
                             <select class="form-select" name="gender" aria-label="Default select example">
                                 <option selected>Pilih Jenis Kelamin</option>
                                 <option value="Laki-Laki">Laki-Laki</option>
