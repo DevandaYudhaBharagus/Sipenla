@@ -294,7 +294,7 @@ class AttendanceController extends Controller
 
             foreach ($attendance as $att) {
                 $x = Carbon::parse($att->date)->format('W');
-                array_push($week, (object)["week"=>$x]);
+                array_push($week, (object)["week"=>$x, "slider"=>1]);
             }
 
             $unique = collect($week)->unique('week')->values()->all();
