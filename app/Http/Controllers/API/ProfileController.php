@@ -19,8 +19,9 @@ class ProfileController extends Controller
         try {
             $user = Auth::user();
             if($user->role == "student"){
-                $student = Student::join('grades', 'students.student_id', '=', 'grades.student_id')
-                            ->leftJoin('employees', 'grades.teacher_id', '=', 'employees.employee_id')
+                $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+                            ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                            ->Join('employees', 'grades.teacher_id', '=', 'employees.employee_id')
                             ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
                             ->where('students.user_id', '=', $user->id)
                             ->first([

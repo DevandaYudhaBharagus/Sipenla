@@ -9,6 +9,7 @@ use App\Http\Controllers\API\AttendanceController;
 use App\Http\Controllers\API\AdmissionController;
 use App\Http\Controllers\API\LessonScheduleController;
 use App\Http\Controllers\API\ExtraController;
+use App\Http\Controllers\API\MonitoringController;
 
 /*
 |--------------------------------------------------------------------------
@@ -91,5 +92,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getextra', [ExtraController::class, 'getExtra']);
         Route::post('/updateschedule/{id}', [ExtraController::class, 'updateExtra']);
         Route::get('/getpembina', [ExtraController::class, 'getPembina']);
+    });
+
+    Route::prefix('monitoring')->group(function () {
+        Route::get('/getsubject', [MonitoringController::class, 'getSubject']);
+        Route::get('/getgrade', [MonitoringController::class, 'getGrade']);
+        Route::get('/getattendance/{grade}', [MonitoringController::class, 'getAttendance']);
+        Route::post('/postattendance', [MonitoringController::class, 'addMultiple']);
     });
 });
