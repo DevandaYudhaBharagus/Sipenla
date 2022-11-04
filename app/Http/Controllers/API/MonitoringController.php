@@ -98,9 +98,11 @@ class MonitoringController extends Controller
                 $book->grade_id = $value['grade_id'];
                 $book->student_id = $value['student_id'];
                 $book->subject_id = $value['subject_id'];
+                $book->date = Carbon::now();
+                $book->status = $value['status'];
                 $book->save();
             }
-            return response()->json(['message'=>'Books added Successfully']);
+            return ResponseFormatter::success("Succeed Absensi Siswa.");
         }
     }
 }
