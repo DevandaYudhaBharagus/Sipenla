@@ -98,6 +98,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getsubject', [MonitoringController::class, 'getSubject']);
         Route::get('/getgrade', [MonitoringController::class, 'getGrade']);
         Route::get('/getattendance/{grade}', [MonitoringController::class, 'getAttendance']);
-        Route::post('/postattendance', [MonitoringController::class, 'addMultiple']);
+        Route::get('/gethistory/{date}/{subject}/{grade}', [MonitoringController::class, 'getHistory']);
+        Route::get('/gethistoryextra/{date}/{extra}', [MonitoringController::class, 'getHistoryExtra']);
+        Route::post('/postattendance/{grade}', [MonitoringController::class, 'addMultiple']);
+        Route::post('/post/{extra}', [MonitoringController::class, 'addMultipleExtra']);
+        Route::get('/getextra', [MonitoringController::class, 'getExtra']);
+        Route::get('/getattendextra/{extra}', [MonitoringController::class, 'getAttendExtra']);
+        Route::get('/getsubjectall', [MonitoringController::class, 'historySubjectAll']);
+        Route::get('/getextraall', [MonitoringController::class, 'historyExtraAll']);
+        Route::get('/historymapel', [MonitoringController::class, 'historyAttendanceMapelByWeek']);
+        Route::get('/historyextra', [MonitoringController::class, 'historyAttendanceExtraByWeek']);
     });
 });
