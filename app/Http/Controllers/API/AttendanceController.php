@@ -210,9 +210,9 @@ class AttendanceController extends Controller
             }
 
             foreach($notWorkingDay as $work) {
-                if($timeNow > $work->end_time) {
+                if($timeNow->format('H:i:s') > $work->end_time) {
                     return ResponseFormatter::error([], 'Jam Kerja Telah Usai', 400);
-                } elseif($timeNow < $work->start_time) {
+                } elseif($timeNow->format('H:i:s') < $work->start_time) {
                     return ResponseFormatter::error([], 'Jam Kerja Belum Mulai', 400);
                 }
             }
