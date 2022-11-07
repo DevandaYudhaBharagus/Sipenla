@@ -320,10 +320,10 @@ class MonitoringController extends Controller
         try{
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
-            $history = ExtraAttendance::join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
-                            ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
-                            ->where('extra_schedules.date', '=', $date)
-                            ->where('extra_schedules.extracurricular_id', '=', $extra)
+            $history = ExtraAttendance::join('extracurriculars', 'extra_attendances.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                            ->where('extra_attendances.teacher_id', '=', $employee->employee_id)
+                            ->where('extra_attendances.date', '=', $date)
+                            ->where('extra_attendances.extracurricular_id', '=', $extra)
                             ->first([
                                 'date',
                                 'extracurricular_name'
