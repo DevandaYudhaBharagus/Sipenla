@@ -103,7 +103,7 @@ class MonitoringController extends Controller
         }
     }
 
-    public function addMultiple(Request $request, $grade)
+    public function addMultiple(Request $request, $grade, $subject)
     {
         try{
             if($request->isMethod('post')){
@@ -118,6 +118,7 @@ class MonitoringController extends Controller
                                 ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)
                                 ->where('day_name', '=', $day->format('l'))
                                 ->where('lesson_schedules.grade_id', '=', $grade)
+                                ->where('lesson_schedules.subject_id', '=', $subject)
                                 ->first();
 
                 if($notScheduleDay->start_time > $timeNow ) {
@@ -151,6 +152,18 @@ class MonitoringController extends Controller
         try{
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
+            $history = StudentAttendance::join('grades', 'student_attendances.grade_id', '=', 'grades.grade_id')
+                            ->join('subjects', 'student_attendances.subject_id', '=', 'subjects.subject_id')
+                            ->where('student_attendances.teacher_id', '=', $employee->employee_id)
+                            ->where('student_attendances.date', '=', $date)
+                            ->where('student_attendances.subject_id', '=', $subject)
+                            ->where('student_attendances.grade_id', '=', $grade)
+                            ->first([
+                                'date',
+                                'subject_name',
+                                'grade_name'
+                            ]);
+
             $historyAttend = StudentAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('subject_id', '=', $subject)
@@ -179,7 +192,15 @@ class MonitoringController extends Controller
                             ->where('status', '=', 'izin')
                             ->count();
 
+            $time = $history->date;
+            $test2 =Carbon::parse($history->date);
+            $test2->settings(['formatFunction' => 'translatedFormat']);
+            $history->date = $test2;
+
             $response = [
+                "date" => $history->date->isoFormat('dddd, D MMMM Y'),
+                "grade" => "$history->grade_name",
+                "subject" => "$history->subject_name",
                 "hadir" => "$historyAttend",
                 "alpha" => "$historyAlpha",
                 "sakit" => "$historySick",
@@ -436,6 +457,102 @@ class MonitoringController extends Controller
 
             $response = $unique;
 
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function statisticMapel()
+    {
+        try{
+            $user = Auth::user();
+            $student = Student::where('user_id', '=', $user->id)->first();
+
+            $attend = StudentAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'hadir')
+                        ->count();
+
+            $absence = StudentAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'alpha')
+                        ->count();
+
+            $sick = StudentAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'sakit')
+                        ->count();
+
+            $izin = StudentAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'izin')
+                        ->count();
+
+            $days_work = 120;
+            $days_presence_percentages = ($attend / $days_work) * 100;
+            $days_absent_percentages = ($absence / $days_work) * 100;
+            $days_leave_percentages = ($sick / $days_work) * 100;
+            $days_duty_percentages = ($izin / $days_work) * 100;
+
+            $fixAttend = round($days_presence_percentages, 0);
+            $fixAbsence = round($days_absent_percentages, 0);
+            $fixLeave = round($days_leave_percentages, 0);
+            $fixDuty = round($days_duty_percentages, 0);
+
+            $response = [
+                "attend" => "$fixAttend",
+                "absence" => "$fixAbsence",
+                "sick" => "$fixLeave",
+                "izin" => "$fixDuty"
+            ];
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function statisticExtra()
+    {
+        try{
+            $user = Auth::user();
+            $student = Student::where('user_id', '=', $user->id)->first();
+
+            $attend = ExtraAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'hadir')
+                        ->count();
+
+            $absence = ExtraAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'alpha')
+                        ->count();
+
+            $sick = ExtraAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'sakit')
+                        ->count();
+
+            $izin = ExtraAttendance::where('student_id', '=', $student->student_id)
+                        ->where('status', '=', 'izin')
+                        ->count();
+
+            $days_work = 120;
+            $days_presence_percentages = ($attend / $days_work) * 100;
+            $days_absent_percentages = ($absence / $days_work) * 100;
+            $days_leave_percentages = ($sick / $days_work) * 100;
+            $days_duty_percentages = ($izin / $days_work) * 100;
+
+            $fixAttend = round($days_presence_percentages, 0);
+            $fixAbsence = round($days_absent_percentages, 0);
+            $fixLeave = round($days_leave_percentages, 0);
+            $fixDuty = round($days_duty_percentages, 0);
+
+            $response = [
+                "attend" => "$fixAttend",
+                "absence" => "$fixAbsence",
+                "sick" => "$fixLeave",
+                "izin" => "$fixDuty"
+            ];
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
             $response = [
