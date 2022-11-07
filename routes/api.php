@@ -108,5 +108,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getextraall', [MonitoringController::class, 'historyExtraAll']);
         Route::get('/historymapel', [MonitoringController::class, 'historyAttendanceMapelByWeek']);
         Route::get('/historyextra', [MonitoringController::class, 'historyAttendanceExtraByWeek']);
+        Route::get('/statisticmapel', [MonitoringController::class, 'statisticMapel']);
+        Route::get('/statisticextra', [MonitoringController::class, 'statisticExtra']);
     });
 });

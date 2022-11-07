@@ -290,6 +290,13 @@ class AttendanceController extends Controller
                         ->orderBy('created_at', 'asc')
                         ->get();
 
+            $attendanceWeek = Attendance::where('employee_id', '=', $employee->employee_id)
+                            ->orderBy('created_at', 'asc')
+                            ->get()
+                            ->groupBy(function($val) {
+                                return Carbon::parse($val->date)->format('W');
+                            });
+
             $week = [];
 
             foreach ($attendance as $att) {
