@@ -320,6 +320,15 @@ class MonitoringController extends Controller
         try{
             $user = Auth::user();
             $employee = Employee::where('user_id', '=', $user->id)->first();
+            $history = ExtraAttendance::join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                            ->where('student_attendances.teacher_id', '=', $employee->employee_id)
+                            ->where('student_attendances.date', '=', $date)
+                            ->where('student_attendances.subject_id', '=', $subject)
+                            ->where('student_attendances.grade_id', '=', $grade)
+                            ->first([
+                                'date',
+                                'extracurricular_name'
+                            ]);
             $historyAttend = ExtraAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('extracurricular_id', '=', $extra)
@@ -344,7 +353,14 @@ class MonitoringController extends Controller
                             ->where('status', '=', 'izin')
                             ->count();
 
+            $time = $history->date;
+            $test2 =Carbon::parse($history->date);
+            $test2->settings(['formatFunction' => 'translatedFormat']);
+            $history->date = $test2;
+
             $response = [
+                "date" => $history->date->isoFormat('dddd, D MMMM Y'),
+                "extracurricular" => "$history->extracurricular_name",
                 "hadir" => "$historyAttend",
                 "alpha" => "$historyAlpha",
                 "sakit" => "$historySick",
