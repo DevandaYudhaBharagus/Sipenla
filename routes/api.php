@@ -100,7 +100,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getattendance/{grade}', [MonitoringController::class, 'getAttendance']);
         Route::get('/gethistory/{date}/{subject}/{grade}', [MonitoringController::class, 'getHistory']);
         Route::get('/gethistoryextra/{date}/{extra}', [MonitoringController::class, 'getHistoryExtra']);
-        Route::post('/postattendance/{grade}', [MonitoringController::class, 'addMultiple']);
+        Route::post('/postattendance/{grade}/{subject}', [MonitoringController::class, 'addMultiple']);
         Route::post('/post/{extra}', [MonitoringController::class, 'addMultipleExtra']);
         Route::get('/getextra', [MonitoringController::class, 'getExtra']);
         Route::get('/getattendextra/{extra}', [MonitoringController::class, 'getAttendExtra']);
