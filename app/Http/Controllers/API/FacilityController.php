@@ -174,7 +174,7 @@ class FacilityController extends Controller
     {
         try{
             $facility = Facility::where('facility_code', '=', $code)
-                        ->where('status', '=', 'layak')
+                        ->where('status', '=', 'fcl')
                         ->get();
 
             $response = $facility;
@@ -191,7 +191,7 @@ class FacilityController extends Controller
     public function getFacility()
     {
         try{
-            $facility = Facility::where('status', '=', 'layak')
+            $facility = Facility::where('status', '=', 'fcl')
                         ->get();
 
             $response = $facility;
@@ -237,8 +237,8 @@ class FacilityController extends Controller
                         $book->from_date = $value['from_date'];
                         $book->to_date = $value['to_date'];
                         $book->date = Carbon::now();
-                        $book->status = 'pending';
-                        $book->person_submitted = $student->student_id;
+                        $book->status = 'ppf';
+                        $book->student_id = $student->student_id;
                         $book->save();
                     }
                     return ResponseFormatter::success("Sukses Mengajukan Peminjaman.");
@@ -251,8 +251,8 @@ class FacilityController extends Controller
                     $book->from_date = $value['from_date'];
                     $book->to_date = $value['to_date'];
                     $book->date = Carbon::now();
-                    $book->status = 'pending';
-                    $book->person_submitted = $employee->employee_id;
+                    $book->status = 'ppf';
+                    $book->employee_id = $employee->employee_id;
                     $book->save();
                 }
                 return ResponseFormatter::success("Sukses Mengajukan Peminjaman.");
@@ -265,13 +265,78 @@ class FacilityController extends Controller
         }
     }
 
-    public function getAllLoan()
+    public function getAllLoanStudent()
     {
         try{
-            $loan = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+            $loanStudent = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                    ->whereNotNull("loan_facilities.student_id")
+                    ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
+                    ->where('loan_facilities.status', '=', 'ppf')
                     ->get();
 
-            $response = $loan;
+            $response = $loanStudent;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getAllLoanEmployee()
+    {
+        try{
+            $loanEmployee = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                    ->whereNotNull("loan_facilities.employee_id")
+                    ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
+                    ->where('loan_facilities.status', '=', 'ppf')
+                    ->get();
+
+            $response = $loanEmployee;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getAllReturnEmployee()
+    {
+        try{
+            $loanEmployee = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                    ->whereNotNull("loan_facilities.employee_id")
+                    ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
+                    ->where('loan_facilities.status', '=', 'prf')
+                    ->get();
+
+            $response = $loanEmployee;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getAllReturnStudent()
+    {
+        try{
+            $loanStudent = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                    ->whereNotNull("loan_facilities.student_id")
+                    ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
+                    ->where('loan_facilities.status', '=', 'prf')
+                    ->get();
+
+            $response = $loanStudent;
 
             return ResponseFormatter::success($response, 'Get Facility Success');
         }catch (Exception $e) {
@@ -286,7 +351,7 @@ class FacilityController extends Controller
     {
         try{
             $edit = [
-                "status" => 'ongoing'
+                "status" => 'opf'
             ];
 
 
@@ -294,6 +359,150 @@ class FacilityController extends Controller
                             ->update($edit);
 
             return ResponseFormatter::success('Facility Has Been approved');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getFacilityOngoing()
+    {
+        try{
+            $user = Auth::user();
+            if($user->role === "student"){
+                $student = Student::where('user_id', '=', $user->id)->first();
+                $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                            ->where('loan_facilities.student_id', '=', $student->student_id)
+                            ->where('loan_facilities.status', '=', 'opf')
+                            ->get();
+
+                $response = $facility;
+
+                return ResponseFormatter::success($response, 'Get Facility Success');
+            }
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                        ->where('loan_facilities.employee_id', '=', $employee->employee_id)
+                        ->where('loan_facilities.status', '=', 'opf')
+                        ->get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function pendingReturn($id)
+    {
+        try{
+            $edit = [
+                "status" => 'prf'
+            ];
+
+
+            $updateFacility = LoanFacility::where('loan_facility_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Facility Has Been Returned, wait until TU approved it');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function returned($id)
+    {
+        try{
+            $edit = [
+                "status" => 'prd'
+            ];
+
+
+            $updateFacility = LoanFacility::where('loan_facility_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Facility Has Been Approved to Return');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyByUser()
+    {
+        try{
+            $user = Auth::user();
+            if($user->role === "student"){
+                $student = Student::where('user_id', '=', $user->id)->first();
+                $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                            ->where('loan_facilities.student_id', '=', $student->student_id)
+                            ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->get();
+
+                $response = $facility;
+
+                return ResponseFormatter::success($response, 'Get Facility Success');
+            }
+            $employee = Employee::where('user_id', '=', $user->id)->first();
+            $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                        ->where('loan_facilities.employee_id', '=', $employee->employee_id)
+                        ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                        ->get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyTuEmployee()
+    {
+        try{
+            $loanEmployee = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                            ->whereNotNull("loan_facilities.employee_id")
+                            ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
+                            ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->get();
+
+            $response = $loanEmployee;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyTuStudent()
+    {
+        try{
+            $loanEmployee = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                            ->whereNotNull("loan_facilities.student_id")
+                            ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
+                            ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->get();
+
+            $response = $loanEmployee;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

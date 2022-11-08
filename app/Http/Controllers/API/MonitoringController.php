@@ -168,28 +168,28 @@ class MonitoringController extends Controller
                             ->where('date', '=', $date)
                             ->where('subject_id', '=', $subject)
                             ->where('grade_id', '=', $grade)
-                            ->where('status', '=', 'hadir')
+                            ->where('status', '=', 'mas')
                             ->count();
 
             $historyAlpha = StudentAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('subject_id', '=', $subject)
                             ->where('grade_id', '=', $grade)
-                            ->where('status', '=', 'alpha')
+                            ->where('status', '=', 'mes')
                             ->count();
 
             $historySick = StudentAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('subject_id', '=', $subject)
                             ->where('grade_id', '=', $grade)
-                            ->where('status', '=', 'sakit')
+                            ->where('status', '=', 'mss')
                             ->count();
 
             $historyIzin = StudentAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('subject_id', '=', $subject)
                             ->where('grade_id', '=', $grade)
-                            ->where('status', '=', 'izin')
+                            ->where('status', '=', 'mls')
                             ->count();
 
             $time = $history->date;
@@ -331,25 +331,25 @@ class MonitoringController extends Controller
             $historyAttend = ExtraAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('extracurricular_id', '=', $extra)
-                            ->where('status', '=', 'hadir')
+                            ->where('status', '=', 'eas')
                             ->count();
 
             $historyAlpha = ExtraAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('extracurricular_id', '=', $extra)
-                            ->where('status', '=', 'alpha')
+                            ->where('status', '=', 'ees')
                             ->count();
 
             $historySick = ExtraAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('extracurricular_id', '=', $extra)
-                            ->where('status', '=', 'sakit')
+                            ->where('status', '=', 'ess')
                             ->count();
 
             $historyIzin = ExtraAttendance::where('teacher_id', '=', $employee->employee_id)
                             ->where('date', '=', $date)
                             ->where('extracurricular_id', '=', $extra)
-                            ->where('status', '=', 'izin')
+                            ->where('status', '=', 'els')
                             ->count();
 
             $time = $history->date;
@@ -488,19 +488,19 @@ class MonitoringController extends Controller
             $student = Student::where('user_id', '=', $user->id)->first();
 
             $attend = StudentAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'hadir')
+                        ->where('status', '=', 'mas')
                         ->count();
 
             $absence = StudentAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'alpha')
+                        ->where('status', '=', 'mes')
                         ->count();
 
             $sick = StudentAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'sakit')
+                        ->where('status', '=', 'mss')
                         ->count();
 
             $izin = StudentAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'izin')
+                        ->where('status', '=', 'mls')
                         ->count();
 
             $days_work = 120;
@@ -536,19 +536,19 @@ class MonitoringController extends Controller
             $student = Student::where('user_id', '=', $user->id)->first();
 
             $attend = ExtraAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'hadir')
+                        ->where('status', '=', 'eas')
                         ->count();
 
             $absence = ExtraAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'alpha')
+                        ->where('status', '=', 'ees')
                         ->count();
 
             $sick = ExtraAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'sakit')
+                        ->where('status', '=', 'ess')
                         ->count();
 
             $izin = ExtraAttendance::where('student_id', '=', $student->student_id)
-                        ->where('status', '=', 'izin')
+                        ->where('status', '=', 'els')
                         ->count();
 
             $days_work = 120;
