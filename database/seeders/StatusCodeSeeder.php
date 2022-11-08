@@ -15,18 +15,60 @@ class StatusCodeSeeder extends Seeder
     public function run()
     {
         $codes = [
-            'ac',
-            'aab'
+            'ace',
+            'aae',
+            'fcl',
+            'ftl',
+            'eas',
+            'ees',
+            'ess',
+            'els',
+            'ppf',
+            'opf',
+            'prf',
+            'prd',
+            'mas',
+            'mes',
+            'mss',
+            'mls',
         ];
 
         $shorts = [
             'Check In',
-            'Absence'
+            'Absence',
+            'Facility',
+            'Facility',
+            'Extra',
+            'Extra',
+            'Extra',
+            'Extra',
+            'Loan',
+            'Loan',
+            'Loan',
+            'Loan',
+            'mapel',
+            'mapel',
+            'mapel',
+            'mapel',
         ];
 
         $longs = [
-            'Attendance Check In',
-            'Attendance Absence'
+            'Attendance Check In Employee',
+            'Attendance Absence Employee',
+            'Facility Layak',
+            'Facility Tidak Layak',
+            'Extra Hadir Siswa',
+            'Extra Alpha Siswa',
+            'Extra Sakit Siswa',
+            'Extra Izin Siswa',
+            'Pending Peminjaman Fasilitas',
+            'ongoing Peminjaman Fasilitas',
+            'Pending Pengembalian Fasilitas',
+            'Peminjaman Fasilitas Dikembalikan',
+            'Mapel Hadir Siswa',
+            'Mapel Alpha Siswa',
+            'Mapel Sakit Siswa',
+            'Mapel Izin Siswa',
         ];
 
         for ($i = 0; $i < count($codes); $i++) {
