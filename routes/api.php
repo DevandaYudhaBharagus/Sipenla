@@ -10,6 +10,7 @@ use App\Http\Controllers\API\AdmissionController;
 use App\Http\Controllers\API\LessonScheduleController;
 use App\Http\Controllers\API\ExtraController;
 use App\Http\Controllers\API\MonitoringController;
+use App\Http\Controllers\API\FacilityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -110,5 +111,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historyextra', [MonitoringController::class, 'historyAttendanceExtraByWeek']);
         Route::get('/statisticmapel', [MonitoringController::class, 'statisticMapel']);
         Route::get('/statisticextra', [MonitoringController::class, 'statisticExtra']);
+    });
+
+    Route::prefix('facility')->group(function () {
+        Route::post('/create', [FacilityController::class, 'createFacility']);
+        Route::delete('/delete/{id}', [FacilityController::class, 'deleteFacility']);
+        Route::post('/update/{id}', [FacilityController::class, 'editFacility']);
+        Route::get('/', [FacilityController::class, 'getAllFacility']);
     });
 });
