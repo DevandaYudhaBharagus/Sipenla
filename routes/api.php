@@ -118,5 +118,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/delete/{id}', [FacilityController::class, 'deleteFacility']);
         Route::post('/update/{id}', [FacilityController::class, 'editFacility']);
         Route::get('/', [FacilityController::class, 'getAllFacility']);
+        Route::get('/getfacility', [FacilityController::class, 'getFacility']);
+        Route::get('/getloan', [FacilityController::class, 'getAllLoan']);
+        Route::get('/{code}', [FacilityController::class, 'getFacilityByCode']);
+        Route::get('/getfacility/{id}', [FacilityController::class, 'getFacilityById']);
+        Route::post('/createloan', [FacilityController::class, 'createLoan']);
+        Route::post('/updateloan/{id}', [FacilityController::class, 'approvalLoan']);
     });
 });

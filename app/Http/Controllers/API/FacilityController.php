@@ -5,15 +5,46 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Facility;
+use App\Models\LoanFacility;
 use App\Helpers\ResponseFormatter;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use URL;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Employee;
+use App\Models\Student;
 
 class FacilityController extends Controller
 {
+    public function saveImage($image, $path='public')
+    {
+        try{
+            if (!$image) {
+                return null;
+            }
+
+            $filename = time() . '.png';
+            // save image
+            Storage::disk($path)->put($filename, base64_decode($image));
+
+            //return the path
+            // Url is the base url exp: localhost:8000
+            $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
+            return $urls;
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
     public function getAllFacility()
     {
         try{
@@ -39,33 +70,6 @@ class FacilityController extends Controller
                 'errors' => $e->getMessage(),
             ];
             return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function saveImage($image, $path='public')
-    {
-        try{
-            if (!$image) {
-                return null;
-            }
-
-            $filename = time() . '.png';
-            // save image
-            Storage::disk($path)->put($filename, base64_decode($image));
-
-            //return the path
-            // Url is the base url exp: localhost:8000
-            $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
-            return $urls;
-        }catch (Exception $e) {
-            $statuscode = 500;
-            if ($e->getCode()) $statuscode = $e->getCode();
-
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-
-            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
         }
     }
 
@@ -158,6 +162,138 @@ class FacilityController extends Controller
             ->delete();
 
             return ResponseFormatter::success('Facility Has Been Deleted');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getFacilityByCode($code)
+    {
+        try{
+            $facility = Facility::where('facility_code', '=', $code)
+                        ->where('status', '=', 'layak')
+                        ->get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getFacility()
+    {
+        try{
+            $facility = Facility::where('status', '=', 'layak')
+                        ->get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getFacilityById($id)
+    {
+        try{
+            $facility = Facility::where('facility_id', '=', $id)
+                        ->get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function createLoan(Request $request)
+    {
+        try{
+            if($request->isMethod('post')){
+                $bookData = $request->all();
+                $user = Auth::user();
+                if($user === "student"){
+                    $student = Student::where('user_id', '=', $user->id)->first();
+                    foreach($bookData['books'] as $key => $value){
+                        $book = new LoanFacility;
+                        $book->facility_id = $value['facility_id'];
+                        $book->total_facility = $value['total_facility'];
+                        $book->from_date = $value['from_date'];
+                        $book->to_date = $value['to_date'];
+                        $book->date = Carbon::now();
+                        $book->status = 'pending';
+                        $book->person_submitted = $student->student_id;
+                        $book->save();
+                    }
+                    return ResponseFormatter::success("Sukses Mengajukan Peminjaman.");
+                }
+                $employee = Employee::where('user_id', '=', $user->id)->first();
+                foreach($bookData['books'] as $key => $value){
+                    $book = new LoanFacility;
+                    $book->facility_id = $value['facility_id'];
+                    $book->total_facility = $value['total_facility'];
+                    $book->from_date = $value['from_date'];
+                    $book->to_date = $value['to_date'];
+                    $book->date = Carbon::now();
+                    $book->status = 'pending';
+                    $book->person_submitted = $employee->employee_id;
+                    $book->save();
+                }
+                return ResponseFormatter::success("Sukses Mengajukan Peminjaman.");
+            }
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getAllLoan()
+    {
+        try{
+            $loan = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
+                    ->get();
+
+            $response = $loan;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function approvalLoan($id)
+    {
+        try{
+            $edit = [
+                "status" => 'ongoing'
+            ];
+
+
+            $updateFacility = LoanFacility::where('loan_facility_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Facility Has Been approved');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
