@@ -175,7 +175,7 @@ class FacilityController extends Controller
         try{
             $facility = Facility::where('facility_code', '=', $code)
                         ->where('status', '=', 'fcl')
-                        ->get();
+                        ->first();
 
             $response = $facility;
 
@@ -209,7 +209,7 @@ class FacilityController extends Controller
     {
         try{
             $facility = Facility::where('facility_id', '=', $id)
-                        ->get();
+                        ->first();
 
             $response = $facility;
 
