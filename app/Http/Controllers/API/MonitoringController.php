@@ -14,6 +14,7 @@ use App\Models\StudentAttendance;
 use App\Models\ExtraSchedule;
 use App\Models\Student;
 use App\Models\ExtraAttendance;
+use App\Models\Extracurricular;
 use Carbon\Carbon;
 
 class MonitoringController extends Controller
@@ -86,13 +87,17 @@ class MonitoringController extends Controller
                             'nisn'
                         ]);
 
-            $fix = [];
+            $grades = Grade::where('grade_id', '=', $grade)->first(['grade_name']);
 
-            foreach ($attendances as $attendance) {
-                array_push($fix, (object)["absensi"=>$attendance, "status"=>"default"]);
-            }
+            $mapel = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                    ->where('grade_id', '=', $grade)
+                    ->first(['subject_name']);
 
-            $response = $fix;
+            $response = [
+                "kelas" => $grades,
+                "mapel" => $mapel,
+                "absensi" => $attendances
+            ];
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
@@ -256,13 +261,13 @@ class MonitoringController extends Controller
                             'nisn'
                         ]);
 
-            $fix = [];
+            $extraName = Extracurricular::where('extracurricular_id', '=', $extra)
+                        ->first(['extracurricular_name']);
 
-            foreach ($attendances as $attendance) {
-                array_push($fix, (object)["absensi"=>$attendance, "status"=>"default"]);
-            }
-
-            $response = $fix;
+            $response = [
+                "extra" => $extraName,
+                "absensi" => $attendances
+            ];
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
@@ -380,13 +385,25 @@ class MonitoringController extends Controller
         try{
             $user = Auth::user();
             $student = Student::where('user_id', '=', $user->id)->first();
-            $attendance = StudentAttendance::where('student_id', '=', $student->student_id)
-                        ->get();
+            $attendance = StudentAttendance::join('subjects', 'student_attendances.subject_id', '=', 'subjects.subject_id')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get([
+                            'student_attendance_id',
+                            'student_attendances.grade_id',
+                            'student_attendances.student_id',
+                            'student_attendances.subject_id',
+                            'student_attendances.teacher_id',
+                            'student_attendances.date',
+                            'student_attendances.status',
+                            'student_attendances.created_at',
+                            'student_attendances.updated_at',
+                            'subjects.subject_name',
+                        ]);
 
             foreach ($attendance as $att) {
-                $time = $att->date;
-                $test2 = ($att->created_at !== null) ? date('d F Y', strtotime($time)) : '';
-                $att->date = $test2;
+                $time = $att->created_at;
+                $test2 = Carbon::parse($time)->format('H:i:s');
+                $att->waktu = $test2;
             }
 
             $response =  $attendance;

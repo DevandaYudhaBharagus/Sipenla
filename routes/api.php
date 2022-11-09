@@ -127,11 +127,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historytuemployee', [FacilityController::class, 'historyTuEmployee']);
         Route::get('/historytustudent', [FacilityController::class, 'historyTuStudent']);
         Route::get('/historybyuser', [FacilityController::class, 'historyByUser']);
+        Route::get('/getallfacility', [FacilityController::class, 'getFacilityDefault']);
         Route::get('/{code}', [FacilityController::class, 'getFacilityByCode']);
         Route::get('/getfacility/{id}', [FacilityController::class, 'getFacilityById']);
         Route::post('/createloan', [FacilityController::class, 'createLoan']);
         Route::post('/updateloan/{id}', [FacilityController::class, 'approvalLoan']);
         Route::post('/pendingreturn/{id}', [FacilityController::class, 'pendingReturn']);
         Route::post('/return/{id}', [FacilityController::class, 'returned']);
+        Route::post('/updatediknas', [FacilityController::class, 'updateMultiple']);
     });
 });
