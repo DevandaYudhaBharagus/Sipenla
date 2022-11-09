@@ -272,7 +272,14 @@ class FacilityController extends Controller
                     ->whereNotNull("loan_facilities.student_id")
                     ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                     ->where('loan_facilities.status', '=', 'ppf')
-                    ->get();
+                    ->get([
+                        'first_name',
+                        'last_name',
+                        'facility_code',
+                        'facility_name',
+                        'total_facility',
+                        'loan_facilities.status'
+                    ]);
 
             $response = $loanStudent;
 
@@ -292,7 +299,14 @@ class FacilityController extends Controller
                     ->whereNotNull("loan_facilities.employee_id")
                     ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                     ->where('loan_facilities.status', '=', 'ppf')
-                    ->get();
+                    ->get([
+                        'first_name',
+                        'last_name',
+                        'facility_code',
+                        'facility_name',
+                        'total_facility',
+                        'loan_facilities.status'
+                    ]);
 
             $response = $loanEmployee;
 
@@ -313,7 +327,14 @@ class FacilityController extends Controller
                     ->whereNotNull("loan_facilities.employee_id")
                     ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                     ->where('loan_facilities.status', '=', 'prf')
-                    ->get();
+                    ->get([
+                        'first_name',
+                        'last_name',
+                        'facility_code',
+                        'facility_name',
+                        'total_facility',
+                        'loan_facilities.status'
+                    ]);
 
             $response = $loanEmployee;
 
@@ -334,7 +355,14 @@ class FacilityController extends Controller
                     ->whereNotNull("loan_facilities.student_id")
                     ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                     ->where('loan_facilities.status', '=', 'prf')
-                    ->get();
+                    ->get([
+                        'first_name',
+                        'last_name',
+                        'facility_code',
+                        'facility_name',
+                        'total_facility',
+                        'loan_facilities.status'
+                    ]);
 
             $response = $loanStudent;
 
@@ -448,7 +476,19 @@ class FacilityController extends Controller
                 $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                             ->where('loan_facilities.student_id', '=', $student->student_id)
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->get();
+                            ->get([
+                                'facility_code',
+                                'facility_name',
+                                'total_facility',
+                                'loan_facilities.status',
+                                'loan_facilities.date'
+                            ]);
+
+                foreach ($facility as $f) {
+                    $time = $f->date;
+                    $test2 = ($f->date !== null) ? date('d F Y', strtotime($time)) : '';
+                    $f->date = $test2;
+                }
 
                 $response = $facility;
 
@@ -458,7 +498,19 @@ class FacilityController extends Controller
             $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                         ->where('loan_facilities.employee_id', '=', $employee->employee_id)
                         ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                        ->get();
+                        ->get([
+                            'facility_code',
+                            'facility_name',
+                            'total_facility',
+                            'loan_facilities.status',
+                            'loan_facilities.date'
+                        ]);
+
+            foreach ($facility as $f) {
+                $time = $f->date;
+                $test2 = ($f->date !== null) ? date('d F Y', strtotime($time)) : '';
+                $f->date = $test2;
+            }
 
             $response = $facility;
 
@@ -478,7 +530,21 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.employee_id")
                             ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->get();
+                            ->get([
+                                'first_name',
+                                'last_name',
+                                'facility_code',
+                                'facility_name',
+                                'total_facility',
+                                'loan_facilities.status',
+                                'loan_facilities.date'
+                            ]);
+
+            foreach ($loanEmployee as $f) {
+                $time = $f->date;
+                $test2 = ($f->date !== null) ? date('d F Y', strtotime($time)) : '';
+                $f->date = $test2;
+            }
 
             $response = $loanEmployee;
 
@@ -498,11 +564,66 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.student_id")
                             ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->get();
+                            ->get([
+                                'first_name',
+                                'last_name',
+                                'facility_code',
+                                'facility_name',
+                                'total_facility',
+                                'loan_facilities.status',
+                                'loan_facilities.date'
+                            ]);
+
+            foreach ($loanEmployee as $f) {
+                $time = $f->date;
+                $test2 = ($f->date !== null) ? date('d F Y', strtotime($time)) : '';
+                $f->date = $test2;
+            }
 
             $response = $loanEmployee;
 
             return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getFacilityDefault()
+    {
+        try{
+            $facility = Facility::get();
+
+            $response = $facility;
+
+            return ResponseFormatter::success($response, 'Get Facility Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateMultiple(Request $request)
+    {
+        try{
+            if($request->isMethod('post')){
+                $bookData = $request->all();
+                foreach($bookData['books'] as $key => $value){
+                    $book = new Facility;
+                    $book->facility_id = $value['facility_id'];
+                    $book->status = $value['status'];
+                    $edit = [
+                            "status" => $book->status
+                    ];
+                    $updateFacility = Facility::where('facility_id', '=', $book->facility_id)
+                            ->update($edit);
+                }
+                return ResponseFormatter::success("Sukses Mengupdate Status Fasilitas.");
+            }
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
