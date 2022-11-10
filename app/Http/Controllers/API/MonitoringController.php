@@ -13,6 +13,8 @@ use App\Models\LessonSchedule;
 use App\Models\StudentAttendance;
 use App\Models\ExtraSchedule;
 use App\Models\Student;
+use App\Models\Day;
+use App\Models\Subject;
 use App\Models\ExtraAttendance;
 use App\Models\Extracurricular;
 use Carbon\Carbon;
@@ -87,17 +89,13 @@ class MonitoringController extends Controller
                             'nisn'
                         ]);
 
-            $grades = Grade::where('grade_id', '=', $grade)->first(['grade_name']);
+            $fix = [];
 
-            $mapel = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->where('grade_id', '=', $grade)
-                    ->first(['subject_name']);
+            foreach ($attendances as $attendance) {
+                array_push($fix, (object)["absensi"=>$attendance, "status"=>"default"]);
+            }
 
-            $response = [
-                "kelas" => $grades,
-                "mapel" => $mapel,
-                "absensi" => $attendances
-            ];
+            $response = $fix;
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
@@ -261,13 +259,13 @@ class MonitoringController extends Controller
                             'nisn'
                         ]);
 
-            $extraName = Extracurricular::where('extracurricular_id', '=', $extra)
-                        ->first(['extracurricular_name']);
+            $fix = [];
 
-            $response = [
-                "extra" => $extraName,
-                "absensi" => $attendances
-            ];
+            foreach ($attendances as $attendance) {
+                array_push($fix, (object)["absensi"=>$attendance, "status"=>"default"]);
+            }
+
+            $response = $fix;
 
             return ResponseFormatter::success($response, 'Get Attendance Success');
         }catch (Exception $e) {
@@ -586,6 +584,54 @@ class MonitoringController extends Controller
                 "izin" => "$fixDuty"
             ];
             return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getGradeById($id)
+    {
+        try{
+            $day = Grade::where('Grade_id', $id)->first();
+
+            $response = $day;
+
+            return ResponseFormatter::success($response, 'Get Grade Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getSubjectById($id)
+    {
+        try{
+            $subject = Subject::where('subject_id', $id)->first();
+
+            $response = $subject;
+
+            return ResponseFormatter::success($response, 'Get Subject Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getExtraById($id)
+    {
+        try{
+            $subject = Extracurricular::where('extracurricular_id', $id)->first();
+
+            $response = $subject;
+
+            return ResponseFormatter::success($response, 'Get Subject Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

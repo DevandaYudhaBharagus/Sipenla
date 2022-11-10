@@ -111,6 +111,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historyextra', [MonitoringController::class, 'historyAttendanceExtraByWeek']);
         Route::get('/statisticmapel', [MonitoringController::class, 'statisticMapel']);
         Route::get('/statisticextra', [MonitoringController::class, 'statisticExtra']);
+        Route::get('/getday/{id}', [MonitoringController::class, 'getGradeById']);
+        Route::get('/getsubject/{id}', [MonitoringController::class, 'getSubjectById']);
+        Route::get('/getextra/{id}', [MonitoringController::class, 'getExtraById']);
     });
 
     Route::prefix('facility')->group(function () {
