@@ -177,6 +177,21 @@ class FacilityController extends Controller
                         ->where('status', '=', 'fcl')
                         ->first();
 
+            if($facility === null){
+                $response = [
+                    'facility_id' => 0,
+                    'facility_code' => "-",
+                    'facility_name' => "-",
+                    'number_of_facility' => "-",
+                    'year' => "-",
+                    'owned_by' => "-",
+                    'status' => "-",
+                    'date' => "-",
+                    'image' => "-"
+                ];
+                return ResponseFormatter::success($response, 'Get Facility Success');
+            }
+
             $response = $facility;
 
             return ResponseFormatter::success($response, 'Get Facility Success');
