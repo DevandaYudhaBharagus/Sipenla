@@ -243,7 +243,7 @@ class FacilityController extends Controller
             if($request->isMethod('post')){
                 $bookData = $request->all();
                 $user = Auth::user();
-                if($user === "student"){
+                if($user->role == "student"){
                     $student = Student::where('user_id', '=', $user->id)->first();
                     foreach($bookData['books'] as $key => $value){
                         $book = new LoanFacility;
