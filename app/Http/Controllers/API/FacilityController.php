@@ -294,7 +294,8 @@ class FacilityController extends Controller
                         'facility_code',
                         'facility_name',
                         'total_facility',
-                        'loan_facilities.status'
+                        'loan_facilities.status',
+                        'image'
                     ]);
 
             $response = $loanStudent;
@@ -322,7 +323,8 @@ class FacilityController extends Controller
                         'facility_code',
                         'facility_name',
                         'total_facility',
-                        'loan_facilities.status'
+                        'loan_facilities.status',
+                        'image'
                     ]);
 
             $response = $loanEmployee;
@@ -351,7 +353,8 @@ class FacilityController extends Controller
                         'facility_code',
                         'facility_name',
                         'total_facility',
-                        'loan_facilities.status'
+                        'loan_facilities.status',
+                        'image'
                     ]);
 
             $response = $loanEmployee;
@@ -380,7 +383,8 @@ class FacilityController extends Controller
                         'facility_code',
                         'facility_name',
                         'total_facility',
-                        'loan_facilities.status'
+                        'loan_facilities.status',
+                        'image'
                     ]);
 
             $response = $loanStudent;
