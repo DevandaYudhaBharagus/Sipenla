@@ -35,6 +35,7 @@ Route::prefix('users')->group(function () {
         Route::get('/profile', [ProfileController::class, 'getProfile']);
         Route::get('/student', [ProfileController::class, 'getDataStudent']);
         Route::get('/guardian', [ProfileController::class, 'getGuardian']);
+        Route::post('/changepass', [AuthController::class, 'changePassword']);
     });
 });
 
