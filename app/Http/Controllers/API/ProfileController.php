@@ -142,26 +142,53 @@ class ProfileController extends Controller
 
                 return ResponseFormatter::success($response, 'Get User');
             }else{
-                $employee = Employee::where('user_id', '=', $user->id)->first();
+                $employee = Employee::where('user_id', '=', $user->id)->join('grades', 'employees.employee_id', '=', 'grades.teacher_id')->first();
                 if(!$employee){
+                    $employeeNotWali = Employee::where('user_id', '=', $user->id)->first();
+                    if(!$employeeNotWali){
+                        $response = [
+                            'employee_id' => 0,
+                            'nuptk' => "-",
+                            'first_name' => "-",
+                            'last_name' => "-",
+                            'nik' => "-",
+                            'npsn' => "-",
+                            'place_of_birth' => "-",
+                            'date_of_birth' => "-",
+                            'gender' => "-",
+                            'religion' => "-",
+                            'address' => "-",
+                            'education' => "-",
+                            'family_name' => "-",
+                            'family_address' => "-",
+                            'position' => "-",
+                            'image' => null,
+                            'status' => "false",
+                            'isWali' => "-"
+                        ];
+
+                        return ResponseFormatter::success($response, 'Get User');
+                    }
+
                     $response = [
-                        'employee_id' => 0,
-                        'nuptk' => "-",
-                        'first_name' => "-",
-                        'last_name' => "-",
-                        'nik' => "-",
-                        'npsn' => "-",
-                        'place_of_birth' => "-",
-                        'date_of_birth' => "-",
-                        'gender' => "-",
-                        'religion' => "-",
-                        'address' => "-",
-                        'education' => "-",
-                        'family_name' => "-",
-                        'family_address' => "-",
-                        'position' => "-",
-                        'image' => null,
-                        'status' => 'false'
+                        'employee_id' => $employeeNotWali->employee_id,
+                        'nuptk' => $employeeNotWali->nuptk,
+                        'first_name' => $employeeNotWali->first_name,
+                        'last_name' => $employeeNotWali->last_name,
+                        'nik' => $employeeNotWali->nik,
+                        'npsn' => $employeeNotWali->npsn,
+                        'place_of_birth' => $employeeNotWali->place_of_birth,
+                        'date_of_birth' => $employeeNotWali->date_of_birth,
+                        'gender' => $employeeNotWali->gender,
+                        'religion' => $employeeNotWali->religion,
+                        'address' => $employeeNotWali->address,
+                        'education' => $employeeNotWali->education,
+                        'family_name' => $employeeNotWali->family_name,
+                        'family_address' => $employeeNotWali->family_address,
+                        'position' => $employeeNotWali->position,
+                        'image' => $employeeNotWali->image,
+                        'status' => 'true',
+                        'isWali' => 'false'
                     ];
 
                     return ResponseFormatter::success($response, 'Get User');
@@ -185,7 +212,8 @@ class ProfileController extends Controller
                     'family_address' => $employee->family_address,
                     'position' => $employee->position,
                     'image' => $employee->image,
-                    'status' => 'true'
+                    'status' => 'true',
+                    'isWali' => 'true'
                 ];
 
                 return ResponseFormatter::success($response, 'Get User');
