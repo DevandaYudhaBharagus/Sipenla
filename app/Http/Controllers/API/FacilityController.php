@@ -288,6 +288,7 @@ class FacilityController extends Controller
                     ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                     ->where('loan_facilities.status', '=', 'ppf')
                     ->get([
+                        'loan_facility_id',
                         'first_name',
                         'last_name',
                         'facility_code',
@@ -315,6 +316,7 @@ class FacilityController extends Controller
                     ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                     ->where('loan_facilities.status', '=', 'ppf')
                     ->get([
+                        'loan_facility_id',
                         'first_name',
                         'last_name',
                         'facility_code',
@@ -343,6 +345,7 @@ class FacilityController extends Controller
                     ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                     ->where('loan_facilities.status', '=', 'prf')
                     ->get([
+                        'loan_facility_id',
                         'first_name',
                         'last_name',
                         'facility_code',
@@ -371,6 +374,7 @@ class FacilityController extends Controller
                     ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                     ->where('loan_facilities.status', '=', 'prf')
                     ->get([
+                        'loan_facility_id',
                         'first_name',
                         'last_name',
                         'facility_code',
