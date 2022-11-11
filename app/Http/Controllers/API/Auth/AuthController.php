@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 use Exception;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -305,6 +306,47 @@ class AuthController extends Controller
 
             User::where('email', $user->email)->update(['password' => bcrypt($request->password)]);
             PasswordReset::where(['email' => $user->email, 'token' => $token])->delete();
+
+            return ResponseFormatter::success('Your password has been changed!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function changePassword(Request $request)
+    {
+        try{
+            $credentials = $request->all();
+            $validate = Validator::make($credentials, [
+                'old_pass' => 'required',
+                'new_pass' => 'required|confirmed'
+            ]);
+
+            if ($validate->fails()) {
+                $response = [
+                    'errors' => $validate->errors()
+                ];
+
+                return ResponseFormatter::error($response, 'Bad Request', 400);
+            }
+
+            if (!(Hash::check($request->get('old_pass'), Auth::user()->password))) {
+                return ResponseFormatter::error([], 'Password Lama Tidak Sesuai.', 400);
+            }
+            if (strcmp($request->get('old_pass'), $request->get('new_pass')) == 0) {
+                return ResponseFormatter::error([], 'Password Tidak Boleh Sama Dengan Sebelumnya.', 400);
+            }
+
+            $user = Auth::user();
+            $user->password = bcrypt($request->get('new_pass'));
+            $user->save();
 
             return ResponseFormatter::success('Your password has been changed!');
         }catch (Exception $e) {
