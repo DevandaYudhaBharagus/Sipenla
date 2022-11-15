@@ -23,11 +23,44 @@ Route::get('/', function () {
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
 });
+Route::get('/login', function() {
+    return view('pages.login');
+});
+Route::get('/dash', function() {
+    return view('pages.dashboard.dashboard');
+});
+Route::get('/lupa-sandi', function() {
+    return view('pages.auth.lupa-sandi');
+});
+Route::get('/otp', function() {
+    return view('pages.auth.otp');
+});
+Route::get('/new-password', function() {
+    return view('pages.auth.new-pass');
+});
+Route::get('/news', function() {
+    return view('pages.news.news');
+});
+Route::get('/create-news', function() {
+    return view('pages.news.create-news');
+});
+Route::get('/detail-news', function() {
+    return view('pages.news.detail-news');
+});
+Route::get('/profil', function() {
+    return view('pages.dashboard.profil');
+});
+Route::get('/form-siswa', function() {
+    return view('pages.dashboard.formulir');
+});
+Route::get('/form-pegawai', function() {
+    return view('pages.dashboard.formulir-pegawai');
+});
 // Route::get('formulir', function(){
 //     return view('pages.siswa.formulir');
 // });
 
-Auth::routes();
+//Auth::routes();
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 

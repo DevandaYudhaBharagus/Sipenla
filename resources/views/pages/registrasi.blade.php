@@ -36,7 +36,7 @@
                 <div class="mb-2 form-regis">
                     <label for="exampleInputPassword1" class="form-label">Konfirmasi Password</label>
                     <input type="password" name="" class="form-control" id="confirm-password"
-                        placeholder="Confoirm Password" />
+                        placeholder="Konfirmasi Password" />
                     <span class="confirm-password"><i class="material-icons" id="password-gagal">highlight_off</i></span>
                     <span class="confirm-password"><i class="material-icons" id="password-sukses">check_circle</i></span>
                 </div>
