@@ -11,6 +11,7 @@ use App\Http\Controllers\API\LessonScheduleController;
 use App\Http\Controllers\API\ExtraController;
 use App\Http\Controllers\API\MonitoringController;
 use App\Http\Controllers\API\FacilityController;
+use App\Http\Controllers\API\AssessmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,5 +140,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/pendingreturn/{id}', [FacilityController::class, 'pendingReturn']);
         Route::post('/return/{id}', [FacilityController::class, 'returned']);
         Route::post('/updatediknas', [FacilityController::class, 'updateMultiple']);
+    });
+
+    Route::prefix('assessment')->group(function () {
+        Route::get('/getsemester', [AssessmentController::class, 'getSemester']);
+        Route::get('/getsubject', [AssessmentController::class, 'getSubjectAll']);
+        Route::get('/getgrade', [AssessmentController::class, 'getGradeAll']);
+        Route::get('/getsemester/{id}', [AssessmentController::class, 'getSemesterById']);
+        Route::get('/getassessment', [AssessmentController::class, 'getAssessment']);
+        Route::get('/getassessment/{id}', [AssessmentController::class, 'getAssessmentById']);
     });
 });

@@ -64,7 +64,7 @@ class FacilityController extends Controller
                 $facility
             ];
 
-            return ResponseFormatter::success($response, 'Get News Success');
+            return ResponseFormatter::success($response, 'Get Facility Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
@@ -439,7 +439,24 @@ class FacilityController extends Controller
                 $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                             ->where('loan_facilities.student_id', '=', $student->student_id)
                             ->where('loan_facilities.status', '=', 'opf')
-                            ->get();
+                            ->get([
+                                "loan_facility_id",
+                                "facility_id",
+                                "total_facility",
+                                "from_date",
+                                "to_date",
+                                "date",
+                                "status",
+                                "student_id",
+                                "loan_facilities.created_at",
+                                "loan_facilities.updated_at",
+                                "facility_code",
+                                "facility_name",
+                                "number_of_facility",
+                                "year",
+                                "owned_by",
+                                "image"
+                            ]);
 
                 $response = $facility;
 
@@ -449,7 +466,24 @@ class FacilityController extends Controller
             $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                         ->where('loan_facilities.employee_id', '=', $employee->employee_id)
                         ->where('loan_facilities.status', '=', 'opf')
-                        ->get();
+                        ->get([
+                            "loan_facility_id",
+                            "loan_facilities.facility_id",
+                            "total_facility",
+                            "from_date",
+                            "to_date",
+                            "loan_facilities.date",
+                            "loan_facilities.status",
+                            "employee_id",
+                            "loan_facilities.created_at",
+                            "loan_facilities.updated_at",
+                            "facility_code",
+                            "facility_name",
+                            "number_of_facility",
+                            "year",
+                            "owned_by",
+                            "image"
+                        ]);
 
             $response = $facility;
 
@@ -629,7 +663,7 @@ class FacilityController extends Controller
     public function getFacilityDefault()
     {
         try{
-            $facility = Facility::get();
+            $facility = Facility::where('status', '=', 'default')->get();
 
             $response = $facility;
 
