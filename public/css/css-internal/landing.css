@@ -1,0 +1,542 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+html {
+    scroll-behavior: smooth;
+}
+:root {
+    --color-text: #4b556b;
+    --bg-primary: #f9f9f9;
+    --bg-button: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+}
+.header-landing {
+    max-height: 100vh;
+    height: 100vh;
+}
+.header-landing .bg-landing-page {
+    width: 25rem;
+    height: 20rem;
+    position: absolute;
+    z-index: 1;
+    background-image: url("/images/internal-images/bg-png.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.header-landing .bg-landing-page img {
+    height: 100%;
+    width: 100%;
+}
+.header-landing .navbar .navbar-brand {
+    z-index: 5;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bg-primary);
+}
+.header-landing .navbar .navbar-brand img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2.5rem;
+    height: 2rem;
+}
+.header-landing .navbar .navbar-nav .nav-item {
+    margin-left: 25px;
+}
+.header-landing .navbar .navbar-nav .nav-item .nav-link {
+    color: #808da6;
+    font-size: 16px;
+    font-weight: 500;
+}
+.header-landing .navbar {
+    z-index: 5;
+}
+.header-landing .navbar .navbar-nav .nav-item .nav-link.active {
+    font-weight: 700;
+    font-size: 18px;
+    margin-top: -3px;
+}
+.header-landing .navbar .navbar-nav .nav-item .nav-link:hover {
+    font-weight: 700;
+}
+.header-landing .content-landing {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+.header-landing .content-landing .page-text {
+    margin-top: 5rem;
+    width: 50%;
+    height: 100%;
+    padding-left: 10px;
+    margin-left: 2rem;
+}
+.header-landing .content-landing .page-text h3 {
+    font-size: 35px;
+    color: var(--color-text);
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-left: 5px;
+}
+.header-landing .content-landing .page-text h1 {
+    margin-top: -10px;
+    background: linear-gradient(
+        259.17deg,
+        #3774c3 0%,
+        #3774c4 100%,
+        #2e447c 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 90px;
+    font-weight: 700;
+    letter-spacing: 10px;
+}
+.header-landing .content-landing .page-text .description {
+    width: 95%;
+    color: var(--color-text);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 22px;
+}
+.header-landing .content-landing .page-text .btn-mulai {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    border-radius: 8px;
+    color: white;
+    font-weight: 500;
+    text-align: center;
+    font-size: 12px;
+    padding: 5px 50px;
+    margin-top: 5px;
+    letter-spacing: 2px;
+}
+.header-landing .content-landing .page-image {
+    width: 50%;
+    padding: 5px 5px;
+    display: flex;
+    justify-content: end;
+}
+.header-landing .content-landing .page-image .frame-image {
+    padding: 10px 20px;
+    height: 30rem;
+    width: 90%;
+}
+.header-landing .content-landing .page-image .frame-image img {
+    width: 100%;
+    height: 100%;
+}
+.news {
+    background-color: #f1f1f1;
+    padding: 15px 0;
+}
+.news .title-news .text-news {
+    font-weight: 600;
+    font-size: 20px;
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e44a4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.news .title-news .sub-text-news {
+    margin-top: 1rem;
+    font-size: 22px;
+    font-weight: 670;
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e44a4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+}
+.news .box-hot-news {
+    margin-top: 1.5rem;
+    background: var(--bg-primary);
+    padding: 15px 0;
+    margin-bottom: 1rem;
+    box-shadow: 0px 24px 20px rgba(49, 49, 39, 0.1);
+}
+.news .box-hot-news h6 {
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+}
+.news .box-hot-news .image-news {
+    width: 95%;
+    height: 15rem;
+    border-radius: 12px;
+}
+.news .box-hot-news .image-news img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.news .box-hot-news .title-hot-news {
+    font-size: 18px;
+    color: var(--color-text);
+    font-weight: 600;
+}
+.news .box-hot-news .date-hot-news {
+    font-size: 12px;
+    color: var(--color-text);
+    font-weight: 500;
+}
+.news .box-hot-news .text-hot-news {
+    margin-top: 1.5rem;
+    width: 90%;
+}
+.news .box-hot-news .text-hot-news p {
+    font-size: 14px;
+    color: var(--color-text);
+    font-weight: 400;
+}
+.news .box-hot-news .text-hot-news a {
+    font-size: 14px;
+    color: #3774c3;
+    text-decoration: none;
+    font-weight: 400;
+}
+.news .box-hot-news .text-hot-news a:hover {
+    text-decoration: none;
+    font-weight: 600;
+}
+.news .box-new-news {
+    margin-top: 20px;
+    padding: 1rem 0;
+}
+.news .box-new-news h6 {
+    color: #444;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+.news .box-new-news .card-news {
+    width: 15rem;
+    background: var(--bg-primary);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 10px 14px rgba(49, 49, 49, 0.1);
+    margin-right: 10px;
+}
+.news .box-new-news .card-news .card-image {
+    padding: 1rem 1rem 0;
+    width: 100%;
+    height: 10rem;
+}
+.news .box-new-news .card-news .card-image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+.news .box-new-news .card-news .card-body .card-title {
+    color: var(--color-text);
+    font-weight: 600;
+    font-size: 14px;
+}
+.news .box-new-news .card-news .card-body .date-new-news {
+    color: var(--color-text);
+    font-size: 10px;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.news .box-new-news .card-news .card-body .link-new-news {
+    text-decoration: none;
+    color: #3774c3;
+    font-size: 10px;
+    font-weight: 400;
+}
+.news .box-new-news .card-news .card-body .link-new-news:hover {
+    text-decoration: none;
+    color: #3774c3;
+    font-size: 12px;
+    font-weight: 600;
+}
+.service {
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+}
+.service .text-service {
+    font-weight: 600;
+    font-size: 20px;
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e44a4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.service .sub-text-service {
+    margin-top: 1rem;
+    font-size: 22px;
+    font-weight: 670;
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e44a4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 1px;
+}
+.service .box-service {
+    background-color: #f2f2f2;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+    margin: 2rem 0;
+}
+
+.service .box-service .card-service {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 13rem;
+    transition: linear all 0.4s;
+    opacity: 0.7;
+}
+
+.service .box-service .card-service-center.slick-center .card-service {
+    transform: scale(1.1);
+    padding: 1.5rem;
+    opacity: 1;
+    border-radius: 10px;
+    width: 15rem;
+}
+.service .box-service .header-card-service {
+    display: flex;
+    align-items: center;
+}
+.service .box-service .header-card-service .image-service {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+}
+.service .box-service .header-card-service .image-service img {
+    width: 100%;
+    height: 1005;
+}
+.service .box-service .header-card-service .text-card-service {
+    color: #32435c;
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 10px;
+}
+.service .box-service .card-service .description-service {
+    color: #6a635b;
+    font-weight: 400;
+    font-size: 10px;
+    margin-top: 1.5rem;
+}
+.service .box-service .card-service .footer-card-service {
+    color: #32435c;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 1rem;
+}
+footer {
+    margin-top: 8rem;
+    background-color: #3774c3;
+    padding: 1.5rem 0;
+}
+footer .logo-footer {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+footer .logo-footer img {
+    width: 2rem;
+    height: 1.5rem;
+    border-radius: 50%;
+}
+footer .desk-logo-footer {
+    font-weight: 700;
+    font-size: 22px;
+    margin-left: 10px;
+    letter-spacing: 1px;
+    background: linear-gradient(180deg, #ededed 0%, #f9f9f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+footer .desk-footer {
+    margin-top: 1.5rem;
+    width: 80%;
+}
+footer .desk-footer p {
+    color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+}
+footer .call-footer h6,
+footer .sosmed h6 {
+    color: #fff;
+    font-weight: 700;
+}
+footer .about-contact {
+    margin-top: 1.2rem;
+}
+footer .about-contact .contact-me {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+}
+footer .about-contact .contact-me .img-contact {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+footer .about-contact .contact-me .img-contact img {
+    width: 100%;
+    height: 100%;
+}
+footer .about-contact .contact-me .text-contact {
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    margin-left: 10px;
+    text-decoration: none;
+}
+footer .sosmed .icon-sosmed {
+    margin-top: 1rem;
+    display: flex;
+}
+footer .sosmed .icon-sosmed .icon {
+    text-decoration: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 10px;
+}
+footer .sosmed .icon-sosmed .icon img {
+    width: 100%;
+    height: 100%;
+}
+footer .hr-footer {
+    border: 1px solid #f0f1f2;
+}
+footer .bottom-footer .text-bottom-footer {
+    margin-top: 1.5rem;
+    border-top: 1px solid #f0f1f2;
+    background: linear-gradient(180deg, #ededed 0%, #f9f9f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-size: 16px;
+    padding: 1rem 0 0;
+}
+.top {
+    display: flex;
+    text-align: center;
+    position: fixed;
+    z-index: 10;
+    background-color: white;
+    bottom: 2rem;
+    right: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.4s;
+}
+.top a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+}
+.top .material-icons {
+    color: #444;
+    font-size: 18px;
+    font-weight: 700;
+}
+.top.active {
+    bottom: 2rem;
+    opacity: 1;
+    pointer-events: auto;
+}
+@media screen and (max-width: 700px) {
+    .header-landing {
+        height: 100%;
+        max-height: 100%;
+    }
+    .navbar .navbar-nav {
+        background-color: var(--bg-primary);
+        border-radius: 20px;
+    }
+    .header-landing .bg-landing-page {
+        width: 18rem;
+    }
+    .header-landing .content-landing {
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 1px 0;
+    }
+    .header-landing .content-landing .page-image {
+        width: 100%;
+        padding: 5px 0;
+    }
+    .header-landing .content-landing .page-image .frame-image {
+        margin: 1rem auto;
+        width: 70%;
+        height: 20rem;
+        padding: 5px 10px;
+    }
+    .header-landing .content-landing .page-text {
+        margin-top: 2rem;
+        width: 100%;
+        margin-left: 10px;
+        padding-left: 0;
+    }
+    .header-landing .content-landing .page-text h3 {
+        font-size: 20px;
+    }
+    .header-landing .content-landing .page-text h1 {
+        margin-top: 5px;
+        font-size: 65px;
+        letter-spacing: 2px;
+    }
+
+    .header-landing .content-landing .page-text .description {
+        width: 80%;
+        font-size: 12px;
+    }
+
+    .header-landing .content-landing .page-text .btn-mulai {
+        margin-bottom: 20px;
+        padding: 10px 60px;
+    }
+    .news .box-hot-news .image-news {
+        width: 100%;
+        height: 10rem;
+    }
+    .news .box-hot-news .title-hot-news {
+        font-size: 14px;
+    }
+
+    .news .box-new-news .card-news {
+        width: 10rem;
+        margin: 0;
+    }
+    footer .desk-footer {
+        width: 100%;
+    }
+    footer .call-footer {
+        margin-top: 1.5rem;
+    }
+    footer .sosmed {
+        margin-top: 1.5rem;
+    }
+    .top {
+        right: 1rem;
+    }
+}
