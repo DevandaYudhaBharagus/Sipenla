@@ -149,5 +149,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getsemester/{id}', [AssessmentController::class, 'getSemesterById']);
         Route::get('/getassessment', [AssessmentController::class, 'getAssessment']);
         Route::get('/getassessment/{id}', [AssessmentController::class, 'getAssessmentById']);
+        Route::get('/getstudent/{grade}', [AssessmentController::class, 'getStudent']);
+        Route::post('/addpenilaian', [AssessmentController::class, 'addPenilaian']);
+        Route::post('/updatepenilaian/{id}', [AssessmentController::class, 'editPenilaian']);
     });
 });
