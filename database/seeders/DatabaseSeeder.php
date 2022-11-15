@@ -24,6 +24,8 @@ class DatabaseSeeder extends Seeder
             WorkdaySeeder::class,
             WorkshiftSeeder::class,
             StudentSeeder::class,
+            SemesterSeeder::class,
+            AssessmentSeeder::class,
         ]);
     }
 }
