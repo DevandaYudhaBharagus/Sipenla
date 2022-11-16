@@ -545,7 +545,7 @@ class FacilityController extends Controller
                 $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                             ->where('loan_facilities.student_id', '=', $student->student_id)
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('loan_facilities.created_at', 'desc')
                             ->get([
                                 'facility_code',
                                 'facility_name',
@@ -601,7 +601,7 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.employee_id")
                             ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('loan_facilities.created_at', 'desc')
                             ->get([
                                 'first_name',
                                 'last_name',
@@ -636,7 +636,7 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.student_id")
                             ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                            ->orderBy('created_at', 'desc')
+                            ->orderBy('loan_facilities.created_at', 'desc')
                             ->get([
                                 'first_name',
                                 'last_name',
