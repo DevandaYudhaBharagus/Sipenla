@@ -151,6 +151,7 @@ class AssessmentController extends Controller
                     $book->grade_id = $value['grade_id'];
                     $book->subject_id = $value['subject_id'];
                     $book->assessment_id = $value['assessment_id'];
+                    $book->semester_id = $value['semester_id'];
                     $book->nilai = $value['nilai'];
                     $book->status = "default";
                     $book->save();
@@ -175,6 +176,33 @@ class AssessmentController extends Controller
             $updateNilai = Penilaian::where('penilaian_id', '=', $id)->update($edit);
 
             return ResponseFormatter::success('Penilaian Has Been Updated');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getNilai($grade, $subject, $semester, $assessment)
+    {
+        try{
+            $nilai = Penilaian::join('students', 'penilaians.student_id', '=', 'students.student_id')
+                        ->where("penilaians.grade_id", "=", $grade)
+                        ->where("penilaians.subject_id", "=", $subject)
+                        ->where("penilaians.semester_id", "=", $semester)
+                        ->where("penilaians.assessment_id", "=", $assessment)
+                        ->get([
+                            "penilaian_id",
+                            "nisn",
+                            "first_name",
+                            "last_name",
+                            "nilai",
+                        ]);
+
+            $response = $nilai;
+
+            return ResponseFormatter::success($response, 'Get Student Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
