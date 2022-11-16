@@ -605,6 +605,7 @@ class FacilityController extends Controller
                             ->get([
                                 'first_name',
                                 'last_name',
+                                'nuptk',
                                 'facility_code',
                                 'facility_name',
                                 'total_facility',
@@ -640,6 +641,7 @@ class FacilityController extends Controller
                             ->get([
                                 'first_name',
                                 'last_name',
+                                'nisn',
                                 'facility_code',
                                 'facility_name',
                                 'total_facility',
