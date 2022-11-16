@@ -131,7 +131,7 @@ class FacilityController extends Controller
 
                 return ResponseFormatter::success('Facility Has Been Updated');
             }
-            $image = $this->saveImage($request->facility_image, "students");
+            $image = $this->saveImage($request->facility_image, "azure");
 
             $edit = [
                 "facility_name" => $request->facility_name,
