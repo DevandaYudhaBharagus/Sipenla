@@ -441,12 +441,12 @@ class FacilityController extends Controller
                             ->where('loan_facilities.status', '=', 'opf')
                             ->get([
                                 "loan_facility_id",
-                                "facility_id",
+                                "loan_facilities.facility_id",
                                 "total_facility",
                                 "from_date",
                                 "to_date",
-                                "date",
-                                "status",
+                                "loan_facilities.date",
+                                "loan_facilities.status",
                                 "student_id",
                                 "loan_facilities.created_at",
                                 "loan_facilities.updated_at",
@@ -545,6 +545,7 @@ class FacilityController extends Controller
                 $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                             ->where('loan_facilities.student_id', '=', $student->student_id)
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->orderBy('created_at', 'desc')
                             ->get([
                                 'facility_code',
                                 'facility_name',
@@ -567,6 +568,7 @@ class FacilityController extends Controller
             $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                         ->where('loan_facilities.employee_id', '=', $employee->employee_id)
                         ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                        ->orderBy('created_at', 'desc')
                         ->get([
                             'facility_code',
                             'facility_name',
@@ -599,6 +601,7 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.employee_id")
                             ->join('employees', 'loan_facilities.employee_id', '=', 'employees.employee_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->orderBy('created_at', 'desc')
                             ->get([
                                 'first_name',
                                 'last_name',
@@ -633,6 +636,7 @@ class FacilityController extends Controller
                             ->whereNotNull("loan_facilities.student_id")
                             ->join('students', 'loan_facilities.student_id', '=', 'students.student_id')
                             ->whereIn('loan_facilities.status', ['prd', 'opf'])
+                            ->orderBy('created_at', 'desc')
                             ->get([
                                 'first_name',
                                 'last_name',
