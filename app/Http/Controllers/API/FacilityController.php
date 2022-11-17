@@ -246,6 +246,13 @@ class FacilityController extends Controller
                 if($user->role == "student"){
                     $student = Student::where('user_id', '=', $user->id)->first();
                     foreach($bookData['books'] as $key => $value){
+                        $stock = Facility::where('facility_id', '=', $value['facility_id'])
+                                    ->get("number_of_facility");
+                        foreach($stock as $s){
+                            if($value['total_facility'] > $s->number_of_facility){
+                                return ResponseFormatter::error([], 'Jumlah Fasilitas Tidak Mencukupi', 400);
+                            }
+                        }
                         $book = new LoanFacility;
                         $book->facility_id = $value['facility_id'];
                         $book->total_facility = $value['total_facility'];
@@ -260,6 +267,14 @@ class FacilityController extends Controller
                 }
                 $employee = Employee::where('user_id', '=', $user->id)->first();
                 foreach($bookData['books'] as $key => $value){
+                    $stock = Facility::where('facility_id', '=', $value['facility_id'])
+                                ->get("number_of_facility");
+                    foreach($stock as $s){
+                        if($value['total_facility'] > $s->number_of_facility){
+                            return ResponseFormatter::error([], 'Jumlah Fasilitas Tidak Mencukupi', 400);
+                        }
+                    }
+
                     $book = new LoanFacility;
                     $book->facility_id = $value['facility_id'];
                     $book->total_facility = $value['total_facility'];
