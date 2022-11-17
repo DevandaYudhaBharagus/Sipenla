@@ -272,6 +272,7 @@ class AssessmentController extends Controller
                         ->where('penilaians.academic_year_id', '=', $academic)
                         ->where('penilaians.subject_id', '=', $subject)
                         ->where('penilaians.assessment_id', '=', 1)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "first_name",
                             "last_name",
@@ -284,6 +285,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 1)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -298,6 +300,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 2)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -312,6 +315,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 3)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -326,6 +330,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 4)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -340,6 +345,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 5)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -354,6 +360,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 6)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -368,6 +375,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 7)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -382,6 +390,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 8)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -396,6 +405,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 9)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
@@ -410,6 +420,7 @@ class AssessmentController extends Controller
                         ->where('academic_year_id', '=', $academic)
                         ->where('subject_id', '=', $subject)
                         ->where('assessment_id', '=', 10)
+                        ->where('penilaians.status', '=', 'default')
                         ->first([
                             "nilai"
                         ]);
