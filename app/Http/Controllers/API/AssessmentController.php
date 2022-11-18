@@ -291,7 +291,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$tugas1){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $tugas2 = Penilaian::where('student_id', '=', $student->student_id)
@@ -306,7 +322,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$tugas2){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $tugas3 = Penilaian::where('student_id', '=', $student->student_id)
@@ -321,7 +353,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$tugas3){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $tugas4 = Penilaian::where('student_id', '=', $student->student_id)
@@ -336,7 +384,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$tugas4){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uh1 = Penilaian::where('student_id', '=', $student->student_id)
@@ -351,7 +415,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uh1){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uh2 = Penilaian::where('student_id', '=', $student->student_id)
@@ -366,7 +446,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uh2){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uh3 = Penilaian::where('student_id', '=', $student->student_id)
@@ -381,7 +477,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uh3){
-                return ResponseFormatter::error([], 'Not Found', 404);
+              $response = [
+                "firstName" => '-',
+                "lastName" => '-',
+                "mapel" => '-',
+                "nilaiTugas1" => 0,
+                "nilaiTugas2" => 0,
+                "nilaiTugas3" => 0,
+                "nilaiTugas4" => 0,
+                "nilaiUH1" => 0,
+                "nilaiUH2" => 0,
+                "nilaiUH3" => 0,
+                "nilaiUH4" => 0,
+                "nilaiUTS" => 0,
+                "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uh4 = Penilaian::where('student_id', '=', $student->student_id)
@@ -396,7 +508,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uh4){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uts = Penilaian::where('student_id', '=', $student->student_id)
@@ -411,7 +539,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uts){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $uas = Penilaian::where('student_id', '=', $student->student_id)
@@ -426,7 +570,23 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uas){
-                return ResponseFormatter::error([], 'Not Found', 404);
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
+                ];
+    
+                return ResponseFormatter::success($response, 'Get History Success');
             }
 
             $response = [
