@@ -8,6 +8,7 @@ use App\Models\Penilaian;
 use App\Models\StudentGrade;
 use App\Models\AcademicYears;
 use App\Models\Rapor;
+use App\Models\Grade;
 use App\Helpers\ResponseFormatter;
 
 class RaporController extends Controller
@@ -41,7 +42,7 @@ class RaporController extends Controller
         }
     }
 
-    public function raporConfirm($student, $semester, $academic, $subject)
+    public function raporConfirm($student, $semester, $academic, $subject, $grade)
     {
         try{
             $edit = [
@@ -201,7 +202,9 @@ class RaporController extends Controller
             $addNilai = Rapor::create([
                 "student_id" => $student,
                 "subject_id" => $subject,
-                "nilai_fix" => $nilai
+                "grade_id" => $grade,
+                "nilai_fix" => $nilai,
+                "status" => "default"
             ]);
 
             return ResponseFormatter::success([], 'Update Rapor Success');
@@ -588,6 +591,39 @@ class RaporController extends Controller
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getNilaiForConfirm()
+    {
+        try{
+            $nilai = Grade::get();
+
+            $response = $nilai;
+
+            return ResponseFormatter::success($response, 'Get Grade Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateStatusKepsek($grade){
+        try{
+            $edit = [
+                "status" => "rkk"
+            ];
+            $nilai = Rapor::where('grade_id', '=', $grade)
+                    ->update($edit);
+
+            return ResponseFormatter::success([], 'Approve Nilai Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

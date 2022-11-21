@@ -9,5 +9,5 @@ class Rapor extends Model
 {
     use HasFactory;
 
-    protected $fillable =  ['student_id', 'subject_id', 'nilai_fix'];
+    protected $fillable =  ['student_id', 'subject_id', 'nilai_fix', 'status'];
 }
