@@ -161,7 +161,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('rapor')->group(function () {
         Route::get('/getrapor/{grade}', [RaporController::class, 'getStudent']);
-        Route::post('/updaterapor/{student}/{semester}/{academic}', [RaporController::class, 'raporConfirm']);
+        Route::post('/updaterapor/{student}/{semester}/{academic}/{subject}', [RaporController::class, 'raporConfirm']);
         Route::get('/getacademic/{academic}', [RaporController::class, 'getAcademicById']);
         Route::get('/getnilai/{student}/{grade}/{semester}/{academic}/{subject}', [RaporController::class, 'getFixNilai']);
     });

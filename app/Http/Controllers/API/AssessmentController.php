@@ -305,7 +305,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -336,7 +336,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -367,7 +367,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -398,7 +398,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -429,7 +429,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -460,7 +460,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -476,22 +476,22 @@ class AssessmentController extends Controller
                         ]);
 
             if(!$uh3){
-              $response = [
-                "firstName" => '-',
-                "lastName" => '-',
-                "mapel" => '-',
-                "nilaiTugas1" => 0,
-                "nilaiTugas2" => 0,
-                "nilaiTugas3" => 0,
-                "nilaiTugas4" => 0,
-                "nilaiUH1" => 0,
-                "nilaiUH2" => 0,
-                "nilaiUH3" => 0,
-                "nilaiUH4" => 0,
-                "nilaiUTS" => 0,
-                "nilaiUAS" => 0,
+                $response = [
+                    "firstName" => '-',
+                    "lastName" => '-',
+                    "mapel" => '-',
+                    "nilaiTugas1" => 0,
+                    "nilaiTugas2" => 0,
+                    "nilaiTugas3" => 0,
+                    "nilaiTugas4" => 0,
+                    "nilaiUH1" => 0,
+                    "nilaiUH2" => 0,
+                    "nilaiUH3" => 0,
+                    "nilaiUH4" => 0,
+                    "nilaiUTS" => 0,
+                    "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -522,7 +522,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -553,7 +553,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
@@ -584,7 +584,7 @@ class AssessmentController extends Controller
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
                 ];
-    
+
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
