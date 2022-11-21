@@ -2,117 +2,16 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Semester;
-use App\Models\Subject;
-use App\Models\Grade;
-use App\Models\Penilaian;
-use App\Models\StudentGrade;
-use App\Models\Assessment;
-use App\Models\Student;
-use App\Models\AcademicYears;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Penilaian;
+use App\Models\StudentGrade;
+use App\Models\AcademicYears;
+use App\Models\Rapor;
 use App\Helpers\ResponseFormatter;
-use Illuminate\Support\Facades\Auth;
 
-class AssessmentController extends Controller
+class RaporController extends Controller
 {
-    public function getSemester()
-    {
-        try{
-            $semester = Semester::get();
-
-            $response = $semester;
-
-            return ResponseFormatter::success($response, 'Get Semester Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getSubjectAll()
-    {
-        try{
-            $subject = Subject::get();
-
-            $response = $subject;
-
-            return ResponseFormatter::success($response, 'Get Subject Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getGradeAll()
-    {
-        try{
-            $grade = Grade::get();
-
-            $response = $grade;
-
-            return ResponseFormatter::success($response, 'Get Grade Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getSemesterById($id)
-    {
-        try{
-            $semester = Semester::where('semester_id', '=', $id)->first();
-
-            $response = $semester;
-
-            return ResponseFormatter::success($response, 'Get Semester Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getAssessment()
-    {
-        try{
-            $assessment = Assessment::get();
-
-            $response = $assessment;
-
-            return ResponseFormatter::success($response, 'Get Assessment Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getAssessmentById($id)
-    {
-        try{
-            $assessment = Assessment::where('assessment_id', '=', $id)->first();
-
-            $response = $assessment;
-
-            return ResponseFormatter::success($response, 'Get Assessment Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
     public function getStudent($grade)
     {
         try{
@@ -142,74 +41,170 @@ class AssessmentController extends Controller
         }
     }
 
-    public function addPenilaian(Request $request)
-    {
-        try{
-            if($request->isMethod('post')){
-                $bookData = $request->all();
-
-                foreach($bookData['books'] as $key => $value){
-                    if($value['nilai'] > 100 || $value['nilai'] < 0){
-                        return ResponseFormatter::error([], 'Nilai Tidak Sesuai', 400);
-                    }
-                    $book = new Penilaian;
-                    $book->student_id = $value['student_id'];
-                    $book->grade_id = $value['grade_id'];
-                    $book->subject_id = $value['subject_id'];
-                    $book->assessment_id = $value['assessment_id'];
-                    $book->academic_year_id = $value['academic_year_id'];
-                    $book->semester_id = $value['semester_id'];
-                    $book->nilai = $value['nilai'];
-                    $book->status = "default";
-                    $book->save();
-                }
-                return ResponseFormatter::success("Succeed Penilaian Siswa.");
-            }
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function editPenilaian(Request $request, $id)
+    public function raporConfirm($student, $semester, $academic, $subject)
     {
         try{
             $edit = [
-                "nilai" => $request->nilai
+                "status" => "rpk"
             ];
 
-            $updateNilai = Penilaian::where('penilaian_id', '=', $id)->update($edit);
-
-            return ResponseFormatter::success('Penilaian Has Been Updated');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getNilai($grade, $subject, $semester, $assessment)
-    {
-        try{
-            $nilai = Penilaian::join('students', 'penilaians.student_id', '=', 'students.student_id')
-                        ->where("penilaians.grade_id", "=", $grade)
-                        ->where("penilaians.subject_id", "=", $subject)
-                        ->where("penilaians.semester_id", "=", $semester)
-                        ->where("penilaians.assessment_id", "=", $assessment)
-                        ->get([
-                            "penilaian_id",
-                            "nisn",
-                            "first_name",
-                            "last_name",
-                            "nilai",
+            $tugas1 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 1)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
                         ]);
 
-            $response = $nilai;
+            if(!$tugas1){
+                return ResponseFormatter::error('Tugas 1 Belum Diinputkan', 400);
+            }
 
-            return ResponseFormatter::success($response, 'Get Student Success');
+            $tugas2 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 2)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$tugas2){
+                return ResponseFormatter::error('Tugas 2 Belum Diinputkan', 400);
+            }
+
+            $tugas3 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 3)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$tugas3){
+                return ResponseFormatter::error('Tugas 3 Belum Diinputkan', 400);
+            }
+
+            $tugas4 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 4)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$tugas4){
+                return ResponseFormatter::error('Tugas 4 Belum Diinputkan', 400);
+            }
+
+            $uh1 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 5)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uh1){
+                return ResponseFormatter::error('Ulangan Harian 1 Belum Diinputkan', 400);
+            }
+
+            $uh2 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 6)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uh2){
+                return ResponseFormatter::error('Ulangan Harian 2 Belum Diinputkan', 400);
+            }
+
+            $uh3 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 7)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uh3){
+                return ResponseFormatter::error('Ulangan Harian 3 Belum Diinputkan', 400);
+            }
+
+            $uh4 = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 8)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uh4){
+                return ResponseFormatter::error('Ulangan Harian 4 Belum Diinputkan', 400);
+            }
+
+            $uts = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 9)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uts){
+                return ResponseFormatter::error('Ulangan Tengah Semester Belum Diinputkan', 400);
+            }
+
+            $uas = Penilaian::where('student_id', '=', $student)
+                        ->where('semester_id', '=', $semester)
+                        ->where('academic_year_id', '=', $academic)
+                        ->where('subject_id', '=', $subject)
+                        ->where('assessment_id', '=', 10)
+                        ->where('status', '=', 'default')
+                        ->first([
+                            "nilai"
+                        ]);
+
+            if(!$uas){
+                return ResponseFormatter::error('Ulangan Akhir Semester Belum Diinputkan', 400);
+            }
+
+            $nilai = ((($uh1->nilai + $uh2->nilai + $uh3->nilai + $uh4->nilai) / 4) * (20/100)) +
+                    ((($tugas1->nilai + $tugas2->nilai + $tugas3->nilai + $tugas4->nilai) / 4) * (10/100)) +
+                    ($uts->nilai * (30/100)) + ($uas->nilai * (40/100));
+
+            $editPenilaian = Penilaian::where('student_id', '=', $student)
+                            ->where('semester_id', '=', $semester)
+                            ->where('subject_id', '=', $subject)
+                            ->where('academic_year_id', '=', $academic)
+                            ->update($edit);
+
+            $addNilai = Rapor::create([
+                "student_id" => $student,
+                "subject_id" => $subject,
+                "nilai_fix" => $nilai
+            ]);
+
+            return ResponseFormatter::success([], 'Update Rapor Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
@@ -218,12 +213,12 @@ class AssessmentController extends Controller
         }
     }
 
-    public function getAcademic()
+    public function getAcademicById($academic)
     {
         try{
-            $academic = AcademicYears::get();
+            $academicYear = AcademicYears::where('academic_year_id', '=', $academic)->first();
 
-            $response = $academic;
+            $response = $academicYear;
 
             return ResponseFormatter::success($response, 'Get Academic Year Success');
         }catch (Exception $e) {
@@ -234,51 +229,10 @@ class AssessmentController extends Controller
         }
     }
 
-    public function getGradeForStudent()
+    public function getFixNilai($student, $grade, $semester, $academic, $subject)
     {
         try{
-            $user = Auth::user();
-            $student = Student::where('user_id', '=', $user->id)->first();
-            $grade = StudentGrade::join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get([
-                        'grades.grade_id',
-                        'grades.grade_name'
-                    ]);
-
-            $response = $grade;
-
-            return ResponseFormatter::success($response, 'Get Grade Success');
-        }catch (Exception $e) {
-            $response = [
-                'errors' => $e->getMessage(),
-            ];
-            return ResponseFormatter::error($response, 'Something went wrong', 500);
-        }
-    }
-
-    public function getHistoryPenilaian($grade, $semester, $academic, $subject)
-    {
-        try{
-            $user = Auth::user();
-            $student = Student::where('user_id', '=', $user->id)->first();
-
-            $mapel = Penilaian::join('subjects', 'penilaians.subject_id', '=', 'subjects.subject_id')
-                        ->join('lesson_schedules', 'subjects.subject_id', '=', 'lesson_schedules.subject_id')
-                        ->join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                        ->where('penilaians.student_id', '=', $student->student_id)
-                        ->where('penilaians.grade_id', '=', $grade)
-                        ->where('penilaians.semester_id', '=', $semester)
-                        ->where('penilaians.academic_year_id', '=', $academic)
-                        ->where('penilaians.subject_id', '=', $subject)
-                        ->whereIn('penilaians.status', ['default', 'rpk'])
-                        ->first([
-                            "first_name",
-                            "last_name",
-                            "subject_name"
-                        ]);
-
-            $tugas1 = Penilaian::where('student_id', '=', $student->student_id)
+            $tugas1 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -304,12 +258,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $tugas2 = Penilaian::where('student_id', '=', $student->student_id)
+            $tugas2 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -335,12 +290,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $tugas3 = Penilaian::where('student_id', '=', $student->student_id)
+            $tugas3 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -366,12 +322,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $tugas4 = Penilaian::where('student_id', '=', $student->student_id)
+            $tugas4 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -397,12 +354,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uh1 = Penilaian::where('student_id', '=', $student->student_id)
+            $uh1 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -428,12 +386,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uh2 = Penilaian::where('student_id', '=', $student->student_id)
+            $uh2 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -459,12 +418,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uh3 = Penilaian::where('student_id', '=', $student->student_id)
+            $uh3 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -490,12 +450,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uh4 = Penilaian::where('student_id', '=', $student->student_id)
+            $uh4 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -521,12 +482,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uts = Penilaian::where('student_id', '=', $student->student_id)
+            $uts = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -552,12 +514,13 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
             }
 
-            $uas = Penilaian::where('student_id', '=', $student->student_id)
+            $uas = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
                         ->where('academic_year_id', '=', $academic)
@@ -583,29 +546,29 @@ class AssessmentController extends Controller
                     "nilaiUH4" => 0,
                     "nilaiUTS" => 0,
                     "nilaiUAS" => 0,
+                    "nilaiFix" => 0
+                ];
+                return ResponseFormatter::success($response, 'Get History Success');
+            }
+            $nilai = ((($uh1->nilai + $uh2->nilai + $uh3->nilai + $uh4->nilai) / 4) * (20/100)) +
+                    ((($tugas1->nilai + $tugas2->nilai + $tugas3->nilai + $tugas4->nilai) / 4) * (10/100)) +
+                    ($uts->nilai * (30/100)) + ($uas->nilai * (40/100));
+
+                $response = [
+                    "nilaiTugas1" => $tugas1->nilai,
+                    "nilaiTugas2" => $tugas2->nilai,
+                    "nilaiTugas3" => $tugas3->nilai,
+                    "nilaiTugas4" => $tugas4->nilai,
+                    "nilaiUH1" => $uh1->nilai,
+                    "nilaiUH2" => $uh2->nilai,
+                    "nilaiUH3" => $uh3->nilai,
+                    "nilaiUH4" => $uh4->nilai,
+                    "nilaiUTS" => $uts->nilai,
+                    "nilaiUAS" => $uas->nilai,
+                    "nilaiFix" => $nilai
                 ];
 
                 return ResponseFormatter::success($response, 'Get History Success');
-            }
-
-            $response = [
-                "firstName" => $mapel->first_name,
-                "lastName" => $mapel->last_name,
-                "mapel" => $mapel->subject_name,
-                "nilaiTugas1" => $tugas1->nilai,
-                "nilaiTugas2" => $tugas2->nilai,
-                "nilaiTugas3" => $tugas3->nilai,
-                "nilaiTugas4" => $tugas4->nilai,
-                "nilaiUH1" => $uh1->nilai,
-                "nilaiUH2" => $uh2->nilai,
-                "nilaiUH3" => $uh3->nilai,
-                "nilaiUH4" => $uh4->nilai,
-                "nilaiUTS" => $uts->nilai,
-                "nilaiUAS" => $uas->nilai,
-            ];
-
-            return ResponseFormatter::success($response, 'Get History Success');
-
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
