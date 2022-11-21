@@ -232,6 +232,22 @@ class RaporController extends Controller
     public function getFixNilai($student, $grade, $semester, $academic, $subject)
     {
         try{
+
+            $mapel = Penilaian::join('subjects', 'penilaians.subject_id', '=', 'subjects.subject_id')
+                        ->join('lesson_schedules', 'subjects.subject_id', '=', 'lesson_schedules.subject_id')
+                        ->join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('penilaians.student_id', '=', $student)
+                        ->where('penilaians.grade_id', '=', $grade)
+                        ->where('penilaians.semester_id', '=', $semester)
+                        ->where('penilaians.academic_year_id', '=', $academic)
+                        ->where('penilaians.subject_id', '=', $subject)
+                        ->whereIn('penilaians.status', ['default', 'rpk'])
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "subject_name"
+                        ]);
+
             $tugas1 = Penilaian::where('student_id', '=', $student)
                         ->where('grade_id', '=', $grade)
                         ->where('semester_id', '=', $semester)
@@ -555,6 +571,9 @@ class RaporController extends Controller
                     ($uts->nilai * (30/100)) + ($uas->nilai * (40/100));
 
                 $response = [
+                    "firstName" => $mapel->first_name,
+                    "lastName" => $mapel->last_name,
+                    "mapel" => $mapel->subject_name,
                     "nilaiTugas1" => $tugas1->nilai,
                     "nilaiTugas2" => $tugas2->nilai,
                     "nilaiTugas3" => $tugas3->nilai,
