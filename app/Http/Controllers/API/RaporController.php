@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Penilaian;
 use App\Models\StudentGrade;
 use App\Models\AcademicYears;
+use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Rapor;
 use App\Models\Grade;
 use App\Helpers\ResponseFormatter;
@@ -203,6 +205,8 @@ class RaporController extends Controller
                 "student_id" => $student,
                 "subject_id" => $subject,
                 "grade_id" => $grade,
+                "semester_id" => $semester,
+                "academic_year_id" => $academic,
                 "nilai_fix" => $nilai,
                 "status" => "default"
             ]);
@@ -624,6 +628,47 @@ class RaporController extends Controller
                     ->update($edit);
 
             return ResponseFormatter::success([], 'Approve Nilai Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getRapor($grade, $semester, $academic)
+    {
+        try{
+            $user = Auth::user();
+            $student = Student::where('user_id', '=', $user->id)->first();
+            $rapor = Rapor::join('subjects', 'rapors.subject_id', 'subjects.subject_id')
+                    ->where('student_id', '=', $student->student_id)
+                    ->where('grade_id', '=', $grade)
+                    ->where('semester_id', '=', $semester)
+                    ->where('academic_year_id', '=', $academic)
+                    ->where('rapors.status', '=', 'rkk')
+                    ->get([
+                        "subject_name",
+                        "nilai_fix"
+                    ]);
+
+            foreach($rapor as $r){
+                if($r->nilai_fix < 75){
+                    $response = [
+                        "status" => "Tidak",
+                        "nilai" => $rapor
+                    ];
+
+                    return ResponseFormatter::success($response, 'Get Rapor Success');
+                }
+            }
+
+            $response = [
+                    "status" => "naik",
+                    "nilai" => $rapor
+                ];
+
+            return ResponseFormatter::success($response, 'Get Rapor Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
