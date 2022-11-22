@@ -606,7 +606,9 @@ class RaporController extends Controller
     public function getNilaiForConfirm()
     {
         try{
-            $nilai = Grade::get();
+            $nilai = Grade::join('penilaians', 'grades.grade_id', 'penilaians.grade_id')
+                    ->where('status', '=', 'rpk')
+                    ->get();
 
             $response = $nilai;
 
@@ -624,8 +626,17 @@ class RaporController extends Controller
             $edit = [
                 "status" => "rkk"
             ];
+
+            $editPenilaian = [
+                "status" => "rkk"
+            ];
+
             $nilai = Rapor::where('grade_id', '=', $grade)
                     ->update($edit);
+
+            $nilai = Penilaian::where('grade_id', '=', $grade)
+                    ->update($editPenilaian);
+
 
             return ResponseFormatter::success([], 'Approve Nilai Success');
         }catch (Exception $e) {

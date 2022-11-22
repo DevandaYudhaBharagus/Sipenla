@@ -7,7 +7,9 @@ use App\Models\Employee;
 use App\Models\LeaveApplication;
 use App\Models\OfficialDuty;
 use App\Models\Attendance;
+use App\Models\StudentAttendance;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 use App\Helpers\ResponseFormatter;
 use App\Http\Controllers\Controller;
 
@@ -247,4 +249,212 @@ class StudentController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
         }
     }
+
+    public function historySubjectAll($student)
+    {
+        try{
+            $attendance = StudentAttendance::join('subjects', 'student_attendances.subject_id', '=', 'subjects.subject_id')
+                        ->where('student_id', '=', $student)
+                        ->get([
+                            'student_attendance_id',
+                            'student_attendances.grade_id',
+                            'student_attendances.student_id',
+                            'student_attendances.subject_id',
+                            'student_attendances.teacher_id',
+                            'student_attendances.date',
+                            'student_attendances.status',
+                            'student_attendances.created_at',
+                            'student_attendances.updated_at',
+                            'subjects.subject_name',
+                        ]);
+
+            foreach ($attendance as $att) {
+                $time = $att->created_at;
+                $test2 = Carbon::parse($time)->format('H:i:s');
+                $att->waktu = $test2;
+            }
+
+            $response =  $attendance;
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function historyAttendanceMapelByWeek($student)
+    {
+        try{
+            $attendance = StudentAttendance::where('student_id', '=', $student)
+                        ->orderBy('created_at', 'asc')
+                        ->get();
+
+            $week = [];
+
+            foreach ($attendance as $att) {
+                $x = Carbon::parse($att->date)->format('W');
+                array_push($week, (object)["week"=>$x, "slider"=>1]);
+            }
+
+            $unique = collect($week)->unique('week')->values()->all();
+
+            $response = $unique;
+
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function statisticMapel($student)
+    {
+        try{
+
+            $attend = StudentAttendance::where('student_id', '=', $student)
+                        ->where('status', '=', 'mas')
+                        ->count();
+
+            $absence = StudentAttendance::where('student_id', '=', $student)
+                        ->where('status', '=', 'mes')
+                        ->count();
+
+            $sick = StudentAttendance::where('student_id', '=', $student)
+                        ->where('status', '=', 'mss')
+                        ->count();
+
+            $izin = StudentAttendance::where('student_id', '=', $student)
+                        ->where('status', '=', 'mls')
+                        ->count();
+
+            $days_work = 120;
+            $days_presence_percentages = ($attend / $days_work) * 100;
+            $days_absent_percentages = ($absence / $days_work) * 100;
+            $days_leave_percentages = ($sick / $days_work) * 100;
+            $days_duty_percentages = ($izin / $days_work) * 100;
+
+            $fixAttend = round($days_presence_percentages, 0);
+            $fixAbsence = round($days_absent_percentages, 0);
+            $fixLeave = round($days_leave_percentages, 0);
+            $fixDuty = round($days_duty_percentages, 0);
+
+            $response = [
+                "attend" => "$fixAttend",
+                "absence" => "$fixAbsence",
+                "sick" => "$fixLeave",
+                "izin" => "$fixDuty"
+            ];
+            return ResponseFormatter::success($response, 'Get Attendance Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getStudent($student)
+    {
+        try{
+            $student = Student::where('student_id', '=', $student)->first();
+            if(!$student){
+                return ResponseFormatter::error('Not Found', 404);
+            }
+            $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
+            $dateSchool = ($student->date_school_now !== null) ? date('d F Y', strtotime($student->date_school_now)) : '';
+            $student->date_of_birth = $date;
+            $student->date_school_now = $dateSchool;
+            $response = [
+                'student_id' => $student->student_id,
+                'user_id' => $student->user_id,
+                'nisn' => $student->nisn,
+                'nik' => $student->nik,
+                'first_name' => $student->first_name,
+                'last_name' => $student->last_name,
+                'mother_name' => $student->mother_name,
+                'father_name' => $student->father_name,
+                'gender' => $student->gender,
+                'phone' => $student->phone,
+                'place_of_birth' => $student->place_of_birth,
+                'date_of_birth' => $student->date_of_birth,
+                'date_school_now' => $student->date_school_now,
+                'address' => $student->address,
+                'religion' => $student->religion,
+                'school_origin' => $student->school_origin,
+                'school_now' => $student->school_now,
+                'parent_address' => $student->parent_address,
+                'mother_profession' => $student->mother_profession,
+                'father_profession' => $student->father_profession,
+                'father_education' => $student->father_education,
+                'mother_education' => $student->mother_education,
+                'family_name' => $student->family_name,
+                'family_address' => $student->family_address,
+                'family_profession' => $student->family_profession,
+                'image' => $student->image
+            ];
+
+            return ResponseFormatter::success($response, 'Get Student');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    // public function getRapor($grade, $semester, $academic, $student)
+    // {
+    //     try{
+    //         $rapor = Rapor::join('subjects', 'rapors.subject_id', 'subjects.subject_id')
+    //                 ->where('student_id', '=', $student)
+    //                 ->where('grade_id', '=', $grade)
+    //                 ->where('semester_id', '=', $semester)
+    //                 ->where('academic_year_id', '=', $academic)
+    //                 ->where('rapors.status', '=', 'rkk')
+    //                 ->get([
+    //                     "subject_name",
+    //                     "nilai_fix"
+    //                 ]);
+
+    //         if(count($rapor)<=0){
+    //             $response = [
+    //                 "status" => "-",
+    //                 "nilai" => []
+    //             ];
+
+    //             return ResponseFormatter::success($response, 'Get Rapor Success');
+    //         }
+
+    //         foreach($rapor as $r){
+    //             if($r->nilai_fix < 75){
+    //                 $response = [
+    //                     "status" => "Tidak",
+    //                     "nilai" => $rapor
+    //                 ];
+
+    //                 return ResponseFormatter::success($response, 'Get Rapor Success');
+    //             }
+    //         }
+
+    //         $response = [
+    //                 "status" => "naik",
+    //                 "nilai" => $rapor
+    //             ];
+
+    //         return ResponseFormatter::success($response, 'Get Rapor Success');
+    //     }catch (Exception $e) {
+    //         $response = [
+    //             'errors' => $e->getMessage(),
+    //         ];
+    //         return ResponseFormatter::error($response, 'Something went wrong', 500);
+    //     }
+    // }
 }
