@@ -606,9 +606,13 @@ class RaporController extends Controller
     public function getNilaiForConfirm()
     {
         try{
-            $nilai = Grade::join('penilaians', 'grades.grade_id', 'penilaians.grade_id')
+            $nilai = Penilaian::join('grades', 'penilaians.grade_id', 'grades.grade_id')
                     ->where('status', '=', 'rpk')
-                    ->get();
+                    ->groupBy('penilaians.grade_id')
+                    ->get([
+                        "penilaians.grade_id",
+                        "grade_name"
+                    ]);
 
             $response = $nilai;
 
