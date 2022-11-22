@@ -166,5 +166,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getnilai/{student}/{grade}/{semester}/{academic}/{subject}', [RaporController::class, 'getFixNilai']);
         Route::get('/getgrade', [RaporController::class, 'getNilaiForConfirm']);
         Route::post('/editrapor/{grade}', [RaporController::class, 'updateStatusKepsek']);
+        Route::get('/getraporbyuser/{grade}/{semester}/{academic}', [RaporController::class, 'getRapor']);
     });
 });
