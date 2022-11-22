@@ -685,4 +685,42 @@ class RaporController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getStudentForKepsek($grade)
+    {
+        try{
+            $nilai = StudentGrade::join('students', 'student_grades.student_id', '=', 'students.student_id')
+                    ->join('rapors', 'student_grades.student_id', '=', 'rapors.student_id')
+                    ->where('student_grades.grade_id', '=', $grade)
+                    ->get([
+                        "first_name",
+                        "last_name",
+                        "nisn",
+                        "status"
+                    ]);
+
+            $fix = [];
+
+            foreach ($nilai as $n) {
+                if($n->status === "default"){
+                    $fix1 = [];
+                    array_push($fix1, (object)["Student"=>$n, "statusConfirm" => "BelumTerkonfirmasi"]);
+
+                    $response = $fix1;
+
+                    return ResponseFormatter::success($response, 'Get Student Success');
+                }
+                array_push($fix, (object)["Student"=>$n, "statusConfirm" => "sudahTerkonfirmasi"]);
+            }
+
+            $response = $fix;
+
+            return ResponseFormatter::success($response, 'Get Student Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
