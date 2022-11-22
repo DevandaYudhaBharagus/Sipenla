@@ -179,6 +179,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/history/{employee}', [StudentController::class, 'historyAttendance']);
         Route::get('/historyall/{employee}', [StudentController::class, 'historyAll']);
         Route::get('/statistic/{employee}', [StudentController::class, 'statistic']);
-        Route::get('/getemployee/{employee}', [AdmissionController::class, 'getEmployee']);
+        Route::get('/getemployee/{employee}', [StudentController::class, 'getEmployee']);
+        Route::get('/getsubjectall/{student}', [StudentController::class, 'historySubjectAll']);
+        Route::get('/historymapel/{student}', [StudentController::class, 'historyAttendanceMapelByWeek']);
+        Route::get('/statisticmapel/{student}', [StudentController::class, 'statisticMapel']);
+        Route::get('/getstudentbyid/{student}', [StudentController::class, 'getStudent']);
     });
 });
