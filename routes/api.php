@@ -13,6 +13,7 @@ use App\Http\Controllers\API\MonitoringController;
 use App\Http\Controllers\API\FacilityController;
 use App\Http\Controllers\API\AssessmentController;
 use App\Http\Controllers\API\RaporController;
+use App\Http\Controllers\API\StudentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -167,5 +168,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getgrade', [RaporController::class, 'getNilaiForConfirm']);
         Route::post('/editrapor/{grade}', [RaporController::class, 'updateStatusKepsek']);
         Route::get('/getraporbyuser/{grade}/{semester}/{academic}', [RaporController::class, 'getRapor']);
+        Route::get('/getstudentbykepsek/{grade}', [RaporController::class, 'getStudentForKepsek']);
+    });
+
+    Route::prefix('data')->group(function () {
+        Route::get('/getstudent', [StudentController::class, 'getDataStudent']);
+        Route::get('/getemployee', [StudentController::class, 'getDataEmployee']);
     });
 });
