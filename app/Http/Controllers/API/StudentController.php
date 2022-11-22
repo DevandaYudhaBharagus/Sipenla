@@ -6,6 +6,7 @@ use App\Models\Student;
 use App\Models\Employee;
 use App\Models\LeaveApplication;
 use App\Models\OfficialDuty;
+use App\Models\Rapor;
 use App\Models\Attendance;
 use App\Models\StudentAttendance;
 use Illuminate\Http\Request;
@@ -410,51 +411,48 @@ class StudentController extends Controller
         }
     }
 
-    // public function getRapor($grade, $semester, $academic, $student)
-    // {
-    //     try{
-    //         $rapor = Rapor::join('subjects', 'rapors.subject_id', 'subjects.subject_id')
-    //                 ->where('student_id', '=', $student)
-    //                 ->where('grade_id', '=', $grade)
-    //                 ->where('semester_id', '=', $semester)
-    //                 ->where('academic_year_id', '=', $academic)
-    //                 ->where('rapors.status', '=', 'rkk')
-    //                 ->get([
-    //                     "subject_name",
-    //                     "nilai_fix"
-    //                 ]);
+    public function getRapor($student)
+    {
+        try{
+            $rapor = Rapor::join('subjects', 'rapors.subject_id', 'subjects.subject_id')
+                    ->where('student_id', '=', $student)
+                    ->where('rapors.status', '=', 'rkk')
+                    ->latest("rapors.created_at")
+                    ->get([
+                        "subject_name",
+                        "nilai_fix"
+                    ]);
+            if(is_null($rapor)){
+                $response = [
+                    "status" => "-",
+                    "nilai" => []
+                ];
 
-    //         if(count($rapor)<=0){
-    //             $response = [
-    //                 "status" => "-",
-    //                 "nilai" => []
-    //             ];
+                return ResponseFormatter::success($response, 'Get Rapor Success');
+            }
 
-    //             return ResponseFormatter::success($response, 'Get Rapor Success');
-    //         }
+            foreach($rapor as $r){
+                if($r->nilai_fix < 75){
+                    $response = [
+                        "status" => "Tidak",
+                        "nilai" => $rapor
+                    ];
 
-    //         foreach($rapor as $r){
-    //             if($r->nilai_fix < 75){
-    //                 $response = [
-    //                     "status" => "Tidak",
-    //                     "nilai" => $rapor
-    //                 ];
+                    return ResponseFormatter::success($response, 'Get Rapor Success');
+                }
+            }
 
-    //                 return ResponseFormatter::success($response, 'Get Rapor Success');
-    //             }
-    //         }
+            $response = [
+                    "status" => "naik",
+                    "nilai" => $rapor
+                ];
 
-    //         $response = [
-    //                 "status" => "naik",
-    //                 "nilai" => $rapor
-    //             ];
-
-    //         return ResponseFormatter::success($response, 'Get Rapor Success');
-    //     }catch (Exception $e) {
-    //         $response = [
-    //             'errors' => $e->getMessage(),
-    //         ];
-    //         return ResponseFormatter::error($response, 'Something went wrong', 500);
-    //     }
-    // }
+            return ResponseFormatter::success($response, 'Get Rapor Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }

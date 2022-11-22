@@ -184,5 +184,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historymapel/{student}', [StudentController::class, 'historyAttendanceMapelByWeek']);
         Route::get('/statisticmapel/{student}', [StudentController::class, 'statisticMapel']);
         Route::get('/getstudentbyid/{student}', [StudentController::class, 'getStudent']);
+        Route::get('/getraporbyuser/{student}', [StudentController::class, 'getRapor']);
     });
 });
