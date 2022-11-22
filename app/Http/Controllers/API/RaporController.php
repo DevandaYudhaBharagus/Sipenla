@@ -652,6 +652,15 @@ class RaporController extends Controller
                         "nilai_fix"
                     ]);
 
+            if(count($rapor)<=0){
+                $response = [
+                    "status" => "-",
+                    "nilai" => []
+                ];
+
+                return ResponseFormatter::success($response, 'Get Rapor Success');
+            }
+
             foreach($rapor as $r){
                 if($r->nilai_fix < 75){
                     $response = [
