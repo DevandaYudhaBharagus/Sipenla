@@ -169,7 +169,7 @@ class StudentController extends Controller
         try{
 
             $attend = Attendance::where('employee_id', '=', $employee)
-                        ->where('status', '=', 'ac')
+                        ->where('status', '=', 'ace')
                         ->count();
 
             $absence = Attendance::where('employee_id', '=', $employee)
@@ -417,11 +417,27 @@ class StudentController extends Controller
             $rapor = Rapor::join('subjects', 'rapors.subject_id', 'subjects.subject_id')
                     ->where('student_id', '=', $student)
                     ->where('rapors.status', '=', 'rkk')
-                    ->latest("rapors.created_at")
+                    ->whereDate('rapors.created_at','>', Carbon::now()->subYear())
                     ->get([
                         "subject_name",
                         "nilai_fix"
                     ]);
+
+            $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+                        ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                        ->join('rapors', 'students.student_id', '=', 'rapors.student_id')
+                        ->join('semesters', 'rapors.semester_id', '=', 'semesters.semester_id')
+                        ->join('academic_years', 'rapors.academic_year_id', '=', 'academic_years.academic_year_id')
+                        ->where('students.student_id', '=', $student)
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "nisn",
+                            "grade_name",
+                            "semester_name",
+                            "academic_year"
+                        ]);
+
             if(is_null($rapor)){
                 $response = [
                     "status" => "-",
@@ -443,6 +459,12 @@ class StudentController extends Controller
             }
 
             $response = [
+                    "first_name" => $student->first_name,
+                    "last_name" => $student->last_name,
+                    "nisn" => $student->nisn,
+                    "grade_name" => $student->grade_name,
+                    "semester_name" => $student->semester_name,
+                    "academic_year" => $student->academic_year,
                     "status" => "naik",
                     "nilai" => $rapor
                 ];
