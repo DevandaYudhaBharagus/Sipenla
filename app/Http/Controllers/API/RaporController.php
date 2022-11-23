@@ -11,6 +11,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Rapor;
 use App\Models\Grade;
+use App\Models\PenilaianExtra;
 use App\Helpers\ResponseFormatter;
 
 class RaporController extends Controller
@@ -667,10 +668,18 @@ class RaporController extends Controller
                         "nilai_fix"
                     ]);
 
+            $extra = PenilaianExtra::join('extracurriculars', 'penilaian_extras.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                    ->where('student_id', '=', $student->student_id)
+                    ->get([
+                        "extracurricular_name",
+                        "nilai",
+                    ]);
+
             if(count($rapor)<=0){
                 $response = [
                     "status" => "-",
-                    "nilai" => []
+                    "nilai" => [],
+                    "extra" => []
                 ];
 
                 return ResponseFormatter::success($response, 'Get Rapor Success');
@@ -680,7 +689,8 @@ class RaporController extends Controller
                 if($r->nilai_fix < 75){
                     $response = [
                         "status" => "Tidak",
-                        "nilai" => $rapor
+                        "nilai" => $rapor,
+                        "extra" => $extra
                     ];
 
                     return ResponseFormatter::success($response, 'Get Rapor Success');
@@ -689,7 +699,8 @@ class RaporController extends Controller
 
             $response = [
                     "status" => "naik",
-                    "nilai" => $rapor
+                    "nilai" => $rapor,
+                    "extra" => $extra
                 ];
 
             return ResponseFormatter::success($response, 'Get Rapor Success');

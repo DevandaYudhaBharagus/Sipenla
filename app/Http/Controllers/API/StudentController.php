@@ -423,6 +423,13 @@ class StudentController extends Controller
                         "nilai_fix"
                     ]);
 
+            $extra = PenilaianExtra::join('extracurriculars', 'penilaian_extras.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                    ->where('student_id', '=', $student)
+                    ->get([
+                        "extracurricular_name",
+                        "nilai",
+                    ]);
+
             $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
                         ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
                         ->join('rapors', 'students.student_id', '=', 'rapors.student_id')
@@ -441,7 +448,8 @@ class StudentController extends Controller
             if(is_null($rapor)){
                 $response = [
                     "status" => "-",
-                    "nilai" => []
+                    "nilai" => [],
+                    "extra" => []
                 ];
 
                 return ResponseFormatter::success($response, 'Get Rapor Success');
@@ -451,7 +459,8 @@ class StudentController extends Controller
                 if($r->nilai_fix < 75){
                     $response = [
                         "status" => "Tidak",
-                        "nilai" => $rapor
+                        "nilai" => $rapor,
+                        "extra" => $extra
                     ];
 
                     return ResponseFormatter::success($response, 'Get Rapor Success');
@@ -466,7 +475,8 @@ class StudentController extends Controller
                     "semester_name" => $student->semester_name,
                     "academic_year" => $student->academic_year,
                     "status" => "naik",
-                    "nilai" => $rapor
+                    "nilai" => $rapor,
+                    "extra" => $extra
                 ];
 
             return ResponseFormatter::success($response, 'Get Rapor Success');
