@@ -426,6 +426,7 @@ class StudentController extends Controller
 
             $extra = PenilaianExtra::join('extracurriculars', 'penilaian_extras.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
                     ->where('student_id', '=', $student)
+                    ->whereDate('penilaian_extras.created_at','>', Carbon::now()->subYear())
                     ->get([
                         "extracurricular_name",
                         "nilai",
