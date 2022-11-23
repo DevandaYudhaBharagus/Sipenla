@@ -738,4 +738,50 @@ class RaporController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getHistoryWaliKelas()
+    {
+        try{
+            $history = Rapor::join('students', 'rapors.student_id', '=', 'students.student_id')
+                        ->where('rapors.status', '=', 'rkk')
+                        ->get([
+                            "student_id",
+                            "first_name",
+                            "last_name",
+                            "nisn",
+                            "status",
+                        ]);
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getHistoryKepsek()
+    {
+        try{
+            $nilai = Penilaian::join('grades', 'penilaians.grade_id', 'grades.grade_id')
+                    ->join('semesters', 'penilaians.semester_id', '=', 'semesters.semester_id')
+                    ->join('academic_years', 'penilaians.academic_year_id', '=', 'academic_years.academic_year_id')
+                    ->where('status', '=', 'rkk')
+                    ->groupBy('penilaians.grade_id')
+                    ->get([
+                        "grade_name",
+                        "semester_name",
+                        "academic_year",
+                        "status"
+                    ]);
+
+            $response = $nilai;
+
+            return ResponseFormatter::success($response, 'Get History Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }

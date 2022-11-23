@@ -169,6 +169,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/editrapor/{grade}', [RaporController::class, 'updateStatusKepsek']);
         Route::get('/getraporbyuser/{grade}/{semester}/{academic}', [RaporController::class, 'getRapor']);
         Route::get('/getstudentbykepsek/{grade}', [RaporController::class, 'getStudentForKepsek']);
+        Route::get('/gethistorykepsek', [RaporController::class, 'getHistoryKepsek']);
     });
 
     Route::prefix('data')->group(function () {
