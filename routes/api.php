@@ -14,6 +14,7 @@ use App\Http\Controllers\API\FacilityController;
 use App\Http\Controllers\API\AssessmentController;
 use App\Http\Controllers\API\RaporController;
 use App\Http\Controllers\API\StudentController;
+use App\Http\Controllers\API\ExtraAssessmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,5 +187,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/statisticmapel/{student}', [StudentController::class, 'statisticMapel']);
         Route::get('/getstudentbyid/{student}', [StudentController::class, 'getStudent']);
         Route::get('/getraporbyuser/{student}', [StudentController::class, 'getRapor']);
+    });
+
+    Route::prefix('assessmentextra')->group(function () {
+        Route::get('/getstudent', [ExtraAssessmentController::class, 'getStudent']);
+        Route::post('/addpenilaian', [ExtraAssessmentController::class, 'addPenilaian']);
+        Route::post('/updatepenilaian/{id}', [ExtraAssessmentController::class, 'editPenilaian']);
     });
 });
