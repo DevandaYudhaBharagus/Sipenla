@@ -174,7 +174,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('data')->group(function () {
         Route::get('/getstudent', [StudentController::class, 'getDataStudent']);
         Route::get('/getstudent/{student}', [StudentController::class, 'getDataStudentByName']);
-        Route::get('/getemployee/{employee}', [StudentController::class, 'getDataEmployeeByName']);
+        Route::get('/getemployeebyname/{employee}', [StudentController::class, 'getDataEmployeeByName']);
         Route::get('/getemployee', [StudentController::class, 'getDataEmployee']);
         Route::get('/history/{employee}', [StudentController::class, 'historyAttendance']);
         Route::get('/historyall/{employee}', [StudentController::class, 'historyAll']);
