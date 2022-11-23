@@ -8,6 +8,7 @@ use App\Models\LeaveApplication;
 use App\Models\OfficialDuty;
 use App\Models\Rapor;
 use App\Models\Attendance;
+use App\Models\PenilaianExtra;
 use App\Models\StudentAttendance;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
