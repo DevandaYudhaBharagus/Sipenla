@@ -87,196 +87,56 @@
             <div class="row" data-aos="fade-up">
                 <div class="col-12">
                     <h6 class="text-category">Kategori</h6>
+                        <h6 class="text-category"> Role :  {{ Auth::User()->role }}</h6>
                 </div>
             </div>
-            <div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">
-                <div class="col-md-3 col-6 mb-3">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/absen.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Absensi</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/monitoring.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Monitoring</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/registrasi.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Registrasi</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/perpustakaan.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Perpustakaan</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="200">
-                <div class="col-md-3 col-6 mb-3">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/jadwal.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Jadwal</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/koperasi.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Koperasi</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/siswa.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Data Siswa</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/mutasi.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Mutasi</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="300">
-                <div class="col-md-3 col-6 mb-3">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/penilaian.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Penilaian</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/fasilitas.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Fasilitas</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/data-pegawai.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Data Pegawai</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/siswa-baru.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Penerimaan Siswa Baru</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-            <div class="row mb-3" data-aos="fade-up" data-aos-delay="400">
-                <div class="col-md-3 col-6 mb-3">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/rapot.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Rapor</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/kantin.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Kantin</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 col-6">
-                    <a href="">
-                        <div class="card-category">
-                            <div class="card-body-category">
-                                <div class="card-image">
-                                    <img src="{{ asset('images/internal-images/keuangan.png') }}" alt="" />
-                                </div>
-                                <div class="card-text">Laporan Keuangan</div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
+                @if (Auth::User()->role == 'admin')
+                    @include('pages.dashboard.kategori.admin')
+                @endif
+                
+                @if (Auth::User()->role == 'guru')
+                    @include('pages.dashboard.kategori.guru')
+                @endif
+               
+                @if (Auth::User()->role == 'kepsek')
+                    @include('pages.dashboard.kategori.kepalasekolah')
+                @endif
+
+                @if (Auth::User()->role == 'tu')
+                    @include('pages.dashboard.kategori.tu')
+                @endif
+                
+                @if (Auth::User()->role == 'walimurid')
+                    @include('pages.dashboard.kategori.walimurid')
+                @endif
+
+                @if (Auth::User()->role == 'perpus')
+                    @include('pages.dashboard.kategori.perpus')
+                @endif
+
+                @if (Auth::User()->role == 'pengawassekolah')
+                    @include('pages.dashboard.kategori.pengawas')
+                @endif
+                
+                @if (Auth::User()->role == 'pegawaikoperasi')
+                    @include('pages.dashboard.kategori.koperasi')
+                @endif
+                
+                @if (Auth::User()->role == 'pegawaikantin')
+                    @include('pages.dashboard.kategori.kantin')
+                @endif
+                
+                @if (Auth::User()->role == 'pembinaextra')
+                    @include('pages.dashboard.kategori.ekstra')
+                @endif
+                
+                @if (Auth::User()->role == 'dinaspendidikan')
+                    @include('pages.dashboard.kategori.dinaspendidikan')
+                @endif
+                
+                @if (Auth::User()->role == 'student')
+                    @include('pages.dashboard.kategori.siswa')
+                @endif
         </div>
     </section>
     <section class="announcement" data-aos="fade-up">
@@ -486,3 +346,4 @@
         AOS.init();
     </script>
 @endpush
+
