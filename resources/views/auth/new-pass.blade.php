@@ -18,15 +18,17 @@
                             Sandi Baru Anda Harus Berbeda Dari Sandi Yang Digunakan
                             Sebelumnya.
                         </div>
-                        <form action="">
+                        <form action="{{ route('resetpass') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="token" value="{{ $fix }}">
                             <div class="form-forgot">
-                                <input type="password" name="" id="password" placeholder="Sandi Baru" />
+                                <input type="password" name="password" id="password" placeholder="Sandi Baru" />
                                 <div class="icon-pass">
                                     <i class="material-icons" id="icon-forgot">visibility</i>
                                 </div>
                             </div>
                             <div class="form-forgot">
-                                <input type="password" name="" id="password" placeholder="Konfirmasi Sandi" />
+                                <input type="password" name="password_confirmation" id="password" placeholder="Konfirmasi Sandi" />
                                 <div class="icon-pass">
                                     <i class="material-icons" id="icon-forgot">visibility</i>
                                 </div>

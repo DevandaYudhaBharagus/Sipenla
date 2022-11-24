@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Student;
+use App\Models\LeaveBalance;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -126,6 +127,68 @@ class HomeController extends Controller
             'phone' => $data['phone'],
             'extracurricular_id' => 1,
             'image' => $image,
+        ]);
+
+        return redirect('/dashboard');
+    }
+
+    public function addEmployee(Request $request)
+    {
+        $user = Auth::user();
+        $data = $request->all();
+
+        $validate = Validator::make($data, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'nik' => 'required|unique:employees,nik|size:16',
+            'nuptk' => 'required|unique:employees,nuptk|size:16',
+            'npsn' => 'required|unique:employees,npsn|size:16',
+            'place_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'gender' => 'required',
+            'religion' => 'required',
+            'address' => 'required',
+            'education' => 'required',
+            'family_name' => 'required',
+            'family_address' => 'required',
+            'position' => 'required',
+            'phone' => 'required',
+            'workshift_id' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $image = $this->saveImage($request->profile_employee, "azure");
+
+        $employeeData = Employee::create([
+            'user_id' => $user->id,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'nik' => $data['nik'],
+            'nuptk' => $data['nuptk'],
+            'npsn' => $data['npsn'],
+            'place_of_birth' => $data['place_of_birth'],
+            'date_of_birth' => $data['date_of_birth'],
+            'gender' => $data['gender'],
+            'religion' => $data['religion'],
+            'address' => $data['address'],
+            'education' => $data['education'],
+            'family_name' => $data['family_name'],
+            'family_address' => $data['family_address'],
+            'position' => $data['position'],
+            'phone' => $data['phone'],
+            'company_id' => 1,
+            'workshift_id' => $data['workshift_id'],
+            "image" => $image,
+        ]);
+
+        $leaveBalance = LeaveBalance::create([
+            'employee_id' => $employeeData['employee_id'],
+            'total_balance' => 12
         ]);
 
         return redirect('/dashboard');

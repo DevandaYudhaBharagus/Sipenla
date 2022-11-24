@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ForgotPassController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -22,15 +23,6 @@ Route::get('/', function () {
 });
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
-});
-Route::get('/lupa-sandi', function() {
-    return view('pages.auth.lupa-sandi');
-});
-Route::get('/otp', function() {
-    return view('pages.auth.otp');
-});
-Route::get('/new-password', function() {
-    return view('pages.auth.new-pass');
 });
 Route::get('/news', function() {
     return view('pages.news.news');
@@ -68,11 +60,20 @@ Route::get('/master-guru', function(){
 
 Auth::routes();
 
+//Forgot Pass
+Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
+Route::get('/otp', [ForgotPassController::class, 'getOtp']);
+Route::post('/postotp', [ForgotPassController::class, 'postOtp'])->name('postotp');
+Route::post('/forgotpass', [ForgotPassController::class, 'postEmail'])->name('forgotpass');
+Route::post('/resetpass', [ForgotPassController::class, 'updatePass'])->name('resetpass');
+
+//Logout
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
+        Route::post('/formemployee', [HomeController::class, 'addEmployee'])->name('formemployee');
     });
 });

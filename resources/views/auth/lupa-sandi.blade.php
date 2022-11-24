@@ -6,7 +6,7 @@
     <div class="container">
         <div class="box-forgot">
             <div class="title-forgot">
-                <a href="" class="d-flex align-items-center">
+                <a href="{{ url('/login') }}" class="d-flex align-items-center">
                     <i class="material-icons">arrow_back</i>
                 </a>
                 Lupa Sandi
@@ -18,9 +18,10 @@
                             Silahkan Masukkan Alamat Email Anda Untuk Menerima Kode
                             Verifikasi
                         </div>
-                        <form action="">
+                        <form action="{{ route('forgotpass') }}" method="post">
+                            @csrf
                             <div class="form-forgot">
-                                <input type="email" name="" placeholder="Alamat Email" />
+                                <input type="email" name="email" placeholder="Alamat Email" />
                             </div>
                             <button class="btn-forgot">Kirim</button>
                         </form>
