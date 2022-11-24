@@ -23,12 +23,6 @@ Route::get('/', function () {
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
 });
-// Route::get('/login', function() {
-//     return view('pages.login');
-// });
-// Route::get('/dash', function() {
-//     return view('pages.dashboard.dashboard');
-// });
 Route::get('/lupa-sandi', function() {
     return view('pages.auth.lupa-sandi');
 });
@@ -71,9 +65,6 @@ Route::get('/master-sumbangan', function(){
 Route::get('/master-guru', function(){
     return view('pages.master.master-guru');
 });
-// Route::get('formulir', function(){
-//     return view('pages.siswa.formulir');
-// });
 
 Auth::routes();
 

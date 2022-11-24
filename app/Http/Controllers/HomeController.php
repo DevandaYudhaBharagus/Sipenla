@@ -45,18 +45,19 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if($user->role == "admin"){
-            $employee = Employee::where('user_id', '=', $user->id)->first();
-            if(!$employee){
-                return view('pages.dashboard.formulir-pegawai');
+        if($user->role == "student"){
+            $student = Student::where('user_id', '=', $user->id)->first();
+            if(!$student){
+                return view('pages.dashboard.formulir');
             }
             return view('pages.dashboard.dashboard');
         }
-        $student = Student::where('user_id', '=', $user->id)->first();
-        if(!$student){
-            return view('pages.dashboard.formulir');
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+        if(!$employee){
+            return view('pages.dashboard.formulir-pegawai');
         }
         return view('pages.dashboard.dashboard');
+
     }
 
     public function addStudent(Request $request)
