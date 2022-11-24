@@ -56,11 +56,26 @@ Route::get('/form-siswa', function() {
 Route::get('/form-pegawai', function() {
     return view('pages.dashboard.formulir-pegawai');
 });
+Route::get('/master-role', function(){
+    return view('pages.master.master-role');
+});
+Route::get('/master-perpus', function(){
+    return view('pages.master.master-perpustakaan');
+});
+Route::get('/master-kehilangan', function(){
+    return view('pages.master.master-buku-hilang');
+});
+Route::get('/master-sumbangan', function(){
+    return view('pages.master.master-buku-sumbangan');
+});
+Route::get('/master-guru', function(){
+    return view('pages.master.master-guru');
+});
 // Route::get('formulir', function(){
 //     return view('pages.siswa.formulir');
 // });
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
