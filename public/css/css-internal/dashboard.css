@@ -1,0 +1,1427 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+a {
+    text-decoration: none;
+}
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+} */
+:root {
+    --bg-white: #f1f1f1;
+    --bg-gradian: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    --text-color: #4b556b;
+    --bg-text: linear-gradient(180deg, #ededed 0%, #f9f9f9 100%);
+    --bg-secondary: #f9f9f9;
+    --bg-onlywhite: #ffffff;
+    --bg-button-primary: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+}
+body {
+    background-color: var(--bg-white);
+}
+.navbar {
+    background: var(--bg-gradian);
+    padding: 5px 0;
+}
+.navbar .navbar-brand {
+    background: var(--bg-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    font-style: bold;
+    font-size: 18px;
+}
+
+.navbar .navbar-nav .nav-item {
+    padding: 0 10px;
+}
+.navbar .navbar-nav .nav-item a {
+    background: var(--bg-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+    font-size: 14px;
+}
+.navbar .navbar-nav .nav-item .nav-link.active {
+    font-weight: 700;
+    font-style: bold;
+    font-size: 16px;
+}
+.navbar .navbar-nav .nav-item a:hover {
+    font-size: 16px;
+    font-weight: 800;
+    font-style: bold;
+}
+.navbar-toggler {
+    background-color: var(--bg-white);
+    border: 1px solid #f1f1f1;
+}
+.navbar-toggler .navbar-toggler-icon .material-icons {
+    font-size: 30px;
+    font-weight: 500;
+}
+.dropdown-toggle::after {
+    content: none;
+}
+button.dropdown-toggle {
+    background: none;
+    border: none;
+}
+.btn-dropdown .material-icons {
+    background: var(--bg-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.btn-dropdown:focus {
+    border: none;
+    box-shadow: none;
+}
+.dropdown-announcement {
+    width: 27rem;
+    height: 23rem;
+    overflow: auto;
+}
+.dropdown-announcement h6 {
+    padding: 0.25rem 1rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+.dropdown-announcement .dropdown-item:hover {
+    background: var(--text-color);
+    cursor: pointer;
+}
+.dropdown-announcement .dropdown-item {
+    background: var(--text-color);
+    display: flex;
+    align-items: center;
+
+    padding: 10px 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    margin-left: 1rem;
+    width: 24rem;
+    text-align: start;
+    white-space: inherit;
+}
+.dropdown-announcement .dropdown-item .img-announcement {
+    box-shadow: 0px 4px 8px rgba(74, 78, 100, 0.1);
+    margin-right: 10px;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: var(--bg-onlywhite);
+}
+.dropdown-announcement .dropdown-item .img-announcement img {
+    width: 2rem;
+    height: 2rem;
+}
+.dropdown-announcement .dropdown-item .text-announcement {
+    width: 19rem;
+    height: 100%;
+}
+.dropdown-announcement .dropdown-item .text-announcement .title-announcement {
+    width: 17rem;
+    font-size: 14px;
+    color: var(--bg-secondary);
+    font-weight: 600;
+}
+.dropdown-announcement .dropdown-item .text-announcement .sub-title {
+    color: var(--bg-secondary);
+    font-size: 10px;
+    font-weight: 400;
+    margin-top: 5px;
+}
+.dropdown-announcement .dropdown-item .text-announcement .date-announcement {
+    color: var(--bg-secondary);
+    display: flex;
+    justify-content: end;
+    font-size: 10px;
+    margin-top: 5px;
+    font-weight: 400;
+}
+.box-breadcrumb {
+    margin-top: 1.5rem;
+}
+.box-breadcrumb .breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 3px 4px rgba(74, 78, 100, 0.1);
+}
+.box-breadcrumb .breadcrumb .breadcrumb-item {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.box-breadcrumb .breadcrumb .breadcrumb-item a {
+    color: var(--text-color);
+}
+.box-breadcrumb .breadcrumb .breadcrumb-item a:hover {
+    font-weight: 700;
+}
+.box-breadcrumb .breadcrumb .breadcrumb-item .material-icons {
+    font-size: 18px;
+    margin-right: 4px;
+}
+.header-dashboard {
+    margin-top: 3.5rem;
+}
+.header-dashboard .box-welcome {
+    background: var(--bg-onlywhite);
+    border-radius: 8px;
+    padding: 10px;
+}
+.header-dashboard .box-welcome .text-welcome {
+    border-right: 1px solid #4b556b;
+    margin: 1rem 1.5rem;
+    padding: 10px 0;
+}
+.header-dashboard .box-welcome .text-welcome h5,
+.header-dashboard .box-welcome .schedule-welcome h5 {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 20px;
+}
+.header-dashboard .box-welcome .text-welcome .sub-text-welcome {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 14px;
+}
+.header-dashboard .box-welcome .text-welcome .date-time {
+    margin-top: 1.5rem;
+}
+.header-dashboard .box-welcome .text-welcome .date-time .time-welcome {
+    font-weight: 700;
+    color: var(--text-color);
+    font-size: 34px;
+    letter-spacing: 1px;
+}
+.header-dashboard .box-welcome .text-welcome .date-time .date-welcome {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 16px;
+}
+.header-dashboard .box-welcome .text-welcome .box-new-student {
+    margin-top: 2rem;
+    border: 1px solid #4b556b;
+    border-radius: 8px;
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1.5rem 0;
+}
+.header-dashboard
+    .box-welcome
+    .text-welcome
+    .box-new-student
+    .text-new-student {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+.header-dashboard
+    .box-welcome
+    .text-welcome
+    .box-new-student
+    .sub-text-student {
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 12px;
+}
+.header-dashboard .box-welcome .schedule-welcome {
+    margin: 1rem 2rem 0 0;
+    padding: 10px 2rem 0 0;
+}
+.header-dashboard .box-welcome .schedule-welcome .schedule-week {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+.header-dashboard
+    .box-welcome
+    .schedule-welcome
+    .schedule-week
+    .subject
+    .text-subject {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+.header-dashboard
+    .box-welcome
+    .schedule-welcome
+    .schedule-week
+    .subject
+    .teacher {
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 12px;
+    margin-top: 2px;
+}
+.header-dashboard .box-welcome .schedule-week .time-schedule {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.category {
+    margin-top: 3.5rem;
+    margin-bottom: 2rem;
+}
+.category .text-category {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 2rem;
+}
+.category .card-category {
+    background: var(--bg-onlywhite);
+    padding: 1.5rem 1.5rem 3rem 1.5rem;
+    width: 85%;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: auto;
+}
+.category .card-category:hover .card-image {
+    transform: scale(1.2);
+    margin: auto;
+}
+.category .card-category:hover .card-text {
+    transform: scale(1.2);
+    display: flex;
+    justify-content: center;
+}
+.category .card-category .card-image {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+.category .card-category .card-image img {
+    width: 100%;
+    height: 100%;
+}
+.category .card-category .card-text {
+    color: var(--text-color);
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.announcement {
+    margin: 4rem 0 2.5rem;
+}
+.announcement .box-announcement {
+    background: var(--bg-onlywhite);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+}
+.announcement .box-announcement .text-announcement {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+    margin-top: 10px;
+    margin-bottom: 2rem;
+}
+.announcement .box-announcement .announcement-item {
+    margin-bottom: 3rem;
+}
+.announcement .box-announcement .announcement-item .title-announcement {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    width: 40%;
+    margin-bottom: 15px;
+}
+.announcement .box-announcement .announcement-item .image-announcement {
+    width: 95%;
+    height: 9rem;
+    border-radius: 8px;
+}
+.announcement .box-announcement .announcement-item .image-announcement img {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+.announcement .box-announcement .announcement-item .text-item-announcement {
+    display: flex;
+    flex-direction: column;
+    height: 9rem;
+    justify-content: space-between;
+    width: 90%;
+}
+.announcement
+    .box-announcement
+    .announcement-item
+    .text-item-announcement
+    .title-item-announcement {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 12px;
+}
+.announcement
+    .box-announcement
+    .announcement-item
+    .text-item-announcement
+    .date-item-announcement {
+    background: #fafcff;
+    border-radius: 10px;
+    padding: 3px 15px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+.announcement
+    .box-announcement
+    .announcement-item
+    .image-announcement
+    .btn-item-annnouncement {
+    display: flex;
+    position: relative;
+    bottom: 2.3rem;
+    justify-content: end;
+    right: 10px;
+}
+.announcement
+    .box-announcement
+    .announcement-item
+    .image-announcement
+    .btn-item-annnouncement
+    .icon-announcement {
+    background-color: var(--bg-onlywhite);
+    margin-right: 10px;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    filter: drop-shadow(4px 0px 8px rgba(74, 78, 100, 0.1))
+        drop-shadow(-4px 6px 8px rgba(74, 78, 100, 0.1));
+}
+.announcement
+    .box-announcement
+    .announcement-item
+    .image-announcement
+    .btn-item-annnouncement
+    .icon-announcement
+    .fa {
+    font-size: 18px;
+    font-weight: 500;
+}
+.footer {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    box-shadow: -4px 6px 8px rgba(74, 78, 100, 0.1);
+    margin-top: 10rem;
+    padding: 10px 0;
+}
+.footer .text-footer {
+    background: linear-gradient(180deg, #ededed 0%, #f9f9f9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+.message {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    position: fixed;
+    bottom: 2.5rem;
+    border: none;
+    right: 3rem;
+}
+.message button {
+    border: none;
+    background: none;
+}
+.message img {
+    width: 100%;
+    height: 100%;
+}
+
+/* ====== Style Lupa Password ======= */
+.forgot-password {
+    height: 100vh;
+}
+.forgot-password .box-forgot {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 1rem 1rem;
+    margin-top: 2rem;
+}
+.forgot-password .box-forgot .title-forgot {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.forgot-password .box-forgot .title-forgot .material-icons {
+    margin-right: 8px;
+    color: var(--text-color);
+}
+.forgot-password .box-forgot .box-input-forgot {
+    width: 75%;
+    margin: auto;
+}
+.forgot-password .box-forgot .box-input-forgot .text-forgot {
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+}
+.forgot-password .box-forgot .box-input-forgot .form-forgot {
+    margin-top: 1rem;
+}
+.forgot-password .box-forgot .box-input-forgot .form-otp {
+    display: flex;
+    justify-content: center;
+    margin: 1.3rem 0;
+}
+.forgot-password .box-forgot .box-input-forgot .form-otp input {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 8px;
+    border: 1px solid #4b556b;
+    text-align: center;
+    margin-left: 8px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.forgot-password .box-forgot .box-input-forgot .form-forgot input {
+    background: rgba(75, 85, 107, 0.05);
+    border-radius: 10px;
+    border: none;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 5px 10px;
+    color: var(--text-color);
+}
+.forgot-password
+    .box-forgot
+    .box-input-forgot
+    .form-forgot
+    input[type="password"],
+.forgot-password .box-forgot .box-input-forgot .form-forgot input[type="text"] {
+    padding-right: 2.5rem;
+}
+.forgot-password .box-forgot .box-input-forgot .btn-forgot {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    border-radius: 12px;
+    border: none;
+    color: var(--bg-secondary);
+    font-weight: 600;
+    font-size: 14px;
+    margin: 1rem auto;
+    display: flex;
+    justify-content: center;
+    padding: 5px 5rem;
+}
+.forgot-password .box-forgot .box-image {
+    width: 80%;
+    margin: auto;
+    height: 25rem;
+}
+.forgot-password .box-forgot .box-image-otp {
+    width: 90%;
+    height: 22rem;
+    margin: auto;
+}
+.forgot-password .box-forgot .box-image img,
+.forgot-password .box-forgot .box-image-otp img {
+    width: 100%;
+    height: 100%;
+}
+.forgot-password .box-forgot .resend-code {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 14px;
+    font-weight: 500;
+}
+.forgot-password .box-forgot .icon-pass {
+    position: relative;
+    left: 23rem;
+    bottom: 1.5rem;
+    cursor: pointer;
+}
+.forgot-password .box-forgot .icon-pass .material-icons {
+    font-size: 15px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+/* ===== Akhir Style lupa password ========== */
+
+/* ===================== Style Css untuk news ======================*/
+.news,
+.new-news {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+.news .box-news,
+.new-news .box-news {
+    background: var(--bg-secondary);
+    border-radius: 20px;
+    padding: 15px 1.5rem;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -2px 3px 4px rgba(74, 78, 100, 0.1);
+}
+.news .box-news .title-news,
+.new-news .box-news .title-news {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+}
+.news .box-news .form-news {
+    width: 25%;
+}
+.news .box-news .form-news input {
+    border: 1px solid #808da6;
+    border-radius: 20px;
+    width: 90%;
+    padding: 5px 10px 5px 1rem;
+    font-size: 14px;
+    color: var(--text-color);
+    font-weight: 500;
+}
+.news .box-news .form-news input:focus {
+    outline: none;
+}
+.news .box-news .form-news button {
+    border: 1px solid #808da6;
+    border-radius: 12px;
+    font-size: 14px;
+    color: var(--text-color);
+    background: var(--bg-secondary);
+    padding: 5px 10px;
+    margin-left: 5px;
+}
+.news .box-news .create-news {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+    box-shadow: 4px 0px 4px rgba(74, 78, 100, 0.1),
+        -2px 2px 4px rgba(74, 78, 100, 0.1);
+    border-radius: 8px;
+    color: var(--bg-secondary);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 5px 2.5rem;
+}
+.news .box-news .list-news {
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -2px 3px 4px rgba(74, 78, 100, 0.1);
+    margin-bottom: 2rem;
+    border-radius: 12px;
+}
+.news .box-news .box-img-news {
+    width: 90%;
+    height: 9rem;
+    border-radius: 10px;
+}
+.news .box-news .box-img-news img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.news .box-news .title-news h6 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    margin-left: 5px;
+}
+.news .box-news .text-news {
+    background: #f0f1f2;
+    border-radius: 10px;
+    padding: 12px 1rem;
+}
+.news .box-news .text-news p {
+    color: var(--text-color);
+    font-weight: 400;
+    font-size: 12px;
+}
+.news .box-news .icon-news {
+    margin-top: -30px;
+}
+.news .box-news .icon-news .icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 8px;
+    background-color: var(--bg-onlywhite);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.news .box-news .icon-news .icon .fa {
+    font-size: 14px;
+    font-weight: 600;
+}
+.new-news .box-news .box-form {
+    padding: 2rem 0 1rem 1rem;
+}
+.new-news .box-news .box-form label {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+    padding-left: 5px;
+}
+.new-news .box-news .box-form input {
+    background-color: #f0f1f2;
+    border-radius: 12px;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 12px;
+}
+.new-news .box-news .box-form .box-image-news {
+    width: 60%;
+    height: 10rem;
+    background: #f0f1f2;
+    border-radius: 10px;
+}
+.new-news .box-news .box-form .box-image-news img {
+    width: 100%;
+    height: 100%;
+}
+.new-news .box-news .box-form .box-image-news .btn-upload {
+    position: relative;
+    bottom: 2.5rem;
+    right: 5px;
+    z-index: 3;
+}
+.new-news .box-news .box-form .box-image-news .btn-upload button {
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background-color: var(--bg-secondary);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 50%;
+}
+.new-news .box-news .box-form .box-image-news .btn-upload button .fa {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3774c3;
+}
+.new-news .box-news .btn-news {
+    border: none;
+    margin-left: 12px;
+    padding: 5px 4rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--bg-secondary);
+    border-radius: 8px;
+    box-shadow: 2px 0px 2px rgba(74, 78, 100, 0.1),
+        -2px 3px 4px rgba(74, 78, 100, 0.1);
+}
+.new-news .box-news .btn-news.blue {
+    background: linear-gradient(259.17deg, #3774c3 0%, #2e447c 100%);
+}
+.new-news .box-news .btn-news.red {
+    background: #ff4238;
+}
+.new-news .box-news .btn-news:hover {
+    font-weight: 700;
+    transform: scale(1.1);
+    margin-left: 1rem;
+}
+.news .box-detail-news {
+    background-color: var(--bg-secondary);
+    box-shadow: 4px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 6px 4px rgba(74, 78, 100, 0.1);
+    border-radius: 12px;
+    padding: 1rem 2rem;
+}
+.news .box-detail-news .title-detail {
+    margin: 1rem 0;
+}
+.news .box-detail-news .title-detail h5 {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+}
+.news .box-detail-news .title-detail .create-detail {
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 400;
+}
+.news .box-detail-news .box-image-detail {
+    margin: 2rem auto;
+    width: 90%;
+    height: 14rem;
+    border-radius: 12px;
+}
+.news .box-detail-news .box-image-detail img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+}
+.news .box-detail-news .text-detail-news {
+    margin-top: 1rem;
+}
+.news .box-detail-news .text-detail-news p {
+    font-size: 14px;
+    color: var(--text-color);
+    font-weight: 400;
+    text-align: justify;
+    text-indent: 0.5in;
+}
+.news .detail-new-news {
+    filter: drop-shadow(2px 0px 4px rgba(74, 78, 100, 0.1))
+        drop-shadow(-4px 3px 4px rgba(74, 78, 100, 0.1));
+    background-color: var(--bg-secondary);
+    padding: 1rem;
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+}
+.news .detail-new-news .content-new-news {
+    display: flex;
+    align-items: center;
+}
+.news .detail-new-news .content-new-news .box-img-new-news {
+    width: 45%;
+    height: 8rem;
+    border-radius: 8px;
+}
+.news .detail-new-news .content-new-news .box-img-new-news img {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+.news .detail-new-news .content-new-news .text-new-news {
+    margin-left: 8px;
+    width: 55%;
+    color: var(--text-color);
+}
+.news .detail-new-news .content-new-news .text-new-news .title-new-news {
+    font-size: 14px;
+    font-weight: 500;
+}
+.news .detail-new-news .content-new-news .text-new-news .text-content-news {
+    background-color: #f0f1f2;
+    padding: 5px;
+    border-radius: 8px;
+    margin-top: 5px;
+}
+.news .detail-new-news .content-new-news .text-new-news .text-content-news p {
+    color: var(--text-color);
+    font-size: 12px;
+    font-weight: 400;
+    text-align: justify;
+}
+/* ===================== Akhir Style Css untuk news ======================*/
+
+/* ==================== CSS Untuk profile ================================ */
+.profile {
+    margin: 2rem 0;
+}
+.profile .box-profile,
+.profile .box-student-card {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 3px 4px rgba(74, 78, 100, 0.1);
+    padding: 1.5rem 1rem;
+}
+.profile .box-profile .header-profile {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 600;
+}
+.profile .box-profile .header-profile a {
+    text-decoration: none;
+    color: var(--text-color);
+    margin-right: 5px;
+    font-weight: 600;
+}
+.profile .box-profile .box-student-profile {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 3px 4px rgba(74, 78, 100, 0.1);
+    padding: 1rem;
+}
+.profile .box-profile .box-student-profile .profile-student {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    margin: auto;
+}
+.profile .box-profile .box-student-profile .profile-student img {
+    width: 100%;
+    height: 100%;
+}
+.profile .box-profile .box-student-profile .name-student {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 18px;
+}
+.profile .box-profile .box-student-profile .title-student {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.profile .box-profile .box-student-profile .profile-student .btn-edit-profile {
+    background-color: #3774c3;
+    color: var(--bg-secondary);
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    bottom: 1rem;
+    left: 3rem;
+}
+.profile
+    .box-profile
+    .box-student-profile
+    .profile-student
+    .btn-edit-profile
+    .fa {
+    color: var(--bg-secondary);
+    font-size: 12px;
+    font-weight: 600;
+}
+.profile .box-profile .box-student-profile .box-weather {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.profile .box-profile .box-student-profile .box-weather .cloud img {
+    width: 2rem;
+    height: 2rem;
+    margin-right: 1rem;
+}
+.profile .box-profile .box-student-profile .box-weather .date-weather {
+    color: var(--text-color);
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+.profile .box-profile .box-student-profile .link-profile {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 3px 4px rgba(74, 78, 100, 0.1);
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+.profile .box-student-card .header-card {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+.profile .box-student-card .header-card h6,
+.profile .box-student-card .header-card a {
+    color: var(--text-color);
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.profile .box-student-card .card-student {
+    background: linear-gradient(
+        180.13deg,
+        #ffffff 21.87%,
+        #c2d3f6 63.32%,
+        #3c74e3 99.99%
+    );
+    margin-top: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+}
+.profile .box-student-card .card-student .img-card-student {
+    width: 30%;
+    height: 3.5rem;
+}
+.profile .box-student-card .card-student .img-card-student img {
+    width: 90%;
+    margin: auto;
+    height: 100%;
+}
+.profile .box-student-card .card-student .text-card-student {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+    margin-left: 1rem;
+}
+.profile .box-student-card .card-student .profile-student-card {
+    width: 30%;
+    height: 8rem;
+    border-radius: 8px;
+    background-color: #54bde4;
+}
+.profile .box-student-card .card-student .profile-student-card img {
+    width: 100%;
+    height: 100%;
+}
+.profile .box-student-card .card-student .content-student-card {
+    margin-left: 10px;
+    width: 70%;
+    font-size: 12px;
+}
+.profile .box-student-card .card-student .content-student-card .name-card {
+    color: var(--text-color);
+    width: 35%;
+    font-weight: 500;
+    display: flex;
+    text-align: justify;
+}
+.profile .box-student-card .card-student .content-student-card .barrier-card {
+    color: var(--text-color);
+    width: 5%;
+    text-align: center;
+    font-weight: 500;
+}
+.profile .box-student-card .card-student .content-student-card .explain-card {
+    color: var(--text-color);
+    font-weight: 500;
+    width: 75%;
+    display: flex;
+}
+.profile
+    .box-student-card
+    .card-student
+    .content-student-card
+    .barcode-student {
+    width: 90%;
+    margin: 15px auto;
+    height: 2rem;
+}
+.profile .box-biografi {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
+        -4px 3px 4px rgba(74, 78, 100, 0.1);
+    padding: 1.5rem;
+}
+.profile .box-biografi h5 {
+    text-align: center;
+    font-size: 20px;
+    color: var(--text-color);
+    font-weight: 600;
+    margin-bottom: 2rem;
+}
+.profile .box-biografi .box-text-biografi {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 8px 15px;
+    color: var(--text-color);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 14px;
+}
+/* ==================== Akhir CSS Untuk profile ========================== */
+/* ==================== CSS Untuk formulir =============================== */
+.formulir {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+.formulir .box-formulir {
+    background: var(--bg-secondary);
+    width: 95%;
+    border-radius: 18px;
+    margin: 0 auto;
+    padding: 10px 30px;
+}
+.formulir .box-formulir .header-formulir {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.formulir .box-formulir .header-formulir .title-formulir {
+    font-size: 16px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+.formulir .box-formulir .header-formulir .down-formulir .material-icons {
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 18px;
+}
+.formulir .box-formulir .image-formulir {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 2.5rem;
+}
+.formulir .box-formulir .image-formulir .box-image-formulir {
+    width: 7rem;
+    height: 5rem;
+}
+.formulir .box-formulir .image-formulir .box-image-tut-wuri {
+    width: 4.5rem;
+    height: 4.5rem;
+}
+.formulir .box-formulir .image-formulir .box-image-tut-wuri img,
+.formulir .box-formulir .image-formulir .box-image-formulir img {
+    width: 100%;
+    height: 100%;
+}
+.formulir .box-formulir .text-formulir .header-text {
+    font-size: 18px;
+    color: var(--text-color);
+    font-weight: 600;
+}
+.formulir .box-formulir .text-formulir .sub-header-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
+.formulir .box-formulir .text-formulir .biodata-text-form {
+    font-size: 16px;
+    margin-top: 5px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+.formulir .box-formulir .text-formulir .border-form {
+    border: 1px solid #000000;
+    width: 24rem;
+    margin: auto;
+}
+.formulir .box-formulir .box-form-input {
+    width: 80%;
+    margin: 2rem auto;
+}
+.formulir .box-formulir .box-form-input label {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 14px;
+    padding-left: 3px;
+}
+.formulir .box-formulir .box-form-input select,
+.formulir .box-formulir .box-form-input textarea,
+.formulir .box-formulir .box-form-input input {
+    border-radius: 10px;
+    background: #f0f1f2;
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 12px;
+}
+.formulir .box-formulir .box-form-input .btn-photo-siswa {
+    border: 1px solid #f0f1f2;
+    width: 100%;
+    background: #f0f1f2;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: start;
+    padding: 5px 12px;
+}
+.formulir .box-formulir .box-form-input .ket-photo-siswa {
+    color: #ff4238;
+    font-size: 9px;
+    font-weight: 500;
+}
+.formulir .box-formulir .submit-form-siswa {
+    color: var(--bg-secondary);
+    font-size: 14px;
+    font-weight: 500;
+    background: var(--bg-button-primary);
+    padding: 8px 5rem;
+    margin: 30px auto;
+    border: none;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+}
+/* ==================== Akhir CSS Untuk formulir =========================*/
+@media screen and (max-width: 700px) {
+    .header-dashboard {
+        margin: 2rem 0;
+    }
+    .header-dashboard .box-welcome {
+        padding: 5px;
+    }
+    .header-dashboard .box-welcome .text-welcome {
+        margin: 1rem;
+        padding-bottom: 2rem;
+        border-right: none;
+        border-bottom: 1px solid #4b556b;
+    }
+    .header-dashboard .box-welcome .text-welcome h5,
+    .header-dashboard .box-welcome .schedule-welcome h5 {
+        font-size: 18px;
+    }
+    .header-dashboard .box-welcome .text-welcome .sub-text-welcome {
+        font-size: 12px;
+    }
+    .header-dashboard .box-welcome .text-welcome .date-time .time-welcome {
+        font-size: 30px;
+    }
+    .header-dashboard .box-welcome .text-welcome .date-time .date-welcome {
+        font-size: 14px;
+    }
+    .header-dashboard .box-welcome .text-welcome .box-new-student {
+        padding: 1rem 0;
+    }
+    .header-dashboard .box-welcome .schedule-welcome {
+        margin: 1rem;
+    }
+    .header-dashboard .box-welcome .schedule-welcome {
+        margin: 1rem;
+        padding: 10px;
+    }
+    .header-dashboard
+        .box-welcome
+        .schedule-welcome
+        .schedule-week
+        .subject
+        .text-subject {
+        font-size: 14px;
+    }
+    .header-dashboard .box-welcome .schedule-welcome .schedule-week .subject {
+        max-width: 95%;
+    }
+    .header-dashboard .box-welcome .schedule-week .time-schedule {
+        font-size: 14px;
+    }
+    .category .text-category {
+        padding-left: 1rem;
+    }
+    .category .card-category {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    .category .card-category .card-image {
+        margin: auto;
+    }
+    .category .card-category .card-text {
+        text-align: center;
+    }
+    .announcement .box-announcement .announcement-item .title-announcement {
+        width: 100%;
+    }
+    .announcement
+        .box-announcement
+        .announcement-item
+        .text-item-announcement
+        .title-item-announcement {
+        margin-top: 10px;
+    }
+    .announcement .box-announcement .announcement-item .text-item-announcement {
+        height: 100%;
+        width: 100%;
+    }
+    .announcement
+        .box-announcement
+        .announcement-item
+        .text-item-announcement
+        .date-item-announcement {
+        padding: 5px;
+        margin-top: 1rem;
+    }
+    .message {
+        right: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+    .row-forgot {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    .forgot-password .box-forgot .box-image {
+        width: 100%;
+        height: 18rem;
+    }
+    .forgot-password .box-forgot .box-input-forgot {
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+    .forgot-password .box-forgot .box-input-forgot .btn-forgot {
+        width: 100%;
+        margin-top: 1.5rem;
+    }
+    .forgot-password .box-forgot .box-image-otp {
+        width: 100%;
+        height: 16rem;
+    }
+    .forgot-password .box-forgot .icon-pass {
+        left: 18rem;
+        position: relative;
+        bottom: 1.5rem;
+    }
+    .news .box-news .form-news {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    .news .box-news {
+        padding: 10px;
+    }
+    .news .box-news .box-img-news {
+        width: 100%;
+        height: 8rem;
+        margin-bottom: 1rem;
+    }
+    .new-news .box-news .btn-news {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .new-news .box-news .box-form .box-image-news {
+        width: 100%;
+    }
+    .news .box-detail-news {
+        padding: 10px;
+        box-shadow: none;
+        margin-bottom: 3rem;
+    }
+    .news .box-detail-news .box-image-detail {
+        width: 100%;
+        height: 10rem;
+    }
+    .news .box-detail-news .text-detail-news p {
+        font-size: 12px;
+        text-indent: 0.2in;
+    }
+    .news .box-detail-news .title-detail h5 {
+        font-size: 16px;
+    }
+    .news .box-detail-news .title-detail .create-detail {
+        font-size: 12px;
+    }
+    .news .detail-new-news {
+        padding: 10px;
+        margin-bottom: 1.5rem;
+    }
+    .news .detail-new-news .content-new-news {
+        display: flex;
+        flex-direction: column;
+    }
+    .news .detail-new-news .content-new-news .box-img-new-news {
+        width: 100%;
+        height: 8rem;
+    }
+    .news .detail-new-news .content-new-news .text-new-news {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 12px;
+    }
+    .profile .box-profile .box-student-profile .box-weather {
+        margin: 1rem 0;
+    }
+    .profile .box-profile .box-student-profile .box-weather .cloud {
+        width: 40%;
+    }
+    .profile .box-profile .box-student-profile .box-weather .cloud img {
+        margin: auto;
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        justify-content: center;
+    }
+    .profile .box-profile .box-student-profile .link-profile {
+        margin-bottom: 12px;
+    }
+    .profile .box-profile,
+    .profile .box-student-card {
+        margin: 1rem 0;
+        padding: 10px;
+    }
+    .profile .box-student-card .card-student .img-card-student {
+        width: 20%;
+        height: 2rem;
+    }
+    .profile .box-student-card .card-student .profile-student-card {
+        width: 20%;
+        height: 5rem;
+    }
+    .profile .box-student-card .card-student .content-student-card {
+        width: 80%;
+        font-size: 10px;
+    }
+    .profile .box-biografi {
+        padding: 10px;
+    }
+    .profile .box-biografi .box-text-biografi {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+    .formulir .box-formulir {
+        width: 100%;
+    }
+    .formulir .box-formulir .image-formulir {
+        padding: 5px;
+    }
+    .formulir .box-formulir .image-formulir .box-image-formulir {
+        width: 3rem;
+        height: 3rem;
+    }
+    .formulir .box-formulir .image-formulir .box-image-tut-wuri {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .formulir .box-formulir .text-formulir .header-text {
+        font-size: 14px;
+    }
+    .formulir .box-formulir .text-formulir .sub-header-text {
+        font-size: 12px;
+    }
+    .formulir .box-formulir .text-formulir .biodata-text-form {
+        font-size: 12px;
+    }
+    .formulir .box-formulir .text-formulir .border-form {
+        width: 80%;
+    }
+    .formulir .box-formulir .box-form-input {
+        width: 100%;
+    }
+}
