@@ -23,12 +23,12 @@ Route::get('/', function () {
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
 });
-Route::get('/login', function() {
-    return view('pages.login');
-});
-Route::get('/dash', function() {
-    return view('pages.dashboard.dashboard');
-});
+// Route::get('/login', function() {
+//     return view('pages.login');
+// });
+// Route::get('/dash', function() {
+//     return view('pages.dashboard.dashboard');
+// });
 Route::get('/lupa-sandi', function() {
     return view('pages.auth.lupa-sandi');
 });

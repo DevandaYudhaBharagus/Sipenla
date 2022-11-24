@@ -47,7 +47,7 @@
                             pengguna terkait berbagai informasi dan layanan seputar sekolah.
                         </p>
                     </div>
-                    <a href="" class="btn btn-mulai">YUK MULAI!</a>
+                    <a href="{{ url('/login') }}" class="btn btn-mulai">YUK MULAI!</a>
                 </div>
                 <div class="page-image">
                     <div class="frame-image">

@@ -9,13 +9,13 @@
                 <img src="{{ asset('images/internal-images/logo.png') }}" alt="" />
             </div>
             <h5>Selamat Datang</h5>
-            <form action="" method="">
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-4 mt-3">
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email" />
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" />
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="password" placeholder="Password" />
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" />
                     <span class="show-hide">
                         <i class="material-icons" id="material-password">visibility</i></span>
                 </div>
