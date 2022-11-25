@@ -5,6 +5,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -24,23 +25,8 @@ Route::get('/', function () {
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
 });
-Route::get('/news', function() {
-    return view('pages.news.news');
-});
-Route::get('/create-news', function() {
-    return view('pages.news.create-news');
-});
-Route::get('/detail-news', function() {
-    return view('pages.news.detail-news');
-});
 Route::get('/profil', function() {
     return view('pages.dashboard.profil');
-});
-Route::get('/form-siswa', function() {
-    return view('pages.dashboard.formulir');
-});
-Route::get('/form-pegawai', function() {
-    return view('pages.dashboard.formulir-pegawai');
 });
 Route::get('/master-role', function(){
     return view('pages.master.master-role');
@@ -71,9 +57,18 @@ Route::post('/resetpass', [ForgotPassController::class, 'updatePass'])->name('re
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
+    //Route Dashboard
     Route::prefix('dashboard')->group(function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
         Route::post('/formemployee', [HomeController::class, 'addEmployee'])->name('formemployee');
+    });
+
+    //Route News
+    Route::prefix('news')->group(function () {
+        Route::get('/', [NewsController::class, 'index']);
+        Route::get('/create-news', [NewsController::class, 'show']);
+        Route::get('/detail-news/{id}', [NewsController::class, 'getNewsById']);
+        Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
     });
 });

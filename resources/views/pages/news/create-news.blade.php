@@ -23,13 +23,13 @@
             <div class="box-news">
                 <div class="title-news">Input Berita Sekolah</div>
                 <div class="box-form">
-                    <form action="" method="POST">
+                    <form action="{{ route('createnews') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Judul</label>
-                                    <input type="text" class="form-control" id="title"
+                                    <input type="text" name="news_title" class="form-control" id="title"
                                         aria-describedby="titleHelp" />
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="text-news" rows="3"></textarea>
+                                    <textarea class="form-control" name="news_content" id="text-news" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
