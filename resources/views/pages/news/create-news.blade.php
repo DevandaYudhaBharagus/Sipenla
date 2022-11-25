@@ -38,7 +38,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Upload Foto</label>
-                                    <input type="file" name="" id="image-news" style="display: none" multiple />
+                                    <input type="file" name="news_image" id="image-news" style="display: none" multiple />
                                     <div class="box-image-news">
                                         <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
                                             srcset="" />

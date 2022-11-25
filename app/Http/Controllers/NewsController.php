@@ -5,9 +5,27 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\News;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
+
+    public function saveImage($image, $path='public')
+    {
+        if (!$image) {
+            return null;
+        }
+
+        $filename = time() . '.png';
+        // save image
+        Storage::disk($path)->put($filename, base64_decode($image));
+
+        //return the path
+        // Url is the base url exp: localhost:8000
+        $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
+        return $urls;
+    }
 
     public function index()
     {
@@ -37,10 +55,14 @@ class NewsController extends Controller
                 'error' => $validate->errors()->toArray()
             ]);
         }
+
+        $image = $this->saveImage($request->news_image, "azure");
+
         $createNews = News::create([
             "news_title" => $request->news_title,
             "news_content" => $request->news_content,
             "category" => 'terpanas',
+            "news_image" => $image,
         ]);
 
         return redirect('/news');
