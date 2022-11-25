@@ -8,6 +8,8 @@ use App\Models\Employee;
 use App\Models\Student;
 use App\Models\LeaveBalance;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -51,13 +53,13 @@ class HomeController extends Controller
             if(!$student){
                 return view('pages.dashboard.formulir');
             }
-            return view('pages.dashboard.dashboard');
+            return view('pages.dashboard.dashboard', compact('student'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){
             return view('pages.dashboard.formulir-pegawai');
         }
-        return view('pages.dashboard.dashboard');
+        return view('pages.dashboard.dashboard', compact('employee'));
 
     }
 
@@ -69,8 +71,7 @@ class HomeController extends Controller
         $validate = Validator::make($data, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'nik' => 'required|unique:students,nik|size:16',
-            'nisn' => 'required|unique:students,nik|size:16',
+            'nisn' => 'required|unique:students,nisn|size:16',
             'father_name' => 'required',
             'mother_name' => 'required',
             'gender' => 'required',
@@ -104,7 +105,6 @@ class HomeController extends Controller
             'user_id' => $user->id,
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'nik' => $data['nik'],
             'nisn' => $data['nisn'],
             'mother_name' => $data['mother_name'],
             'place_of_birth' => $data['place_of_birth'],
@@ -125,7 +125,7 @@ class HomeController extends Controller
             'date_school_now' => $data['date_school_now'],
             'family_profession' => $data['family_profession'],
             'phone' => $data['phone'],
-            'extracurricular_id' => 1,
+            'extracurricular_id' => $data['extracurricular_id'],
             'image' => $image,
         ]);
 
@@ -140,7 +140,6 @@ class HomeController extends Controller
         $validate = Validator::make($data, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'nik' => 'required|unique:employees,nik|size:16',
             'nuptk' => 'required|unique:employees,nuptk|size:16',
             'npsn' => 'required|unique:employees,npsn|size:16',
             'place_of_birth' => 'required',
@@ -168,7 +167,6 @@ class HomeController extends Controller
             'user_id' => $user->id,
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'nik' => $data['nik'],
             'nuptk' => $data['nuptk'],
             'npsn' => $data['npsn'],
             'place_of_birth' => $data['place_of_birth'],

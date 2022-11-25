@@ -59,11 +59,6 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">NIK</label>
-                            <input type="number" name="nik" class="form-control" id="nisn"
-                                placeholder="NUPTK / ID Pegawai" />
-                        </div>
-                        <div class="mb-3">
                             <label for="" class="form-label">NUPTK / ID Pegawai</label>
                             <input type="number" name="nuptk" class="form-control" id="nisn"
                                 placeholder="NUPTK / ID Pegawai" />
@@ -136,7 +131,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Upload Foto</label>
-                            <input type="file" name="image" class="form-control" id="fotoSiswa"
+                            <input type="file" name="profile_employee" class="form-control" id="fotoSiswa"
                                 style="display: none" multiple />
                             <div class="col-md-6 col-12">
                                 <button class="d-block btn-photo-siswa" type="button" onclick="uploadPhotoSiswa()">
