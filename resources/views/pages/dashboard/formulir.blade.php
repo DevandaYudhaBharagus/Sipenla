@@ -173,10 +173,15 @@
                             <input type="text" name="family_profession" class="form-control" id="nisn"
                                 placeholder="No Induk Siswa Nasional" />
                         </div>
+                        <div class="mb-3">
+                            <label for="" class="form-label">Phone</label>
+                            <input type="text" name="phone" class="form-control" id="nisn"
+                                placeholder="No Induk Siswa Nasional" />
+                        </div>
 
                         <div class="mb-3">
                             <label for="" class="form-label">Upload Foto</label>
-                            <input type="file" name="image" class="form-control" id="fotoSiswa"
+                            <input type="file" name="profile_student" class="form-control" id="fotoSiswa"
                                 style="display: none" multiple />
                             <div class="col-md-6 col-12">
                                 <button class="d-block btn-photo-siswa" type="button" onclick="uploadPhotoSiswa()">
@@ -188,10 +193,10 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Ekstrakulikuler</label>
-                            <select class="form-select" name="gender" aria-label="Default select example">
+                            <select class="form-select" name="extracurricular_id" aria-label="Default select example">
                                 <option selected>Pilih Jenis Ekstrakulikuler</option>
-                                <option value="">Ekskul 1</option>
-                                <option value="">Ekskul 2</option>
+                                <option value="1">Basket</option>
+                                <option value="2">Futsal</option>
                             </select>
                         </div>
                     </div>
