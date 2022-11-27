@@ -1,6 +1,6 @@
 <div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">    
     <div class="col-md-3 col-6 mb-3">
-        {{-- <a href="">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -9,10 +9,10 @@
                     <div class="card-text">Absensi</div>
                 </div>
             </div>
-        </a> --}}
+        </a>
     </div>
     <div class="col-md-3 col-6">
-        {{-- <a href="">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -21,10 +21,37 @@
                     <div class="card-text">Jadwal</div>
                 </div>
             </div>
-        </a> --}}
+        </a>
     </div>
     <div class="col-md-3 col-6">
-        {{-- <a href="">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/penilaian.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Penilaian</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 col-6">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/rapot.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Rapor</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-md-3 col-6 mb-3">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -33,10 +60,22 @@
                     <div class="card-text">Koperasi</div>
                 </div>
             </div>
-        </a> --}}
+        </a>
     </div>
     <div class="col-md-3 col-6">
-        {{-- <a href="">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/fasilitas.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Fasilitas</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 col-6">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -45,49 +84,10 @@
                     <div class="card-text">Kantin</div>
                 </div>
             </div>
-        </a> --}}
-    </div>
-</div>
-
-<div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">
-    <div class="col-md-3 col-6 mb-3">
-        {{-- <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
-                        <img src="{{ asset('images/internal-images/registrasi.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Registrasi</div>
-                </div>
-            </div>
-        </a> --}}
+        </a>
     </div>
     <div class="col-md-3 col-6">
-        {{-- <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
-                        <img src="{{ asset('images/internal-images/siswa.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Data Siswa</div>
-                </div>
-            </div>
-        </a> --}}
-    </div>
-    <div class="col-md-3 col-6">
-        {{-- <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
-                        <img src="{{ asset('images/internal-images/data-pegawai.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Data Pegawai</div>
-                </div>
-            </div>
-        </a> --}}
-    </div>
-    <div class="col-md-3 col-6">
-        {{-- <a href="">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -96,13 +96,13 @@
                     <div class="card-text">Laporan Keuangan</div>
                 </div>
             </div>
-        </a> --}}
+        </a>
     </div>
 </div>
 
 <div class="row mb-3" data-aos="fade-up" data-aos-delay="400">
     <div class="col-md-3 col-6 mb-3">
-        {{-- <a href="">
+        <a href="">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -111,30 +111,6 @@
                     <div class="card-text">Perpustakaan</div>
                 </div>
             </div>
-        </a> --}}
-    </div>
-    <div class="col-md-3 col-6">
-        {{-- <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
-                        <img src="{{ asset('images/internal-images/mutasi.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Mutasi</div>
-                </div>
-            </div>
-        </a> --}}
-    </div>
-    <div class="col-md-3 col-6">
-        {{-- <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
-                        <img src="{{ asset('images/internal-images/siswa-baru.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Penerimaan Siswa Baru</div>
-                </div>
-            </div>
-        </a> --}}
+        </a>
     </div>
 </div>
