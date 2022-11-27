@@ -24,25 +24,6 @@ use App\Http\Controllers\NewsController;
 Route::get('/', function () {
     return view('pages.home');
 });
-
-// Route::get('/registrasi', function() {
-//     return view('pages.registrasi');
-// });
-Route::get('/news', function() {
-    return view('pages.news.news');
-});
-Route::get('/create-news', function() {
-    return view('pages.news.create-news');
-});
-Route::get('/detail-news', function() {
-    return view('pages.news.detail-news');
-});
-Route::get('/registrasi', function() {
-    return view('pages.registrasi');
-});
-Route::get('/profil', function() {
-    return view('pages.dashboard.profil');
-});
 Route::get('/master-role', function(){
     return view('pages.master.master-role');
 });
