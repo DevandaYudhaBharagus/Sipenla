@@ -37,6 +37,7 @@
                             </div>
                         </div>
                     </div>
+                    @if (Auth::User()->role == 'student')
                     <div class="col-md-6 col-12">
                         <div class="schedule-welcome">
                             <h5>Mata Pelajaran Hari Ini</h5>
@@ -77,6 +78,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -92,49 +94,27 @@
             </div>
                 @if (Auth::User()->role == 'admin')
                     @include('pages.dashboard.kategori.admin')
-                @endif
-                
-                @if (Auth::User()->role == 'guru')
+                @elseif (Auth::User()->role == 'guru')
                     @include('pages.dashboard.kategori.guru')
-                @endif
-               
-                @if (Auth::User()->role == 'kepsek')
+                @elseif (Auth::User()->role == 'kepsek')
                     @include('pages.dashboard.kategori.kepalasekolah')
-                @endif
-
-                @if (Auth::User()->role == 'tu')
+                @elseif (Auth::User()->role == 'tu')
                     @include('pages.dashboard.kategori.tu')
-                @endif
-                
-                @if (Auth::User()->role == 'walimurid')
+                @elseif (Auth::User()->role == 'walimurid')
                     @include('pages.dashboard.kategori.walimurid')
-                @endif
-
-                @if (Auth::User()->role == 'perpus')
+                @elseif (Auth::User()->role == 'perpus')
                     @include('pages.dashboard.kategori.perpus')
-                @endif
-
-                @if (Auth::User()->role == 'pengawassekolah')
+                @elseif (Auth::User()->role == 'pengawassekolah')
                     @include('pages.dashboard.kategori.pengawas')
-                @endif
-                
-                @if (Auth::User()->role == 'pegawaikoperasi')
+                @elseif (Auth::User()->role == 'pegawaikoperasi')
                     @include('pages.dashboard.kategori.koperasi')
-                @endif
-                
-                @if (Auth::User()->role == 'pegawaikantin')
+                @elseif (Auth::User()->role == 'pegawaikantin')
                     @include('pages.dashboard.kategori.kantin')
-                @endif
-                
-                @if (Auth::User()->role == 'pembinaextra')
+                @elseif (Auth::User()->role == 'pembinaextra')
                     @include('pages.dashboard.kategori.ekstra')
-                @endif
-                
-                @if (Auth::User()->role == 'dinaspendidikan')
+                @elseif (Auth::User()->role == 'dinaspendidikan')
                     @include('pages.dashboard.kategori.dinaspendidikan')
-                @endif
-                
-                @if (Auth::User()->role == 'student')
+                @elseif (Auth::User()->role == 'student')
                     @include('pages.dashboard.kategori.siswa')
                 @endif
         </div>
