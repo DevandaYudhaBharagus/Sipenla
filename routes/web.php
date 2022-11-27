@@ -9,7 +9,6 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\NewsController;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('pages.home');
 });
-<<<<<<< routes/web.php
+
 // Route::get('/registrasi', function() {
 //     return view('pages.registrasi');
 // });
@@ -37,10 +36,9 @@ Route::get('/create-news', function() {
 });
 Route::get('/detail-news', function() {
     return view('pages.news.detail-news');
-=======
+});
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
->>>>>>> routes/web.php
 });
 Route::get('/profil', function() {
     return view('pages.dashboard.profil');
