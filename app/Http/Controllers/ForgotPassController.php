@@ -30,9 +30,20 @@ class ForgotPassController extends Controller
 
     public function postEmail(Request $request)
     {
-        $request->validate([
+        $data = $request->all();
+        $validate = Validator::make($data,[
             'email' => 'required|email|exists:users',
+        ],
+        [
+            'email.required' => 'Email Harus Diisi.',
+            'email.email' => 'Email Harus Format Email.',
         ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
 
         $email = PasswordReset::where('email', '=', $request->email);
         if ($email->exists()) {

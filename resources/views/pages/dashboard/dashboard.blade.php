@@ -23,7 +23,11 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="text-welcome">
-                            <h5>Selamat Datang,Bambang Pamungkas</h5>
+                            @if (Auth::user()->role == "student")
+                                <h5>Selamat Datang, {{ $student->first_name." ". $student->last_name }}</h5>
+                            @else
+                                <h5>Selamat Datang, {{ $employee->first_name." ". $employee->last_name }}</h5>
+                            @endif
                             <div class="sub-text-welcome">
                                 SIPENLA - Sistem Informasi Pendidikan Sekolah
                             </div>

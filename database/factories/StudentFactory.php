@@ -24,7 +24,6 @@ class StudentFactory extends Factory
                 return $i + 2;
             },
             'nisn' => $this->faker->randomNumber(9) . $this->faker->randomNumber(7),
-            'nik' => $this->faker->randomNumber(9) . $this->faker->randomNumber(7),
             'first_name' => function () {
                 $firstName = [null];
                 $i = Student::max('student_id');
