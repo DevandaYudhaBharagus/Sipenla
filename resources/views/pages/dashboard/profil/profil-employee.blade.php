@@ -89,7 +89,7 @@
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">{{ $employee->address }}</div>
                                         </div>
-                                        <div class="barcode-student">barcode</div>
+                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML('$ '. $employee->nisn, 'C39') !!}</div>
                                     </div>
                                 </div>
                             </div>
