@@ -34,7 +34,7 @@
         </div>
         <div class="outher-table">
             <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
+                <table class="table-master">
                     <tr>
                         <th width="15%">Kode Buku</th>
                         <th width="22%">Nama Buku</th>
@@ -229,14 +229,15 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
+                                <input type="file" name="" id="image-master" style="display: none" multiple />
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
                                         <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <a href="" class="btn-edit-master me-2">
+                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
-                                            </a>
+                                            </button>
                                             <a href="" class="btn-edit-master">
                                                 <i class="fa fa-trash-o text-danger"></i>
                                             </a>
@@ -245,7 +246,6 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
@@ -255,7 +255,16 @@
                         Tambah
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+
+@push('addon-javascript')
+    <script>
+        function uploadImage() {
+            document.querySelector("#image-master").click();
+        }
+    </script>
+@endpush

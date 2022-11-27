@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Master Guru')
+@section('title', 'Master Pegawai')
 
 @section('content')
     <div class="box-breadcrumb">
@@ -40,7 +40,7 @@
             <div class="table-scroll">
                 <table class="table-master">
                     <tr>
-                        <th width="50px" style="border-left: none">No</th>
+                        <th width="50px">No</th>
                         <th width="250px">Nama Depan</th>
                         <th width="250px">Nama Belakang</th>
                         <th width="250px">NUPTK / ID Pegawai</th>
@@ -58,10 +58,10 @@
                         <th width="250px">Jabatan 2</th>
                         <th width="250px">Shift Kerja</th>
                         <th width="250px">Foto</th>
-                        <th width="250px" style="border-right: none">Aksi</th>
+                        <th width="250px">Aksi</th>
                     </tr>
                     <tr>
-                        <td width="50px" class="no-border">1</td>
+                        <td width="50px">1</td>
                         <td width="250px">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Repudiandae, explicabo.
@@ -86,7 +86,7 @@
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                     </div>
                                     <div class="fa fa-angle-down"></div>
                                 </div>
@@ -94,7 +94,8 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
+                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                alt="" />
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -120,7 +121,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="50px" class="no-border">2</td>
+                        <td width="50px">2</td>
                         <td width="250px">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Repudiandae, explicabo.
@@ -145,7 +146,7 @@
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                     </div>
                                     <div class="fa fa-angle-down"></div>
                                 </div>
@@ -153,7 +154,8 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
+                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                alt="" />
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -179,7 +181,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="50px" class="no-border">3</td>
+                        <td width="50px">3</td>
                         <td width="250px">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Repudiandae, explicabo.
@@ -204,7 +206,7 @@
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                     </div>
                                     <div class="fa fa-angle-down"></div>
                                 </div>
@@ -212,7 +214,8 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
+                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                alt="" />
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -238,7 +241,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="50px" class="no-border">4</td>
+                        <td width="50px">4</td>
                         <td width="250px">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Repudiandae, explicabo.
@@ -263,7 +266,7 @@
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                     </div>
                                     <div class="fa fa-angle-down"></div>
                                 </div>
@@ -271,7 +274,8 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
+                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                alt="" />
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -297,7 +301,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td width="50px" class="no-border">5</td>
+                        <td width="50px">5</td>
                         <td width="250px">
                             Lorem ipsum dolor sit amet consectetur adipisicing elit.
                             Repudiandae, explicabo.
@@ -322,7 +326,7 @@
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                     </div>
                                     <div class="fa fa-angle-down"></div>
                                 </div>
@@ -330,7 +334,8 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
+                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                alt="" />
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -364,20 +369,151 @@
 @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Tambah Data Pegawai</h1>
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Nama Lengkap</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">NUPTK / ID Pegawai</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">NPSN</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Tempat Lahir</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>--- Pilih Jenis Kelamin ---</option>
+                                    <option value="1">Laki-laki</option>
+                                    <option value="2">Perempuan</option>
+                                </select>
+                                <div class="down-form">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Agama</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Alamat Tinggal</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Riwayat Pendidikan</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Nama Ibu</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Alamat Orang Tua</label>
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Jabatan 1</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Jabatan 2</label>
+                                    <input type="text" class="form-control" id="nama-role" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>--- Pilih Shift ---</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                                <div class="down-form">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <input type="file" name="" id="image-master" style="display: none" multiple />
+                                <div class="mb-3">
+                                    <div class="box-image-upload-master">
+                                        <label for="" class="form-label">Foto</label>
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <div class="d-flex align-items-center justify-content-end edit-upload-book">
+                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
+                                                <i class="fa fa-edit text-primary"></i>
+                                            </button>
+                                            <a href="" class="btn-edit-master">
+                                                <i class="fa fa-trash-o text-danger"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
+                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                        Batal
                     </button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" class="btn btn-permission bg-green-permission">
+                        Tambah
+                    </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+@push('addon-javascript')
+    <script>
+        function uploadImage() {
+            document.querySelector("#image-master").click();
+        }
+    </script>
+@endpush
