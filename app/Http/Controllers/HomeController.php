@@ -133,7 +133,7 @@ class HomeController extends Controller
             'family_profession' => $data['family_profession'],
             'phone' => $data['phone'],
             'extracurricular_id' => $data['extracurricular_id'],
-            'image' => $image,
+            'image' => $imageFix,
         ]);
 
         return redirect('/dashboard');
@@ -190,7 +190,7 @@ class HomeController extends Controller
             'phone' => $data['phone'],
             'company_id' => 1,
             'workshift_id' => $data['workshift_id'],
-            "image" => $image,
+            "image" => $imageFix,
         ]);
 
         $leaveBalance = LeaveBalance::create([

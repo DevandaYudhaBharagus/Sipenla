@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 
 /*
@@ -73,4 +74,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
         Route::get('/delete-news/{id}', [NewsController::class, 'delete'])->name('deletenews');
     });
+
+    //Route News
+    Route::prefix('teacher')->group(function () {
+        Route::get('/', [MasterTeacherController::class, 'index']);
+        Route::get('/delete-teacher/{id}', [MasterTeacherController::class, 'delete'])->name('deletenews');
+    });
+
 });

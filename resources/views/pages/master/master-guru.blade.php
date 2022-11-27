@@ -55,306 +55,78 @@
                         <th width="500px">Alamat Orang Tua</th>
                         <th width="250px">Email</th>
                         <th width="250px">Jabatan 1</th>
-                        <th width="250px">Jabatan 2</th>
                         <th width="250px">Shift Kerja</th>
                         <th width="250px">Foto</th>
                         <th width="250px" style="border-right: none">Aksi</th>
                     </tr>
+                    @foreach ( $teacher as $new )
                     <tr>
-                        <td width="50px" class="no-border">1</td>
-                        <td width="250px">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Repudiandae, explicabo.
-                        </td>
-                        <td width="250px">Lorem, ipsum dolor.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">Lorem ipsum dolor sit.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
+                            <td width="50px" class="no-border">{{ $loop->iteration }}</td>
+                            <td width="250px">
+                                {{ $new->first_name }}
+                            </td>
+                            <td width="250px">{{ $new->last_name }}</td>
+                            <td width="250px"> {{ $new->nuptk }}</td>
+                            <td width="250px"> {{ $new->npsn }}</td>
+                            <td width="250px"> {{ $new->place_of_birth }}</td>
+                            <td width="250px">{{ $new->date_of_birth }}</td>
+                            <td width="250px">{{ $new->gender }}</td>
+                            <td width="250px">{{ $new->religion }}</td>
+                            <td width="500px">{{ $new->address }}</td>
+                            <td width="250px">{{ $new->education }}</td>
+                            <td width="250px">{{ $new->family_name }}</td>
+                            <td width="500px">{{ $new->family_address }}</td>
+                            <td width="250px">{{ $new->email }}</td>
+                            <td width="250px">{{ $new->position }}</td>
+                            <td width="250px">{{ $new->shift_name }}</td>
+                            <td width="250px">
+                                <div class="dropdown">
+                                    <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <div class="icon-foto-master">
+                                            @if(!$new->image)
+                                            <img src="../../images/foto-master.png" alt="" />
+                                            @else
+                                            <img src="{{ $new->image }}" alt="" />
+                                        @endif
+                                        
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="50px" class="no-border">2</td>
-                        <td width="250px">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Repudiandae, explicabo.
-                        </td>
-                        <td width="250px">Lorem, ipsum dolor.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">Lorem ipsum dolor sit.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
+                                        <div class="fa fa-angle-down"></div>
                                     </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
+                                    <ul class="dropdown-menu dropdown-foto">
+                                        <li>
+                                            <h6>Foto</h6>
+                                            <div class="box-foto-master">
+                                                @if(!$new->image)
+                                                    <img src="../../images/pengumuman.jpg" alt="" />
+                                                    @else
+                                                    <img src="{{ $new->image }}" alt="" />
+                                                @endif
+                                                <div class="d-flex align-items-center edit-master justify-content-end">
+                                                    <a href="" class="btn-edit-master">
+                                                        <i class="fa fa-edit text-primary"></i>
+                                                    </a>
+                                                    <a href="" class="btn-edit-master">
+                                                        <i class="fa fa-trash-o text-danger"></i>
+                                                    </a>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="50px" class="no-border">3</td>
-                        <td width="250px">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Repudiandae, explicabo.
-                        </td>
-                        <td width="250px">Lorem, ipsum dolor.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">Lorem ipsum dolor sit.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
+                                        </li>
+                                    </ul>
                                 </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="50px" class="no-border">4</td>
-                        <td width="250px">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Repudiandae, explicabo.
-                        </td>
-                        <td width="250px">Lorem, ipsum dolor.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">Lorem ipsum dolor sit.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
+                            </td>
+                            <td width="250px">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a href="" class="btn-edit-master me-2">
+                                        <i class="fa fa-edit text-primary"></i>
+                                    </a>
+                                    <a href="{{ url('teacher/delete-teacher/'.$new->user_id) }}" class="btn-edit-master">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
                                 </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
+                            </td>
                     </tr>
-                    <tr>
-                        <td width="50px" class="no-border">5</td>
-                        <td width="250px">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            Repudiandae, explicabo.
-                        </td>
-                        <td width="250px">Lorem, ipsum dolor.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="500px">Lorem ipsum dolor sit.</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">-</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="../../images/foto-master.png" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            <img src="../../images/pengumuman.jpg" alt="" />
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
