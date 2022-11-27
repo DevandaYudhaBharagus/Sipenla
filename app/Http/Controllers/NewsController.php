@@ -56,13 +56,15 @@ class NewsController extends Controller
             ]);
         }
 
-        $image = $this->saveImage($request->news_image, "azure");
+        $imageEncoded = base64_encode(file_get_contents($request->file('news_image')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $createNews = News::create([
             "news_title" => $request->news_title,
             "news_content" => $request->news_content,
             "category" => 'terpanas',
-            "news_image" => $image,
+            "news_image" => $imageFix,
         ]);
 
         return redirect('/news');

@@ -99,7 +99,9 @@ class HomeController extends Controller
             ]);
         }
 
-        $image = $this->saveImage($request->profile_student, "students");
+        $imageEncoded = base64_encode(file_get_contents($request->file('profile_student')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $studentData = Student::create([
             'user_id' => $user->id,
@@ -161,7 +163,9 @@ class HomeController extends Controller
             ]);
         }
 
-        $image = $this->saveImage($request->profile_employee, "azure");
+        $imageEncoded = base64_encode(file_get_contents($request->file('profile_employee')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $employeeData = Employee::create([
             'user_id' => $user->id,

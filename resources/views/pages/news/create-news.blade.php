@@ -23,7 +23,7 @@
             <div class="box-news">
                 <div class="title-news">Input Berita Sekolah</div>
                 <div class="box-form">
-                    <form action="{{ route('createnews') }}" method="POST">
+                    <form action="{{ route('createnews') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-md-6 col-12">
@@ -38,7 +38,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Upload Foto</label>
-                                    <input type="file" name="news_image" id="image-news" style="display: none" multiple />
+                                    <input type="file" name="news_image" id="fileId" style="display: none" multiple />
                                     <div class="box-image-news">
                                         <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
                                             srcset="" />
@@ -78,7 +78,7 @@
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
     <script>
         function thisUploadImage() {
-            document.querySelector("#image-news").click();
+            document.querySelector("#fileId").click();
         }
 
         CKEDITOR.replace("text-news");
