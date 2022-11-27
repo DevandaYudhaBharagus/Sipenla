@@ -1,10 +1,13 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfleController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,8 +25,22 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('pages.home');
 });
+<<<<<<< routes/web.php
+// Route::get('/registrasi', function() {
+//     return view('pages.registrasi');
+// });
+Route::get('/news', function() {
+    return view('pages.news.news');
+});
+Route::get('/create-news', function() {
+    return view('pages.news.create-news');
+});
+Route::get('/detail-news', function() {
+    return view('pages.news.detail-news');
+=======
 Route::get('/registrasi', function() {
     return view('pages.registrasi');
+>>>>>>> routes/web.php
 });
 Route::get('/profil', function() {
     return view('pages.dashboard.profil');
@@ -62,6 +79,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
         Route::post('/formemployee', [HomeController::class, 'addEmployee'])->name('formemployee');
+        Route::get('/registrasi', [RegisterController::class, 'index']);
+        Route::post('/registrasiuser', [RegisterController::class, 'addUser'])->name('formregister');
+        Route::get('/profil', [ProfleController::class, 'index']);
     });
 
     //Route News

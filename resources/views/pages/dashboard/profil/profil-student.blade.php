@@ -7,7 +7,7 @@
         <div class="container">
             <div class="box-profile">
                 <div class="header-profile">
-                    <a href="" class="d-flex align-items-center">
+                    <a href="/dashboard" class="d-flex align-items-center">
                         <i class="material-icons">arrow_back</i>
                     </a>
                     Profil
@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">Bambang Pamungkas</div>
+                                    <div class="name-student">{{ $student->first_name." ". $student->last_name}}</div>
                                     <div class="title-student">Siswa</div>
                                 </div>
                             </div>
@@ -70,24 +70,24 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nama</div>
                                             <div class="barrier-card">:</div>
-                                            <div class="explain-card">Bambang Pamungkas</div>
+                                            <div class="explain-card">{{ $student->first_name.' '.$student->last_name }}</div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nisn</div>
                                             <div class="barrier-card">:</div>
-                                            <div class="explain-card">0254789652</div>
+                                            <div class="explain-card">{{ $student->nisn }}</div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Tempat/tgl Lahir</div>
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">
-                                                Surabaya 10 November 2000
+                                                {{ $student->place_of_birth }}
                                             </div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Alamat</div>
                                             <div class="barrier-card">:</div>
-                                            <div class="explain-card">Jl Wonokromo Surabaya</div>
+                                            <div class="explain-card">{{ $student->address }}</div>
                                         </div>
                                         <div class="barcode-student">barcode</div>
                                     </div>
@@ -102,63 +102,63 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">NISN</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->nisn }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Nama</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Bambang Pamungkas</div>
+                                    <div class="col-8">{{ $student->first_name.' '.$student->last_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Kelas</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->grade_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">NIK</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->nik }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Tempat Lahir</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->place_of_birth }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
-                                    <div class="col-3">Tanggl Lahir</div>
+                                    <div class="col-3">Tanggal Lahir</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->date_of_birth }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Jenis Kelamin</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->gender }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Nama Ayah</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->father_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Nama Ibu</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->mother_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
@@ -172,14 +172,14 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">Wali Kelas</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->employee_first_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
                                 <div class="row align-items-center">
                                     <div class="col-3">Ekstrakulikuler</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $student->extracurricular_name }}</div>
                                 </div>
                             </div>
                         </div>

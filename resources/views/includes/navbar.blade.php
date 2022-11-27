@@ -1,6 +1,6 @@
  <nav class="navbar navbar-expand-lg sticky-top">
      <div class="container">
-         <a class="navbar-brand" href="#">
+         <a class="navbar-brand" href="/dashboard/">
              <img src="{{ asset('images/internal-images/logo.svg') }}" alt="Logo" width="45" height="45"
                  class="d-inline-block align-text-center me-2" />
              SIPENLA</a>
@@ -165,7 +165,7 @@
                          height="35" />
                  </button>
                  <ul class="dropdown-menu mt-5">
-                     <li><a class="dropdown-item" href="#">Action</a></li>
+                     <li><a class="dropdown-item" href="{{ url('/dashboard/profil') }}">Profile</a></li>
                      <li><a class="dropdown-item" href="#">Another action</a></li>
                      <li>
                          <hr class="dropdown-divider" />
