@@ -54,14 +54,14 @@
                                     <h6>{{ $new->news_title }}</h6>
                                     <!-- muncul hanya pada role admin edit news -->
                                     <div class="icon-news d-md-flex d-none align-items-center">
-                                        <a href="" class="icon text-danger"><i class="fa fa-trash-o"></i>
+                                        <a href="{{ url('/news/delete-news/'.$new->news_id) }}" class="icon text-danger"><i class="fa fa-trash-o"></i>
                                         </a>
                                         <a href="" class="icon text-primary"><i class="fa fa-edit"></i>
                                         </a>
                                     </div>
                                     <!-- akhir muncul pada role admin edit -->
                                 </div>
-                                <a href="{{ url('/news/detail-news/'.$new->news_id) }}">
+                                <a href="{{ url('detail-news/'.$new->news_id) }}">
                                     <div class="text-news">
                                         <p>
                                             {{ $new->news_content }}

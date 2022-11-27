@@ -3,12 +3,13 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
+use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\NewsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,8 @@ Route::get('/otp', [ForgotPassController::class, 'getOtp']);
 Route::post('/postotp', [ForgotPassController::class, 'postOtp'])->name('postotp');
 Route::post('/forgotpass', [ForgotPassController::class, 'postEmail'])->name('forgotpass');
 Route::post('/resetpass', [ForgotPassController::class, 'updatePass'])->name('resetpass');
+Route::get('/', [LandingPageController::class, 'getnews']);
+Route::get('/detail-news/{id}', [NewsController::class, 'getNewsById']);
 
 //Logout
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
@@ -67,7 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('news')->group(function () {
         Route::get('/', [NewsController::class, 'index']);
         Route::get('/create-news', [NewsController::class, 'show']);
-        Route::get('/detail-news/{id}', [NewsController::class, 'getNewsById']);
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
+        Route::get('/delete-news/{id}', [NewsController::class, 'delete'])->name('deletenews');
     });
 });
