@@ -142,23 +142,29 @@
                 <h6>Berita Terbaru</h6>
                 <div class="news-new">
                     <!-- start looping card new news -->
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
+                    @foreach ($news as $new)
+                        <div class="card card-news">
+                            <div class="card-image">
+                                @if(!$new->news_image)
+                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                @else
+                                    <img src="{{ $new->news_image }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ $new->news_title }}
+                                </h5>
+                                <div class="date-new-news">{{ $new->created_at->format('j F, Y') }}</div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="{{ url('detail-news/'.$new->news_id) }}" class="link-new-news">Baca Selengkapnya...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                     <!-- end looping new news -->
                     <!-- hapuss card new news -->
-                    <div class="card card-news">
+                    {{-- <div class="card card-news">
                         <div class="card-image">
                             <img src="{{ asset('images/internal-images/news.jpg') }}" alt="" />
                         </div>
@@ -213,7 +219,7 @@
                                 <a href="" class="link-new-news">Baca Selengkapnya...</a>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <!-- akhir hapys card new news -->
                 </div>
             </div>

@@ -76,4 +76,10 @@ class NewsController extends Controller
         $datas = News::orderBy('created_at', 'desc')->paginate(2);
         return view('pages.news.detail-news', compact('news', 'datas'));
     }
+
+    public function delete($id){
+        $news = News::where('news_id', $id);
+        $news->delete();
+        return redirect('/news');
+    }
 }

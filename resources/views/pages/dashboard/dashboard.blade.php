@@ -25,6 +25,8 @@
                         <div class="text-welcome">
                             @if (Auth::user()->role == "student")
                                 <h5>Selamat Datang, {{ $student->first_name." ". $student->last_name }}</h5>
+                            @elseif (Auth::user()->role == "walimurid")
+                                <h5>Selamat Datang, {{ $guardian->first_name." ". $guardian->last_name }}</h5>
                             @else
                                 <h5>Selamat Datang, {{ $employee->first_name." ". $employee->last_name }}</h5>
                             @endif
