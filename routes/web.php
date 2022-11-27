@@ -38,11 +38,53 @@ Route::get('/master-kehilangan', function(){
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
 });
-Route::get('/master-guru', function(){
-    return view('pages.master.master-guru');
+Route::get('/master-pegawai', function(){
+    return view('pages.master.master-pegawai');
+});
+Route::get('/master-siswa', function(){
+    return view('pages.master.master-siswa');
+});
+Route::get('/master-kelas', function(){
+    return view('pages.master.master-kelas');
+});
+Route::get('/master-ekstra', function(){
+    return view('pages.master.master-extra');
+});
+Route::get('/master-fasilitas', function(){
+    return view('pages.master.master-fasilitas');
+});
+Route::get('/master-jadwal', function(){
+    return view('pages.master.master-jadwal');
+});
+Route::get('/master-mapel', function(){
+    return view('pages.master.master-mapel');
+});
+Route::get('/master-shift', function(){
+    return view('pages.master.master-shift');
+});
+Route::get('/master-kantin', function(){
+    return view('pages.master.master-kantin');
+});
+Route::get('/master-koperasi', function(){
+    return view('pages.master.master-koperasi');
+});
+Route::get('/master-spp', function(){
+    return view('pages.master.master-keuangan-spp');
+});
+Route::get('/master-tabungan', function(){
+    return view('pages.master.master-keuangan-tabungan');
+});
+Route::get('/master-denda', function(){
+    return view('pages.master.master-keuangan-denda');
+});
+Route::get('/master-isi-saldo', function(){
+    return view('pages.master.master-keuangan-isi-saldo');
+});
+Route::get('/master-tarik-saldo', function(){
+    return view('pages.master.master-keuangan-tarik-saldo');
 });
 
-Auth::routes();
+// Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);

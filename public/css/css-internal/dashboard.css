@@ -362,11 +362,13 @@ button.dropdown-toggle {
     width: 95%;
     height: 9rem;
     border-radius: 8px;
+    object-fit: cover;
 }
 .announcement .box-announcement .announcement-item .image-announcement img {
     width: 100%;
     height: 100%;
     border-radius: 8px;
+    object-fit: cover;
 }
 .announcement .box-announcement .announcement-item .text-item-announcement {
     display: flex;
