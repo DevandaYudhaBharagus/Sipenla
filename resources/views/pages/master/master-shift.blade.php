@@ -43,7 +43,6 @@
                     <tr>
                         <th width="8%">No</th>
                         <th width="22%">Nama Shift</th>
-                        <th width="20%">Petugas</th>
                         <th width="10%">Jam Mulai</th>
                         <th width="10%">Jam Selesai</th>
                         <th width="15%">Batas Kedatangan</th>
@@ -63,36 +62,9 @@
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="10%">08:00</td>
-                        <td width="10%">16:00</td>
-                        <td width="16%">09:00</td>
-                        <td width="150px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -118,55 +90,6 @@
                                 <div class="mb-3">
                                     <label for="shift_name" class="form-label">Nama Shift</label>
                                     <input type="text" name="shift_name" class="form-control" id="shift_name" />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Petugas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Petugas ---
-                                </div>
-                                <div class="down-form-shift">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">

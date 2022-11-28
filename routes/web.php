@@ -7,12 +7,15 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,17 +46,11 @@ Route::get('/master-sumbangan', function(){
 Route::get('/master-kelas', function(){
     return view('pages.master.master-kelas');
 });
-Route::get('/master-ekstra', function(){
-    return view('pages.master.master-extra');
-});
 Route::get('/master-fasilitas', function(){
     return view('pages.master.master-fasilitas');
 });
 Route::get('/master-jadwal', function(){
     return view('pages.master.master-jadwal');
-});
-Route::get('/master-mapel', function(){
-    return view('pages.master.master-mapel');
 });
 Route::get('/master-kantin', function(){
     return view('pages.master.master-kantin');
@@ -131,7 +128,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
         Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
-
     //Route Shift
     Route::prefix('workshift')->group(function () {
         Route::get('/', [ShiftController::class, 'index']);
@@ -139,5 +135,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [ShiftController::class, 'edit']);
         Route::post('/{id}', [ShiftController::class, 'update']);
         Route::delete('/delete-shift/{id}', [ShiftController::class, 'delete']);
+    });
+
+    //Route Subject
+    Route::prefix('subject')->group(function () {
+        Route::get('/', [SubjectController::class, 'index']);
+        Route::post('/addSubject', [SubjectController::class, 'store'])->name('addsubject');
+        Route::get('/delete-subject/{id}', [SubjectController::class, 'delete'])->name('deletesubject');
+    });
+
+    //Route Ekstrakurikuler
+    Route::prefix('ekstrakurikuler')->group(function (){
+        Route::get('/', [EkstrakurikulerController::class, 'index']);
+        Route::post('/addEkstra', [EkstrakurikulerController::class, 'store'])->name('addekstra');
+        Route::get('/delete-ekstra/{id}', [EkstrakurikulerController::class, 'delete'])->name('deleteekstra');
     });
 });

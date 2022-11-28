@@ -40,29 +40,24 @@
                     <tr>
                         <th width="10%">No</th>
                         <th width="30%">Nama Mata Pelajaran</th>
-                        <th width="15%">Kelompok</th>
-                        <th width="27%">Guru Pengajar</th>
                         <th width="200px">Aksi</th>
                     </tr>
+                    @foreach ($subcject as $new )
                     <tr>
-                        <td width="10%">1.</td>
-                        <td width="30%">Bahasa Indonesia</td>
-                        <td width="15%">Umum</td>
-                        <td width="27%">
-                            <p>Aziz Pranaja</p>
-                            <p>Hadi Jaya Kusumo</p>
-                        </td>
+                        <td width="10%">{{ $loop->iteration }}</td>
+                        <td width="70%">{{ $new->subject_name }}</td>
                         <td width="200px">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
                                 </a>
-                                <a href="" class="btn-edit-master">
+                                <a href="{{ url('subject/delete-subject/'.$new->subject_id) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -80,15 +75,16 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addsubject') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Mata Pelajaran</label>
-                                    <input type="text" class="form-control" id="" />
+                                    <input type="text" name="subject_name" class="form-control" id="" />
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Guru Pengajar</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Guru ---
@@ -147,14 +143,14 @@
                                 <div class="down-form-full">
                                     <i class="fa fa-angle-down"></i>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
