@@ -69,7 +69,7 @@
                     {{-- start looping atbel master --}}
                     @foreach ( $student as $new )
                     <tr>
-                        <td width="50px">1</td>
+                        <td width="50px">{{ $loop->iteration }}</td>
                         <td width="250px">
                             {{ $new->first_name }}
                         </td>

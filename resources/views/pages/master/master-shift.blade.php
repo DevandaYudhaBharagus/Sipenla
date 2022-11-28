@@ -40,54 +40,30 @@
                     <tr>
                         <th width="8%">No</th>
                         <th width="22%">Nama Shift</th>
-                        <th width="20%">Petugas</th>
                         <th width="10%">Jam Mulai</th>
                         <th width="10%">Jam Selesai</th>
                         <th width="15%">Batas Kedatangan</th>
                         <th width="150px">Aksi</th>
                     </tr>
-                    <tr>
-                        <td width="8%">1.</td>
-                        <td width="22%">Satpam 1</td>
-                        <td width="20%">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
+                    @foreach ( $shifts as $new )
+                        <tr>
+                            <td width="8%">{{ $loop->iteration }}</td>
+                            <td width="22%">{{ $new->shift_name }}</td>
+                            <td width="10%">{{ $new->start_time }}</td>
+                            <td width="10%">{{ $new->end_time }}</td>
+                            <td width="16%">{{ $new->max_arrival }}</td>
+                            <td width="150px">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <button class="btn-edit-master me-2" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                        <i class="fa fa-edit text-primary"></i>
+                                    </button>
+                                    <a href="{{ url('workshift/delete-shift/'.$new->workshift_id) }}" class="btn-edit-master">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
                                 </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="10%">08:00</td>
-                        <td width="10%">16:00</td>
-                        <td width="16%">09:00</td>
-                        <td width="150px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -105,74 +81,26 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addshift') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Nama Shift</label>
-                                    <input type="text" class="form-control" id="" />
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Petugas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Petugas ---
-                                </div>
-                                <div class="down-form-shift">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
+                                    <input type="text" name="shift_name" class="form-control" id="" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
+                                <input type="time" name="start_time" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
+                                <label for="" class="form-label">Jam Akhir</label>
+                                <input type="time" name="end_time" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Batas Waktu Kedatangan</label>
-                                <input type="time" class="form-control">
+                                <input type="time" name="max_arrival" class="form-control">
                             </div>
                         </div>
                 </div>
@@ -180,7 +108,7 @@
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
