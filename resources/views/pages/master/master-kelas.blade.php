@@ -39,14 +39,15 @@
                         <th width="11%">No</th>
                         <th width="25%%">Nama Kelas</th>
                         <th width="25%">Wali Kelas</th>
-                        <th width="20%">Anggota Kelas</th>
+                        {{-- <th width="20%">Anggota Kelas</th> --}}
                         <th width="200px">Aksi</th>
                     </tr>
+                    @foreach ( $grades as $new )
                     <tr>
-                        <td width="11%">1.</td>
-                        <td width="25%">7D</td>
-                        <td width="25%">Aziz Pranaja</td>
-                        <td width="20%">
+                        <td width="11%">{{ $loop->iteration }}</td>
+                        <td width="40%">{{ $new->grade_name }}</td>
+                        <td width="30%">{{ $new->first_name.' '.$new->last_name }}</td>
+                        {{-- <td width="20%">
                             <div class="dropdown">
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
@@ -70,98 +71,19 @@
                                     </li>
                                 </ul>
                             </div>
-                        </td>
+                        </td> --}}
                         <td width="200px">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
                                 </a>
-                                <a href="" class="btn-edit-master">
+                                <a href="{{ url('grade/delete-grade/'.$new->grade_id ) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td width="11%">2.</td>
-                        <td width="25%">8D</td>
-                        <td width="25%">Aziz Pranaja</td>
-                        <td width="20%">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="200px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="11%">3.</td>
-                        <td width="25%">7A</td>
-                        <td width="25%">Aziz Pranaja</td>
-                        <td width="20%">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="200px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -179,10 +101,14 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addgrade') }}" method="POST">
+                        @csrf
                         <div class="row">
-                            <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Kelas</label>
+                            <div class="col-12 mb-3">
+                                    <label for="grade_name" class="form-label">Nama Kelas</label>
+                                    <input type="text" name="grade_name" class="form-control" id="shift_name" />
+
+                                {{-- <label for="" class="form-label">Kelas</label>
                                 <select class="form-select" aria-label="Default select example">
                                     <option selected>--- Pilih Kelas ---</option>
                                     <option value="1">7A</option>
@@ -191,20 +117,23 @@
                                 </select>
                                 <div class="down-form">
                                     <i class="fa fa-angle-down"></i>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="" class="form-label">Wali Kelas</label>
                                 <div class="select-box">
                                     <div class="options-container">
+                                        @foreach ( $teacher as $new )
                                         <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Hadi Jaya Kusumo </label>
+                                            <input type="text" name="teacher_id" value="{{ $new->employee_id }}" class="radio" />
+                                            <label for="film">{{ $new->first_name.' '.$new->last_name }} </label>
                                         </div>
-                                        <div class="option">
+                                        @endforeach
+                                    
+                                        {{-- <div class="option">
                                             <input type="radio" class="radio" />
                                             <label for="film">Lorem ipsum, dolor sit </label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="selected">
                                         --- Pilih Guru ---
@@ -217,7 +146,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Anggota Kelas ---
@@ -265,14 +194,14 @@
                                         </label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-permission bg-red-permission me-md-3"
                                 data-bs-dismiss="modal">
                                 Batal
                             </button>
-                            <button type="button" class="btn btn-permission bg-green-permission">
+                            <button type="submit" class="btn btn-permission bg-green-permission">
                                 Tambah
                             </button>
                         </div>
