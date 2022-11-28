@@ -18,7 +18,11 @@
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="profile-student">
-                                        <img src="{{ asset('images/internal-images/profile-user.png') }}" alt="" />
+                                        @if(!$employee->image)
+                                            <img src="{{ asset('images/internal-images/profile-user.png') }}" alt="" />
+                                        @else
+                                            <img src="{{ $employee->image }}" alt="" />
+                                        @endif
                                         <a href="" class="btn btn-edit-profile">
                                             <i class="fa fa-edit"></i>
                                         </a>
@@ -64,7 +68,11 @@
                                 </div>
                                 <div class="d-flex align-items-center mt-4">
                                     <div class="profile-student-card">
-                                        <img src="{{ asset('images/internal-images/profile-card.png') }}" alt="" />
+                                        @if(!$employee->image)
+                                            <img src="{{ asset('images/internal-images/profile-card.png') }}" alt="" />
+                                        @else
+                                            <img src="{{ $employee->image }}" alt="" />
+                                        @endif
                                     </div>
                                     <div class="content-student-card">
                                         <div class="d-flex align-items-center mb-2">
@@ -110,13 +118,6 @@
                                     <div class="col-3">Nama</div>
                                     <div class="col-1 text-center">:</div>
                                     <div class="col-8">{{ $employee->first_name.' '.$employee->last_name }}</div>
-                                </div>
-                            </div>
-                            <div class="box-text-biografi">
-                                <div class="row align-items-center">
-                                    <div class="col-3">NIK</div>
-                                    <div class="col-1 text-center">:</div>
-                                    <div class="col-8">{{ $employee->nik }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
@@ -186,7 +187,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">Email</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">Lorem ipsum dolor sit amet.</div>
+                                    <div class="col-8">{{ $employee->email }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
