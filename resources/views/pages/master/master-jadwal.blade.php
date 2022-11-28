@@ -46,24 +46,26 @@
                         <th width="11%">Jam Selesai</th>
                         <th width="180px">Aksi</th>
                     </tr>
+                    @foreach ( $schedule as $new )
                     <tr>
-                        <td width="22%">Bahasa Indonesia</td>
-                        <td width="10%">7A</td>
-                        <td width="20%"> Aziz Mutohar </td>
-                        <td width="10%">Senin</td>
-                        <td width="11%">09:00</td>
-                        <td width="11%">11:00</td>
+                        <td width="22%">{{ $new->subject_name }}</td>
+                        <td width="10%">{{ $new->grade_name }}</td>
+                        <td width="20%">{{ $new->first_name.' '.$new->last_name }}</td>
+                        <td width="10%">{{ $new->day_name }}</td>
+                        <td width="11%">{{ $new->start_time }}</td>
+                        <td width="11%">{{ $new->end_time }}</td>
                         <td width="180px">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
                                 </a>
-                                <a href="" class="btn-edit-master">
+                                <a href="{{ url('schedules/delete-schedules/'.$new->lesson_schedule_id ) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -81,32 +83,19 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addschedule') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Mata Pelajaran</label>
                                 <div class="select-box">
                                     <div class="options-container">
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Matematika </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Bahasa Indonesia </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Bahasa Inggris </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Seni Budaya </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Penjaskes </label>
-                                        </div>
+                                        @foreach ( $subject as $subjects )
+                                            <div class="option" id="option1">
+                                                <input type="text" name="subject_id" value="{{ $subjects->subject_id }}" class="radio" />
+                                                <label for="film">{{ $subjects->subject_name }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <div class="selected">
                                         --- Pilih Mata Pelajaran ---
@@ -120,27 +109,27 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Kelas</label>
-                                    <input type="text" class="form-control" id="" />
+                                <label for="" class="form-label">Kelas</label>
+                                <select class="form-select" name="grade_id" aria-label="Default select example">
+                                    <option selected>--- Pilih Kelas ---</option>
+                                    @foreach ( $grades as $grade)
+                                        <option value="{{ $grade->grade_id }}">{{ $grade->grade_name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="down-form-full">
+                                    <i class="fa fa-angle-down"></i>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Guru</label>
                                 <div class="select-box">
                                     <div class="options-container">
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Aziz </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Lesti Pranaja </label>
-                                        </div>
-                                        <div class="option" id="option1">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Aziz </label>
-                                        </div>
+                                        @foreach ( $teachers as $teacher )
+                                            <div class="option" id="option1">
+                                                <input type="text" name="teacher_id" value="{{ $teacher->employee_id }}" class="radio" />
+                                                <label for="film">{{ $teacher->first_name.' '.$teacher->last_name }}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                     <div class="selected">
                                         --- Pilih Guru ---
@@ -155,14 +144,11 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Hari</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" name="days_id" aria-label="Default select example">
                                     <option selected>--- Pilih Hari ---</option>
-                                    <option value="senin">Senin</option>
-                                    <option value="selasa">Selasa</option>
-                                    <option value="rabu">Rabu</option>
-                                    <option value="kamis">Kamis</option>
-                                    <option value="jumat">Jum'at</option>
-                                    <option value="sabtu">Sabtu</option>
+                                    @foreach ( $days as $day)
+                                        <option value="{{ $day->day_id }}">{{ $day->day_name }}</option>
+                                    @endforeach
                                 </select>
                                 <div class="down-form-full">
                                     <i class="fa fa-angle-down"></i>
@@ -170,11 +156,11 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
+                                <input type="time" name="start_time" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Selesai</label>
-                                <input type="time" class="form-control">
+                                <input type="time" name="end_time" class="form-control">
                             </div>
                         </div>
                 </div>
@@ -182,7 +168,7 @@
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
