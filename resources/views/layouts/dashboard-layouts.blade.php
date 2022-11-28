@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/css-internal/dashboard.css" />
     <link rel="icon" href="{{ asset('images/internal-images/logo.png') }}" type="image/x-icon" />
     <title>@yield('title')</title>
+    @yield("meta_header")
 </head>
 
 <body>
