@@ -32,12 +32,35 @@ class EkstrakurikulerController extends Controller
             'extracurricular_name' => $data['extracurricular_name'],
         ]);
 
-        return redirect('/ekstrakurikuler');
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('extracurricular_id' => $id);
+        $post  = Extracurricular::where($where)->first();
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Extracurricular::where('extracurricular_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $ekstra = Extracurricular::where('extracurricular_id', $id);
-        $ekstra->delete();
-        return redirect('/ekstrakurikuler');
+        try {
+            Extracurricular::where('extracurricular_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Extracurricular Data!"]);
     }
 }
