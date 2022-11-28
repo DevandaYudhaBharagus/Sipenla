@@ -124,7 +124,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/photo/{id}', [PegawaiController::class, 'updatePhoto']);
     });
 
-    //Route Teccher
+    //Route Teacher
     Route::prefix('teacher')->group(function () {
         Route::get('/', [MasterTeacherController::class, 'index']);
         Route::get('/delete-teacher/{id}', [MasterTeacherController::class, 'delete'])->name('deleteteacher');
