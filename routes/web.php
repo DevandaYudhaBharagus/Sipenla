@@ -46,9 +46,6 @@ Route::get('/master-kehilangan', function(){
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
 });
-// Route::get('/master-kelas', function(){
-//     return view('pages.master.master-kelas');
-// });
 Route::get('/master-jadwal', function(){
     return view('pages.master.master-jadwal');
 });
@@ -118,13 +115,13 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Teacher
     Route::prefix('teacher')->group(function () {
         Route::get('/', [MasterTeacherController::class, 'index']);
-        Route::get('/delete-teacher/{id}', [MasterTeacherController::class, 'delete'])->name('deleteteacher');
+        Route::delete('/delete-teacher/{id}', [MasterTeacherController::class, 'delete']);
     });
 
     //Route Student
     Route::prefix('student')->group(function () {
         Route::get('/', [MasterStudentController::class, 'index']);
-        Route::delete('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
+        Route::delete('/delete-student/{id}', [MasterStudentController::class, 'delete']);
         Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
         Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
@@ -165,11 +162,13 @@ Route::group(['middleware' => ['auth']], function () {
         Route::delete('/delete-facility/{id}', [FacilityController::class, 'delete']);
     });
 
-    //Route Facility
+    //Route Grade
     Route::prefix('grade')->group(function (){
         Route::get('/', [GradeController::class, 'index']);
-        Route::post('/addgrade', [GradeController::class, 'store'])->name('addgrade');
-        Route::get('/delete-grade/{id}', [GradeController::class, 'delete'])->name('deletegrade');
+        Route::post('/addgrade', [GradeController::class, 'store']);
+        Route::get('/{id}/edit', [GradeController::class, 'edit']);
+        Route::post('/{id}', [GradeController::class, 'update']);
+        Route::delete('/delete-grade/{id}', [GradeController::class, 'delete']);
     });
 
     //Route Schedules

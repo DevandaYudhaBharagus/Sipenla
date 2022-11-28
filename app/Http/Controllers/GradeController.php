@@ -41,12 +41,36 @@ class GradeController extends Controller
             'teacher_id' => $data['teacher_id'],
         ]);
 
-        return redirect('/grade');
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('grade_id' => $id);
+        $post  = Grade::join('employees', 'grades.teacher_id', '=', 'employees.employee_id')->where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Grade::where('grade_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $ekstra = Grade::where('grade_id', $id);
-        $ekstra->delete();
-        return redirect('/grade');
+        try {
+            Grade::where('grade_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Shift Data!"]);
     }
 }
