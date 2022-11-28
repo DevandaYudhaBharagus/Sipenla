@@ -25,7 +25,7 @@ class FacilityController extends Controller
         $urls = env("AZURE_STORAGE_URL") . env("AZURE_STORAGE_CONTAINER") . "/" . $filename;
         return $urls;
     }
-    
+
     public function index(){
         $facility = Facility::orderBy('created_at', 'desc')->get();
         return view('pages.master.master-fasilitas', compact('facility'));
@@ -59,13 +59,37 @@ class FacilityController extends Controller
                 "image" => $imageFix
             ]);
 
-            return redirect('/facility');
+            return response()->json([
+                "error" => false,
+                "message" => "Successfuly Added Shift Data!"
+            ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('facility_id' => $id);
+        $post  = Facility::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Facility::where('facility_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $ekstra = Facility::where('facility_id', $id);
-        $ekstra->delete();
-        return redirect('/facility');
+        try {
+            Facility::where('facility_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Shift Data!"]);
     }
 
 

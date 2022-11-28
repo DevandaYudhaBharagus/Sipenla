@@ -32,12 +32,36 @@ class SubjectController extends Controller
             'subject_name' => $data['subject_name'],
         ]);
 
-        return redirect('/subject');
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('subject_id' => $id);
+        $post  = Subject::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Subject::where('subject_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $subcject = Subject::where('subject_id', $id);
-        $subcject->delete();
-        return redirect('/subject');
+        try {
+            Subject::where('subject_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Subjecr Data!"]);
     }
 }

@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
         Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
+
     //Route Shift
     Route::prefix('workshift')->group(function () {
         Route::get('/', [ShiftController::class, 'index']);
@@ -139,22 +140,28 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Subject
     Route::prefix('subject')->group(function () {
         Route::get('/', [SubjectController::class, 'index']);
-        Route::post('/addSubject', [SubjectController::class, 'store'])->name('addsubject');
-        Route::get('/delete-subject/{id}', [SubjectController::class, 'delete'])->name('deletesubject');
+        Route::post('/addsubject', [SubjectController::class, 'store']);
+        Route::get('/{id}/edit', [SubjectController::class, 'edit']);
+        Route::post('/{id}', [SubjectController::class, 'update']);
+        Route::delete('/delete-subject/{id}', [SubjectController::class, 'delete']);
     });
 
     //Route Ekstrakurikuler
     Route::prefix('ekstrakurikuler')->group(function (){
         Route::get('/', [EkstrakurikulerController::class, 'index']);
-        Route::post('/addEkstra', [EkstrakurikulerController::class, 'store'])->name('addekstra');
-        Route::get('/delete-ekstra/{id}', [EkstrakurikulerController::class, 'delete'])->name('deleteekstra');
+        Route::post('/addekstra', [EkstrakurikulerController::class, 'store']);
+        Route::get('/{id}/edit', [EkstrakurikulerController::class, 'edit']);
+        Route::post('/{id}', [EkstrakurikulerController::class, 'update']);
+        Route::delete('/delete-ekstra/{id}', [EkstrakurikulerController::class, 'delete']);
     });
 
     //Route Facility
     Route::prefix('facility')->group(function (){
         Route::get('/', [FacilityController::class, 'index']);
-        Route::post('/addFacility', [FacilityController::class, 'store'])->name('addfacility');
-        Route::get('/delete-facility/{id}', [FacilityController::class, 'delete'])->name('deletefacility');
+        Route::post('/addfacility', [FacilityController::class, 'store']);
+        Route::get('/{id}/edit', [FacilityController::class, 'edit']);
+        Route::post('/{id}', [FacilityController::class, 'update']);
+        Route::delete('/delete-facility/{id}', [FacilityController::class, 'delete']);
     });
 
     //Route Facility
