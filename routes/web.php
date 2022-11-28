@@ -122,7 +122,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/photo/{id}', [PegawaiController::class, 'updatePhoto']);
     });
 
-    //Route Teccher
+    //Route Teacher
     Route::prefix('teacher')->group(function () {
         Route::get('/', [MasterTeacherController::class, 'index']);
         Route::get('/delete-teacher/{id}', [MasterTeacherController::class, 'delete'])->name('deleteteacher');
@@ -132,6 +132,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('student')->group(function () {
         Route::get('/', [MasterStudentController::class, 'index']);
         Route::get('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
+        Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
+        Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
 
     //Route Shift
