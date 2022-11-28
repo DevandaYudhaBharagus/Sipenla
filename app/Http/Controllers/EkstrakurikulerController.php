@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class EkstrakurikulerController extends Controller
 {
     public function index(){
-        $extra = Extracurricular::all();
+        $extra = Extracurricular::orderBy('created_at', 'desc')->get();
         return view('pages.master.master-extra', compact('extra'));
     }
 

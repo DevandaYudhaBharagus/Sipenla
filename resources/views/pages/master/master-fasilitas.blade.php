@@ -45,12 +45,13 @@
                         <th width="20%">Foto</th>
                         <th width="200px">Aksi</th>
                     </tr>
+                    @foreach ( $facility as $new )
                     <tr>
-                        <td width="11%">LF-001</td>
-                        <td width="25%">Lapangan Futsal 1</td>
-                        <td width="12%"> 1 </td>
+                        <td width="11%">{{ $new->facility_code }}</td>
+                        <td width="25%">{{ $new->facility_name }}</td>
+                        <td width="12%"> {{ $new->number_of_facility }} </td>
                         <td width="14%">
-                            2020
+                            {{ $new->year }}
                         </td>
                         <td width="20%">
                             <div class="dropdown">
@@ -65,8 +66,13 @@
                                     <li>
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
+                                            @if(!$new->image)
                                             <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
-                                                alt="" />
+                                            alt="" />
+                                            @else
+                                            <img src="{{ $new->image }}" alt="" />
+                                        @endif
+                                        
                                             <div class="d-flex align-items-center edit-master justify-content-end">
                                                 <a href="" class="btn-edit-master">
                                                     <i class="fa fa-edit text-primary"></i>
@@ -85,12 +91,13 @@
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
                                 </a>
-                                <a href="" class="btn-edit-master">
+                                <a href="{{ url('facility/delete-facility/'.$new->facility_id ) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
@@ -108,34 +115,35 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addfacility') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="row">
-                            <div class="col-12">
+                            {{-- <div class="col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Kode Fasilitas</label>
                                     <input type="text" class="form-control" id="" />
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Nama Fasilitas</label>
-                                    <input type="text" class="form-control" id="" />
+                                    <input type="text" name="facility_name" class="form-control" id="" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Jumlah</label>
-                                    <input type="number" class="form-control" id="" />
+                                    <input type="number" name="number_of_facility" class="form-control" id="" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Tahun</label>
-                                    <input type="number" class="form-control" id="" />
+                                    <input type="number" name="year" class="form-control" id="" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <input type="file" name="" id="image-master" style="display: none" multiple />
+                                <input type="file" name="image-facility" id="image-master" style="display: none" multiple />
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
@@ -157,7 +165,7 @@
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>

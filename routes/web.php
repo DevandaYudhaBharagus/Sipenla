@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EkstrakurikulerController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
@@ -45,9 +46,6 @@ Route::get('/master-sumbangan', function(){
 });
 Route::get('/master-kelas', function(){
     return view('pages.master.master-kelas');
-});
-Route::get('/master-fasilitas', function(){
-    return view('pages.master.master-fasilitas');
 });
 Route::get('/master-jadwal', function(){
     return view('pages.master.master-jadwal');
@@ -149,5 +147,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [EkstrakurikulerController::class, 'index']);
         Route::post('/addEkstra', [EkstrakurikulerController::class, 'store'])->name('addekstra');
         Route::get('/delete-ekstra/{id}', [EkstrakurikulerController::class, 'delete'])->name('deleteekstra');
+    });
+
+    //Route Facility
+    Route::prefix('facility')->group(function (){
+        Route::get('/', [FacilityController::class, 'index']);
+        Route::post('/addFacility', [FacilityController::class, 'store'])->name('addfacility');
+        Route::get('/delete-facility/{id}', [FacilityController::class, 'delete'])->name('deletefacility');
     });
 });
