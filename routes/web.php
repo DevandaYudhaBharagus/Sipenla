@@ -85,7 +85,7 @@ Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
