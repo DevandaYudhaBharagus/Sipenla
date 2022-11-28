@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class SubjectController extends Controller
 {
     public function index(){
-        $subcject = Subject::all();
+        $subcject = Subject::orderBy('created_at', 'desc')->get();
         return view('pages.master.master-mapel', compact('subcject'));
     }
 
