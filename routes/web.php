@@ -13,6 +13,7 @@ use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\ShiftController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +56,9 @@ Route::get('/master-jadwal', function(){
 Route::get('/master-mapel', function(){
     return view('pages.master.master-mapel');
 });
-Route::get('/master-shift', function(){
-    return view('pages.master.master-shift');
-});
+// Route::get('/master-shift', function(){
+//     return view('pages.master.master-shift');
+// });
 Route::get('/master-kantin', function(){
     return view('pages.master.master-kantin');
 });
@@ -133,5 +134,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
         Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
         Route::post('/{id}', [MasterStudentController::class, 'update']);
+    });
+
+    //Route Shift
+    Route::prefix('workshift')->group(function () {
+        Route::get('/', [ShiftController::class, 'index']);
+        Route::post('/addShift', [ShiftController::class, 'store'])->name('addshift');
+        Route::get('/delete-shift/{id}', [ShiftController::class, 'delete'])->name('deletehift');
     });
 });
