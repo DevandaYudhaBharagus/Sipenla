@@ -9,6 +9,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\MasterStudentController;
+use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\PegawaiController;
 
@@ -120,5 +122,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}', [PegawaiController::class, 'delete']);
         Route::get('/photo/{id}', [PegawaiController::class, 'deletePhoto']);
         Route::post('/photo/{id}', [PegawaiController::class, 'updatePhoto']);
+    });
+
+    //Route Teccher
+    Route::prefix('teacher')->group(function () {
+        Route::get('/', [MasterTeacherController::class, 'index']);
+        Route::get('/delete-teacher/{id}', [MasterTeacherController::class, 'delete'])->name('deleteteacher');
+    });
+
+    //Route Student
+    Route::prefix('student')->group(function () {
+        Route::get('/', [MasterStudentController::class, 'index']);
+        Route::get('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
     });
 });

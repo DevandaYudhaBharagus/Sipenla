@@ -55,7 +55,6 @@
                         <th width="500px">Alamat Orang Tua</th>
                         <th width="250px">Email</th>
                         <th width="250px">Jabatan 1</th>
-                        <th width="250px">Jabatan 2</th>
                         <th width="250px">Shift Kerja</th>
                         <th width="250px">Foto</th>
                         <th width="250px">Aksi</th>

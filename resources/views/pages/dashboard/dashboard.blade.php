@@ -142,14 +142,16 @@
                         <div class="col-md-3">
                             <div class="image-announcement">
                                 <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                <div class="btn-item-annnouncement">
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                                @if (Auth::User()->role  == 'admin')
+                                    <div class="btn-item-annnouncement">
+                                        <div class="icon-announcement">
+                                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                                        </div>
+                                        <div class="icon-announcement">
+                                            <a href=""><i class="fa fa-edit text-primary"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-edit text-primary"></i></a>
-                                    </div>
-                                </div>
+                                @endif
                             </div>
                         </div>
                         <div class="col-md-9">
