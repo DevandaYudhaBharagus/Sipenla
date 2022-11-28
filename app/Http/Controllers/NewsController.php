@@ -78,8 +78,13 @@ class NewsController extends Controller
     }
 
     public function delete($id){
-        $news = News::where('news_id', $id);
-        $news->delete();
-        return redirect('/news');
+        try {
+            News::where('news_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted News Data!"]);
     }
 }

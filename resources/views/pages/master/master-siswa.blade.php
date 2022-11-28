@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('title', 'Master Siswa')
+@section('meta_header')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('content')
     <div class="box-breadcrumb">
@@ -127,13 +130,8 @@
                         </td>
                         <td width="250px">
                             <div class="d-flex align-items-center justify-content-center">
-                                {{-- <button id="edit-button" value="{{ $new->student_id }}" class="btn-edit-master me-2">
-
-                                </button> --}}
                                 <a  class="btn-edit-master me-2" data-id="{{ $new->student_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                <a href="{{ url('student/delete-teacher/'.$new->user_id) }}" class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
+                                <a  class="btn-edit-master me-2" data-id="{{ $new->user_id }}" onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
                             </div>
                         </td>
                     </tr>
@@ -327,6 +325,14 @@
             document.querySelector("#image-master").click();
         }
 
+        $(document).ready(function () {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        });
+
         Array.prototype.filter.call($('#form-edit'), function (form) {
                 form.addEventListener('submit', function (event) {
                     event.preventDefault();
@@ -364,7 +370,7 @@
                 method: "GET",
                 // dataType: "json",
                 success: function (result) {
-                    $("#modal-title").html("Edit Bank Name")
+                    $("#modal-title").html("Edit Siswa")
                     $('#student_id').val(result.student_id).trigger('change');
                     $('#first_name').val(result.first_name);
                     $('#last_name').val(result.last_name);
@@ -392,7 +398,64 @@
                     console.log(xhr.responseText);
                 }
             });
+        }
 
+        function delete_data(e) {
+
+        Swal.fire({
+            text: "Apakah anda yakin ingin menghapus ?",
+            icon: 'warning',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonColor: '#3085d6',
+            cancelButtonText: 'Batal',
+            confirmButtonText: 'Setuju',
+            reverseButtons: true
+
+        }).then(function (result) {
+
+        if (result.value) {
+
+            var id = e.attr('data-id');
+            jQuery.ajax({
+            url: "{{url('/student/delete-student')}}" + "/" + id,
+            type: 'post',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            data: {
+                '_method': 'delete'
+            },
+            success: function (result) {
+
+                if (result.error) {
+
+                Swal.fire({
+                    type: "error",
+                    title: 'Oops...',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                })
+
+                } else {
+
+                    setTimeout(() => {
+                            $("#table-student").load(window.location.href +
+                                " #table-student");
+                        }, 0);
+
+                Swal.fire({
+                    type: "success",
+                    title: 'Deleted!',
+                    text: result.message,
+                    confirmButtonClass: 'btn btn-success',
+                })
+
+                }
+            }
+            });
+        }
+        });
         }
     </script>
 @endpush
