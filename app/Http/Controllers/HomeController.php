@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
-use App\Models\Guardian;
 use App\Models\Student;
 use App\Models\LeaveBalance;
 use Illuminate\Support\Facades\Validator;
@@ -55,10 +54,6 @@ class HomeController extends Controller
                 return view('pages.dashboard.formulir');
             }
             return view('pages.dashboard.dashboard', compact('student'));
-        }elseif ($user->role == "walimurid") {
-            $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
-            ->join('students', 'student_guardians.student_id', '=', 'students.student_id')->first();
-            return view('pages.dashboard.dashboard', compact('guardian'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){
@@ -190,7 +185,7 @@ class HomeController extends Controller
             'phone' => $data['phone'],
             'company_id' => 1,
             'workshift_id' => $data['workshift_id'],
-            "image" => $image,
+            "image" => $imageFix,
         ]);
 
         $leaveBalance = LeaveBalance::create([
