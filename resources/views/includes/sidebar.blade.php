@@ -99,7 +99,7 @@
               <span class="tool">Data Jadwal</span>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/grade') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-kelas.png') }}" alt="" />
                   </div>
@@ -117,7 +117,7 @@
               <span class="tool">Data Role</span>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/ekstrakurikuler') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-ekstra.png') }}" alt="" />
                   </div>
@@ -126,7 +126,7 @@
               <span class="tool">Data Ekstrakuliler</span>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/facility') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-fasilitas.png') }}" alt="" />
                   </div>
@@ -144,7 +144,7 @@
               <span class="tool">Data Perpustakaan</span>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/workshift') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-shift.png') }}" alt="" />
                   </div>
@@ -153,7 +153,7 @@
               <span class="tool">Data Shift</span>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/subject') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-mapel.png') }}" alt="" />
                   </div>
