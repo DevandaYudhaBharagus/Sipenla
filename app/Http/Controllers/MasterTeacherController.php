@@ -17,10 +17,14 @@ class MasterTeacherController extends Controller
     }
 
     public function delete($id){
-        $employee = Employee::where('user_id', $id);
-        $user = User::where('id', $id);
-        $employee->delete();
-        $user->delete();
-        return redirect('/teacher');
+        try {
+            Employee::where('user_id', $id)->delete();
+            $user = User::where('id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Teacher Data!"]);
     }
 }
