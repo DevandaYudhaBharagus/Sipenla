@@ -25,7 +25,7 @@
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">{{ $student->first_name." ". $student->last_name}}</div>
+                                    <div class="name-student">{{ $student->student_first_name." ". $student->student_last_name}}</div>
                                     <div class="title-student">Siswa</div>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nama</div>
                                             <div class="barrier-card">:</div>
-                                            <div class="explain-card">{{ $student->first_name.' '.$student->last_name }}</div>
+                                            <div class="explain-card">{{ $student->student_first_name.' '.$student->student_last_name }}</div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nisn</div>
@@ -109,7 +109,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">Nama</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">{{ $student->first_name.' '.$student->last_name }}</div>
+                                    <div class="col-8">{{ $student->student_first_name.' '.$student->student_last_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
@@ -172,7 +172,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">Wali Kelas</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">{{ $student->employee_first_name }}</div>
+                                    <div class="col-8">{{ $student->employee_first_name.' '.$student->employee_last_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">

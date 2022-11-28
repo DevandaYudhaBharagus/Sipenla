@@ -84,12 +84,7 @@
                                     <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         <div class="icon-foto-master">
-                                            @if(!$new->image)
-                                            <img src="../../images/foto-master.png" alt="" />
-                                            @else
-                                            <img src="{{ $new->image }}" alt="" />
-                                        @endif
-                                        
+                                            <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
                                         </div>
                                         <div class="fa fa-angle-down"></div>
                                     </div>
@@ -120,7 +115,7 @@
                                     <a href="" class="btn-edit-master me-2">
                                         <i class="fa fa-edit text-primary"></i>
                                     </a>
-                                    <a href="{{ url('teacher/delete-teacher/'.$new->user_id) }}" class="btn-edit-master">
+                                    <a href="{{ url('teacher/delete-student/'.$new->user_id) }}" class="btn-edit-master">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </div>
