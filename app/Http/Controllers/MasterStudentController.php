@@ -18,11 +18,15 @@ class MasterStudentController extends Controller
     }
 
     public function delete($id){
-        $students = Student::where('user_id', $id);
-        $users = User::where('id', $id);
-        $students->delete();
-        $users->delete();
-        return redirect('/student');
+        try {
+            Student::where('user_id', $id)->delete();
+            User::where('id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Student Data!"]);
     }
 
     public function edit($id)

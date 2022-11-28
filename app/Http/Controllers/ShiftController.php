@@ -42,12 +42,36 @@ class ShiftController extends Controller
             'max_arrival' => $data['max_arrival'],
         ]);
 
-        return redirect('/workshift');
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('workshift_id' => $id);
+        $post  = Workshift::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Workshift::where('workshift_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $wokrshifts = Workshift::where('workshift_id', $id);
-        $wokrshifts->delete();
-        return redirect('/workshift');
+        try {
+            Workshift::where('workshift_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Successfuly Deleted Shift Data!"]);
     }
 }

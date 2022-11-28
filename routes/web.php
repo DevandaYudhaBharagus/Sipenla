@@ -104,7 +104,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [NewsController::class, 'index']);
         Route::get('/create-news', [NewsController::class, 'show']);
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
-        Route::get('/delete-news/{id}', [NewsController::class, 'delete'])->name('deletenews');
+        Route::delete('/delete-news/{id}', [NewsController::class, 'delete']);
     });
 
     //Route Pegawai
@@ -124,16 +124,17 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Student
     Route::prefix('student')->group(function () {
         Route::get('/', [MasterStudentController::class, 'index']);
-        Route::get('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
+        Route::delete('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
         Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
         Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
-
     //Route Shift
     Route::prefix('workshift')->group(function () {
         Route::get('/', [ShiftController::class, 'index']);
-        Route::post('/addShift', [ShiftController::class, 'store'])->name('addshift');
-        Route::get('/delete-shift/{id}', [ShiftController::class, 'delete'])->name('deletehift');
+        Route::post('/addshift', [ShiftController::class, 'store']);
+        Route::get('/{id}/edit', [ShiftController::class, 'edit']);
+        Route::post('/{id}', [ShiftController::class, 'update']);
+        Route::delete('/delete-shift/{id}', [ShiftController::class, 'delete']);
     });
 
     //Route Subject
