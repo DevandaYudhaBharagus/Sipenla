@@ -7,6 +7,7 @@ use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfleController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
@@ -44,9 +45,6 @@ Route::get('/master-sumbangan', function(){
 });
 Route::get('/master-kelas', function(){
     return view('pages.master.master-kelas');
-});
-Route::get('/master-ekstra', function(){
-    return view('pages.master.master-extra');
 });
 Route::get('/master-fasilitas', function(){
     return view('pages.master.master-fasilitas');
@@ -143,5 +141,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [SubjectController::class, 'index']);
         Route::post('/addSubject', [SubjectController::class, 'store'])->name('addsubject');
         Route::get('/delete-subject/{id}', [SubjectController::class, 'delete'])->name('deletesubject');
+    });
+
+    //Route Ekstrakurikuler
+    Route::prefix('ekstrakurikuler')->group(function (){
+        Route::get('/', [EkstrakurikulerController::class, 'index']);
+        Route::post('/addEkstra', [EkstrakurikulerController::class, 'store'])->name('addekstra');
+        Route::get('/delete-ekstra/{id}', [EkstrakurikulerController::class, 'delete'])->name('deleteekstra');
     });
 });

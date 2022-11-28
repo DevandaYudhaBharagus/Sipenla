@@ -40,35 +40,38 @@
                     <tr>
                         <th width="11%">No</th>
                         <th width="25%">Nama Ekstrakulikuler</th>
-                        <th width="25%">Pembina</th>
-                        <th width="20%">Jenis</th>
+                        {{-- <th width="25%">Pembina</th>
+                        <th width="20%">Jenis</th> --}}
                         <th width="200px">Aksi</th>
                     </tr>
+                    @foreach ( $extra as $new )
                     <tr>
-                        <td width="11%">1.</td>
-                        <td width="25%">7D</td>
-                        <td width="25%">
+                        <td width="11%">{{ $loop->iteration }}</td>
+                        <td width="70%">{{ $new->extracurricular_name }}</td>
+                        {{-- <td width="25%">
                             <p>Aziz Pranaja</p>
                             <p>Hadi Jaya Kusumo</p>
                         </td>
                         <td width="20%">
                             Wajib
-                        </td>
+                        </td> --}}
                         <td width="200px">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
                                 </a>
-                                <a href="" class="btn-edit-master">
+                                <a href="{{ url('ekstrakurikuler/delete-ekstra/'.$new->extracurricular_id) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
-                                </a>
+                                </a> 
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </table>
             </div>
         </div>
     </div>
+    
 @endsection
 
 @section('modal')
@@ -78,19 +81,20 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">
-                        Tambah Data Kelas
+                        Tambah Data E   kstrakurikuler
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form action="{{ route('addekstra') }}" method="POST">
+                        @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="" class="form-label">Nama Ekstrakulikuler</label>
-                                    <input type="text" class="form-control" id="" />
+                                    <input type="text" name="extracurricular_name" class="form-control" id="" />
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
+                            {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Anggota Kelas ---
@@ -149,14 +153,14 @@
                                 <div class="down-form-full">
                                     <i class="fa fa-angle-down"></i>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
