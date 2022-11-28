@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 class ShiftController extends Controller
 {
     public function index(){
-        $shifts = Workshift::all();
+        $shifts = Workshift::orderBy('created_at', 'desc')->get();
         return view('pages.master.master-shift', compact('shifts'));
     }
 
