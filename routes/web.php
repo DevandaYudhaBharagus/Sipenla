@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ForgotPassController;
+use App\Http\Controllers\GradeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
@@ -44,9 +45,9 @@ Route::get('/master-kehilangan', function(){
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
 });
-Route::get('/master-kelas', function(){
-    return view('pages.master.master-kelas');
-});
+// Route::get('/master-kelas', function(){
+//     return view('pages.master.master-kelas');
+// });
 Route::get('/master-jadwal', function(){
     return view('pages.master.master-jadwal');
 });
@@ -154,5 +155,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [FacilityController::class, 'index']);
         Route::post('/addFacility', [FacilityController::class, 'store'])->name('addfacility');
         Route::get('/delete-facility/{id}', [FacilityController::class, 'delete'])->name('deletefacility');
+    });
+
+    //Route Facility
+    Route::prefix('grade')->group(function (){
+        Route::get('/', [GradeController::class, 'index']);
+        Route::post('/addgrade', [GradeController::class, 'store'])->name('addgrade');
+        Route::get('/delete-grade/{id}', [GradeController::class, 'delete'])->name('deletegrade');
     });
 });
