@@ -14,6 +14,7 @@ use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ShiftController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,12 +54,6 @@ Route::get('/master-fasilitas', function(){
 Route::get('/master-jadwal', function(){
     return view('pages.master.master-jadwal');
 });
-Route::get('/master-mapel', function(){
-    return view('pages.master.master-mapel');
-});
-// Route::get('/master-shift', function(){
-//     return view('pages.master.master-shift');
-// });
 Route::get('/master-kantin', function(){
     return view('pages.master.master-kantin');
 });
@@ -141,5 +136,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ShiftController::class, 'index']);
         Route::post('/addShift', [ShiftController::class, 'store'])->name('addshift');
         Route::get('/delete-shift/{id}', [ShiftController::class, 'delete'])->name('deletehift');
+    });
+
+    //Route Subject
+    Route::prefix('subject')->group(function () {
+        Route::get('/', [SubjectController::class, 'index']);
+        Route::post('/addSubject', [SubjectController::class, 'store'])->name('addsubject');
+        Route::get('/delete-subject/{id}', [SubjectController::class, 'delete'])->name('deletesubject');
     });
 });
