@@ -4,20 +4,21 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ProfleController;
+use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\EkstrakurikulerController;
-use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ForgotPassController;
-use App\Http\Controllers\GradeController;
 use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\ShiftController;
-use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\EkstrakurikulerController;
+use App\Http\Controllers\LessonSchedulesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -168,5 +169,12 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [GradeController::class, 'edit']);
         Route::post('/{id}', [GradeController::class, 'update']);
         Route::delete('/delete-grade/{id}', [GradeController::class, 'delete']);
+    });
+
+    //Route Schedules
+    Route::prefix('schedules')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'index']);
+        Route::post('/addschedule', [LessonSchedulesController::class, 'store'])->name('addschedule');
+        Route::get('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete'])->name('deleteschedules');
     });
 });
