@@ -40,9 +40,6 @@ Route::get('/master-kehilangan', function(){
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
 });
-Route::get('/master-siswa', function(){
-    return view('pages.master.master-siswa');
-});
 Route::get('/master-kelas', function(){
     return view('pages.master.master-kelas');
 });
@@ -134,5 +131,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('student')->group(function () {
         Route::get('/', [MasterStudentController::class, 'index']);
         Route::get('/delete-student/{id}', [MasterStudentController::class, 'delete'])->name('deletestudent');
+        Route::get('/{id}/edit', [MasterStudentController::class, 'edit']);
+        Route::post('/{id}', [MasterStudentController::class, 'update']);
     });
 });

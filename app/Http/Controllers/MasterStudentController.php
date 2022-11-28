@@ -24,4 +24,20 @@ class MasterStudentController extends Controller
         $users->delete();
         return redirect('/student');
     }
+
+    public function edit($id)
+    {
+        $where = array('student_id' => $id);
+        $post  = Student::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Student::where('student_id', $id);
+        $student->update($data);
+    }
 }
