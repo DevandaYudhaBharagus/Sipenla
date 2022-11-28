@@ -38,7 +38,7 @@
         </div>
         <div class="outher-table">
             <div class="table-scroll">
-                <table class="table-master">
+                <table id="table-student" class="table-master">
                     <tr>
                         <th width="50px">No</th>
                         <th width="250px">Nama Depan</th>
@@ -127,9 +127,10 @@
                         </td>
                         <td width="250px">
                             <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
+                                {{-- <button id="edit-button" value="{{ $new->student_id }}" class="btn-edit-master me-2">
+
+                                </button> --}}
+                                <a  class="btn-edit-master me-2" data-id="{{ $new->student_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
                                 <a href="{{ url('student/delete-teacher/'.$new->user_id) }}" class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
@@ -146,45 +147,53 @@
 
 @section('modal')
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Tambah Data Siswa</h1>
+                    <h1 class="modal-title fs-5 m-auto" id="modal-title">Tambah Data Siswa</h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form id="form-edit">
+                        {{csrf_field()}}
+                        <input type="hidden" name="student_id" id="student_id" value="">
                         <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">Nama Depan</label>
+                                    <input type="text" name="first_name" class="form-control" id="first_name" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Nama Belakang</label>
+                                    <input type="text" name="last_name" class="form-control" id="last_name" />
+                                </div>
+                            </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="nama-role" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">NISN</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="nisn" class="form-label">NISN</label>
+                                    <input type="text" name="nisn" class="form-control" id="nisn" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tempat Lahir</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="place_of_birth" class="form-label">Tempat Lahir</label>
+                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="nama-role" />
+                                    <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" name="gender" id="gender" aria-label="Default select example">
                                     <option selected>--- Pilih Jenis Kelamin ---</option>
-                                    <option value="1">Laki-laki</option>
-                                    <option value="2">Perempuan</option>
+                                    <option value="laki-laki">laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
                                 </select>
                                 <div class="down-form">
                                     <i class="fa fa-angle-down"></i>
@@ -192,96 +201,85 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Agama</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="religion" class="form-label">Agama</label>
+                                    <input type="text" name="religion" id="religion" class="form-control" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Asal Sekolah</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Kelas</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>--- Pilih Kelas --- </i></option>
-                                    <option value="1">Kelas VII A</option>
-                                    <option value="2">Kelas IX B</option>
-                                </select>
-                                <div class="down-form">
-                                    <i class="fa fa-angle-down"></i>
+                                    <label for="school_origin" class="form-label">Asal Sekolah</label>
+                                    <textarea class="form-control" name="school_origin" id="school_origin" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tanggal Diterima</label>
-                                    <input type="date" class="form-control" id="nama-role" />
+                                    <label for="date_school_now" class="form-label">Tanggal Diterima</label>
+                                    <input type="date" name="date_school_now" id="date_school_now" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Ayah</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="father_name" class="form-label">Nama Ayah</label>
+                                    <input type="text" name="father_name" id="father_name" class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Ibu</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="mother_name" class="form-label">Nama Ibu</label>
+                                    <input type="text" name="mother_name" id="mother_name" class="form-control" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Alamat Orang Tua</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="parent_address" class="form-label">Alamat Orang Tua</label>
+                                    <textarea class="form-control" name="parent_address" id="parent_address" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Pekerjaan Ayah</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="father_profession" class="form-label">Pekerjaan Ayah</label>
+                                    <input type="text" name="father_profession" class="form-control" id="father_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Pekerjaan Ibu</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="mother_profession" class="form-label">Pekerjaan Ibu</label>
+                                    <input type="text" name="mother_profession" class="form-control" id="mother_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Pendidikan Terakhir Ayah</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="father_education" class="form-label">Pendidikan Terakhir Ayah</label>
+                                    <input type="text" class="form-control" name="father_education" id="father_education" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Pendidikan Terkahir Ibu</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="mother_education" class="form-label">Pendidikan Terkahir Ibu</label>
+                                    <input type="text" class="form-control" id="mother_education" name="mother_education" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Wali</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="family_name" class="form-label">Nama Wali</label>
+                                    <input type="text" class="form-control" id="family_name" name="family_name" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Alamat Wali</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="family_address" class="form-label">Alamat Wali</label>
+                                    <textarea class="form-control" id="family_address" name="family_address" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Pekerjaan Wali</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="family_profession" class="form-label">Pekerjaan Wali</label>
+                                    <input type="text" class="form-control" id="family_profession" name="family_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Ekstrakulikuler</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <label for="extracurricular_id" class="form-label">Ekstrakulikuler</label>
+                                <select class="form-select" name="extracurricular_id" id="extracurricular_id" aria-label="Default select example">
                                     <option selected>--- Pilih Ekstrakulikuler ---</option>
                                     <option value="1">Futsal</option>
                                     <option value="2">Badminton</option>
@@ -327,6 +325,74 @@
     <script>
         function uploadImage() {
             document.querySelector("#image-master").click();
+        }
+
+        Array.prototype.filter.call($('#form-edit'), function (form) {
+                form.addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    let student_id = $("#student_id").val();
+                    var url = (student_id !== undefined && student_id !== null) && student_id ? "{{ url('student')}}" + "/" + student_id : "{{ url('student')}}";
+                    $.ajax({
+                        url: url,
+                        headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'post',
+                        data: $('#form-edit').serialize(),
+                        // contentType: 'application/json',
+                        processData: false,
+                        success: function (response) {
+                        console.log(response)
+                            setTimeout(() => {
+                                $("#table-student").load(window.location.href +
+                                    " #table-student");
+                            }, 0);
+                            $('#edit-modal').modal('hide');
+                        },
+                        error: function (xhr) {
+                        console.log(xhr.responseText);
+                        }
+                    });
+                });
+        });
+
+        function edit_data(e) {
+            $('#edit-modal').modal('show')
+            var url = "{{url('student')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                success: function (result) {
+                    $("#modal-title").html("Edit Bank Name")
+                    $('#student_id').val(result.student_id).trigger('change');
+                    $('#first_name').val(result.first_name);
+                    $('#last_name').val(result.last_name);
+                    $('#nisn').val(result.nisn);
+                    $('#place_of_birth').val(result.place_of_birth);
+                    $('#date_of_birth').val(result.date_of_birth);
+                    $('#gender').val(result.gender);
+                    $('#religion').val(result.religion);
+                    $('#school_origin').val(result.school_origin);
+                    $('#date_school_now').val(result.date_school_now);
+                    $('#father_name').val(result.father_name);
+                    $('#mother_name').val(result.mother_name);
+                    $('#parent_address').val(result.parent_address);
+                    $('#father_profession').val(result.father_profession);
+                    $('#mother_profession').val(result.mother_profession);
+                    $('#father_education').val(result.father_education);
+                    $('#mother_education').val(result.mother_education);
+                    $('#family_name').val(result.family_name);
+                    $('#family_address').val(result.family_address);
+                    $('#family_profession').val(result.family_profession);
+                    $('#extracurricular_id').val(result.extracurricular_id);
+                    $('#image').val(result.image);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+
         }
     </script>
 @endpush
