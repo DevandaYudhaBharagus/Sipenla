@@ -41,7 +41,7 @@
                     <div class="header-text">Data Penerimaan Pegawai</div>
                     <div class="biodata-text-form">BIODATA PEGAWAI</div>
                 </div>
-                <form action="{{ route('formemployee') }}" method="post">
+                <form action="{{ route('formemployee') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="box-form-input">
                         <div class="mb-3">

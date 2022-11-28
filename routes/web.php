@@ -12,6 +12,7 @@ use App\Http\Controllers\LandingPageController;
 use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,9 +39,6 @@ Route::get('/master-kehilangan', function(){
 });
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
-});
-Route::get('/master-pegawai', function(){
-    return view('pages.master.master-pegawai');
 });
 Route::get('/master-siswa', function(){
     return view('pages.master.master-siswa');
@@ -116,6 +114,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/create-news', [NewsController::class, 'show']);
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
         Route::get('/delete-news/{id}', [NewsController::class, 'delete'])->name('deletenews');
+    });
+
+    //Route Pegawai
+    Route::prefix('employee')->group(function () {
+        Route::get('/', [PegawaiController::class, 'index']);
+        Route::get('/{id}', [PegawaiController::class, 'delete']);
+        Route::get('/photo/{id}', [PegawaiController::class, 'deletePhoto']);
+        Route::post('/photo/{id}', [PegawaiController::class, 'updatePhoto']);
     });
 
     //Route Teccher
