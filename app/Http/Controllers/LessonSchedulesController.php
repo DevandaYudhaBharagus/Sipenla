@@ -39,7 +39,7 @@ class LessonSchedulesController extends Controller
                 'subject_id' => 'required',
                 'teacher_id' => 'required',
                 'start_time' => 'required',
-                'end_time' => 'required',
+                'end_time' => 'required|after:start_time',
             ],
             [
                 'days_id.required' => 'Hari Harus Diisi.',
@@ -63,17 +63,41 @@ class LessonSchedulesController extends Controller
             'subject_id' => $data['subject_id'],
             'teacher_id' => $data['teacher_id'],
             'start_time' => $data['start_time'],
-            'end_time' => $data['end_time'], 
+            'end_time' => $data['end_time'],
         ]);
 
-        return redirect('/schedules');
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function edit($id)
+    {
+        $where = array('lesson_schedule_id' => $id);
+        $post  = LessonSchedule::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = LessonSchedule::where('lesson_schedule_id', $id);
+        $student->update($data);
     }
 
     public function delete($id){
-        $ekstra = LessonSchedule::where('lesson_schedule_id', $id);
-        $ekstra->delete();
-        return redirect('/schedules');
+        try {
+            LessonSchedule::where('lesson_schedule_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Jadwal Mata Pelajaran!"]);
     }
 
-    
+
 }

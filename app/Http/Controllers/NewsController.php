@@ -85,6 +85,6 @@ class NewsController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted News Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Berita & Pengumuman!"]);
     }
 }

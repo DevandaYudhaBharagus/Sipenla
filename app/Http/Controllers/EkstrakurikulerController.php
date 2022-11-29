@@ -61,6 +61,6 @@ class EkstrakurikulerController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted Extracurricular Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Ekstrakurikuler!"]);
     }
 }

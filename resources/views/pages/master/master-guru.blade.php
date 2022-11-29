@@ -41,7 +41,7 @@
         </div>
         <div class="outher-table">
             <div class="table-scroll">
-                <table id="teacher-table" class="table-master">
+                <table class="table-master" id="teacher-table">
                     <tr>
                         <th width="50px" style="border-left: none">No</th>
                         <th width="250px">Nama Depan</th>
@@ -286,7 +286,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

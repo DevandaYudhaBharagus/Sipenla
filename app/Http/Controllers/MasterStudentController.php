@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Extracurricular;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,21 @@ class MasterStudentController extends Controller
 {
     public function index(){
         $student = Student::join('users','students.user_id', '=', 'users.id')
-        // ->join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
-        // ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+        ->join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+        ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
         ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
         ->where('role' ,'=','student')->get();
-        return view('pages.master.master-siswa', compact('student'));
+
+        $murid = [];
+        if(count($student) == 0){
+            $murid = Student::join('users', 'students.user_id', '=', 'users.id')
+                        ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                        ->get();
+        }
+
+        $extra = Extracurricular::get();
+
+        return view('pages.master.master-siswa', compact('student', 'extra', 'murid'));
     }
 
     public function delete($id){
@@ -26,7 +37,7 @@ class MasterStudentController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted Student Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Siswa!"]);
     }
 
     public function edit($id)

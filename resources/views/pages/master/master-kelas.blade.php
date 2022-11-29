@@ -24,7 +24,7 @@
         </nav>
     </div>
     <div class="box-content">
-        <h5>Role Master</h5>
+        <h5>Data Kelas</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <button class="btn-create" id="add-grade" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -35,9 +35,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="grade-table">
             <div class="table-scroll">
-                <table id="grade-table" class="table-master" style="border: 1px solid black">
+                <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
                         <th width="25%%">Nama Kelas</th>
@@ -266,7 +266,7 @@
             $(reset_form).removeClass('was-validated');
             $("#grade_id").val("");
             $("#basic-usage").val("").change();
-            $("#form_data").trigger("reset")
+            $("#form-grade").trigger("reset")
             let uniqueField = ["grade_name"]
             for (let i = 0; i < uniqueField.length; i++) {
             $("#" + uniqueField[i]).removeClass('was-validated');
@@ -399,7 +399,7 @@
 
                         Swal.fire({
                             type: "success",
-                            title: 'Deleted!',
+                            title: 'Menghapus!',
                             text: result.message,
                             confirmButtonClass: 'btn btn-success',
                         })

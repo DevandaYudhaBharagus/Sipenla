@@ -37,9 +37,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="extra-table">
             <div class="table-scroll">
-                <table id="extra-table" class="table-master" style="border: 1px solid black">
+                <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
                         <th width="25%">Nama Ekstrakulikuler</th>
@@ -81,7 +81,7 @@
         <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">
+                    <h1 class="modal-title fs-5 m-auto" id="modal-title">
                         Tambah Data Ekstrakurikuler
                     </h1>
                 </div>
@@ -244,7 +244,7 @@
 
         $(document).ready(function () {
             document.getElementById("add-extra").addEventListener("click", function () {
-                document.getElementById("form-form-extra").reset();
+                document.getElementById("form-extra").reset();
                 $("#modal-title").html("Tambah Data Ekstrakurikuler");
                 document.getElementById("extracurricular_id").value = null;
             });
@@ -357,7 +357,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

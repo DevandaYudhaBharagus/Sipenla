@@ -1,6 +1,9 @@
 @extends('layouts.master')
 
 @section('title', 'Master Pegawai')
+@section('meta_header')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
 
 @section('content')
     <div class="box-breadcrumb">
@@ -36,7 +39,7 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="employee-table">
             <div class="table-scroll">
                 <table class="table-master">
                     <tr>
@@ -68,8 +71,8 @@
                         <td width="250px">{{ $employee->last_name }}</td>
                         <td width="250px">{{ $employee->nuptk }}</td>
                         <td width="250px">{{ $employee->npsn }}</td>
-                        <td width="250px">{{ $employee->date_of_birth }}</td>
                         <td width="250px">{{ $employee->place_of_birth }}</td>
+                        <td width="250px">{{ $employee->date_of_birth }}</td>
                         <td width="250px">{{ $employee->gender }}</td>
                         <td width="250px">{{ $employee->religion }}</td>
                         <td width="500px">{{ $employee->address }}</td>
@@ -77,7 +80,6 @@
                         <td width="250px">{{ $employee->family_name }}</td>
                         <td width="500px">{{ $employee->family_address }}</td>
                         <td width="250px">{{ $employee->email }}</td>
-                        <td width="250px">{{ $employee->position }}</td>
                         <td width="250px">{{ $employee->position }}</td>
                         <td width="250px">{{ $employee->shift_name }}</td>
                         <td width="250px">
@@ -118,10 +120,8 @@
                         </td>
                         <td width="250px">
                             <div class="d-flex align-items-center justify-content-center">
-                                <a href="" class="btn-edit-master me-2">
-                                    <i class="fa fa-edit text-primary"></i>
-                                </a>
-                                <a href="{{ url('/employee'.'/'.$employee->user_id) }}" class="btn-edit-master">
+                                <a  class="btn-edit-master me-2" data-id="{{ $employee->employee_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                <a data-id="{{ $employee->user_id }}" onclick=delete_data($(this)) class="btn-edit-master">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
@@ -140,47 +140,55 @@
         <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Tambah Data Pegawai</h1>
+                    <h1 class="modal-title fs-5 m-auto" id="modal-title">Tambah Data Pegawai</h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form id="form-employee">
+                        @csrf
+                        <input type="hidden" name="employee_id" id="employee_id" value="">
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Lengkap</label>
-                                    <input type="text" class="form-control" id="nama-role" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">NUPTK / ID Pegawai</label>
-                                    <input type="text" class="form-control" id="nama-role" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">NPSN</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="first_name" class="form-label">Nama Depan</label>
+                                    <input type="text" name="first_name" class="form-control" id="first_name" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tempat Lahir</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="last_name" class="form-label">Nama Belakang</label>
+                                    <input type="text" name="last_name" class="form-control" id="last_name" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="nuptk" class="form-label">NUPTK / ID Pegawai</label>
+                                    <input type="text" name="nuptk" class="form-control" id="nuptk" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="npsn" class="form-label">NPSN</label>
+                                    <input type="text" name="npsn" class="form-control" id="npsn" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" class="form-control" id="nama-role" />
+                                    <label for="place_of_birth" class="form-label">Tempat Lahir</label>
+                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" aria-label="Default select example">
+                                <div class="mb-3">
+                                    <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
+                                    <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" name="gender" id="gender" aria-label="Default select example">
                                     <option selected>--- Pilih Jenis Kelamin ---</option>
-                                    <option value="1">Laki-laki</option>
-                                    <option value="2">Perempuan</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
                                 </select>
                                 <div class="down-form">
                                     <i class="fa fa-angle-down"></i>
@@ -188,59 +196,47 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Agama</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="religion" class="form-label">Agama</label>
+                                    <input type="text" name="religion" class="form-control" id="religion" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Alamat Tinggal</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="address" class="form-label">Alamat Tinggal</label>
+                                    <textarea class="form-control" name="address" id="address" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Riwayat Pendidikan</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="education" class="form-label">Riwayat Pendidikan</label>
+                                    <input type="text" name="education" class="form-control" id="education" />
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Nama Ibu</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="family_name" class="form-label">Nama Ibu</label>
+                                    <input type="text" name="family_name" class="form-control" id="family_name" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Alamat Orang Tua</label>
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                    <label for="family_address" class="form-label">Alamat Orang Tua</label>
+                                    <textarea class="form-control" name="family_address" id="family_address" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="col-12">
                                 <div class="mb-3">
-                                    <label for="" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="nama-role" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Jabatan 1</label>
-                                    <input type="text" class="form-control" id="nama-role" />
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="" class="form-label">Jabatan 2</label>
-                                    <input type="text" class="form-control" id="nama-role" />
+                                    <label for="position" class="form-label">Jabatan</label>
+                                    <input type="text" name="position" class="form-control" id="position" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>--- Pilih Shift ---</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
+                                <label for="workshift_id" class="form-label">Shift Kerja</label>
+                                <select class="form-select" name="workshift_id" id="workshift_id" data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
+                                    <option selected disabled value=''>--- Pilih Shift ---</option>
+                                    @foreach ( $workshift as $test )
+                                        <option value="{{ $test->workshift_id }}">{{ $test->shift_name }}</option>
+                                    @endforeach
                                 </select>
                                 <div class="down-form">
                                     <i class="fa fa-angle-down"></i>
@@ -251,7 +247,7 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
                                             <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
@@ -269,7 +265,7 @@
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -286,5 +282,158 @@
         function uploadPhotoSiswa() {
             document.querySelector("#fotoSiswa").click();
         }
+
+        $(document).ready(function () {
+
+            $( '#workshift_id' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                dropdownParent: $('#exampleModal'),
+            } );
+
+            $( '#gender' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            dropdownParent: $('#exampleModal'),
+        } );
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+
+        Array.prototype.filter.call($('#form-employee'), function (form) {
+            form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            let employee_id = $("#employee_id").val();
+
+            var url = (employee_id !== undefined && employee_id !== null) && employee_id ? "{{ url('employee')}}" + "/" + employee_id : "{{ url('employee')}}";
+            $.ajax({
+                url: url,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                data: $('#form-employee').serialize(),
+                // contentType: 'application/json',
+                processData: false,
+                success: function (response) {
+                console.log(response)
+                    setTimeout(() => {
+                                $("#employee-table").load(window.location.href +
+                                    " #employee-table");
+                            }, 0);
+                    $('#exampleModal').modal('hide');
+                    var reset_form = $('#form-employee')[0];
+                    $(reset_form).removeClass('was-validated');
+                    reset_form.reset();
+                    $('#exampleModal').modal('hide');
+                    $("#modal-title").html("Tambah Data Pegawai")
+                    $("#employee_id").val()
+                },
+                error: function (xhr) {
+                console.log(xhr.responseText);
+                }
+            });
+            });
+        });
+
+        function edit_data(e) {
+            $('#exampleModal').modal('show')
+            var url = "{{url('employee')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                success: function (result) {
+                    $("#modal-title").html("Edit Pegawai")
+                    $("#button-modal").html("Edit")
+                    $('#employee_id').val(result.employee_id).trigger('change');
+                    $('#first_name').val(result.first_name);
+                    $('#last_name').val(result.last_name);
+                    $('#nuptk').val(result.nuptk);
+                    $('#npsn').val(result.npsn);
+                    $('#place_of_birth').val(result.place_of_birth);
+                    $('#date_of_birth').val(result.date_of_birth);
+                    $('#gender').val(result.gender).trigger('change');
+                    $('#address').val(result.address);
+                    $('#religion').val(result.religion);
+                    $('#education').val(result.education);
+                    $('#position').val(result.position);
+                    $('#family_name').val(result.family_name);
+                    $('#family_address').val(result.family_address);
+                    $('#workshift_id').val(result.workshift_id).trigger('change');
+                    if(result.image !== null){
+                        document.getElementById("image-edit").src =result.image;
+                    }
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
+        function delete_data(e) {
+
+            Swal.fire({
+                text: "Apakah anda yakin ingin menghapus ?",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Setuju',
+                reverseButtons: true
+
+            }).then(function (result) {
+
+            if (result.value) {
+
+                var id = e.attr('data-id');
+                jQuery.ajax({
+                url: "{{url('/employee')}}" + "/" + id,
+                type: 'post',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    '_method': 'delete'
+                },
+                success: function (result) {
+
+                    if (result.error) {
+
+                    Swal.fire({
+                        type: "error",
+                        title: 'Oops...',
+                        text: result.message,
+                        confirmButtonClass: 'btn btn-success',
+                    })
+
+                    } else {
+
+                        setTimeout(() => {
+                                $("#employee-table").load(window.location.href +
+                                    " #employee-table");
+                            }, 0);
+
+                    Swal.fire({
+                        type: "success",
+                        title: 'Menghapus!',
+                        text: result.message,
+                        confirmButtonClass: 'btn btn-success',
+                    })
+
+                    }
+                }
+                });
+            }
+            });
+            }
     </script>
 @endpush

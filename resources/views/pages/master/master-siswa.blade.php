@@ -27,7 +27,7 @@
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Guru</h5>
+        <h5>Data Siswa</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <a href="" class="btn-excel">Export Excel</a>
@@ -39,9 +39,10 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        @if (count($student) !== 0)
+        <div class="outher-table" id="table-student">
             <div class="table-scroll">
-                <table id="table-student" class="table-master">
+                <table class="table-master">
                     <tr>
                         <th width="50px">No</th>
                         <th width="250px">Nama Depan</th>
@@ -111,7 +112,7 @@
                                         <h6>Foto</h6>
                                         <div class="box-foto-master">
                                             @if(!$new->image)
-                                                <img src="../../images/pengumuman.jpg" alt="" />
+                                                <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
                                                 @else
                                                 <img src="{{ $new->image }}" alt="" />
                                             @endif
@@ -140,12 +141,115 @@
                 </table>
             </div>
         </div>
+        @else
+        <div class="outher-table" id="table-student">
+            <div class="table-scroll">
+                <table class="table-master">
+                    <tr>
+                        <th width="50px">No</th>
+                        <th width="250px">Nama Depan</th>
+                        <th width="250px">Nama Belakang</th>
+                        <th width="250px">NISN</th>
+                        <th width="250px">Tempat Lahir</th>
+                        <th width="250px">Tanggal Lahir</th>
+                        <th width="250px">Jenis Kelamin</th>
+                        <th width="250px">Agama</th>
+                        <th width="500px">Alamat Tinggal</th>
+                        <th width="250px">Asal Sekolah</th>
+                        <th width="250px">Kelas</th>
+                        <th width="250px">Tanggal Diterima</th>
+                        <th width="250px">Nama Ayah</th>
+                        <th width="250px">Nama Ibu</th>
+                        <th width="500px">Alamat Orang Tua</th>
+                        <th width="250px">Pekerjaan Ayah</th>
+                        <th width="250px">Pekerjaan Ibu</th>
+                        <th width="250px">Pendidikan Terakhir Ayah</th>
+                        <th width="250px">Pendidikan Terakhir Ibu</th>
+                        <th width="250px">Nama Wali</th>
+                        <th width="500px">Alamat Wali</th>
+                        <th width="250px">Pekerjaan Wali</th>
+                        <th width="250px">Ekstrakulikuler</th>
+                        <th width="250px">Foto</th>
+                        <th width="250px">Aksi</th>
+                    </tr>
+                    {{-- start looping atbel master --}}
+                    @foreach ( $murid as $new )
+                    <tr>
+                        <td width="50px">{{ $loop->iteration }}</td>
+                        <td width="250px">
+                            {{ $new->first_name }}
+                        </td>
+                        <td width="250px">{{ $new->last_name }}</td>
+                        <td width="250px">{{ $new->nisn }}</td>
+                        <td width="250px">{{ $new->place_of_birth }}</td>
+                        <td width="250px">{{ $new->date_of_birth }}</td>
+                        <td width="250px">{{ $new->gender }}</td>
+                        <td width="250px">{{ $new->religion }}</td>
+                        <td width="500px">{{ $new->address }}</td>
+                        <td width="250px">{{ $new->school_now }}</td>
+                        <td width="250px">-</td>
+                        <td width="250px">{{ $new->date_school_now }}</td>
+                        <td width="250px">{{ $new->father_name }}</td>
+                        <td width="250px">{{ $new->mother_name }}</td>
+                        <td width="500px">{{ $new->parent_address }}</td>
+                        <td width="250px">{{ $new->father_profession }}</td>
+                        <td width="250px">{{ $new->mother_profession }}</td>
+                        <td width="250px">{{ $new->father_education }}</td>
+                        <td width="250px">{{ $new->mother_education }}</td>
+                        <td width="250px">{{ $new->family_name }}</td>
+                        <td width="500px">{{ $new->family_address }}</td>
+                        <td width="250px">{{ $new->family_profession }}</td>
+                        <td width="250px">{{ $new->extracurricular_name }}</td>
+                        <td width="250px">
+                            <div class="dropdown">
+                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <div class="icon-foto-master">
+                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
+                                    </div>
+                                    <div class="fa fa-angle-down"></div>
+                                </div>
+                                <ul class="dropdown-menu dropdown-foto">
+                                    <li>
+                                        <h6>Foto</h6>
+                                        <div class="box-foto-master">
+                                            @if(!$new->image)
+                                                <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
+                                                @else
+                                                <img src="{{ $new->image }}" alt="" />
+                                            @endif
+                                            <div class="d-flex align-items-center edit-master justify-content-end">
+                                                <a href="" class="btn-edit-master">
+                                                    <i class="fa fa-edit text-primary"></i>
+                                                </a>
+                                                <a href="" class="btn-edit-master">
+                                                    <i class="fa fa-trash-o text-danger"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td width="250px">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a  class="btn-edit-master me-2" data-id="{{ $new->student_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                <a  class="btn-edit-master me-2" data-id="{{ $new->user_id }}" onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                    {{-- end looping tabel master --}}
+                </table>
+            </div>
+        </div>
+        @endif
     </div>
 @endsection
 
 @section('modal')
     <!-- Modal -->
-    <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
@@ -188,7 +292,7 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" name="gender" id="gender" aria-label="Default select example">
+                                <select class="form-select" name="gender" id="gender">
                                     <option selected>--- Pilih Jenis Kelamin ---</option>
                                     <option value="laki-laki">laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -277,22 +381,19 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="extracurricular_id" class="form-label">Ekstrakulikuler</label>
-                                <select class="form-select" name="extracurricular_id" id="extracurricular_id" aria-label="Default select example">
-                                    <option selected>--- Pilih Ekstrakulikuler ---</option>
-                                    <option value="1">Futsal</option>
-                                    <option value="2">Badminton</option>
-                                    <option value="2">Basket</option>
+                                <select class="form-select" name="extracurricular_id" id="extracurricular_id" data-dropdown-parent="body" data-placeholder="Pilih Extracurricular">
+                                    <option selected disabled value=''>--- Pilih Ekstrakulikuler ---</option>
+                                    @foreach ( $extra as $test )
+                                            <option value="{{ $test->extracurricular_id }}">{{ $test->extracurricular_name }}</option>
+                                    @endforeach
                                 </select>
-                                <div class="down-form">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <input type="file" name="" id="image-master" style="display: none" multiple />
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img id="image" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
                                             <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
@@ -310,7 +411,7 @@
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -325,7 +426,24 @@
             document.querySelector("#image-master").click();
         }
 
+        $( '#extracurricular_id' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                dropdownParent: $('#exampleModal'),
+            } );
+
+        $( '#gender' ).select2( {
+            theme: "bootstrap-5",
+            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+            placeholder: $( this ).data( 'placeholder' ),
+            dropdownParent: $('#exampleModal'),
+        } );
+
+
         $(document).ready(function () {
+
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -353,7 +471,7 @@
                                 $("#table-student").load(window.location.href +
                                     " #table-student");
                             }, 0);
-                            $('#edit-modal').modal('hide');
+                            $('#exampleModal').modal('hide');
                         },
                         error: function (xhr) {
                         console.log(xhr.responseText);
@@ -363,7 +481,7 @@
         });
 
         function edit_data(e) {
-            $('#edit-modal').modal('show')
+            $('#exampleModal').modal('show')
             var url = "{{url('student')}}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
@@ -371,13 +489,14 @@
                 // dataType: "json",
                 success: function (result) {
                     $("#modal-title").html("Edit Siswa")
+                    $("#button-modal").html("Edit")
                     $('#student_id').val(result.student_id).trigger('change');
                     $('#first_name').val(result.first_name);
                     $('#last_name').val(result.last_name);
                     $('#nisn').val(result.nisn);
                     $('#place_of_birth').val(result.place_of_birth);
                     $('#date_of_birth').val(result.date_of_birth);
-                    $('#gender').val(result.gender);
+                    $('#gender').val(result.gender).trigger('change');
                     $('#religion').val(result.religion);
                     $('#school_origin').val(result.school_origin);
                     $('#date_school_now').val(result.date_school_now);
@@ -391,8 +510,10 @@
                     $('#family_name').val(result.family_name);
                     $('#family_address').val(result.family_address);
                     $('#family_profession').val(result.family_profession);
-                    $('#extracurricular_id').val(result.extracurricular_id);
-                    $('#image').val(result.image);
+                    $('#extracurricular_id').val(result.extracurricular_id).trigger('change');
+                    if(result.image !== null){
+                        document.getElementById("image").src =result.image;
+                    }
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);
@@ -446,7 +567,7 @@
 
                 Swal.fire({
                     type: "success",
-                    title: 'Deleted!',
+                    title: 'Menghapus!',
                     text: result.message,
                     confirmButtonClass: 'btn btn-success',
                 })
