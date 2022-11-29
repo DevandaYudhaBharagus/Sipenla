@@ -122,20 +122,20 @@
                                 </div> --}}
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="" class="form-label">Wali Kelas</label>
-                                <div class="select-box">
-                                    <div class="options-container">
+                                <label for="status" class="form-label">Wali Kelas</label>
+                                {{-- <div class="select-box"> --}}
+                                    {{-- <div class="options-container">
                                         @foreach ( $teacher as $new )
                                         <div class="option" id="option1">
                                             <input type="text" name="teacher_id" id="teacher_id" value="{{ $new->employee_id }}" class="radio" />
-                                            <label id="teacher_name" for="teacher_id">{{ $new->first_name.' '.$new->last_name }} </label>
+                                            <label id="teacher_name" for="teacher_id">{{ $new->first_name.' '.$new->last_name }}</label>
                                         </div>
                                         @endforeach
 
-                                        {{-- <div class="option">
+                                        <div class="option">
                                             <input type="radio" class="radio" />
                                             <label for="film">Lorem ipsum, dolor sit </label>
-                                        </div> --}}
+                                        </div>
                                     </div>
                                     <div class="selected">
                                         --- Pilih Guru ---
@@ -145,8 +145,14 @@
                                     </div>
                                     <div class="search-box">
                                         <input type="text" placeholder="Pencarian..." />
-                                    </div>
-                                </div>
+                                    </div> --}}
+                                    <select class="form-select" name="teacher_id" id="basic-usage" data-placeholder="Pilih Wali Kelas">
+                                        <option selected disabled value=''>Pilih Wali Kelas</option>
+                                        @foreach ( $teacher as $new )
+                                            <option value="{{ $new->employee_id }}">{{ $new->first_name.' '.$new->last_name }}</option>
+                                        @endforeach
+                                    </select>
+                                {{-- </div> --}}
                             </div>
                             {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
@@ -215,51 +221,52 @@
 
     @push('addon-javascript')
         <script>
-            const selected = document.querySelector(".selected");
-            const optionsContainer = document.querySelector(".options-container");
-            const searchBox = document.querySelector(".search-box input");
+        //     const selected = document.querySelector(".selected");
+        //     const optionsContainer = document.querySelector(".options-container");
+        //     const searchBox = document.querySelector(".search-box input");
 
-            const optionsList = document.querySelectorAll(".option");
+        //     const optionsList = document.querySelectorAll(".option");
 
-            selected.addEventListener("click", () => {
-                optionsContainer.classList.toggle("active");
+        //     selected.addEventListener("click", () => {
+        //         optionsContainer.classList.toggle("active");
 
-                searchBox.value = "";
-                filterList("");
+        //         searchBox.value = "";
+        //         filterList("");
 
-                if (optionsContainer.classList.contains("active")) {
-                    searchBox.focus();
-                }
-            });
+        //         if (optionsContainer.classList.contains("active")) {
+        //             searchBox.focus();
+        //         }
+        //     });
 
-            optionsList.forEach(o => {
-                o.addEventListener("click", () => {
-                    selected.innerHTML = o.querySelector("label").innerHTML;
-                    optionsContainer.classList.remove("active");
-                });
-            });
+        //     optionsList.forEach(o => {
+        //         o.addEventListener("click", () => {
+        //             selected.innerHTML = o.querySelector("label").innerHTML;
+        //             optionsContainer.classList.remove("active");
+        //         });
+        //     });
 
-            searchBox.addEventListener("keyup", function(e) {
-                filterList(e.target.value);
-            });
+        //     searchBox.addEventListener("keyup", function(e) {
+        //         filterList(e.target.value);
+        //     });
 
-            const filterList = searchTerm => {
-                searchTerm = searchTerm.toLowerCase();
-                optionsList.forEach(option => {
-                    let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
-                    if (label.indexOf(searchTerm) != -1) {
-                        option.style.display = "block";
-                    } else {
-                        option.style.display = "none";
-                    }
-                });
-            };
+        //     const filterList = searchTerm => {
+        //         searchTerm = searchTerm.toLowerCase();
+        //         optionsList.forEach(option => {
+        //             let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+        //             if (label.indexOf(searchTerm) != -1) {
+        //                 option.style.display = "block";
+        //             } else {
+        //                 option.style.display = "none";
+        //             }
+        //         });
+        //     };
 
             $("#exampleModal").on("hidden.bs.modal", function (e) {
             const reset_form = $('#form-grade')[0];
-            const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
-            $(reset_form_edit).removeClass('was-validated');
+            $("#grade_id").val("");
+            $("#basic-usage").val("").change();
+            $("#form_data").trigger("reset")
             let uniqueField = ["grade_name"]
             for (let i = 0; i < uniqueField.length; i++) {
             $("#" + uniqueField[i]).removeClass('was-validated');
@@ -269,6 +276,13 @@
         });
 
         $(document).ready(function () {
+            $( '#basic-usage' ).select2( {
+                theme: "bootstrap-5",
+                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                placeholder: $( this ).data( 'placeholder' ),
+                dropdownParent: $('#exampleModal'),
+            } );
+
             document.getElementById("add-grade").addEventListener("click", function () {
                 document.getElementById("form-grade").reset();
                 $("#modal-title").html("Tambah Data Kelas");
@@ -331,8 +345,7 @@
                     $("#button-modal").html("Edit")
                     $('#grade_id').val(result.grade_id).trigger('change');
                     $('#grade_name').val(result.grade_name);
-                    $('#teacher_id').val(result.teacher_id);
-                    $('#teacher_name').html(result.first_name + ' ' + result.last_name);
+                    $('#basic-usage').val(result.teacher_id).trigger('change');
                 },
                 error: function (xhr) {
                     console.log(xhr.responseText);

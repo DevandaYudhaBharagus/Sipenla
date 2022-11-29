@@ -46,9 +46,6 @@ Route::get('/master-kehilangan', function(){
 Route::get('/master-sumbangan', function(){
     return view('pages.master.master-buku-sumbangan');
 });
-Route::get('/master-jadwal', function(){
-    return view('pages.master.master-jadwal');
-});
 Route::get('/master-kantin', function(){
     return view('pages.master.master-kantin');
 });
