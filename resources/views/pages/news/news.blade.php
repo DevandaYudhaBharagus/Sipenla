@@ -137,7 +137,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

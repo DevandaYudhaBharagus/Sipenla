@@ -37,9 +37,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="facility-table">
             <div class="table-scroll">
-                <table id="facility-table" class="table-master">
+                <table class="table-master">
                     <tr>
                         <th width="11%">Kode</th>
                         <th width="25%">Nama Fasilitas</th>
@@ -319,7 +319,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

@@ -46,7 +46,7 @@ class FacilityController extends Controller
         );
 
         $imageEncoded = base64_encode(file_get_contents($request->file('image-facility')->path()));
-        $imageFix = $this->saveImage($imageEncoded, "azure");
+        $imageFix = $this->saveImage($imageEncoded, "posts");
             $code = mt_rand(1000, 9999);
 
             $facilityData = Facility::create([
@@ -89,7 +89,7 @@ class FacilityController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted Shift Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Fasilitas!"]);
     }
 
 

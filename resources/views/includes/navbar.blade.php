@@ -47,7 +47,7 @@
              <!-- navbar untuk tampilan desktop -->
              <ul class="navbar-nav d-lg-flex ms-auto d-none">
                  <li class="nav-item">
-                     <a class="nav-link active" href="#">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>
@@ -64,7 +64,7 @@
              <!-- navbar untuk tampilan hp -->
              <ul class="navbar-nav d-lg-none ms-auto d-flex">
                  <li class="nav-item">
-                     <a class="nav-link active" href="#">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>

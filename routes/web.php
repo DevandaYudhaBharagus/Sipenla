@@ -31,9 +31,6 @@ use App\Http\Controllers\LessonSchedulesController;
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
-});
 Route::get('/master-role', function(){
     return view('pages.master.master-role');
 });
@@ -104,9 +101,11 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Pegawai
     Route::prefix('employee')->group(function () {
         Route::get('/', [PegawaiController::class, 'index']);
-        Route::get('/{id}', [PegawaiController::class, 'delete']);
+        Route::delete('/{id}', [PegawaiController::class, 'delete']);
         Route::get('/photo/{id}', [PegawaiController::class, 'deletePhoto']);
         Route::post('/photo/{id}', [PegawaiController::class, 'updatePhoto']);
+        Route::get('/{id}/edit', [PegawaiController::class, 'edit']);
+        Route::post('/{id}', [PegawaiController::class, 'update']);
     });
 
     //Route Teacher
@@ -171,7 +170,9 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Schedules
     Route::prefix('schedules')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'index']);
-        Route::post('/addschedule', [LessonSchedulesController::class, 'store'])->name('addschedule');
-        Route::get('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete'])->name('deleteschedules');
+        Route::post('/addschedule', [LessonSchedulesController::class, 'store']);
+        Route::get('/{id}/edit', [LessonSchedulesController::class, 'edit']);
+        Route::post('/{id}', [LessonSchedulesController::class, 'update']);
+        Route::delete('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete']);
     });
 });

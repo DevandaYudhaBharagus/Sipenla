@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\Workshift;
 use App\Models\User;
 
 class PegawaiController extends Controller
@@ -32,16 +33,38 @@ class PegawaiController extends Controller
                     ->whereNotIn('role', ['kepsek', 'guru', 'dinaspendidikan'])
                     ->get();
 
-        return view('pages.master.master-pegawai', compact('employees'));
+        $workshift = Workshift::get();
+
+        return view('pages.master.master-pegawai', compact('employees', 'workshift'));
+    }
+
+    public function edit($id)
+    {
+        $where = array('employee_id' => $id);
+        $post  = Employee::where($where)->first();
+
+        return response()->json($post);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $data = request()->except(['_token']);
+        $student = Employee::where('employee_id', $id);
+        $student->update($data);
     }
 
     public function delete($id)
     {
-        $employee = Employee::where('user_id', '=', $id);
-        $user = User::where('id', '=', $id);
-        $employee->delete();
-        $user->delete();
-        return redirect('/employee');
+        try {
+            Employee::where('user_id', $id)->delete();
+            User::where('id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Pegawai"]);
     }
 
     public function deletePhoto($id)

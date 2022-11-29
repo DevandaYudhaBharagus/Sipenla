@@ -90,7 +90,7 @@
               </ul>
           </li>
           <li>
-              <a href="">
+              <a href="{{ url('/schedules') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
                   </div>

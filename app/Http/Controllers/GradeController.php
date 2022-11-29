@@ -71,6 +71,6 @@ class GradeController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted Shift Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Kelas!"]);
     }
 }

@@ -37,9 +37,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="subject-table">
             <div class="table-scroll">
-                <table id="subject-table" class="table-master" style="border: 1px solid black">
+                <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="10%">No</th>
                         <th width="30%">Nama Mata Pelajaran</th>
@@ -234,7 +234,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

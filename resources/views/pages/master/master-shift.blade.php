@@ -26,7 +26,7 @@
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Shitt</h5>
+        <h5>Data Shift</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <button class="btn-create" id="add-workshift" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -37,9 +37,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="table-workshift">
             <div class="table-scroll">
-                <table id="table-workshift" class="table-master" style="border: 1px solid black">
+                <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="8%">No</th>
                         <th width="22%">Nama Shift</th>
@@ -255,7 +255,7 @@
 
                     Swal.fire({
                         type: "success",
-                        title: 'Deleted!',
+                        title: 'Menghapus!',
                         text: result.message,
                         confirmButtonClass: 'btn btn-success',
                     })

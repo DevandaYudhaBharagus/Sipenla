@@ -62,6 +62,6 @@ class SubjectController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage()]);
         }
 
-        return response()->json(["error" => false, "message" => "Successfuly Deleted Subjecr Data!"]);
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Mata Pelajaran!"]);
     }
 }
