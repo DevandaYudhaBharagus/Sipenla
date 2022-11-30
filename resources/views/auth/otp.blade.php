@@ -6,7 +6,7 @@
     <div class="container">
         <div class="box-forgot">
             <div class="title-forgot">
-                <a href="" class="d-flex align-items-center">
+                <a href="{{ url('/lupa-sandi') }}" class="d-flex align-items-center">
                     <i class="material-icons">arrow_back</i></a>
                 Verfikasi Email
             </div>
@@ -16,12 +16,13 @@
                         <div class="text-forgot">
                             Silahkan Masukkan 4 Digit Kode Yang Dikirim Ke email@gmail.com
                         </div>
-                        <form action="">
+                        <form action="{{ route('postotp') }}" method="post">
+                            @csrf
                             <div class="form-otp">
-                                <input type="text" name="" id="" maxlength="1" autofocus />
-                                <input type="text" name="" id="" maxlength="1" />
-                                <input type="text" name="" id="" maxlength="1" />
-                                <input type="text" name="" id="" maxlength="1" />
+                                <input type="text" name="number1" id="" maxlength="1" autofocus />
+                                <input type="text" name="number2" id="" maxlength="1" />
+                                <input type="text" name="number3" id="" maxlength="1" />
+                                <input type="text" name="number4" id="" maxlength="1" />
                             </div>
                             <a href="" class="d-flex justify-content-center resend-code">Kirim Ulang Kode</a>
                             <button class="btn-forgot">Kirim</button>

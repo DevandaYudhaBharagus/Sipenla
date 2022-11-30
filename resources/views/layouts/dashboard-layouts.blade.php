@@ -11,6 +11,7 @@
     <link rel="icon" href="{{ asset('images/internal-images/logo.png') }}" type="image/x-icon" />
     @yield('css')
     <title>@yield('title')</title>
+    @yield("meta_header")
 </head>
 
 <body>

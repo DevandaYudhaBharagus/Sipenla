@@ -1,6 +1,6 @@
  <nav class="navbar navbar-expand-lg sticky-top">
      <div class="container">
-         <a class="navbar-brand" href="#">
+         <a class="navbar-brand" href="/dashboard/">
              <img src="{{ asset('images/internal-images/logo.svg') }}" alt="Logo" width="45" height="45"
                  class="d-inline-block align-text-center me-2" />
              SIPENLA</a>
@@ -17,7 +17,7 @@
                          <hr class="dropdown-divider" />
                      </li>
                      <li>
-                         <a class="dropdown-item" href="#">Something else here</a>
+                         <a class="dropdown-item" href="">test</a>
                      </li>
                  </ul>
              </div>
@@ -34,7 +34,7 @@
                          <hr class="dropdown-divider" />
                      </li>
                      <li>
-                         <a class="dropdown-item" href="#">Something else here</a>
+                         <a class="dropdown-item" href="">test</a>
                      </li>
                  </ul>
              </div>
@@ -47,7 +47,7 @@
              <!-- navbar untuk tampilan desktop -->
              <ul class="navbar-nav d-lg-flex ms-auto d-none">
                  <li class="nav-item">
-                     <a class="nav-link active" href="#">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>
@@ -64,7 +64,7 @@
              <!-- navbar untuk tampilan hp -->
              <ul class="navbar-nav d-lg-none ms-auto d-flex">
                  <li class="nav-item">
-                     <a class="nav-link active" href="#">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>
@@ -165,13 +165,13 @@
                          height="35" />
                  </button>
                  <ul class="dropdown-menu mt-5">
-                     <li><a class="dropdown-item" href="#">Action</a></li>
+                     <li><a class="dropdown-item" href="{{ url('/dashboard/profil') }}">Profile</a></li>
                      <li><a class="dropdown-item" href="#">Another action</a></li>
                      <li>
                          <hr class="dropdown-divider" />
                      </li>
                      <li>
-                         <a class="dropdown-item" href="#">Something else here</a>
+                         <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                      </li>
                  </ul>
              </div>

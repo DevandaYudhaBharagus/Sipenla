@@ -50,7 +50,7 @@
                             pengguna terkait berbagai informasi dan layanan seputar sekolah.
                         </p>
                     </div>
-                    <a href="" class="btn btn-mulai">YUK MULAI!</a>
+                    <a href="{{ url('/login') }}" class="btn btn-mulai">YUK MULAI!</a>
                 </div>
                 <div class="page-image">
                     <div class="frame-image">
@@ -77,66 +77,35 @@
             <div class="container">
                 <h6>Berita Terbaru</h6>
                 <div class="hot-news mt-4 mb-4">
-                    <!-- start looping hot news -->
+                    @foreach ($hots as $hot)
                     <div class="blog-news">
                         <div class="row">
                             <div class="col-md-5 col-12">
                                 <div class="image-news ms-auto">
-                                    <img src="{{ asset('images/internal-images/news.jpg') }}" alt="" />
+                                    @if(!$hot->news_image)
+                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                    @else
+                                        <img src="{{ $hot->news_image }}" alt="" />
+                                    @endif
                                 </div>
                             </div>
                             <div class="col-md-7 col-12 mt-3">
                                 <div class="title-hot-news">
-                                    Siswi SMPN 4 Singaraja Juara KST IPA
+                                    {{ $hot->news_title }}
                                 </div>
                                 <div class="date-hot-news">
-                                    Jumat, 14 Oktober 2022 - Eleanor Pena
+                                    {{ $hot->created_at->format('j F, Y') }}
                                 </div>
                                 <div class="text-hot-news">
                                     <p>
-                                        Siswa kelas IX/A1 SMPN 4 Singaraja, I Putu Rajendra
-                                        Pradana Putra, menyabet gelar juara KST (Kompetisi Sains
-                                        Terpadu) VIII Mata Pelajaran IPA Tahun 2022 yang
-                                        diselenggarakan MGMP (Musyawarah Guru Mata Pelajaran) IPA
-                                        SMPN Karangasem di Aula Sabha Widya Praja Kantor
-                                        Disdikpora Karangasem, Jalan Veteran, Amlapura, Sabtu
-                                        (23/4).
-                                        <a href="">BACA SELENGKAPNYA</a>
+                                        {{ $hot->news_content }}
+                                        <a href="{{ url('detail-news/'.$hot->news_id) }}">BACA SELENGKAPNYA</a>
                                     </p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- finish looping hot news -->
-                    <div class="blog-news">
-                        <div class="row">
-                            <div class="col-md-5 col-12">
-                                <div class="image-news ms-auto">
-                                    <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                </div>
-                            </div>
-                            <div class="col-md-7 col-12 mt-3">
-                                <div class="title-hot-news">
-                                    Siswi SMPN 4 Singaraja Juara KST IPA
-                                </div>
-                                <div class="date-hot-news">
-                                    Jumat, 14 Oktober 2022 - Eleanor Pena
-                                </div>
-                                <div class="text-hot-news">
-                                    <p>
-                                        Siswa kelas IX/A1 SMPN 4 Singaraja, I Putu Rajendra
-                                        Pradana Putra, menyabet gelar juara KST (Kompetisi Sains
-                                        Terpadu) VIII Mata Pelajaran IPA Tahun 2022 yang
-                                        diselenggarakan MGMP (Musyawarah Guru Mata Pelajaran) IPA
-                                        SMPN Karangasem di Aula Sabha Widya Praja Kantor
-                                        Disdikpora Karangasem, Jalan Veteran, Amlapura, Sabtu
-                                        (23/4).
-                                        <a href="">BACA SELENGKAPNYA</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -145,79 +114,27 @@
                 <h6>Berita Lainnya</h6>
                 <div class="news-new">
                     <!-- start looping card new news -->
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
+                    @foreach ($news as $new)
+                        <div class="card card-news">
+                            <div class="card-image">
+                                @if(!$new->news_image)
+                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                @else
+                                    <img src="{{ $new->news_image }}" alt="" />
+                                @endif
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ $new->news_title }}
+                                </h5>
+                                <div class="date-new-news">{{ $new->created_at->format('j F, Y') }}</div>
+                                <div class="d-flex justify-content-end mt-2">
+                                    <a href="{{ url('detail-news/'.$new->news_id) }}" class="link-new-news">Baca Selengkapnya...</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                     <!-- end looping new news -->
-                    <!-- hapuss card new news -->
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/news.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-news">
-                        <div class="card-image">
-                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                SMPN 4 Singarata Berhasil Raih Juara 1 Lomba Teater
-                            </h5>
-                            <div class="date-new-news">3 jam yang lalu</div>
-                            <div class="d-flex justify-content-end mt-2">
-                                <a href="" class="link-new-news">Baca Selengkapnya...</a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- akhir hapys card new news -->
                 </div>
             </div>
         </div>

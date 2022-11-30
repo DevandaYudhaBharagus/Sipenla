@@ -23,13 +23,13 @@
             <div class="box-news">
                 <div class="title-news">Input Berita & Pengumuman Sekolah</div>
                 <div class="box-form">
-                    <form action="" method="POST">
+                    <form action="{{ route('createnews') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Judul</label>
-                                    <input type="text" class="form-control" id="title"
+                                    <input type="text" name="news_title" class="form-control" id="title"
                                         aria-describedby="titleHelp" />
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Upload Foto</label>
-                                    <input type="file" name="" id="image-news" style="display: none" multiple />
+                                    <input type="file" name="news_image" id="fileId" style="display: none" multiple />
                                     <div class="box-image-news">
                                         <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
                                             id="image-upload-btn" />
@@ -55,7 +55,7 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Deskripsi</label>
-                                    <textarea class="form-control" id="text-news" rows="3"></textarea>
+                                    <textarea class="form-control" name="news_content" id="text-news" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
     <script>
         function thisUploadImage() {
-            document.querySelector("#image-news").click();
+            document.querySelector("#fileId").click();
         }
 
         CKEDITOR.replace("text-news");

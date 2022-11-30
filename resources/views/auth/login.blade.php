@@ -22,7 +22,7 @@
                 <div class="mb-3 d-flex align-items-center">
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                     <label class="label-cekbok ms-2" for="exampleCheck1">Simpan sandi</label>
-                    <a href="" class="ms-auto lupa-sandi">Lupa sandi?</a>
+                    <a href="{{ url('/lupa-sandi') }}" class="ms-auto lupa-sandi">Lupa sandi?</a>
                 </div>
                 <button type="submit" class="btn btn-login" id="btn-login">
                     Masuk

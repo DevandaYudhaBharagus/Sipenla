@@ -6,7 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Student;
+use App\Models\LeaveBalance;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -45,11 +48,19 @@ class HomeController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $employee = Student::where('user_id', '=', $user->id)->first();
-        if(!$employee){
-            return view('pages.dashboard.formulir');
+        if($user->role == "student"){
+            $student = Student::where('user_id', '=', $user->id)->first();
+            if(!$student){
+                return view('pages.dashboard.formulir');
+            }
+            return view('pages.dashboard.dashboard', compact('student'));
         }
-        return view('pages.dashboard.dashboard');
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+        if(!$employee){
+            return view('pages.dashboard.formulir-pegawai');
+        }
+        return view('pages.dashboard.dashboard', compact('employee'));
+
     }
 
     public function addStudent(Request $request)
@@ -60,8 +71,7 @@ class HomeController extends Controller
         $validate = Validator::make($data, [
             'first_name' => 'required',
             'last_name' => 'required',
-            'nik' => 'required|unique:students,nik|size:16',
-            'nisn' => 'required|unique:students,nik|size:16',
+            'nisn' => 'required|unique:students,nisn|size:16',
             'father_name' => 'required',
             'mother_name' => 'required',
             'gender' => 'required',
@@ -89,13 +99,14 @@ class HomeController extends Controller
             ]);
         }
 
-        $image = $this->saveImage($request->profile_student, "students");
+        $imageEncoded = base64_encode(file_get_contents($request->file('profile_student')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $studentData = Student::create([
             'user_id' => $user->id,
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
-            'nik' => $data['nik'],
             'nisn' => $data['nisn'],
             'mother_name' => $data['mother_name'],
             'place_of_birth' => $data['place_of_birth'],
@@ -116,8 +127,70 @@ class HomeController extends Controller
             'date_school_now' => $data['date_school_now'],
             'family_profession' => $data['family_profession'],
             'phone' => $data['phone'],
-            'extracurricular_id' => 1,
-            'image' => $image,
+            'extracurricular_id' => $data['extracurricular_id'],
+            'image' => $imageFix,
+        ]);
+
+        return redirect('/dashboard');
+    }
+
+    public function addEmployee(Request $request)
+    {
+        $user = Auth::user();
+        $data = $request->all();
+
+        $validate = Validator::make($data, [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'nuptk' => 'required|unique:employees,nuptk|size:16',
+            'npsn' => 'required|unique:employees,npsn|size:16',
+            'place_of_birth' => 'required',
+            'date_of_birth' => 'required',
+            'gender' => 'required',
+            'religion' => 'required',
+            'address' => 'required',
+            'education' => 'required',
+            'family_name' => 'required',
+            'family_address' => 'required',
+            'position' => 'required',
+            'phone' => 'required',
+            'workshift_id' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $imageEncoded = base64_encode(file_get_contents($request->file('profile_employee')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
+
+        $employeeData = Employee::create([
+            'user_id' => $user->id,
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'nuptk' => $data['nuptk'],
+            'npsn' => $data['npsn'],
+            'place_of_birth' => $data['place_of_birth'],
+            'date_of_birth' => $data['date_of_birth'],
+            'gender' => $data['gender'],
+            'religion' => $data['religion'],
+            'address' => $data['address'],
+            'education' => $data['education'],
+            'family_name' => $data['family_name'],
+            'family_address' => $data['family_address'],
+            'position' => $data['position'],
+            'phone' => $data['phone'],
+            'company_id' => 1,
+            'workshift_id' => $data['workshift_id'],
+            "image" => $imageFix,
+        ]);
+
+        $leaveBalance = LeaveBalance::create([
+            'employee_id' => $employeeData['employee_id'],
+            'total_balance' => 12
         ]);
 
         return redirect('/dashboard');

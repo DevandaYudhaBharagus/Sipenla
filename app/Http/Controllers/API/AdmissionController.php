@@ -56,7 +56,6 @@ class AdmissionController extends Controller
             $validate = Validator::make($data, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'nik' => 'required|unique:employees,nik|size:16',
                 'nuptk' => 'required|unique:employees,nuptk|size:16',
                 'npsn' => 'required|unique:employees,npsn|size:16',
                 'place_of_birth' => 'required',
@@ -86,7 +85,6 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'nik' => $data['nik'],
                 'nuptk' => $data['nuptk'],
                 'npsn' => $data['npsn'],
                 'place_of_birth' => $data['place_of_birth'],
@@ -131,8 +129,7 @@ class AdmissionController extends Controller
             $validate = Validator::make($data, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'nik' => 'required|unique:students,nik|size:16',
-                'nisn' => 'required|unique:students,nik|size:16',
+                'nisn' => 'required|unique:students,nisn|size:16',
                 'father_name' => 'required',
                 'mother_name' => 'required',
                 'gender' => 'required',
@@ -168,7 +165,6 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'nik' => $data['nik'],
                 'nisn' => $data['nisn'],
                 'mother_name' => $data['mother_name'],
                 'place_of_birth' => $data['place_of_birth'],
