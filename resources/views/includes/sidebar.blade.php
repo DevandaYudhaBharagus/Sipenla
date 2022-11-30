@@ -11,13 +11,42 @@
       </div>
       <ul class="nav-list">
           <li>
-              <a href="">
+              <a id="dropdown-keuangan">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
                   </div>
                   <span class="link-name">Data User</span>
+                  <div class="arrow ms-auto">
+                      <i class="fa fa-angle-down"></i>
+                  </div>
               </a>
               <span class="tool">Data User</span>
+              <ul class="menu-dropdown">
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Data Guru</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Data Siswa</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Data Pegawai</div>
+                      </a>
+                  </li>
+              </ul>
           </li>
           <li>
               <a id="dropdown-keuangan">
@@ -89,6 +118,44 @@
                   </li>
               </ul>
           </li>
+           <li>
+              <a id="dropdown-keuangan">
+                  <div class="box-icon">
+                      <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
+                  </div>
+                  <span class="link-name">Data Perpustakaan</span>
+                  <div class="arrow ms-auto">
+                      <i class="fa fa-angle-down"></i>
+                  </div>
+              </a>
+              <span class="tool">Data Perpustakaan</span>
+              <ul class="menu-dropdown">
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Buku Baru</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Kehilangan</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Sumbangan</div>
+                      </a>
+                  </li>
+              </ul>
+          </li>
           <li>
               <a href="">
                   <div class="box-icon">
@@ -134,15 +201,7 @@
               </a>
               <span class="tool">Data Fasilitas</span>
           </li>
-          <li>
-              <a href="">
-                  <div class="box-icon">
-                      <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
-                  </div>
-                  <span class="link-name">Data Perpustakaan</span>
-              </a>
-              <span class="tool">Data Perpustakaan</span>
-          </li>
+       
           <li>
               <a href="">
                   <div class="box-icon">

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('pages.home');
 });
-Route::get('/registrasi', function() {
+Route::get('/regis', function() {
     return view('pages.registrasi');
 });
 Route::get('/login', function() {
@@ -112,6 +112,9 @@ Route::get('/master-isi-saldo', function(){
 });
 Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
+});
+Route::get('/master', function(){
+    return view('pages.master.home-master');
 });
 // Route::get('formulir', function(){
 //     return view('pages.siswa.formulir');

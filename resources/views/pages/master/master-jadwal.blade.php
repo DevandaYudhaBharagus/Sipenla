@@ -11,7 +11,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-fasilitas.png') }}"
@@ -170,11 +176,11 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
+                                <input type="text" id="jam-mulai" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Selesai</label>
-                                <input type="time" class="form-control">
+                                <input type="text" id="jam-mulai" class="form-control">
                             </div>
                         </div>
                 </div>
@@ -193,11 +199,6 @@
 @endsection
 
 @push('addon-javascript')
-    <script>
-        function uploadImage() {
-            document.querySelector("#image-master").click();
-        }
-    </script>
     <script>
         const selected = document.querySelectorAll(".selected");
         const optionsContainer = document.querySelectorAll(".options-container");
@@ -243,5 +244,14 @@
                 }
             });
         };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#jam-mulai", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true
+        });
     </script>
 @endpush

@@ -9,7 +9,13 @@
                 <li class="breadcrumb-item">
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <i class="fa fa-user-plus me-1"></i> Data User
@@ -24,13 +30,13 @@
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Guru</h5>
+        <h5>Data Siswa</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <a href="" class="btn-excel">Export Excel</a>
-                <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{-- <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Tambah Data
-                </button>
+                </button> --}}
             </div>
             <div class="form-search">
                 <input type="search" name="" id="" placeholder="pencarian" />
@@ -204,7 +210,7 @@
     </div>
 @endsection
 
-@section('modal')
+{{-- @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
@@ -356,14 +362,16 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
+                                            id="image-upload-btn">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
                                             </button>
-                                            <a href="" class="btn-edit-master">
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
                                                 <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -388,5 +396,22 @@
         function uploadImage() {
             document.querySelector("#image-master").click();
         }
+
+        const inputImage = document.querySelector("#image-master");
+        const choseImage = document.querySelector("#image-upload-btn");
+        const btnRemove = document.querySelector("#btn-remove");
+
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            reader.onload = () => {
+                choseImage.setAttribute("src", reader.result);
+            }
+        });
+
+        btnRemove.addEventListener("click", () => {
+            choseImage.setAttribute("src", `{{ asset('images/internal-images/no-img.png') }}`);
+            inputImage.value = "";
+        })
     </script>
-@endpush
+@endpush --}}

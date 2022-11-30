@@ -283,12 +283,23 @@
         <div class="container">
             <div class="box-announcement">
                 <div class="row">
-                    <div class="col-12">
-                        <h6 class="text-announcement">Papan Pengumuman</h6>
+                    <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="text-announcement ">Berita dan Pengumuman</h6>
+                        <div class="box-add-news">
+                            <a href=""><i class="fa fa-plus"></i></a>
+                        </div>
                     </div>
                 </div>
                 <!-- start looping announcement -->
                 <div class="announcement-item">
+                    <div class="btn-item-annnouncement">
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                        </div>
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-edit text-primary"></i></a>
+                        </div>
+                    </div>
                     <div class="title-announcement">
                         SMP Lorem Ipsum Class Meeting 2021/2022
                     </div>
@@ -296,14 +307,6 @@
                         <div class="col-md-3">
                             <div class="image-announcement">
                                 <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                <div class="btn-item-annnouncement">
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                                    </div>
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-edit text-primary"></i></a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -326,6 +329,14 @@
                 <!-- end looping announcement -->
                 <!-- example announcement -->
                 <div class="announcement-item">
+                    <div class="btn-item-annnouncement">
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                        </div>
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-edit text-primary"></i></a>
+                        </div>
+                    </div>
                     <div class="title-announcement">
                         Peringatan hari jadi kota Surabaya dan Hari proklamasi Kemerdekaan
                         Republik Indonesia
@@ -334,14 +345,6 @@
                         <div class="col-md-3">
                             <div class="image-announcement">
                                 <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                <div class="btn-item-annnouncement">
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                                    </div>
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-edit text-primary"></i></a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -368,19 +371,6 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12 text-footer">
-                    &copy
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    SIPENLA. All Rights Reserved
-                </div>
-            </div>
-        </div>
-    </footer>
     <div class="message">
         <button><img src="{{ asset('images/internal-images/cs.png') }}" alt="" /></button>
     </div>

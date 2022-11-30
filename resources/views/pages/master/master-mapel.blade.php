@@ -11,7 +11,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-mapel.png') }}"
@@ -39,20 +45,13 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="10%">No</th>
-                        <th width="30%">Nama Mata Pelajaran</th>
-                        <th width="15%">Kelompok</th>
-                        <th width="27%">Guru Pengajar</th>
-                        <th width="200px">Aksi</th>
+                        <th width="81%" class="text-start">Nama Mata Pelajaran</th>
+                        <th width="13%">Aksi</th>
                     </tr>
                     <tr>
                         <td width="10%">1.</td>
-                        <td width="30%">Bahasa Indonesia</td>
-                        <td width="15%">Umum</td>
-                        <td width="27%">
-                            <p>Aziz Pranaja</p>
-                            <p>Hadi Jaya Kusumo</p>
-                        </td>
-                        <td width="200px">
+                        <td width="81%" class="text-start">Bahasa Indonesia</td>
+                        <td width="13%">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
@@ -88,66 +87,6 @@
                                     <input type="text" class="form-control" id="" />
                                 </div>
                             </div>
-                            <div class="col-12 mb-3">
-                                <label for="" class="form-label">Guru Pengajar</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Guru ---
-                                </div>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-12 mb-3">
-                                <label for="" class="form-label">Jenis Pelajaran</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>--- Pilih Jenis Pelajaran ---</option>
-                                    <option value="wajib">Wajib</option>
-                                    <option value="umum">Umum</option>
-                                </select>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                            </div>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -164,7 +103,7 @@
     </div>
 @endsection
 
-@push('addon-javascript')
+{{-- @push('addon-javascript')
     <script>
         const selectCek = document.querySelector("#select-cekbox");
         const listName = document.querySelector(".ceklist");
@@ -221,4 +160,4 @@
             }
         }
     </script>
-@endpush
+@endpush --}}

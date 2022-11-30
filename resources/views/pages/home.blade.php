@@ -16,7 +16,7 @@
                     <span class="navbar-toggler-icon"><i class="material-icons">view_headline</i></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="#home">HOME</a>
                         </li>
@@ -28,6 +28,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#about-me">TENTANG KAMI</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class=" btn-landing-login" href="/login">Masuk</a>
                         </li>
                     </ul>
                 </div>
@@ -72,7 +75,7 @@
 
         <div class="box-hot-news">
             <div class="container">
-                <h6>Berita Terpanas</h6>
+                <h6>Berita Terbaru</h6>
                 <div class="hot-news mt-4 mb-4">
                     <!-- start looping hot news -->
                     <div class="blog-news">
@@ -139,7 +142,7 @@
         </div>
         <div class="box-new-news">
             <div class="container">
-                <h6>Berita Terbaru</h6>
+                <h6>Berita Lainnya</h6>
                 <div class="news-new">
                     <!-- start looping card new news -->
                     <div class="card card-news">

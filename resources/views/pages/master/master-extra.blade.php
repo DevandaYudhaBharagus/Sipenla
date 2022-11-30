@@ -11,7 +11,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-extra.png') }}"
@@ -39,22 +45,13 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
-                        <th width="25%">Nama Ekstrakulikuler</th>
-                        <th width="25%">Pembina</th>
-                        <th width="20%">Jenis</th>
-                        <th width="200px">Aksi</th>
+                        <th width="80%" class="text-start">Nama Ekstrakulikuler</th>
+                        <th width="15%">Aksi</th>
                     </tr>
                     <tr>
                         <td width="11%">1.</td>
-                        <td width="25%">7D</td>
-                        <td width="25%">
-                            <p>Aziz Pranaja</p>
-                            <p>Hadi Jaya Kusumo</p>
-                        </td>
-                        <td width="20%">
-                            Wajib
-                        </td>
-                        <td width="200px">
+                        <td width="80%" class="text-start">Pramuka</td>
+                        <td width="15%">
                             <div class="d-flex align-items-center justify-content-center">
                                 <a href="" class="btn-edit-master me-2">
                                     <i class="fa fa-edit text-primary"></i>
@@ -78,7 +75,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">
-                        Tambah Data Kelas
+                        Tambah Data Ekstrakulikuler
                     </h1>
                 </div>
                 <div class="modal-body">
@@ -88,66 +85,6 @@
                                 <div class="mb-3">
                                     <label for="" class="form-label">Nama Ekstrakulikuler</label>
                                     <input type="text" class="form-control" id="" />
-                                </div>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="" class="form-label">Anggota Kelas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Anggota Kelas ---
-                                </div>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-12 mb-3">
-                                <label for="" class="form-label">Jenis Ekstrakulikuler</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>--- Pilih Jenis Ekstrakulikuler ---</option>
-                                    <option value="wajib">Wajib</option>
-                                    <option value="umum">Umum</option>
-                                </select>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
                                 </div>
                             </div>
                         </div>
@@ -166,7 +103,7 @@
     </div>
 @endsection
 
-@push('addon-javascript')
+{{-- @push('addon-javascript')
     <script>
         const selectCek = document.querySelector("#select-cekbox");
         const listName = document.querySelector(".ceklist");
@@ -223,4 +160,4 @@
             }
         }
     </script>
-@endpush
+@endpush --}}

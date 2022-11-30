@@ -11,7 +11,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-shift.png') }}"
@@ -39,8 +45,7 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="8%">No</th>
-                        <th width="22%">Nama Shift</th>
-                        <th width="20%">Petugas</th>
+                        <th width="42%">Nama Shift</th>
                         <th width="10%">Jam Mulai</th>
                         <th width="10%">Jam Selesai</th>
                         <th width="15%">Batas Kedatangan</th>
@@ -48,32 +53,7 @@
                     </tr>
                     <tr>
                         <td width="8%">1.</td>
-                        <td width="22%">Satpam 1</td>
-                        <td width="20%">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
+                        <td width="42%">Satpam 1</td>
                         <td width="10%">08:00</td>
                         <td width="10%">16:00</td>
                         <td width="16%">09:00</td>
@@ -113,66 +93,17 @@
                                     <input type="text" class="form-control" id="" />
                                 </div>
                             </div>
-                            <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Petugas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Petugas ---
-                                </div>
-                                <div class="down-form-shift">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                            <div class="col-md-6 col-12">
+                                <label for="" class="form-label">Jam Mulai</label>
+                                <input type="text" id="jam-mulai" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
-                            </div>
-                            <div class="col-md-6 col-12">
-                                <label for="" class="form-label">Jam Mulai</label>
-                                <input type="time" class="form-control">
+                                <input type="text" id="jam-mulai" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Batas Waktu Kedatangan</label>
-                                <input type="time" class="form-control">
+                                <input type="text" id="jam-mulai" class="form-control">
                             </div>
                         </div>
                 </div>
@@ -191,7 +122,7 @@
 @endsection
 
 @push('addon-javascript')
-    <script>
+    {{-- <script>
         const selectCek = document.querySelector("#select-cekbox");
         const listName = document.querySelector(".ceklist");
         const boxCekbox = document.querySelectorAll("#cekboxAnggota");
@@ -246,5 +177,14 @@
                 }
             }
         }
+    </script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#jam-mulai", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true
+        });
     </script>
 @endpush
