@@ -47,7 +47,7 @@
              <!-- navbar untuk tampilan desktop -->
              <ul class="navbar-nav d-lg-flex ms-auto d-none">
                  <li class="nav-item">
-                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>

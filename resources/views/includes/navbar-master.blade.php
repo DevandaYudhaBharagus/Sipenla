@@ -92,12 +92,13 @@
                             </div>
                         </a>
                         <ul class="dropdown-menu mt-5">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/dashboard/profil') }}">Profile</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
                             <li>
-                                <a class="dropdown-item" href="#">Another action</a>
+                                <hr class="dropdown-divider" />
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                             </li>
                         </ul>
                     </div>
