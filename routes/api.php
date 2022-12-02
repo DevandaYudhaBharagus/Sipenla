@@ -198,6 +198,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('mutasi')->group(function () {
         Route::post('/add', [MutasiController::class, 'createMutasi']);
+        Route::post('/update/{id}', [MutasiController::class, 'updateKonfirmasi']);
+        Route::post('/cancel/{id}', [MutasiController::class, 'updateCancel']);
         Route::get('/historywalmur', [MutasiController::class, 'historyMutasiWalMur']);
         Route::get('/historysiswa', [MutasiController::class, 'historyMutasiSiswa']);
         Route::get('/data/{awal}/{akhir}', [MutasiController::class, 'getDataForKonfirmasi']);

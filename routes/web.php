@@ -71,7 +71,7 @@ Route::get('/master', function(){
 //     return view('pages.siswa.formulir');
 // });
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);

@@ -52,7 +52,8 @@ class LessonScheduleController extends Controller
     public function getDay()
     {
         try{
-            $day = Day::get(['day_id', 'day_name']);
+            $day = Day::whereNotIn('day_name', ['Minggu', 'Sabtu'])
+            ->get(['day_id', 'day_name']);
 
             $response = $day;
 

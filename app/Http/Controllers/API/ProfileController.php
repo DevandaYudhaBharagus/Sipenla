@@ -43,7 +43,8 @@ class ProfileController extends Controller
                                 'grades.grade_id',
                                 'grades.grade_name',
                                 'extracurriculars.extracurricular_id',
-                                'extracurriculars.extracurricular_name'
+                                'extracurriculars.extracurricular_name',
+                                'students.status'
                             ]);
                 if(!$student){
                     $murid = Student::where('user_id', '=', $user->id)
@@ -70,7 +71,8 @@ class ProfileController extends Controller
                             'employee_last_name' => "-",
                             'extracurricular_id' => 0,
                             'extracurricular_name' => "-",
-                            'status' => 'false'
+                            'status' => 'false',
+                            'status_student' => '-'
                         ];
 
                         return ResponseFormatter::success($response, 'Get User');
@@ -97,6 +99,7 @@ class ProfileController extends Controller
                         'employee_last_name' => "-",
                         'extracurricular_id' => $murid->extracurricular_id,
                         'extracurricular_name' => $murid->extracurricular_name,
+                        'status_student' => $murid->status,
                         'status' => 'true'
                     ];
 
@@ -124,6 +127,7 @@ class ProfileController extends Controller
                     'employee_last_name' => $student->employee_last_name,
                     'extracurricular_id' => $student->extracurricular_id,
                     'extracurricular_name' => $student->extracurricular_name,
+                    'status_student' => $student->status,
                     'status' => 'true'
                 ];
 
