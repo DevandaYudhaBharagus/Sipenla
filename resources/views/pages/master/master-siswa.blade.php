@@ -261,7 +261,7 @@
     </div>
 @endsection
 
-{{-- @section('modal')
+@section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
@@ -594,4 +594,4 @@
         });
         }
     </script>
-@endpush --}}
+@endpush

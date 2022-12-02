@@ -154,25 +154,25 @@
 @push('addon-javascript')
     <script>
 
-        // $("#exampleModal").on("hidden.bs.modal", function (e) {
-        //     const reset_form = $('#form-workshift')[0];
-        //     const reset_form_edit = $('#form_edit_data')[0];
-        //     $(reset_form).removeClass('was-validated');
-        //     $(reset_form_edit).removeClass('was-validated');
-        //     let uniqueField = ["shift_name"]
-        //     for (let i = 0; i < uniqueField.length; i++) {
-        //     $("#" + uniqueField[i]).removeClass('was-validated');
-        //     $("#" + uniqueField[i]).removeClass("is-invalid");
-        //     $("#" + uniqueField[i]).removeClass("invalid-more");
-        //     }
-        // });
+        $("#exampleModal").on("hidden.bs.modal", function (e) {
+            const reset_form = $('#form-workshift')[0];
+            const reset_form_edit = $('#form_edit_data')[0];
+            $(reset_form).removeClass('was-validated');
+            $(reset_form_edit).removeClass('was-validated');
+            let uniqueField = ["shift_name"]
+            for (let i = 0; i < uniqueField.length; i++) {
+            $("#" + uniqueField[i]).removeClass('was-validated');
+            $("#" + uniqueField[i]).removeClass("is-invalid");
+            $("#" + uniqueField[i]).removeClass("invalid-more");
+            }
+        });
 
         $(document).ready(function () {
-            // document.getElementById("add-workshift").addEventListener("click", function () {
-            //     document.getElementById("form-workshift").reset();
-            //     $("#modal-title").html("Tambah Data Jadwal Kerja");
-            //     document.getElementById("workshift_id").value = null;
-            // });
+            document.getElementById("add-workshift").addEventListener("click", function () {
+                document.getElementById("form-workshift").reset();
+                $("#modal-title").html("Tambah Data Jadwal Kerja");
+                document.getElementById("workshift_id").value = null;
+            });
 
             $.ajaxSetup({
                 headers: {
@@ -181,64 +181,64 @@
             });
         })
 
-        // Array.prototype.filter.call($('#form-workshift'), function (form) {
-        //     form.addEventListener('submit', function (event) {
-        //     event.preventDefault();
+        Array.prototype.filter.call($('#form-workshift'), function (form) {
+            form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-        //     let workshift_id = $("#workshift_id").val();
+            let workshift_id = $("#workshift_id").val();
 
-        //     var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ? "{{ url('workshift')}}" + "/" + workshift_id : "{{ url('workshift')}}"+ "/addshift";
-        //     $.ajax({
-        //         url: url,
-        //         headers: {
-        //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         type: 'post',
-        //         data: $('#form-workshift').serialize(),
-        //         // contentType: 'application/json',
-        //         processData: false,
-        //         success: function (response) {
-        //         console.log(response)
-        //             setTimeout(() => {
-        //                         $("#table-workshift").load(window.location.href +
-        //                             " #table-workshift");
-        //                     }, 0);
-        //             $('#exampleModal').modal('hide');
-        //             var reset_form = $('#form-workshift')[0];
-        //             $(reset_form).removeClass('was-validated');
-        //             reset_form.reset();
-        //             $('#exampleModal').modal('hide');
-        //             $("#modal-title").html("Tambah Data Jadwal Kerja")
-        //             $("#workshift_id").val()
-        //         },
-        //         error: function (xhr) {
-        //         console.log(xhr.responseText);
-        //         }
-        //     });
-        //     });
-        // });
+            var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ? "{{ url('workshift')}}" + "/" + workshift_id : "{{ url('workshift')}}"+ "/addshift";
+            $.ajax({
+                url: url,
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: 'post',
+                data: $('#form-workshift').serialize(),
+                // contentType: 'application/json',
+                processData: false,
+                success: function (response) {
+                console.log(response)
+                    setTimeout(() => {
+                                $("#table-workshift").load(window.location.href +
+                                    " #table-workshift");
+                            }, 0);
+                    $('#exampleModal').modal('hide');
+                    var reset_form = $('#form-workshift')[0];
+                    $(reset_form).removeClass('was-validated');
+                    reset_form.reset();
+                    $('#exampleModal').modal('hide');
+                    $("#modal-title").html("Tambah Data Jadwal Kerja")
+                    $("#workshift_id").val()
+                },
+                error: function (xhr) {
+                console.log(xhr.responseText);
+                }
+            });
+            });
+        });
 
-        // function edit_data(e) {
-        //     $('#exampleModal').modal('show')
-        //     var url = "{{url('workshift')}}" + "/" + e.attr('data-id') + "/" + "edit"
-        //     $.ajax({
-        //         url: url,
-        //         method: "GET",
-        //         // dataType: "json",
-        //         success: function (result) {
-        //             $("#modal-title").html("Edit Jadwal Kerja")
-        //             $("#button-modal").html("Edit")
-        //             $('#workshift_id').val(result.workshift_id).trigger('change');
-        //             $('#shift_name').val(result.shift_name);
-        //             $('#start_time').val(result.start_time);
-        //             $('#end_time').val(result.end_time);
-        //             $('#max_arrival').val(result.max_arrival);
-        //         },
-        //         error: function (xhr) {
-        //             console.log(xhr.responseText);
-        //         }
-        //     });
-        // }
+        function edit_data(e) {
+            $('#exampleModal').modal('show')
+            var url = "{{url('workshift')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                success: function (result) {
+                    $("#modal-title").html("Edit Jadwal Kerja")
+                    $("#button-modal").html("Edit")
+                    $('#workshift_id').val(result.workshift_id).trigger('change');
+                    $('#shift_name').val(result.shift_name);
+                    $('#start_time').val(result.start_time);
+                    $('#end_time').val(result.end_time);
+                    $('#max_arrival').val(result.max_arrival);
+                },
+                error: function (xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
 
         function delete_data(e) {
 

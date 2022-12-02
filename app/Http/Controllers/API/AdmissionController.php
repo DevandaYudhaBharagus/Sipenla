@@ -187,6 +187,7 @@ class AdmissionController extends Controller
                 'phone' => $data['phone'],
                 'extracurricular_id' => $data['extracurricular_id'],
                 'image' => $image,
+                'status' => 'active'
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");
