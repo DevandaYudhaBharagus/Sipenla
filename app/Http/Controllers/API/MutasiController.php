@@ -96,6 +96,7 @@ class MutasiController extends Controller
             $student = Student::where('user_id', '=', $user->id)->first();
             $history = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
                     ->where('mutasis.student_id', '=', $student->student_id)
+                    ->orderBy('mutasis.created_at', 'desc')
                     ->get();
 
             foreach ($history as $h) {
@@ -122,6 +123,7 @@ class MutasiController extends Controller
             $walmur = Guardian::where('user_id', '=', $user->id)->first();
             $history = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
                     ->where('mutasis.student_id', '=', $walmur->student_id)
+                    ->orderBy('mutasis.created_at', 'desc')
                     ->get();
 
             foreach ($history as $h) {
@@ -148,6 +150,7 @@ class MutasiController extends Controller
                     ->whereDate('mutasis.created_at', '>=', $awal)
                     ->whereDate('mutasis.created_at', '<=', $akhir)
                     ->where('mutasis.status', '=', 'pending')
+                    ->orderBy('mutasis.created_at', 'desc')
                     ->get();
 
             $response = $data;
@@ -168,6 +171,7 @@ class MutasiController extends Controller
                     ->whereDate('mutasis.created_at', '>=', $awal)
                     ->whereDate('mutasis.created_at', '<=', $akhir)
                     ->whereNotIn('mutasis.status', ['pending'])
+                    ->orderBy('mutasis.created_at', 'desc')
                     ->get();
 
             $response = $data;
@@ -181,4 +185,51 @@ class MutasiController extends Controller
         }
     }
 
+    public function updateKonfirmasi($id)
+    {
+        try{
+            $edit = [
+                "status" => "konfirmasi"
+            ];
+
+            $editStudent = [
+                "status" => "inactive"
+            ];
+
+            $student = Mutasi::where('mutasi_id', '=', $id)
+                        ->first();
+
+            $updateMutasi = Mutasi::where('mutasi_id', '=', $id)
+                            ->update($edit);
+
+            $updateStudent = Student::where('student_id', '=', $student->student_id)
+                            ->update($editStudent);
+
+            return ResponseFormatter::success('Sukses Mengapprove Mutasi');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateCancel($id)
+    {
+        try{
+            $edit = [
+                "status" => "cancel"
+            ];
+
+            $updateMutasi = Mutasi::where('mutasi_id', '=', $id)
+                            ->update($edit);
+
+            return ResponseFormatter::success('Sukses Cancel Mutasi');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
