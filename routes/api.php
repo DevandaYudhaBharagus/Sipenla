@@ -200,5 +200,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/add', [MutasiController::class, 'createMutasi']);
         Route::get('/historywalmur', [MutasiController::class, 'historyMutasiWalMur']);
         Route::get('/historysiswa', [MutasiController::class, 'historyMutasiSiswa']);
+        Route::get('/data/{awal}/{akhir}', [MutasiController::class, 'getDataForKonfirmasi']);
+        Route::get('/history/{awal}/{akhir}', [MutasiController::class, 'getDataHistory']);
     });
 });

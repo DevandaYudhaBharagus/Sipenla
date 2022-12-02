@@ -43,6 +43,10 @@ class MutasiController extends Controller
                 $test['letter_school_transfer'] = $request->file('letter_school_transfer')->store('letter_school_transfer');
             }
 
+            if ($request->file('rapor')) {
+                $test['rapor'] = $request->file('rapor')->store('rapor');
+            }
+
             if ($request->file('letter_ijazah')) {
                 $test['letter_ijazah'] = $request->file('letter_ijazah')->store('letter_ijazah');
             }
@@ -67,6 +71,7 @@ class MutasiController extends Controller
                 'student_id' => $student->student_id,
                 'to_school' => $data['to_school'],
                 'letter_school_transfer' => $test['letter_school_transfer'],
+                'rapor' => $test['rapor'],
                 'letter_ijazah' => $test['letter_ijazah'],
                 'letter_no_sanksi' => $test['letter_no_sanksi'],
                 'letter_recom_diknas' => $test['letter_recom_diknas'],
@@ -135,4 +140,45 @@ class MutasiController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getDataForKonfirmasi($awal, $akhir)
+    {
+        try{
+            $data = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
+                    ->whereDate('mutasis.created_at', '>=', $awal)
+                    ->whereDate('mutasis.created_at', '<=', $akhir)
+                    ->where('mutasis.status', '=', 'pending')
+                    ->get();
+
+            $response = $data;
+
+            return ResponseFormatter::success($response, 'Get History Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getDataHistory($awal, $akhir)
+    {
+        try{
+            $data = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
+                    ->whereDate('mutasis.created_at', '>=', $awal)
+                    ->whereDate('mutasis.created_at', '<=', $akhir)
+                    ->whereNotIn('mutasis.status', ['pending'])
+                    ->get();
+
+            $response = $data;
+
+            return ResponseFormatter::success($response, 'Get History Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
 }
