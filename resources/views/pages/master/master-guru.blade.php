@@ -39,9 +39,9 @@
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
-        <div class="outher-table">
+        <div class="outher-table" id="teacher-table">
             <div class="table-scroll">
-                <table class="table-master" id="teacher-table">
+                <table class="table-master">
                     <tr>
                         <th width="50px" style="border-left: none">No</th>
                         <th width="250px">Nama Depan</th>

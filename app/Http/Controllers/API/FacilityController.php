@@ -175,7 +175,16 @@ class FacilityController extends Controller
         try{
             $facility = Facility::where('facility_code', '=', $code)
                         ->where('status', '=', 'fcl')
-                        ->first();
+                        ->first([
+                            "facility_id",
+                            "facility_code",
+                            "facility_name",
+                            "number_of_facility",
+                            "year",
+                            "status",
+                            "date",
+                            "image",
+                        ]);
 
             if($facility === null){
                 $response = [
@@ -184,7 +193,6 @@ class FacilityController extends Controller
                     'facility_name' => "-",
                     'number_of_facility' => "-",
                     'year' => "-",
-                    'owned_by' => "-",
                     'status' => "-",
                     'date' => "-",
                     'image' => "-"
