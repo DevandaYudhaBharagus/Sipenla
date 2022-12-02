@@ -67,9 +67,6 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/master', function(){
     return view('pages.master.home-master');
 });
-// Route::get('formulir', function(){
-//     return view('pages.siswa.formulir');
-// });
 
 Auth::routes();
 
