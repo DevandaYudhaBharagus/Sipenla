@@ -10,7 +10,12 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page"></li>
+                <div class="d-flex align-items-center">
+                    <img src="{{ asset('images/internal-images/icon-master.png') }}" class="d-flex align-items-center me-1"
+                        width="16px" height="16px" alt=""> Data
+                    Master
+                </div>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-keuangan.png') }}"

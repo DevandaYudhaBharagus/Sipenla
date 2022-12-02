@@ -16,6 +16,7 @@
     {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
         integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <title>@yield('title')</title>
     @yield("meta_header")
 </head>
@@ -70,16 +71,19 @@
         };
     </script>
     <script>
-        const btnDropdown = document.querySelector("#dropdown-keuangan");
-        const menu = document.querySelector(".menu-dropdown");
-        btnDropdown.addEventListener("click", () => {
-            console.log("diklik");
-            if (menu.style.display == "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        });
+        const btnDropdown = document.querySelectorAll("#dropdown-keuangan");
+        const menu = document.querySelectorAll(".menu-dropdown");
+
+
+        for (let i = 0; i < btnDropdown.length; i++) {
+            btnDropdown[i].addEventListener("click", () => {
+                if (menu[i].style.display == "block") {
+                    menu[i].style.display = "none";
+                } else {
+                    menu[i].style.display = "block";
+                }
+            });
+        }
     </script>
 
     @include('includes.script')

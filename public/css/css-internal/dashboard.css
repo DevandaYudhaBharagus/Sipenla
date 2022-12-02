@@ -343,9 +343,25 @@ button.dropdown-toggle {
 .announcement .box-announcement .text-announcement {
     color: var(--text-color);
     font-weight: 600;
-    font-size: 18px;
-    margin-top: 10px;
-    margin-bottom: 2rem;
+    font-size: 28px;
+}
+.announcement .box-announcement .box-add-news {
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 2px solid transparent;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    align-items: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+.announcement .box-announcement .box-add-news .fa {
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 14px;
 }
 .announcement .box-announcement .announcement-item {
     margin-bottom: 3rem;
@@ -398,23 +414,14 @@ button.dropdown-toggle {
     font-weight: 500;
     color: var(--text-color);
 }
-.announcement
-    .box-announcement
-    .announcement-item
-    .image-announcement
-    .btn-item-annnouncement {
+.announcement .box-announcement .btn-item-annnouncement {
     display: flex;
     position: relative;
-    bottom: 2.3rem;
+    top: 1.5rem;
     justify-content: end;
     right: 10px;
 }
-.announcement
-    .box-announcement
-    .announcement-item
-    .image-announcement
-    .btn-item-annnouncement
-    .icon-announcement {
+.announcement .box-announcement .btn-item-annnouncement .icon-announcement {
     background-color: var(--bg-onlywhite);
     margin-right: 10px;
     width: 2rem;
@@ -423,16 +430,10 @@ button.dropdown-toggle {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    filter: drop-shadow(4px 0px 8px rgba(74, 78, 100, 0.1))
-        drop-shadow(-4px 6px 8px rgba(74, 78, 100, 0.1));
+    filter: drop-shadow(2px 0px 3px rgba(74, 78, 100, 0.1))
+        drop-shadow(-2px 2px 3px rgba(74, 78, 100, 0.1));
 }
-.announcement
-    .box-announcement
-    .announcement-item
-    .image-announcement
-    .btn-item-annnouncement
-    .icon-announcement
-    .fa {
+.announcement .box-announcement .btn-item-annnouncement .icon-announcement .fa {
     font-size: 18px;
     font-weight: 500;
 }
@@ -592,14 +593,19 @@ button.dropdown-toggle {
 .new-news {
     margin-top: 2rem;
     margin-bottom: 2rem;
+    min-height: 100vh;
 }
 .news .box-news,
 .new-news .box-news {
-    background: var(--bg-secondary);
+    background: linear-gradient(#f9f9f9, #f9f9f9) padding-box,
+        linear-gradient(rgba(55, 116, 195, 1), rgba(46, 68, 124, 1)) border-box;
+    border: 1px solid transparent;
+
     border-radius: 20px;
     padding: 15px 1.5rem;
     box-shadow: 2px 0px 4px rgba(74, 78, 100, 0.1),
         -2px 3px 4px rgba(74, 78, 100, 0.1);
+    min-height: 20vh;
 }
 .news .box-news .title-news,
 .new-news .box-news .title-news {
@@ -614,7 +620,7 @@ button.dropdown-toggle {
     border: 1px solid #808da6;
     border-radius: 20px;
     width: 90%;
-    padding: 5px 10px 5px 1rem;
+    padding: 8px 10px 5px 1rem;
     font-size: 14px;
     color: var(--text-color);
     font-weight: 500;
@@ -705,22 +711,103 @@ button.dropdown-toggle {
     font-size: 16px;
     padding-left: 5px;
 }
-.new-news .box-news .box-form input {
+.new-news .box-news .box-form input,
+.new-news .box-news .box-form select {
     background-color: #f0f1f2;
-    border-radius: 12px;
+    border-radius: 8px;
     color: var(--text-color);
     font-weight: 500;
-    font-size: 12px;
+    padding: 8px 1rem;
+    font-size: 14px;
+}
+.new-news .box-news .search-student {
+    display: none;
+}
+.new-news .box-news .search-student.show {
+    display: block;
+}
+/* .bootstrap-select {
+    background-color: #f0f1f2 !important;
+    display: block;
+    width: 100% !important;
+    border-radius: 8px;
+}
+.bootstrap-select:hover {
+    background-color:#f0f1f2 !important;
+} */
+.new-news .box-news .box-form input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+.new-news .box-news .box-form .checkbox {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: start;
+    color: var(--text-color);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.new-news .box-news .box-form .checkbox .check {
+    position: relative;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: var(--bg-secondary);
+    border: 1px solid #4b556b;
+    border-radius: 4px;
+    margin-right: 8px;
+}
+.new-news .box-news .box-form .checkbox:hover input[type="checkbox"] ~ .check {
+    border: 2px solid #2489c5;
+}
+.new-news
+    .box-news
+    .box-form
+    .checkbox
+    input[type="checkbox"]:checked
+    ~ .check {
+    background-color: #2489c5;
+    border: none;
+}
+.new-news .box-news .box-form .check:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+.new-news
+    .box-news
+    .box-form
+    .checkbox
+    input[type="checkbox"]:checked
+    ~ .check:after {
+    display: block;
+}
+.new-news .box-news .box-form .checkbox .check:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 .new-news .box-news .box-form .box-image-news {
     width: 60%;
     height: 10rem;
     background: #f0f1f2;
     border-radius: 10px;
+    object-fit: cover;
 }
 .new-news .box-news .box-form .box-image-news img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .new-news .box-news .box-form .box-image-news .btn-upload {
     position: relative;
@@ -793,6 +880,7 @@ button.dropdown-toggle {
     width: 100%;
     height: 100%;
     border-radius: 12px;
+    object-fit: cover;
 }
 .news .box-detail-news .text-detail-news {
     margin-top: 1rem;
@@ -1186,6 +1274,18 @@ button.dropdown-toggle {
     align-items: center;
     border-radius: 12px;
 }
+.show-hide {
+    position: relative;
+    transform: translateX(-50%);
+    bottom: 1.8rem;
+    left: 64rem;
+    cursor: pointer;
+}
+.show-hide .material-icons {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+}
 /* ==================== Akhir CSS Untuk formulir =========================*/
 @media screen and (max-width: 700px) {
     .header-dashboard {
@@ -1271,6 +1371,9 @@ button.dropdown-toggle {
         .date-item-announcement {
         padding: 5px;
         margin-top: 1rem;
+    }
+    .announcement .box-announcement .text-announcement {
+        font-size: 18px;
     }
     .message {
         right: 1.5rem;
@@ -1425,5 +1528,16 @@ button.dropdown-toggle {
     }
     .formulir .box-formulir .box-form-input {
         width: 100%;
+    }
+    .announcement .box-announcement .btn-item-annnouncement {
+        top: 0;
+        bottom: 1rem;
+        right: 0;
+    }
+    .new-news .box-news .box-form {
+        padding: 10px;
+    }
+    .show-hide {
+        left: 16rem;
     }
 }
