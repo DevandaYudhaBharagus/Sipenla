@@ -15,6 +15,7 @@ use App\Http\Controllers\API\AssessmentController;
 use App\Http\Controllers\API\RaporController;
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ExtraAssessmentController;
+use App\Http\Controllers\API\MutasiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -193,5 +194,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getstudent', [ExtraAssessmentController::class, 'getStudent']);
         Route::post('/addpenilaian', [ExtraAssessmentController::class, 'addPenilaian']);
         Route::post('/updatepenilaian/{id}', [ExtraAssessmentController::class, 'editPenilaian']);
+    });
+
+    Route::prefix('mutasi')->group(function () {
+        Route::post('/add', [MutasiController::class, 'createMutasi']);
+        Route::get('/historywalmur', [MutasiController::class, 'historyMutasiWalMur']);
+        Route::get('/historysiswa', [MutasiController::class, 'historyMutasiSiswa']);
     });
 });

@@ -13,5 +13,5 @@ class Employee extends Model
 
     protected $guarded = ['employee_id'];
 
-    protected $fillable =  ['user_id', 'first_name', 'last_name', 'nik', 'nuptk', 'npsn', 'education', 'family_name', 'family_address', 'position', 'image', 'place_of_birth', 'date_of_birth', 'gender', 'address', 'phone', 'religion', 'company_id', 'workshift_id'];
+    protected $fillable =  ['user_id', 'first_name', 'last_name', 'nuptk', 'npsn', 'education', 'family_name', 'family_address', 'position', 'image', 'place_of_birth', 'date_of_birth', 'gender', 'address', 'phone', 'religion', 'company_id', 'workshift_id'];
 }

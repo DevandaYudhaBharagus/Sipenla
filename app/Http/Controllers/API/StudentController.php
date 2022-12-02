@@ -45,6 +45,7 @@ class StudentController extends Controller
     {
         try{
             $employee = Employee::join('users', 'employees.user_id', '=', 'users.id')
+                    ->whereNotIn('role', ['dinaspendidikan'])
                     ->get([
                         "employees.employee_id",
                         "first_name",
@@ -223,7 +224,6 @@ class StudentController extends Controller
                 'user_id' => $employee->user_id,
                 'first_name' => $employee->first_name,
                 'last_name' => $employee->last_name,
-                'nik' => $employee->nik,
                 'nuptk' => $employee->nuptk,
                 'npsn' => $employee->npsn,
                 'place_of_birth' => $employee->place_of_birth,
@@ -374,7 +374,6 @@ class StudentController extends Controller
                 'student_id' => $student->student_id,
                 'user_id' => $student->user_id,
                 'nisn' => $student->nisn,
-                'nik' => $student->nik,
                 'first_name' => $student->first_name,
                 'last_name' => $student->last_name,
                 'mother_name' => $student->mother_name,
