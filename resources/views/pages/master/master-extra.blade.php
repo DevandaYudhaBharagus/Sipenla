@@ -48,20 +48,13 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
-                        <th width="80%" class="text-start">Nama Ekstrakulikuler</th>
-                        <th width="15%">Aksi</th>
-                        <th width="25%">Nama Ekstrakulikuler</th>
-                        {{-- <th width="25%">Pembina</th>
-                        <th width="20%">Jenis</th> --}}
+                        <th width="70%" class="text-start">Nama Ekstrakulikuler</th>
                         <th width="200px">Aksi</th>
                     </tr>
                     @foreach ($extra as $new)
                         <tr>
-                            <td width="11%">1.</td>
-                            <td width="80%" class="text-start">Pramuka</td>
-                            <td width="15%">
                             <td width="11%">{{ $loop->iteration }}</td>
-                            <td width="70%">{{ $new->extracurricular_name }}</td>
+                            <td width="70%" class="text-start">{{ $new->extracurricular_name }}</td>
                             {{-- <td width="25%">
                             <p>Aziz Pranaja</p>
                             <p>Hadi Jaya Kusumo</p>
@@ -110,7 +103,7 @@
                                         id="extracurricular_name" />
                                 </div>
                             </div>
-                            <<<<<<< HEAD======={{-- <div class="col-12 mb-3">
+                           {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Anggota Kelas ---
@@ -169,7 +162,7 @@
                                 <div class="down-form-full">
                                     <i class="fa fa-angle-down"></i>
                                 </div>
-                            </div> --}}>>>>>>> 0e3dc307a59782860b00e3d3f3ab9766ad5f6870
+                            </div> --}}
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -186,63 +179,8 @@
     </div>
 @endsection
 
-{{-- @push('addon-javascript')
+@push('addon-javascript')
     <script>
-        // const selectCek = document.querySelector("#select-cekbox");
-        // const listName = document.querySelector(".ceklist");
-        // const boxCekbox = document.querySelectorAll("#cekboxAnggota");
-        // const labelCekbox = document.querySelectorAll("#labelCekbox")
-        // const ceklistReady = document.querySelector(".ceklist-ready");
-        // selectCek.addEventListener("click", () => {
-        //     listName.classList.toggle("open");
-        // })
-        // for (let i = 0; i < boxCekbox.length; i++) {
-        //     boxCekbox[i].addEventListener("click", () => {
-        //         if (boxCekbox[i].checked) {
-        //             const divCekbox = document.createElement("div");
-        //             divCekbox.setAttribute("class", "cekbox-permission");
-        //             const label = document.createElement("label");
-        //             label.setAttribute("class", "checkbox");
-        //             label.innerText = labelCekbox[i].innerText;
-        //             const input = document.createElement("input");
-        //             input.setAttribute("type", "checkbox");
-        //             input.setAttribute("checked", true);
-        //             const span = document.createElement("span");
-        //             span.setAttribute("class", "check");
-        //             label.appendChild(input);
-        //             label.appendChild(span);
-        //             divCekbox.appendChild(label);
-        //             ceklistReady.appendChild(divCekbox);
-        //         } else if (!boxCekbox[i].checked) {
-        //             const elem = boxCekbox[i].parentElement.parentElement.parentElement.parentElement.children[3]
-        //                 .children;
-        //             for (let j = 0; j < elem.length; j++) {
-        //                 if (elem[j].innerText == labelCekbox[i].innerText) {
-        //                     elem[j].remove();
-        //                 }
-        //             }
-        //         }
-        //     });
-        // }
-
-        // ceklistReady.addEventListener("click", getButtonElement);
-
-        // function getButtonElement(e) {
-        //     if (e.target.classList.contains("checkbox")) {
-        //         const elemen = e.target.parentElement;
-        //         removeElement(elemen);
-        //         elemen.remove();
-        //     }
-        // }
-
-        // function removeElement(elemen) {
-        //     for (let i = 0; i < boxCekbox.length; i++) {
-        //         if (boxCekbox[i].parentElement.innerText == elemen.firstElementChild.innerText) {
-        //             boxCekbox[i].checked = false;
-        //         }
-        //     }
-        // }
-
         $("#exampleModal").on("hidden.bs.modal", function (e) {
             const reset_form = $('#form-extra')[0];
             const reset_form_edit = $('#form_edit_data')[0];
@@ -383,4 +321,4 @@
             });
             }
     </script>
-@endpush --}}
+@endpush
