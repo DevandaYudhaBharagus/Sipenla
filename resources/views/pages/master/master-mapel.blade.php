@@ -110,7 +110,7 @@
     </div>
 @endsection
 
-{{-- @push('addon-javascript')
+@push('addon-javascript')
     <script>
 
         $("#exampleModal").on("hidden.bs.modal", function (e) {
@@ -254,4 +254,4 @@
             });
             }
     </script>
-@endpush --}}
+@endpush
