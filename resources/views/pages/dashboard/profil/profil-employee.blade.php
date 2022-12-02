@@ -18,11 +18,12 @@
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="profile-student">
-                                        @if(!$employee->image)
+                                        {{-- @if(!$employee->image)
                                             <img src="{{ asset('images/internal-images/profile-user.png') }}" alt="" />
                                         @else
                                             <img src="{{ $employee->image }}" alt="" />
-                                        @endif
+                                        @endif --}}
+                                        <img src="{{ asset('images/internal-images/profile-user.png') }}" alt="" />
                                         <a href="" class="btn btn-edit-profile">
                                             <i class="fa fa-edit"></i>
                                         </a>
