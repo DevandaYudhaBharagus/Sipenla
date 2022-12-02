@@ -2,7 +2,7 @@
 
 @section('title', 'Master Siswa')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
@@ -12,7 +12,13 @@
                 <li class="breadcrumb-item">
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <i class="fa fa-user-plus me-1"></i> Data User
@@ -31,223 +37,231 @@
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <a href="" class="btn-excel">Export Excel</a>
-                <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{-- <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Tambah Data
-                </button>
+                </button> --}}
             </div>
             <div class="form-search">
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
         </div>
         @if (count($student) !== 0)
-        <div class="outher-table" id="table-student">
-            <div class="table-scroll">
-                <table class="table-master">
-                    <tr>
-                        <th width="50px">No</th>
-                        <th width="250px">Nama Depan</th>
-                        <th width="250px">Nama Belakang</th>
-                        <th width="250px">NISN</th>
-                        <th width="250px">Tempat Lahir</th>
-                        <th width="250px">Tanggal Lahir</th>
-                        <th width="250px">Jenis Kelamin</th>
-                        <th width="250px">Agama</th>
-                        <th width="500px">Alamat Tinggal</th>
-                        <th width="250px">Asal Sekolah</th>
-                        <th width="250px">Kelas</th>
-                        <th width="250px">Tanggal Diterima</th>
-                        <th width="250px">Nama Ayah</th>
-                        <th width="250px">Nama Ibu</th>
-                        <th width="500px">Alamat Orang Tua</th>
-                        <th width="250px">Pekerjaan Ayah</th>
-                        <th width="250px">Pekerjaan Ibu</th>
-                        <th width="250px">Pendidikan Terakhir Ayah</th>
-                        <th width="250px">Pendidikan Terakhir Ibu</th>
-                        <th width="250px">Nama Wali</th>
-                        <th width="500px">Alamat Wali</th>
-                        <th width="250px">Pekerjaan Wali</th>
-                        <th width="250px">Ekstrakulikuler</th>
-                        <th width="250px">Foto</th>
-                        <th width="250px">Aksi</th>
-                    </tr>
-                    {{-- start looping atbel master --}}
-                    @foreach ( $student as $new )
-                    <tr>
-                        <td width="50px">{{ $loop->iteration }}</td>
-                        <td width="250px">
-                            {{ $new->first_name }}
-                        </td>
-                        <td width="250px">{{ $new->last_name }}</td>
-                        <td width="250px">{{ $new->nisn }}</td>
-                        <td width="250px">{{ $new->place_of_birth }}</td>
-                        <td width="250px">{{ $new->date_of_birth }}</td>
-                        <td width="250px">{{ $new->gender }}</td>
-                        <td width="250px">{{ $new->religion }}</td>
-                        <td width="500px">{{ $new->address }}</td>
-                        <td width="250px">{{ $new->school_now }}</td>
-                        <td width="250px">{{ $new->grade_name }}</td>
-                        <td width="250px">{{ $new->date_school_now }}</td>
-                        <td width="250px">{{ $new->father_name }}</td>
-                        <td width="250px">{{ $new->mother_name }}</td>
-                        <td width="500px">{{ $new->parent_address }}</td>
-                        <td width="250px">{{ $new->father_profession }}</td>
-                        <td width="250px">{{ $new->mother_profession }}</td>
-                        <td width="250px">{{ $new->father_education }}</td>
-                        <td width="250px">{{ $new->mother_education }}</td>
-                        <td width="250px">{{ $new->family_name }}</td>
-                        <td width="500px">{{ $new->family_address }}</td>
-                        <td width="250px">{{ $new->family_profession }}</td>
-                        <td width="250px">{{ $new->extracurricular_name }}</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            @if(!$new->image)
-                                                <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
-                                                @else
-                                                <img src="{{ $new->image }}" alt="" />
-                                            @endif
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
+            <div class="outher-table" id="table-student">
+                <div class="table-scroll">
+                    <table class="table-master">
+                        <tr>
+                            <th width="50px">No</th>
+                            <th width="250px">Nama Depan</th>
+                            <th width="250px">Nama Belakang</th>
+                            <th width="250px">NISN</th>
+                            <th width="250px">Tempat Lahir</th>
+                            <th width="250px">Tanggal Lahir</th>
+                            <th width="250px">Jenis Kelamin</th>
+                            <th width="250px">Agama</th>
+                            <th width="500px">Alamat Tinggal</th>
+                            <th width="250px">Asal Sekolah</th>
+                            <th width="250px">Kelas</th>
+                            <th width="250px">Tanggal Diterima</th>
+                            <th width="250px">Nama Ayah</th>
+                            <th width="250px">Nama Ibu</th>
+                            <th width="500px">Alamat Orang Tua</th>
+                            <th width="250px">Pekerjaan Ayah</th>
+                            <th width="250px">Pekerjaan Ibu</th>
+                            <th width="250px">Pendidikan Terakhir Ayah</th>
+                            <th width="250px">Pendidikan Terakhir Ibu</th>
+                            <th width="250px">Nama Wali</th>
+                            <th width="500px">Alamat Wali</th>
+                            <th width="250px">Pekerjaan Wali</th>
+                            <th width="250px">Ekstrakulikuler</th>
+                            <th width="250px">Foto</th>
+                            <th width="250px">Aksi</th>
+                        </tr>
+                        {{-- start looping atbel master --}}
+                        @foreach ($student as $new)
+                            <tr>
+                                <td width="50px">{{ $loop->iteration }}</td>
+                                <td width="250px">
+                                    {{ $new->first_name }}
+                                </td>
+                                <td width="250px">{{ $new->last_name }}</td>
+                                <td width="250px">{{ $new->nisn }}</td>
+                                <td width="250px">{{ $new->place_of_birth }}</td>
+                                <td width="250px">{{ $new->date_of_birth }}</td>
+                                <td width="250px">{{ $new->gender }}</td>
+                                <td width="250px">{{ $new->religion }}</td>
+                                <td width="500px">{{ $new->address }}</td>
+                                <td width="250px">{{ $new->school_now }}</td>
+                                <td width="250px">{{ $new->grade_name }}</td>
+                                <td width="250px">{{ $new->date_school_now }}</td>
+                                <td width="250px">{{ $new->father_name }}</td>
+                                <td width="250px">{{ $new->mother_name }}</td>
+                                <td width="500px">{{ $new->parent_address }}</td>
+                                <td width="250px">{{ $new->father_profession }}</td>
+                                <td width="250px">{{ $new->mother_profession }}</td>
+                                <td width="250px">{{ $new->father_education }}</td>
+                                <td width="250px">{{ $new->mother_education }}</td>
+                                <td width="250px">{{ $new->family_name }}</td>
+                                <td width="500px">{{ $new->family_address }}</td>
+                                <td width="250px">{{ $new->family_profession }}</td>
+                                <td width="250px">{{ $new->extracurricular_name }}</td>
+                                <td width="250px">
+                                    <div class="dropdown">
+                                        <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="icon-foto-master">
+                                                <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                    alt="" />
                                             </div>
+                                            <div class="fa fa-angle-down"></div>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->student_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->user_id }}" onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                    {{-- end looping tabel master --}}
-                </table>
+                                        <ul class="dropdown-menu dropdown-foto">
+                                            <li>
+                                                <h6>Foto</h6>
+                                                <div class="box-foto-master">
+                                                    @if (!$new->image)
+                                                        <img src="{{ asset('images/internal-images/no-img.png') }}"
+                                                            alt="" />
+                                                    @else
+                                                        <img src="{{ $new->image }}" alt="" />
+                                                    @endif
+                                                    <div class="d-flex align-items-center edit-master justify-content-end">
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-edit text-primary"></i>
+                                                        </a>
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-trash-o text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="250px">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->student_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->user_id }}"
+                                            onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        {{-- end looping tabel master --}}
+                    </table>
+                </div>
             </div>
-        </div>
         @else
-        <div class="outher-table" id="table-student">
-            <div class="table-scroll">
-                <table class="table-master">
-                    <tr>
-                        <th width="50px">No</th>
-                        <th width="250px">Nama Depan</th>
-                        <th width="250px">Nama Belakang</th>
-                        <th width="250px">NISN</th>
-                        <th width="250px">Tempat Lahir</th>
-                        <th width="250px">Tanggal Lahir</th>
-                        <th width="250px">Jenis Kelamin</th>
-                        <th width="250px">Agama</th>
-                        <th width="500px">Alamat Tinggal</th>
-                        <th width="250px">Asal Sekolah</th>
-                        <th width="250px">Kelas</th>
-                        <th width="250px">Tanggal Diterima</th>
-                        <th width="250px">Nama Ayah</th>
-                        <th width="250px">Nama Ibu</th>
-                        <th width="500px">Alamat Orang Tua</th>
-                        <th width="250px">Pekerjaan Ayah</th>
-                        <th width="250px">Pekerjaan Ibu</th>
-                        <th width="250px">Pendidikan Terakhir Ayah</th>
-                        <th width="250px">Pendidikan Terakhir Ibu</th>
-                        <th width="250px">Nama Wali</th>
-                        <th width="500px">Alamat Wali</th>
-                        <th width="250px">Pekerjaan Wali</th>
-                        <th width="250px">Ekstrakulikuler</th>
-                        <th width="250px">Foto</th>
-                        <th width="250px">Aksi</th>
-                    </tr>
-                    {{-- start looping atbel master --}}
-                    @foreach ( $murid as $new )
-                    <tr>
-                        <td width="50px">{{ $loop->iteration }}</td>
-                        <td width="250px">
-                            {{ $new->first_name }}
-                        </td>
-                        <td width="250px">{{ $new->last_name }}</td>
-                        <td width="250px">{{ $new->nisn }}</td>
-                        <td width="250px">{{ $new->place_of_birth }}</td>
-                        <td width="250px">{{ $new->date_of_birth }}</td>
-                        <td width="250px">{{ $new->gender }}</td>
-                        <td width="250px">{{ $new->religion }}</td>
-                        <td width="500px">{{ $new->address }}</td>
-                        <td width="250px">{{ $new->school_now }}</td>
-                        <td width="250px">-</td>
-                        <td width="250px">{{ $new->date_school_now }}</td>
-                        <td width="250px">{{ $new->father_name }}</td>
-                        <td width="250px">{{ $new->mother_name }}</td>
-                        <td width="500px">{{ $new->parent_address }}</td>
-                        <td width="250px">{{ $new->father_profession }}</td>
-                        <td width="250px">{{ $new->mother_profession }}</td>
-                        <td width="250px">{{ $new->father_education }}</td>
-                        <td width="250px">{{ $new->mother_education }}</td>
-                        <td width="250px">{{ $new->family_name }}</td>
-                        <td width="500px">{{ $new->family_address }}</td>
-                        <td width="250px">{{ $new->family_profession }}</td>
-                        <td width="250px">{{ $new->extracurricular_name }}</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            @if(!$new->image)
-                                                <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
-                                                @else
-                                                <img src="{{ $new->image }}" alt="" />
-                                            @endif
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
+            <div class="outher-table" id="table-student">
+                <div class="table-scroll">
+                    <table class="table-master">
+                        <tr>
+                            <th width="50px">No</th>
+                            <th width="250px">Nama Depan</th>
+                            <th width="250px">Nama Belakang</th>
+                            <th width="250px">NISN</th>
+                            <th width="250px">Tempat Lahir</th>
+                            <th width="250px">Tanggal Lahir</th>
+                            <th width="250px">Jenis Kelamin</th>
+                            <th width="250px">Agama</th>
+                            <th width="500px">Alamat Tinggal</th>
+                            <th width="250px">Asal Sekolah</th>
+                            <th width="250px">Kelas</th>
+                            <th width="250px">Tanggal Diterima</th>
+                            <th width="250px">Nama Ayah</th>
+                            <th width="250px">Nama Ibu</th>
+                            <th width="500px">Alamat Orang Tua</th>
+                            <th width="250px">Pekerjaan Ayah</th>
+                            <th width="250px">Pekerjaan Ibu</th>
+                            <th width="250px">Pendidikan Terakhir Ayah</th>
+                            <th width="250px">Pendidikan Terakhir Ibu</th>
+                            <th width="250px">Nama Wali</th>
+                            <th width="500px">Alamat Wali</th>
+                            <th width="250px">Pekerjaan Wali</th>
+                            <th width="250px">Ekstrakulikuler</th>
+                            <th width="250px">Foto</th>
+                            <th width="250px">Aksi</th>
+                        </tr>
+                        {{-- start looping atbel master --}}
+                        @foreach ($murid as $new)
+                            <tr>
+                                <td width="50px">{{ $loop->iteration }}</td>
+                                <td width="250px">
+                                    {{ $new->first_name }}
+                                </td>
+                                <td width="250px">{{ $new->last_name }}</td>
+                                <td width="250px">{{ $new->nisn }}</td>
+                                <td width="250px">{{ $new->place_of_birth }}</td>
+                                <td width="250px">{{ $new->date_of_birth }}</td>
+                                <td width="250px">{{ $new->gender }}</td>
+                                <td width="250px">{{ $new->religion }}</td>
+                                <td width="500px">{{ $new->address }}</td>
+                                <td width="250px">{{ $new->school_now }}</td>
+                                <td width="250px">-</td>
+                                <td width="250px">{{ $new->date_school_now }}</td>
+                                <td width="250px">{{ $new->father_name }}</td>
+                                <td width="250px">{{ $new->mother_name }}</td>
+                                <td width="500px">{{ $new->parent_address }}</td>
+                                <td width="250px">{{ $new->father_profession }}</td>
+                                <td width="250px">{{ $new->mother_profession }}</td>
+                                <td width="250px">{{ $new->father_education }}</td>
+                                <td width="250px">{{ $new->mother_education }}</td>
+                                <td width="250px">{{ $new->family_name }}</td>
+                                <td width="500px">{{ $new->family_address }}</td>
+                                <td width="250px">{{ $new->family_profession }}</td>
+                                <td width="250px">{{ $new->extracurricular_name }}</td>
+                                <td width="250px">
+                                    <div class="dropdown">
+                                        <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="icon-foto-master">
+                                                <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                    alt="" />
                                             </div>
+                                            <div class="fa fa-angle-down"></div>
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->student_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->user_id }}" onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                    {{-- end looping tabel master --}}
-                </table>
+                                        <ul class="dropdown-menu dropdown-foto">
+                                            <li>
+                                                <h6>Foto</h6>
+                                                <div class="box-foto-master">
+                                                    @if (!$new->image)
+                                                        <img src="{{ asset('images/internal-images/no-img.png') }}"
+                                                            alt="" />
+                                                    @else
+                                                        <img src="{{ $new->image }}" alt="" />
+                                                    @endif
+                                                    <div class="d-flex align-items-center edit-master justify-content-end">
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-edit text-primary"></i>
+                                                        </a>
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-trash-o text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td width="250px">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->student_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->user_id }}"
+                                            onclick=delete_data($(this))><i class="fa fa-trash-o text-danger"></i></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        {{-- end looping tabel master --}}
+                    </table>
+                </div>
             </div>
-        </div>
         @endif
     </div>
 @endsection
 
-@section('modal')
+{{-- @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
@@ -383,7 +397,7 @@
                                 <label for="extracurricular_id" class="form-label">Ekstrakulikuler</label>
                                 <select class="form-select" name="extracurricular_id" id="extracurricular_id" data-dropdown-parent="body" data-placeholder="Pilih Extracurricular">
                                     <option selected disabled value=''>--- Pilih Ekstrakulikuler ---</option>
-                                    @foreach ( $extra as $test )
+                                    @foreach ($extra as $test)
                                             <option value="{{ $test->extracurricular_id }}">{{ $test->extracurricular_name }}</option>
                                     @endforeach
                                 </select>
@@ -395,12 +409,13 @@
                                         <label for="" class="form-label">Foto</label>
                                         <img id="image" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
                                             </button>
-                                            <a href="" class="btn-edit-master">
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
                                                 <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -579,4 +594,4 @@
         });
         }
     </script>
-@endpush
+@endpush --}}

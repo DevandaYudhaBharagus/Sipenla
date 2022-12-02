@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Master Ekstrakulikuler')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -14,7 +14,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-extra.png') }}"
@@ -42,31 +48,38 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
+                        <th width="80%" class="text-start">Nama Ekstrakulikuler</th>
+                        <th width="15%">Aksi</th>
                         <th width="25%">Nama Ekstrakulikuler</th>
                         {{-- <th width="25%">Pembina</th>
                         <th width="20%">Jenis</th> --}}
                         <th width="200px">Aksi</th>
                     </tr>
-                    @foreach ( $extra as $new )
-                    <tr>
-                        <td width="11%">{{ $loop->iteration }}</td>
-                        <td width="70%">{{ $new->extracurricular_name }}</td>
-                        {{-- <td width="25%">
+                    @foreach ($extra as $new)
+                        <tr>
+                            <td width="11%">1.</td>
+                            <td width="80%" class="text-start">Pramuka</td>
+                            <td width="15%">
+                            <td width="11%">{{ $loop->iteration }}</td>
+                            <td width="70%">{{ $new->extracurricular_name }}</td>
+                            {{-- <td width="25%">
                             <p>Aziz Pranaja</p>
                             <p>Hadi Jaya Kusumo</p>
                         </td>
                         <td width="20%">
                             Wajib
                         </td> --}}
-                        <td width="200px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->extracurricular_id }}" onclick=delete_data($(this)) class="btn-edit-master">
+                            <td width="200px">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $new->extracurricular_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
-                            </div>
-                        </td>
-                    </tr>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </table>
             </div>
@@ -93,10 +106,11 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="extracurricular_name" class="form-label">Nama Ekstrakulikuler</label>
-                                    <input type="text" name="extracurricular_name" class="form-control" id="extracurricular_name" />
+                                    <input type="text" name="extracurricular_name" class="form-control"
+                                        id="extracurricular_name" />
                                 </div>
                             </div>
-                            {{-- <div class="col-12 mb-3">
+                            <<<<<<< HEAD======={{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Anggota Kelas ---
@@ -155,7 +169,7 @@
                                 <div class="down-form-full">
                                     <i class="fa fa-angle-down"></i>
                                 </div>
-                            </div> --}}
+                            </div> --}}>>>>>>> 0e3dc307a59782860b00e3d3f3ab9766ad5f6870
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -172,7 +186,7 @@
     </div>
 @endsection
 
-@push('addon-javascript')
+{{-- @push('addon-javascript')
     <script>
         // const selectCek = document.querySelector("#select-cekbox");
         // const listName = document.querySelector(".ceklist");
@@ -369,4 +383,4 @@
             });
             }
     </script>
-@endpush
+@endpush --}}

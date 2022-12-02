@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Master Fasilitas')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -14,7 +14,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-fasilitas.png') }}"
@@ -48,56 +54,59 @@
                         <th width="20%">Foto</th>
                         <th width="200px">Aksi</th>
                     </tr>
-                    @foreach ( $facility as $new )
-                    <tr>
-                        <td width="11%">{{ $new->facility_code }}</td>
-                        <td width="25%">{{ $new->facility_name }}</td>
-                        <td width="12%"> {{ $new->number_of_facility }} </td>
-                        <td width="14%">
-                            {{ $new->year }}
-                        </td>
-                        <td width="20%">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            @if(!$new->image)
-                                            <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
-                                            alt="" />
-                                            @else
-                                            <img src="{{ $new->image }}" alt="" />
-                                        @endif
-
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-edit text-primary"></i>
-                                                </a>
-                                                <a href="" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
+                    @foreach ($facility as $new)
+                        <tr>
+                            <td width="11%">{{ $new->facility_code }}</td>
+                            <td width="25%">{{ $new->facility_name }}</td>
+                            <td width="12%"> {{ $new->number_of_facility }} </td>
+                            <td width="14%">
+                                {{ $new->year }}
+                            </td>
+                            <td width="20%">
+                                <div class="dropdown">
+                                    <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <div class="icon-foto-master">
+                                            <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                alt="" />
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="200px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->facility_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->facility_id }}" onclick=delete_data($(this)) class="btn-edit-master">
+                                        <div class="fa fa-angle-down"></div>
+                                    </div>
+                                    <ul class="dropdown-menu dropdown-foto">
+                                        <li>
+                                            <h6>Foto</h6>
+                                            <div class="box-foto-master">
+                                                @if (!$new->image)
+                                                    <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                        alt="" />
+                                                @else
+                                                    <img src="{{ $new->image }}" alt="" />
+                                                @endif
+
+                                                <div class="d-flex align-items-center edit-master justify-content-end">
+                                                    <a href="" class="btn-edit-master">
+                                                        <i class="fa fa-edit text-primary"></i>
+                                                    </a>
+                                                    <a href="" class="btn-edit-master">
+                                                        <i class="fa fa-trash-o text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td width="200px">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a class="btn-edit-master me-2" data-id="{{ $new->facility_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $new->facility_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
-                            </div>
-                        </td>
-                    </tr>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </table>
             </div>
@@ -129,13 +138,15 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="facility_name" class="form-label">Nama Fasilitas</label>
-                                    <input type="text" name="facility_name" class="form-control" id="facility_name" />
+                                    <input type="text" name="facility_name" class="form-control"
+                                        id="facility_name" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="number_of_facility" class="form-label">Jumlah</label>
-                                    <input type="number" name="number_of_facility" class="form-control" id="number_of_facility" />
+                                    <input type="number" name="number_of_facility" class="form-control"
+                                        id="number_of_facility" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
@@ -145,18 +156,21 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
-                                <input type="file" id="image-facility" name="image-facility"  style="display: none" multiple />
+                                <input type="file" id="image-facility" name="image-facility" style="display: none"
+                                    multiple />
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="image-facility" class="form-label">Foto</label>
-                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}"
+                                            alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
                                             </button>
-                                            <a href="" class="btn-edit-master">
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
                                                 <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -183,21 +197,21 @@
             document.querySelector("#image-facility").click();
         }
 
-        $("#exampleModal").on("hidden.bs.modal", function (e) {
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-facility')[0];
             const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
             $(reset_form_edit).removeClass('was-validated');
             let uniqueField = ["facility_name"]
             for (let i = 0; i < uniqueField.length; i++) {
-            $("#" + uniqueField[i]).removeClass('was-validated');
-            $("#" + uniqueField[i]).removeClass("is-invalid");
-            $("#" + uniqueField[i]).removeClass("invalid-more");
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
             }
         });
 
-        $(document).ready(function () {
-            document.getElementById("add-facility").addEventListener("click", function () {
+        $(document).ready(function() {
+            document.getElementById("add-facility").addEventListener("click", function() {
                 document.getElementById("form-facility").reset();
                 $("#modal-title").html("Tambah Data Fasilitas");
                 document.getElementById("facility_id").value = null;
@@ -211,68 +225,87 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-facility'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-facility'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            var form = $('#form-facility')[0];
-            var data = new FormData(form);
+                var form = $('#form-facility')[0];
+                var data = new FormData(form);
 
-            let facility_id = $("#facility_id").val();
+                let facility_id = $("#facility_id").val();
 
-            var url = (facility_id !== undefined && facility_id !== null) && facility_id ? "{{ url('facility')}}" + "/" + facility_id : "{{ url('facility')}}"+ "/addfacility";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                enctype: 'multipart/form-data',
-                data: data,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#facility-table").load(window.location.href +
-                                    " #facility-table");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-facility')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Fasilitas")
-                    $("#facilityt_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (facility_id !== undefined && facility_id !== null) && facility_id ?
+                    "{{ url('facility') }}" + "/" + facility_id : "{{ url('facility') }}" +
+                    "/addfacility";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    enctype: 'multipart/form-data',
+                    data: data,
+                    contentType: false,
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#facility-table").load(window.location.href +
+                                " #facility-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-facility')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Fasilitas")
+                        $("#facilityt_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('facility')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('facility') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Jadwal Kerja")
                     $("#button-modal").html("Edit")
                     $('#facility_id').val(result.facility_id).trigger('change');
                     $('#facility_name').val(result.facility_name);
                     $('#number_of_facility').val(result.number_of_facility);
                     $('#year').val(result.year);
-                    document.getElementById("image-edit").src =result.image;
+                    document.getElementById("image-edit").src = result.image;
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
         }
+
+        const inputImage = document.querySelector("#image-master");
+        const choseImage = document.querySelector("#image-upload-btn");
+        const btnRemove = document.querySelector("#btn-remove");
+
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            reader.onload = () => {
+                choseImage.setAttribute("src", reader.result);
+            }
+        });
+
+        btnRemove.addEventListener("click", () => {
+            choseImage.setAttribute("src", `{{ asset('images/internal-images/no-img.png') }}`);
+            inputImage.value = "";
+        })
 
         function delete_data(e) {
             Swal.fire({
@@ -285,50 +318,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/facility/delete-facility')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/facility/delete-facility') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#facility-table").load(window.location.href +
-                                    " #facility-table");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#facility-table").load(window.location.href +
+                                        " #facility-table");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush

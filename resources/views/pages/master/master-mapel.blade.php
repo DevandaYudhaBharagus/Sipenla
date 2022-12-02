@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Master Mata Pelajaran')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -14,7 +14,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <img src="{{ asset('images/internal-images/icon-mapel.png') }}"
@@ -42,22 +48,24 @@
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="10%">No</th>
-                        <th width="30%">Nama Mata Pelajaran</th>
-                        <th width="200px">Aksi</th>
+                        <th width="81%" class="text-start">Nama Mata Pelajaran</th>
+                        <th width="13%">Aksi</th>
                     </tr>
-                    @foreach ($subcject as $new )
-                    <tr>
-                        <td width="10%">{{ $loop->iteration }}</td>
-                        <td width="70%">{{ $new->subject_name }}</td>
-                        <td width="200px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $new->subject_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                <a data-id="{{ $new->subject_id }}" onclick=delete_data($(this)) class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @foreach ($subcject as $new)
+                        <tr>
+                            <td width="10%">{{ $loop->iteration }}</td>
+                            <td width="81%">{{ $new->subject_name }}</td>
+                            <td width="13%">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a class="btn-edit-master me-2" data-id="{{ $new->subject_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $new->subject_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </table>
             </div>
@@ -102,7 +110,7 @@
     </div>
 @endsection
 
-@push('addon-javascript')
+{{-- @push('addon-javascript')
     <script>
 
         $("#exampleModal").on("hidden.bs.modal", function (e) {
@@ -246,4 +254,4 @@
             });
             }
     </script>
-@endpush
+@endpush --}}

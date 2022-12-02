@@ -2,7 +2,7 @@
 
 @section('title', 'Master Pegawai')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
@@ -12,7 +12,13 @@
                 <li class="breadcrumb-item">
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <i class="fa fa-user-plus me-1"></i> Data User
@@ -27,13 +33,13 @@
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Guru</h5>
+        <h5>Data Pegawai</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <div class="d-md-flex align-content-md-center">
                 <a href="" class="btn-excel">Export Excel</a>
-                <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{-- <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Tambah Data
-                </button>
+                </button> --}}
             </div>
             <div class="form-search">
                 <input type="search" name="" id="" placeholder="pencarian" />
@@ -63,70 +69,77 @@
                         <th width="250px">Aksi</th>
                     </tr>
                     @foreach ($employees as $employee)
-                    <tr>
-                        <td width="50px">{{ $loop->iteration }}</td>
-                        <td width="250px">
-                            {{ $employee->first_name }}
-                        </td>
-                        <td width="250px">{{ $employee->last_name }}</td>
-                        <td width="250px">{{ $employee->nuptk }}</td>
-                        <td width="250px">{{ $employee->npsn }}</td>
-                        <td width="250px">{{ $employee->place_of_birth }}</td>
-                        <td width="250px">{{ $employee->date_of_birth }}</td>
-                        <td width="250px">{{ $employee->gender }}</td>
-                        <td width="250px">{{ $employee->religion }}</td>
-                        <td width="500px">{{ $employee->address }}</td>
-                        <td width="250px">{{ $employee->education }}</td>
-                        <td width="250px">{{ $employee->family_name }}</td>
-                        <td width="500px">{{ $employee->family_address }}</td>
-                        <td width="250px">{{ $employee->email }}</td>
-                        <td width="250px">{{ $employee->position }}</td>
-                        <td width="250px">{{ $employee->shift_name }}</td>
-                        <td width="250px">
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-foto">
-                                    <li>
-                                        <h6>Foto</h6>
-                                        <div class="box-foto-master">
-                                            @if(!$employee->image)
-                                                <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                                            @else
-                                                <img src="{{ $employee->image }}" alt="" />
-                                            @endif
-                                            <div class="d-flex align-items-center edit-master justify-content-end">
-                                                <form action="{{ url('/employee'.'/photo/'.$employee->employee_id) }}" method="post" enctype="multipart/form-data">
-                                                @csrf
-                                                    <input type="file" name="profile_employee" class="form-control" id="fotoSiswa"
-                                                        style="display: none" multiple />
-                                                    <button class="btn-edit-master" type="button" onclick="uploadPhotoSiswa()">
-                                                        <i class="fa fa-edit text-primary"></i>
-                                                    </button>
-                                                </form>
-                                                <a href="{{ url('/employee'.'/photo/'.$employee->employee_id) }}" class="btn-edit-master">
-                                                    <i class="fa fa-trash-o text-danger"></i>
-                                                </a>
-                                            </div>
+                        <tr>
+                            <td width="50px">{{ $loop->iteration }}</td>
+                            <td width="250px">
+                                {{ $employee->first_name }}
+                            </td>
+                            <td width="250px">{{ $employee->last_name }}</td>
+                            <td width="250px">{{ $employee->nuptk }}</td>
+                            <td width="250px">{{ $employee->npsn }}</td>
+                            <td width="250px">{{ $employee->place_of_birth }}</td>
+                            <td width="250px">{{ $employee->date_of_birth }}</td>
+                            <td width="250px">{{ $employee->gender }}</td>
+                            <td width="250px">{{ $employee->religion }}</td>
+                            <td width="500px">{{ $employee->address }}</td>
+                            <td width="250px">{{ $employee->education }}</td>
+                            <td width="250px">{{ $employee->family_name }}</td>
+                            <td width="500px">{{ $employee->family_address }}</td>
+                            <td width="250px">{{ $employee->email }}</td>
+                            <td width="250px">{{ $employee->position }}</td>
+                            <td width="250px">{{ $employee->shift_name }}</td>
+                            <td width="250px">
+                                <div class="dropdown">
+                                    <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        <div class="icon-foto-master">
+                                            <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                alt="" />
                                         </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td width="250px">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a  class="btn-edit-master me-2" data-id="{{ $employee->employee_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                <a data-id="{{ $employee->user_id }}" onclick=delete_data($(this)) class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                                        <div class="fa fa-angle-down"></div>
+                                    </div>
+                                    <ul class="dropdown-menu dropdown-foto">
+                                        <li>
+                                            <h6>Foto</h6>
+                                            <div class="box-foto-master">
+                                                @if (!$employee->image)
+                                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
+                                                        alt="" />
+                                                @else
+                                                    <img src="{{ $employee->image }}" alt="" />
+                                                @endif
+                                                <div class="d-flex align-items-center edit-master justify-content-end">
+                                                    <form action="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
+                                                        method="post" enctype="multipart/form-data">
+                                                        @csrf
+                                                        <input type="file" name="profile_employee" class="form-control"
+                                                            id="fotoSiswa" style="display: none" multiple />
+                                                        <button class="btn-edit-master" type="button"
+                                                            onclick="uploadPhotoSiswa()">
+                                                            <i class="fa fa-edit text-primary"></i>
+                                                        </button>
+                                                    </form>
+                                                    <a href="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
+                                                        class="btn-edit-master">
+                                                        <i class="fa fa-trash-o text-danger"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                            <td width="250px">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a class="btn-edit-master me-2" data-id="{{ $employee->employee_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $employee->user_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                 </table>
             </div>
@@ -134,7 +147,7 @@
     </div>
 @endsection
 
-@section('modal')
+{{-- @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
@@ -234,7 +247,7 @@
                                 <label for="workshift_id" class="form-label">Shift Kerja</label>
                                 <select class="form-select" name="workshift_id" id="workshift_id" data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
                                     <option selected disabled value=''>--- Pilih Shift ---</option>
-                                    @foreach ( $workshift as $test )
+                                    @foreach ($workshift as $test)
                                         <option value="{{ $test->workshift_id }}">{{ $test->shift_name }}</option>
                                     @endforeach
                                 </select>
@@ -247,14 +260,17 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
+                                            id="image-upload-btn">
                                         <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <button type="button" class="btn-edit-master me-2" onclick="uploadImage()">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
                                             </button>
-                                            <a href="" class="btn-edit-master">
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
                                                 <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -273,8 +289,8 @@
             </div>
         </div>
     </div>
-@endsection
-@push('addon-javascript')
+@endsection --}}
+{{-- @push('addon-javascript')
     <script>
         function uploadImage() {
             document.querySelector("#image-master").click();
@@ -436,4 +452,4 @@
             });
             }
     </script>
-@endpush
+@endpush --}}

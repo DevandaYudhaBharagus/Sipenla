@@ -23,12 +23,12 @@
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <div class="text-welcome">
-                            @if (Auth::user()->role == "student")
-                                <h5>Selamat Datang, {{ $student->first_name." ". $student->last_name }}</h5>
-                            @elseif (Auth::user()->role == "walimurid")
-                                <h5>Selamat Datang, {{ $guardian->first_name." ". $guardian->last_name }}</h5>
+                            @if (Auth::user()->role == 'student')
+                                <h5>Selamat Datang, {{ $student->first_name . ' ' . $student->last_name }}</h5>
+                            @elseif (Auth::user()->role == 'walimurid')
+                                <h5>Selamat Datang, {{ $guardian->first_name . ' ' . $guardian->last_name }}</h5>
                             @else
-                                <h5>Selamat Datang, {{ $employee->first_name." ". $employee->last_name }}</h5>
+                                <h5>Selamat Datang, {{ $employee->first_name . ' ' . $employee->last_name }}</h5>
                             @endif
                             <div class="sub-text-welcome">
                                 SIPENLA - Sistem Informasi Pendidikan Sekolah
@@ -44,46 +44,46 @@
                         </div>
                     </div>
                     @if (Auth::User()->role == 'student')
-                    <div class="col-md-6 col-12">
-                        <div class="schedule-welcome">
-                            <h5>Mata Pelajaran Hari Ini</h5>
-                            <!-- start looping schedule week -->
-                            <div class="schedule-week">
-                                <div class="subject">
-                                    <div class="text-subject">Matematika</div>
-                                    <div class="teacher">Hadi Wijayakusuma.,S.Pd</div>
+                        <div class="col-md-6 col-12">
+                            <div class="schedule-welcome">
+                                <h5>Mata Pelajaran Hari Ini</h5>
+                                <!-- start looping schedule week -->
+                                <div class="schedule-week">
+                                    <div class="subject">
+                                        <div class="text-subject">Matematika</div>
+                                        <div class="teacher">Hadi Wijayakusuma.,S.Pd</div>
+                                    </div>
+                                    <div class="time-schedule">07:00 - 09:30</div>
                                 </div>
-                                <div class="time-schedule">07:00 - 09:30</div>
-                            </div>
-                            <!-- finish schedule week -->
-                            <div class="schedule-week">
-                                <div class="subject">
-                                    <div class="text-subject">Istirahat</div>
+                                <!-- finish schedule week -->
+                                <div class="schedule-week">
+                                    <div class="subject">
+                                        <div class="text-subject">Istirahat</div>
+                                    </div>
+                                    <div class="time-schedule">07:00 - 09:30</div>
                                 </div>
-                                <div class="time-schedule">07:00 - 09:30</div>
-                            </div>
-                            <div class="schedule-week">
-                                <div class="subject">
-                                    <div class="text-subject">Ilmu Pengetahuan Alam</div>
-                                    <div class="teacher">Heri Waluyo.,S.Pd</div>
+                                <div class="schedule-week">
+                                    <div class="subject">
+                                        <div class="text-subject">Ilmu Pengetahuan Alam</div>
+                                        <div class="teacher">Heri Waluyo.,S.Pd</div>
+                                    </div>
+                                    <div class="time-schedule">07:00 - 02:30</div>
                                 </div>
-                                <div class="time-schedule">07:00 - 02:30</div>
-                            </div>
-                            <div class="schedule-week">
-                                <div class="subject">
-                                    <div class="text-subject">Istirahat</div>
+                                <div class="schedule-week">
+                                    <div class="subject">
+                                        <div class="text-subject">Istirahat</div>
+                                    </div>
+                                    <div class="time-schedule">07:00 - 09:30</div>
                                 </div>
-                                <div class="time-schedule">07:00 - 09:30</div>
-                            </div>
-                            <div class="schedule-week">
-                                <div class="subject">
-                                    <div class="text-subject">Bahasa Inggris</div>
-                                    <div class="teacher">Endang.,S.Pd</div>
+                                <div class="schedule-week">
+                                    <div class="subject">
+                                        <div class="text-subject">Bahasa Inggris</div>
+                                        <div class="teacher">Endang.,S.Pd</div>
+                                    </div>
+                                    <div class="time-schedule">14:00 - 15:30</div>
                                 </div>
-                                <div class="time-schedule">14:00 - 15:30</div>
                             </div>
                         </div>
-                    </div>
                     @endif
                 </div>
             </div>
@@ -95,46 +95,59 @@
             <div class="row" data-aos="fade-up">
                 <div class="col-12">
                     <h6 class="text-category">Kategori</h6>
-                        <h6 class="text-category"> Role :  {{ Auth::User()->role }}</h6>
+                    <h6 class="text-category"> Role : {{ Auth::User()->role }}</h6>
                 </div>
             </div>
-                @if (Auth::User()->role == 'admin')
-                    @include('pages.dashboard.kategori.admin')
-                @elseif (Auth::User()->role == 'guru')
-                    @include('pages.dashboard.kategori.guru')
-                @elseif (Auth::User()->role == 'kepsek')
-                    @include('pages.dashboard.kategori.kepalasekolah')
-                @elseif (Auth::User()->role == 'tu')
-                    @include('pages.dashboard.kategori.tu')
-                @elseif (Auth::User()->role == 'walimurid')
-                    @include('pages.dashboard.kategori.walimurid')
-                @elseif (Auth::User()->role == 'perpus')
-                    @include('pages.dashboard.kategori.perpus')
-                @elseif (Auth::User()->role == 'pengawassekolah')
-                    @include('pages.dashboard.kategori.pengawas')
-                @elseif (Auth::User()->role == 'pegawaikoperasi')
-                    @include('pages.dashboard.kategori.koperasi')
-                @elseif (Auth::User()->role == 'pegawaikantin')
-                    @include('pages.dashboard.kategori.kantin')
-                @elseif (Auth::User()->role == 'pembinaextra')
-                    @include('pages.dashboard.kategori.ekstra')
-                @elseif (Auth::User()->role == 'dinaspendidikan')
-                    @include('pages.dashboard.kategori.dinaspendidikan')
-                @elseif (Auth::User()->role == 'student')
-                    @include('pages.dashboard.kategori.siswa')
-                @endif
+            @if (Auth::User()->role == 'admin')
+                @include('pages.dashboard.kategori.admin')
+            @elseif (Auth::User()->role == 'guru')
+                @include('pages.dashboard.kategori.guru')
+            @elseif (Auth::User()->role == 'kepsek')
+                @include('pages.dashboard.kategori.kepalasekolah')
+            @elseif (Auth::User()->role == 'tu')
+                @include('pages.dashboard.kategori.tu')
+            @elseif (Auth::User()->role == 'walimurid')
+                @include('pages.dashboard.kategori.walimurid')
+            @elseif (Auth::User()->role == 'perpus')
+                @include('pages.dashboard.kategori.perpus')
+            @elseif (Auth::User()->role == 'pengawassekolah')
+                @include('pages.dashboard.kategori.pengawas')
+            @elseif (Auth::User()->role == 'pegawaikoperasi')
+                @include('pages.dashboard.kategori.koperasi')
+            @elseif (Auth::User()->role == 'pegawaikantin')
+                @include('pages.dashboard.kategori.kantin')
+            @elseif (Auth::User()->role == 'pembinaextra')
+                @include('pages.dashboard.kategori.ekstra')
+            @elseif (Auth::User()->role == 'dinaspendidikan')
+                @include('pages.dashboard.kategori.dinaspendidikan')
+            @elseif (Auth::User()->role == 'student')
+                @include('pages.dashboard.kategori.siswa')
+            @endif
         </div>
     </section>
     <section class="announcement" data-aos="fade-up">
         <div class="container">
             <div class="box-announcement">
                 <div class="row">
-                    <div class="col-12">
-                        <h6 class="text-announcement">Papan Pengumuman</h6>
+                    <div class="col-12 d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="text-announcement ">Berita dan Pengumuman</h6>
+                        @if (Auth::User()->role == 'admin')
+                            <div class="box-add-news">
+                                <a href=""><i class="fa fa-plus"></i></a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <!-- start looping announcement -->
                 <div class="announcement-item">
+                    <div class="btn-item-annnouncement">
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                        </div>
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-edit text-primary"></i></a>
+                        </div>
+                    </div>
                     <div class="title-announcement">
                         SMP Lorem Ipsum Class Meeting 2021/2022
                     </div>
@@ -142,7 +155,7 @@
                         <div class="col-md-3">
                             <div class="image-announcement">
                                 <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                @if (Auth::User()->role  == 'admin')
+                                @if (Auth::User()->role == 'admin')
                                     <div class="btn-item-annnouncement">
                                         <div class="icon-announcement">
                                             <a href=""><i class="fa fa-trash-o text-danger"></i></a>
@@ -174,6 +187,14 @@
                 <!-- end looping announcement -->
                 <!-- example announcement -->
                 <div class="announcement-item">
+                    <div class="btn-item-annnouncement">
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                        </div>
+                        <div class="icon-announcement">
+                            <a href=""><i class="fa fa-edit text-primary"></i></a>
+                        </div>
+                    </div>
                     <div class="title-announcement">
                         Peringatan hari jadi kota Surabaya dan Hari proklamasi Kemerdekaan
                         Republik Indonesia
@@ -182,14 +203,6 @@
                         <div class="col-md-3">
                             <div class="image-announcement">
                                 <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                <div class="btn-item-annnouncement">
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                                    </div>
-                                    <div class="icon-announcement">
-                                        <a href=""><i class="fa fa-edit text-primary"></i></a>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-9">
@@ -216,19 +229,6 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-12 text-footer">
-                    &copy
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    SIPENLA. All Rights Reserved
-                </div>
-            </div>
-        </div>
-    </footer>
     <div class="message">
         <button><img src="{{ asset('images/internal-images/cs.png') }}" alt="" /></button>
     </div>
@@ -334,4 +334,3 @@
         AOS.init();
     </script>
 @endpush
-

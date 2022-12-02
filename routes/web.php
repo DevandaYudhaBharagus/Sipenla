@@ -64,8 +64,14 @@ Route::get('/master-isi-saldo', function(){
 Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
+Route::get('/master', function(){
+    return view('pages.master.home-master');
+});
+// Route::get('formulir', function(){
+//     return view('pages.siswa.formulir');
+// });
 
-Auth::routes();
+// Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);

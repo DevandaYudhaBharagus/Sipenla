@@ -56,6 +56,21 @@ html {
     font-size: 16px;
     font-weight: 500;
 }
+.header-landing .navbar .navbar-nav .nav-item .btn-landing-login {
+    align-items: center;
+    padding: 3px 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    background: #3774c3;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bg-primary);
+}
+.header-landing .navbar .navbar-nav .nav-item .btn-landing-login:hover {
+    font-weight: 800;
+    font-size: 15px;
+}
 .header-landing .navbar {
     z-index: 5;
 }
