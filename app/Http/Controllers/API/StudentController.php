@@ -446,6 +446,22 @@ class StudentController extends Controller
                             "academic_year"
                         ]);
 
+            if(!$student){
+                $response = [
+                    "first_name" => "-",
+                    "last_name" => "-",
+                    "nisn" => "-",
+                    "grade_name" => "-",
+                    "semester_name" => "-",
+                    "academic_year" => "-",
+                    "status" => "-",
+                    "nilai" =>[],
+                    "extra" =>[]
+                ];
+
+                return ResponseFormatter::success($response, 'Get Rapor Success');
+            }
+
             if(is_null($rapor)){
                 $response = [
                     "status" => "-",
