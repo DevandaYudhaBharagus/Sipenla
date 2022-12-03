@@ -585,7 +585,7 @@ class FacilityController extends Controller
             $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                         ->where('loan_facilities.employee_id', '=', $employee->employee_id)
                         ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('loan_facilities.created_at', 'desc')
                         ->get([
                             'facility_code',
                             'facility_name',
