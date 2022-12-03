@@ -64,7 +64,7 @@
              <!-- navbar untuk tampilan hp -->
              <ul class="navbar-nav d-lg-none ms-auto d-flex">
                  <li class="nav-item">
-                     <a class="nav-link active" href="{{ url('/student') }}">Data Master</a>
+                     <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
                  </li>
                  <li class="nav-item">
                      <a class="nav-link" href="#">Pembelajaran</a>

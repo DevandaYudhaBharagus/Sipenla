@@ -97,7 +97,45 @@ class MutasiController extends Controller
             $history = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
                     ->where('mutasis.student_id', '=', $student->student_id)
                     ->orderBy('mutasis.created_at', 'desc')
-                    ->get();
+                    ->get([
+                        "mutasis.mutasi_id",
+                        "mutasis.student_id",
+                        "mutasis.to_school",
+                        "mutasis.letter_school_transfer",
+                        "mutasis.rapor",
+                        "mutasis.letter_ijazah",
+                        "mutasis.letter_no_sanksi",
+                        "mutasis.letter_recom_diknas",
+                        "mutasis.kartu_keluarga",
+                        "mutasis.surat_keterangan_pindah_sekolah",
+                        "mutasis.status",
+                        "mutasis.created_at",
+                        "mutasis.updated_at",
+                        "students.first_name",
+                        "students.last_name",
+                        "students.nisn",
+                        "students.place_of_birth",
+                        "students.date_of_birth",
+                        "students.father_name",
+                        "students.mother_name",
+                        "students.gender",
+                        "students.phone",
+                        "students.date_school_now",
+                        "students.address",
+                        "students.religion",
+                        "students.school_origin",
+                        "students.school_now",
+                        "students.parent_address",
+                        "students.mother_profession",
+                        "students.father_profession",
+                        "students.mother_education",
+                        "students.father_education",
+                        "students.family_name",
+                        "students.family_address",
+                        "students.family_profession",
+                        "students.extracurricular_id",
+                        "students.image",
+                    ]);
 
             foreach ($history as $h) {
                 $time = $h->created_at;
@@ -124,7 +162,45 @@ class MutasiController extends Controller
             $history = Mutasi::join('students', 'mutasis.student_id', '=', 'students.student_id')
                     ->where('mutasis.student_id', '=', $walmur->student_id)
                     ->orderBy('mutasis.created_at', 'desc')
-                    ->get();
+                    ->get([
+                        "mutasis.mutasi_id",
+                        "mutasis.student_id",
+                        "mutasis.to_school",
+                        "mutasis.letter_school_transfer",
+                        "mutasis.rapor",
+                        "mutasis.letter_ijazah",
+                        "mutasis.letter_no_sanksi",
+                        "mutasis.letter_recom_diknas",
+                        "mutasis.kartu_keluarga",
+                        "mutasis.surat_keterangan_pindah_sekolah",
+                        "mutasis.status",
+                        "mutasis.created_at",
+                        "mutasis.updated_at",
+                        "students.first_name",
+                        "students.last_name",
+                        "students.nisn",
+                        "students.place_of_birth",
+                        "students.date_of_birth",
+                        "students.father_name",
+                        "students.mother_name",
+                        "students.gender",
+                        "students.phone",
+                        "students.date_school_now",
+                        "students.address",
+                        "students.religion",
+                        "students.school_origin",
+                        "students.school_now",
+                        "students.parent_address",
+                        "students.mother_profession",
+                        "students.father_profession",
+                        "students.mother_education",
+                        "students.father_education",
+                        "students.family_name",
+                        "students.family_address",
+                        "students.family_profession",
+                        "students.extracurricular_id",
+                        "students.image",
+                    ]);
 
             foreach ($history as $h) {
                 $time = $h->created_at;
@@ -151,7 +227,45 @@ class MutasiController extends Controller
                     ->whereDate('mutasis.created_at', '<=', $akhir)
                     ->where('mutasis.status', '=', 'pending')
                     ->orderBy('mutasis.created_at', 'desc')
-                    ->get();
+                    ->get([
+                        "mutasis.mutasi_id",
+                        "mutasis.student_id",
+                        "mutasis.to_school",
+                        "mutasis.letter_school_transfer",
+                        "mutasis.rapor",
+                        "mutasis.letter_ijazah",
+                        "mutasis.letter_no_sanksi",
+                        "mutasis.letter_recom_diknas",
+                        "mutasis.kartu_keluarga",
+                        "mutasis.surat_keterangan_pindah_sekolah",
+                        "mutasis.status",
+                        "mutasis.created_at",
+                        "mutasis.updated_at",
+                        "students.first_name",
+                        "students.last_name",
+                        "students.nisn",
+                        "students.place_of_birth",
+                        "students.date_of_birth",
+                        "students.father_name",
+                        "students.mother_name",
+                        "students.gender",
+                        "students.phone",
+                        "students.date_school_now",
+                        "students.address",
+                        "students.religion",
+                        "students.school_origin",
+                        "students.school_now",
+                        "students.parent_address",
+                        "students.mother_profession",
+                        "students.father_profession",
+                        "students.mother_education",
+                        "students.father_education",
+                        "students.family_name",
+                        "students.family_address",
+                        "students.family_profession",
+                        "students.extracurricular_id",
+                        "students.image",
+                    ]);
 
             $response = $data;
 
@@ -172,7 +286,45 @@ class MutasiController extends Controller
                     ->whereDate('mutasis.created_at', '<=', $akhir)
                     ->whereNotIn('mutasis.status', ['pending'])
                     ->orderBy('mutasis.created_at', 'desc')
-                    ->get();
+                    ->get([
+                        "mutasis.mutasi_id",
+                        "mutasis.student_id",
+                        "mutasis.to_school",
+                        "mutasis.letter_school_transfer",
+                        "mutasis.rapor",
+                        "mutasis.letter_ijazah",
+                        "mutasis.letter_no_sanksi",
+                        "mutasis.letter_recom_diknas",
+                        "mutasis.kartu_keluarga",
+                        "mutasis.surat_keterangan_pindah_sekolah",
+                        "mutasis.status",
+                        "mutasis.created_at",
+                        "mutasis.updated_at",
+                        "students.first_name",
+                        "students.last_name",
+                        "students.nisn",
+                        "students.place_of_birth",
+                        "students.date_of_birth",
+                        "students.father_name",
+                        "students.mother_name",
+                        "students.gender",
+                        "students.phone",
+                        "students.date_school_now",
+                        "students.address",
+                        "students.religion",
+                        "students.school_origin",
+                        "students.school_now",
+                        "students.parent_address",
+                        "students.mother_profession",
+                        "students.father_profession",
+                        "students.mother_education",
+                        "students.father_education",
+                        "students.family_name",
+                        "students.family_address",
+                        "students.family_profession",
+                        "students.extracurricular_id",
+                        "students.image",
+                    ]);
 
             $response = $data;
 
