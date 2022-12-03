@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Student;
 use App\Models\LoanBook;
+use App\Models\PerpusAttendance;
+use App\Models\LoanFacility;
 
 class PerpustakaanController extends Controller
 {
@@ -990,6 +992,122 @@ class PerpustakaanController extends Controller
             $response = $book;
 
             return ResponseFormatter::success($response, 'Get Book Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getBarcodePegawai($nuptk)
+    {
+        try{
+            $employee = Employee::where('nuptk', '=',  $nuptk)->first();
+
+            if(is_null($employee)){
+                return ResponseFormatter::error("Data not found!", 404);
+            }
+
+            $response = $employee;
+
+            return ResponseFormatter::success($response, 'Get Employee Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getBarcodeSiswa($nisn)
+    {
+        try{
+            $student = Student::where('nisn', '=',  $nisn)->first();
+
+            if(is_null($student)){
+                return ResponseFormatter::error("Data not found!", 404);
+            }
+
+            $response = $student;
+
+            return ResponseFormatter::success($response, 'Get Employee Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function postAbsensiPerpusStudent(Request $request)
+    {
+        try{
+            $data = $request->all();
+            $timeNow = Carbon::now();
+            $return = PerpusAttendance::create([
+                "student_id" => $data['student_id'],
+                "date" => $timeNow,
+                "absensi" => $timeNow
+            ]);
+            return ResponseFormatter::success( "Succeed Check-in.");
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function postAbsensiPerpusEmployee(Request $request)
+    {
+        try{
+            $data = $request->all();
+            $timeNow = Carbon::now();
+            $return = PerpusAttendance::create([
+                "employee_id" => $data['employee_id'],
+                "date" => $timeNow,
+                "absensi" => $timeNow
+            ]);
+            return ResponseFormatter::success( "Succeed Check-in.");
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getHistoryAbsensiSiswa($date)
+    {
+        try{
+            $absen = PerpusAttendance::join('students', 'perpus_attendances.student_id', '=', 'students.student_id')
+                    ->whereNotNull('perpus_attendances.student_id')
+                    ->where('date', '=', $date)
+                    ->get();
+
+            $response = $absen;
+
+            return ResponseFormatter::success($response, 'Get Absensi Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getHistoryAbsensiPegawai($date)
+    {
+        try{
+            $absen = PerpusAttendance::join('employees', 'perpus_attendances.employee_id', '=', 'employees.employee_id')
+                    ->whereNotNull('perpus_attendances.employee_id')
+                    ->where('date', '=', $date)
+                    ->get();
+
+            $response = $absen;
+
+            return ResponseFormatter::success($response, 'Get Absensi Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),

@@ -235,5 +235,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historystudent/{date}', [PerpustakaanController::class, 'getHistoryPeminjamanStudent']);
         Route::get('/historysumbangstudent/{date}', [PerpustakaanController::class, 'getHistorySumbangStudent']);
         Route::get('/historysumbangemployee/{date}', [PerpustakaanController::class, 'getHistorySumbangEmployee']);
+        Route::get('/scanemployee/{nuptk}', [PerpustakaanController::class, 'getBarcodePegawai']);
+        Route::get('/scanstudent/{nisn}', [PerpustakaanController::class, 'getBarcodeSiswa']);
+        Route::post('/postabsenstudent', [PerpustakaanController::class, 'postAbsensiPerpusStudent']);
+        Route::post('/postabsenemployee', [PerpustakaanController::class, 'postAbsensiPerpusEmployee']);
+        Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
+        Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
     });
 });
