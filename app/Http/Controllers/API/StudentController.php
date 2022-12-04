@@ -433,7 +433,6 @@ class StudentController extends Controller
 
             $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
                         ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
-                        ->join('rapors', 'students.student_id', '=', 'rapors.student_id')
                         ->join('semesters', 'rapors.semester_id', '=', 'semesters.semester_id')
                         ->join('academic_years', 'rapors.academic_year_id', '=', 'academic_years.academic_year_id')
                         ->where('students.student_id', '=', $student)
@@ -445,6 +444,22 @@ class StudentController extends Controller
                             "semester_name",
                             "academic_year"
                         ]);
+
+            if(!$student){
+                $response = [
+                    "first_name" => "-",
+                    "last_name" => "-",
+                    "nisn" => "-",
+                    "grade_name" => "-",
+                    "semester_name" => "-",
+                    "academic_year" => "-",
+                    "status" => "-",
+                    "nilai" =>[],
+                    "extra" =>[]
+                ];
+
+                return ResponseFormatter::success($response, 'Get Rapor Success');
+            }
 
             if(is_null($rapor)){
                 $response = [
