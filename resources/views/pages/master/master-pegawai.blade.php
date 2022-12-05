@@ -109,7 +109,8 @@
                                                     <img src="{{ $employee->image }}" alt="" />
                                                 @endif
                                                 <div class="d-flex align-items-center edit-master justify-content-end">
-                                                    <form action="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
+                                                    <form
+                                                        action="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
                                                         method="post" enctype="multipart/form-data">
                                                         @csrf
                                                         <input type="file" name="profile_employee" class="form-control"
@@ -147,8 +148,7 @@
     </div>
 @endsection
 
-@section('modal')
-    <!-- Modal -->
+{{-- @section('modal')
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">
@@ -187,18 +187,21 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="place_of_birth" class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
+                                    <input type="text" name="place_of_birth" class="form-control"
+                                        id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" />
+                                    <input type="date" name="date_of_birth" class="form-control"
+                                        id="date_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" name="gender" id="gender" aria-label="Default select example">
+                                <select class="form-select" name="gender" id="gender"
+                                    aria-label="Default select example">
                                     <option selected>--- Pilih Jenis Kelamin ---</option>
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
@@ -245,7 +248,8 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="workshift_id" class="form-label">Shift Kerja</label>
-                                <select class="form-select" name="workshift_id" id="workshift_id" data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
+                                <select class="form-select" name="workshift_id" id="workshift_id"
+                                    data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
                                     <option selected disabled value=''>--- Pilih Shift ---</option>
                                     @foreach ($workshift as $test)
                                         <option value="{{ $test->workshift_id }}">{{ $test->shift_name }}</option>
@@ -260,9 +264,8 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
-                                            id="image-upload-btn">
-                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}"
+                                            alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
                                             <button type="button" class="btn-edit-master me-2" id="upload-btn"
                                                 onclick="uploadImage()">
@@ -289,31 +292,34 @@
             </div>
         </div>
     </div>
-@endsection
+@endsection --}}
 @push('addon-javascript')
     <script>
         function uploadImage() {
             document.querySelector("#image-master").click();
         }
+
         function uploadPhotoSiswa() {
             document.querySelector("#fotoSiswa").click();
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
-            $( '#workshift_id' ).select2( {
+            $('#workshift_id').select2({
                 theme: "bootstrap-5",
-                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-                placeholder: $( this ).data( 'placeholder' ),
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
                 dropdownParent: $('#exampleModal'),
-            } );
+            });
 
-            $( '#gender' ).select2( {
-            theme: "bootstrap-5",
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: $( this ).data( 'placeholder' ),
-            dropdownParent: $('#exampleModal'),
-        } );
+            $('#gender').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                dropdownParent: $('#exampleModal'),
+            });
 
             $.ajaxSetup({
                 headers: {
@@ -322,51 +328,52 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-employee'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-employee'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            let employee_id = $("#employee_id").val();
+                let employee_id = $("#employee_id").val();
 
-            var url = (employee_id !== undefined && employee_id !== null) && employee_id ? "{{ url('employee')}}" + "/" + employee_id : "{{ url('employee')}}";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                data: $('#form-employee').serialize(),
-                // contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#employee-table").load(window.location.href +
-                                    " #employee-table");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-employee')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Pegawai")
-                    $("#employee_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (employee_id !== undefined && employee_id !== null) && employee_id ?
+                    "{{ url('employee') }}" + "/" + employee_id : "{{ url('employee') }}";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-employee').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#employee-table").load(window.location.href +
+                                " #employee-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-employee')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Pegawai")
+                        $("#employee_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('employee')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('employee') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Pegawai")
                     $("#button-modal").html("Edit")
                     $('#employee_id').val(result.employee_id).trigger('change');
@@ -384,11 +391,11 @@
                     $('#family_name').val(result.family_name);
                     $('#family_address').val(result.family_address);
                     $('#workshift_id').val(result.workshift_id).trigger('change');
-                    if(result.image !== null){
-                        document.getElementById("image-edit").src =result.image;
+                    if (result.image !== null) {
+                        document.getElementById("image-edit").src = result.image;
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -406,50 +413,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/employee')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/employee') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#employee-table").load(window.location.href +
-                                    " #employee-table");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#employee-table").load(window.location.href +
+                                        " #employee-table");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush

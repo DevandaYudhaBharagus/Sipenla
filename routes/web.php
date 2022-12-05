@@ -67,6 +67,12 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/master', function(){
     return view('pages.master.home-master');
 });
+Route::get('/absensi', function(){
+    return view('pages.absensi.absensi');
+});
+Route::get('/webcam-absensi', function(){
+    return view('pages.absensi.absensi-webcam');
+});
 
 Auth::routes();
 

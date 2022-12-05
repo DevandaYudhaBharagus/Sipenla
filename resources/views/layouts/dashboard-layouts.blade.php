@@ -8,10 +8,11 @@
     @include('includes.style')
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/css-internal/dashboard.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="icon" href="{{ asset('images/internal-images/logo.png') }}" type="image/x-icon" />
     @yield('css')
     <title>@yield('title')</title>
-    @yield("meta_header")
+    @yield('meta_header')
 </head>
 
 <body>
