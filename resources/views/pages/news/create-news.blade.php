@@ -103,7 +103,7 @@
 
         CKEDITOR.replace("text-news");
 
-        const inputImage = document.querySelector("#image-news");
+        const inputImage = document.querySelector("#fileId");
         const choseImage = document.querySelector("#image-upload-btn");
 
         inputImage.addEventListener("change", () => {
