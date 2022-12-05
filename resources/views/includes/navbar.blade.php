@@ -24,8 +24,8 @@
              <div class="dropstart">
                  <button class="btn btn-dropdown" href="#" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false">
-                     <img src="{{ asset('images/internal-images/user.png') }}" alt="" width="35"
-                         height="35" />
+                     <img src="{{ asset('images/internal-images/user.png') }}" style="border-radius: 50%" alt=""
+                         width="35" height="35" />
                  </button>
                  <ul class="dropdown-menu mt-5">
                      <li><a class="dropdown-item" href="#">Action</a></li>
@@ -161,8 +161,8 @@
              <div class="dropstart">
                  <button class="btn btn-dropdown" href="#" role="button" data-bs-toggle="dropdown"
                      aria-expanded="false">
-                     <img src="{{ asset('images/internal-images/user.png') }}" alt="" width="35"
-                         height="35" />
+                     <img src="{{ asset('images/internal-images/user.png') }}" style="border-radius: 50%"
+                         alt="" width="35" height="35" />
                  </button>
                  <ul class="dropdown-menu mt-5">
                      <li><a class="dropdown-item" href="{{ url('/dashboard/profil') }}">Profile</a></li>

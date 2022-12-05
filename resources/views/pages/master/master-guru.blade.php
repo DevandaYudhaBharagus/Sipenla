@@ -2,7 +2,7 @@
 
 @section('title', 'Master Guru')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 @section('content')
@@ -62,7 +62,7 @@
                         <th width="250px">Foto</th>
                         <th width="250px" style="border-right: none">Aksi</th>
                     </tr>
-                    @foreach ( $teacher as $new )
+                    {{-- @foreach ($teacher as $new)
                     <tr>
                             <td width="50px" class="no-border">{{ $loop->iteration }}</td>
                             <td width="250px">
@@ -95,7 +95,7 @@
                                         <li>
                                             <h6>Foto</h6>
                                             <div class="box-foto-master">
-                                                @if(!$new->image)
+                                                @if (!$new->image)
                                                     <img src="../../images/pengumuman.jpg" alt="" />
                                                     @else
                                                     <img src="{{ $new->image }}" alt="" />
@@ -124,7 +124,7 @@
                                 </div>
                             </td>
                     </tr>
-                    @endforeach
+                    @endforeach --}}
                 </table>
             </div>
         </div>
@@ -134,41 +134,198 @@
 @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-role">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Tambah Data Guru</h1>
                 </div>
-                <div class="modal-body">...</div>
+                <div class="modal-body">
+                    <form id="form-employee">
+                        @csrf
+                        <input type="hidden" name="employee_id" id="employee_id" value="">
+                        <div class="row">
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="first_name" class="form-label">Nama Depan</label>
+                                    <input type="text" name="first_name" class="form-control" id="first_name" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="last_name" class="form-label">Nama Belakang</label>
+                                    <input type="text" name="last_name" class="form-control" id="last_name" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="nuptk" class="form-label">NUPTK / ID Pegawai</label>
+                                    <input type="text" name="nuptk" class="form-control" id="nuptk" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="npsn" class="form-label">NPSN</label>
+                                    <input type="text" name="npsn" class="form-control" id="npsn" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="place_of_birth" class="form-label">Tempat Lahir</label>
+                                    <input type="text" name="place_of_birth" class="form-control"
+                                        id="place_of_birth" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
+                                    <input type="text" name="date_of_birth" placeholder="dd/mm/yy"
+                                        class="form-control" id="date_of_birth" />
+                                    <div class="down-form-full">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="gender" class="form-label">Jenis Kelamin</label>
+                                <select class="form-select" name="gender" id="gender"
+                                    aria-label="Default select example">
+                                    <option selected>--- Pilih Jenis Kelamin ---</option>
+                                    <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                                <div class="down-form">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <div class="mb-3">
+                                    <label for="religion" class="form-label">Agama</label>
+                                    <input type="text" name="religion" class="form-control" id="religion" />
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="mb-3">
+                                    <label for="address" class="form-label">Alamat Tinggal</label>
+                                    <textarea class="form-control" name="address" id="address" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="education" class="form-label">Riwayat Pendidikan</label>
+                                    <input type="text" name="education" class="form-control" id="education" />
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="family_name" class="form-label">Nama Ibu</label>
+                                    <input type="text" name="family_name" class="form-control" id="family_name" />
+                                </div>
+                            </div>
+                            <div class=" col-12">
+                                <div class="mb-3">
+                                    <label for="family_address" class="form-label">Alamat Orang Tua</label>
+                                    <textarea class="form-control" name="family_address" id="family_address" rows="3"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="mb-3">
+                                    <label for="position" class="form-label">Jabatan</label>
+                                    <input type="text" name="position" class="form-control" id="position" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <label for="workshift_id" class="form-label">Shift Kerja</label>
+                                <select class="form-select" name="workshift_id" id="workshift_id"
+                                    data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
+                                    <option selected disabled value=''>--- Pilih Shift ---</option>
+                                    @foreach ($workshift as $test)
+                                        <option value="{{ $test->workshift_id }}">{{ $test->shift_name }}</option>
+                                    @endforeach
+                                </select>
+                                <div class="down-form">
+                                    <i class="fa fa-angle-down"></i>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12">
+                                <input type="file" name="" id="image-master-guru" style="display: none"
+                                    multiple />
+                                <div class="mb-3">
+                                    <div class="box-image-upload-master">
+                                        <label for="" class="form-label">Foto</label>
+                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}"
+                                            alt="">
+                                        <div class="d-flex align-items-center justify-content-end edit-upload-book">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
+                                                <i class="fa fa-edit text-primary"></i>
+                                            </button>
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
+                                                <i class="fa fa-trash-o text-danger"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        Close
+                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                        Batal
                     </button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
+                        Tambah
+                    </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
 @push('addon-javascript')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        function uploadImage() {
+            document.querySelector("#image-master-guru").click();
+        }
+        flatpickr("#date_of_birth", {
+            altInput: true,
+            altFormat: "j F, Y",
+            dateFormat: "d-m-Y",
+        });
+        const inputImage = document.querySelector("#image-master-guru");
+        const choseImage = document.querySelector("#image-edit");
+        const btnRemove = document.querySelector("#btn-remove");
 
-        $("#exampleModal").on("hidden.bs.modal", function (e) {
+
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            reader.onload = () => {
+                choseImage.setAttribute("src", reader.result);
+            }
+        });
+
+        btnRemove.addEventListener("click", () => {
+            choseImage.setAttribute("src", `{{ asset('images/internal-images/no-img.png') }}`);
+            inputImage.value = "";
+        })
+    </script>
+    <script>
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-workshift')[0];
             const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
             $(reset_form_edit).removeClass('was-validated');
             let uniqueField = ["shift_name"]
             for (let i = 0; i < uniqueField.length; i++) {
-            $("#" + uniqueField[i]).removeClass('was-validated');
-            $("#" + uniqueField[i]).removeClass("is-invalid");
-            $("#" + uniqueField[i]).removeClass("invalid-more");
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
             }
         });
 
-        $(document).ready(function () {
-            document.getElementById("add-workshift").addEventListener("click", function () {
+        $(document).ready(function() {
+            document.getElementById("add-workshift").addEventListener("click", function() {
                 document.getElementById("form-workshift").reset();
                 $("#modal-title").html("Tambah Data Jadwal Kerja");
                 document.getElementById("workshift_id").value = null;
@@ -181,51 +338,52 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-workshift'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-workshift'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            let workshift_id = $("#workshift_id").val();
+                let workshift_id = $("#workshift_id").val();
 
-            var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ? "{{ url('workshift')}}" + "/" + workshift_id : "{{ url('workshift')}}"+ "/addshift";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                data: $('#form-workshift').serialize(),
-                // contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#table-workshift").load(window.location.href +
-                                    " #table-workshift");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-workshift')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Jadwal Kerja")
-                    $("#workshift_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ?
+                    "{{ url('workshift') }}" + "/" + workshift_id : "{{ url('workshift') }}" + "/addshift";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-workshift').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#table-workshift").load(window.location.href +
+                                " #table-workshift");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-workshift')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Jadwal Kerja")
+                        $("#workshift_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('workshift')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('workshift') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Jadwal Kerja")
                     $("#button-modal").html("Edit")
                     $('#workshift_id').val(result.workshift_id).trigger('change');
@@ -234,7 +392,7 @@
                     $('#end_time').val(result.end_time);
                     $('#max_arrival').val(result.max_arrival);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -252,50 +410,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/teacher/delete-teacher')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/teacher/delete-teacher') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#teacher-table").load(window.location.href +
-                                    " #teacher-table");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#teacher-table").load(window.location.href +
+                                        " #teacher-table");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush

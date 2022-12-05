@@ -161,7 +161,7 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="image-facility" class="form-label">Foto</label>
-                                        <img id="image-edit" src="{{ asset('images/internal-images/no-img.png') }}"
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" id="image-edit"
                                             alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
                                             <button type="button" class="btn-edit-master me-2" id="upload-btn"
@@ -215,7 +215,7 @@
                 document.getElementById("form-facility").reset();
                 $("#modal-title").html("Tambah Data Fasilitas");
                 document.getElementById("facility_id").value = null;
-                document.getElementById("image-edit").src = "";
+                // document.getElementById("image-edit").src = "";
             });
 
             $.ajaxSetup({
@@ -290,8 +290,8 @@
             });
         }
 
-        const inputImage = document.querySelector("#image-master");
-        const choseImage = document.querySelector("#image-upload-btn");
+        const inputImage = document.querySelector("#image-facility");
+        const choseImage = document.querySelector("#image-edit");
         const btnRemove = document.querySelector("#btn-remove");
 
         inputImage.addEventListener("change", () => {
