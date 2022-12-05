@@ -205,6 +205,8 @@ input[type="number"] {
 .sidebar.open li .tool {
     display: none;
 }
+/* .sidebar.open ~ .menu-dropdown {
+    display: block; */
 .sidebar li .menu-dropdown,
 .sidebar li .dropdown-list {
     background: var(--bg-blue);
@@ -216,7 +218,6 @@ input[type="number"] {
     transition: 0.2s ease;
     display: none;
 }
-
 .sidebar li #dropdown-keuangan,
 .sidebar li #dropdown-pack {
     cursor: pointer;
@@ -227,6 +228,9 @@ input[type="number"] {
 .sidebar.open .menu-dropdown,
 .sidebar.open .dropdown-list {
     padding: 0 0 10px 10px;
+}
+.sidebar.open .menu-dropdown.show {
+    display: block;
 }
 .sidebar.open .menu-dropdown li,
 .sidebar.open .dropdown-list li {
