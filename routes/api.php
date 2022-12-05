@@ -193,6 +193,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('assessmentextra')->group(function () {
         Route::get('/getstudent', [ExtraAssessmentController::class, 'getStudent']);
+        Route::get('/getnilai/{academic}/{semester}', [ExtraAssessmentController::class, 'getNilai']);
         Route::post('/addpenilaian', [ExtraAssessmentController::class, 'addPenilaian']);
         Route::post('/updatepenilaian/{id}', [ExtraAssessmentController::class, 'editPenilaian']);
     });
