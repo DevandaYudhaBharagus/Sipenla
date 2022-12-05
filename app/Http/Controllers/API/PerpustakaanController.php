@@ -17,6 +17,7 @@ use App\Models\Student;
 use App\Models\LoanBook;
 use App\Models\PerpusAttendance;
 use App\Models\LoanFacility;
+use Illuminate\Support\Facades\DB;
 
 class PerpustakaanController extends Controller
 {
@@ -1108,6 +1109,39 @@ class PerpustakaanController extends Controller
             $response = $absen;
 
             return ResponseFormatter::success($response, 'Get Absensi Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getRekapAbsensi()
+    {
+        try{
+            // $bymount = PerpusAttendance::all()->groupBy(function($date) {
+            //     return Carbon::parse($date->date)->isoFormat('MMMM-YYYY');
+            // })->transform(function ($value) { //it can also be map()
+
+            //     $nStr = $value->map(function ($vl) {
+            //         return str_replace(".", "", $vl->date);
+            //     });
+            //     return [
+            //         'preco_sum' => $nStr->sum()
+            //     ];
+            // });
+
+            $bymount =DB::table('perpus_attendances')
+                ->select('*',DB::raw('DATE(date) as date'))
+                ->get()
+                ->groupBy('date');
+
+            $bymount = $bymount->reverse();
+
+            $response = $bymount;
+
+            return ResponseFormatter::success($response, 'Get Rekap Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
