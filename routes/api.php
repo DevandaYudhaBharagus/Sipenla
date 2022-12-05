@@ -241,5 +241,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/postabsenemployee', [PerpustakaanController::class, 'postAbsensiPerpusEmployee']);
         Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
         Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
+        Route::get('/rekap', [PerpustakaanController::class, 'getRekapAbsensi']);
     });
 });
