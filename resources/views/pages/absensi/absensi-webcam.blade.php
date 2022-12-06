@@ -36,6 +36,7 @@
                     <form>
                         <div class="webcam" id="my-camera"></div>
                         <div class="d-flex">
+                            <input type="hidden" name="image" id="image-present">
                             <div class="btn-webcam" id="btn-webcam"></div>
                             <div class="btn-refresh"> <i class="fa fa-refresh"></i> </div>
                         </div>
@@ -80,9 +81,10 @@
         Webcam.attach('#my-camera');
         const btnWebcam = document.querySelector("#btn-webcam");
         const btnRefresh = document.querySelector(".btn-refresh");
+        const input = document.querySelector("#image-present");
         btnWebcam.addEventListener("click", () => {
             Webcam.snap(function(data_uri) {
-                $(".image-tag").val(data_uri);
+                $("#image-present").val(data_uri);
                 document.getElementById('my-camera').innerHTML = '<img src="' + data_uri + '"/>';
             });
             btnWebcam.style.display = "none";
@@ -91,6 +93,7 @@
         btnRefresh.addEventListener("click", () => {
             Webcam.unfreeze();
             document.getElementById('my-camera').innerHTML = " ";
+            input.value = ""
             Webcam.attach('#my-camera');
             btnRefresh.style.display = "none";
             btnWebcam.style.display = "block"
