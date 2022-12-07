@@ -41,8 +41,8 @@
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">Bambang Pamungkas</div>
-                                    <div class="title-student">Guru</div>
+                                    <div class="name-student">{{$employee->first_name. ' '. $employee->last_name}}</div>
+                                    <div class="title-student">{{ Auth::user()->role }}</div>
                                 </div>
                             </div>
                             <div class="row mt-4 align-items-center">
@@ -82,29 +82,31 @@
                         </div>
                         <div class="box-student-card mt-md-4">
                             {{-- belum absensi --}}
-                            <div class="d-flex  flex-column">
-                                <div class="icon-camera m-auto">
-                                    <img src="{{ asset('images/internal-images/icon-camera-red.png') }}">
+                            @if(!$attendance)
+                                <div class="d-flex  flex-column">
+                                    <div class="icon-camera m-auto">
+                                        <img src="{{ asset('images/internal-images/icon-camera-red.png') }}">
+                                    </div>
+                                    <div class="text-present d-flex justify-content-center">Anda belum melakukan absensi hari
+                                        ini</div>
                                 </div>
-                                <div class="text-present d-flex justify-content-center">Anda belum melakukan absensi hari
-                                    ini</div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <a href="" class=" btn-present">Lakukan Absensi</a>
-                            </div>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ url('/absensi') }}" class=" btn-present">Lakukan Absensi</a>
+                                </div>
+                            @else
+                                {{-- sudah absensi --}}
+                                    <div class="d-flex  flex-column">
+                                        <div class="icon-camera m-auto">
+                                            <img src="{{ asset('images/internal-images/icon-camera-green.png') }}">
+                                        </div>
+                                        <div class="text-present d-flex justify-content-center">Anda sudah absen</div>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <a href="{{ url('/absensi/page-checkout') }}" class=" btn-present">Absen Keluar</a>
+                                    </div>
+                                {{-- Akhir sudah absensi --}}
+                            @endif
                             {{-- akhir belum absensi --}}
-
-                            {{-- sudah absensi --}}
-                            {{-- <div class="d-flex  flex-column">
-                                <div class="icon-camera m-auto">
-                                    <img src="{{ asset('images/internal-images/icon-camera-green.png') }}">
-                                </div>
-                                <div class="text-present d-flex justify-content-center">Anda sudah absen</div>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <a href="" class=" btn-present">Absen Keluar</a>
-                            </div> --}}
-                            {{-- Akhir sudah absensi --}}
                         </div>
                     </div>
                     <div class="col-md-7 col-12">

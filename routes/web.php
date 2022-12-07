@@ -19,6 +19,7 @@ use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
+use App\Http\Controllers\AttendanceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,15 +65,7 @@ Route::get('/master-isi-saldo', function(){
 Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
-Route::get('/master', function(){
-    return view('pages.master.home-master');
-});
-Route::get('/absensi', function(){
-    return view('pages.absensi.absensi');
-});
-Route::get('/webcam-absensi', function(){
-    return view('pages.absensi.absensi-webcam');
-});
+
 
 Auth::routes();
 
@@ -183,5 +176,19 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [LessonSchedulesController::class, 'edit']);
         Route::post('/{id}', [LessonSchedulesController::class, 'update']);
         Route::delete('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete']);
+    });
+
+    //Route Absensi
+    Route::prefix('absensi')->group(function (){
+        Route::get('/', [AttendanceController::class, 'index']);
+        Route::get('/landpage', [AttendanceController::class, 'absensi']);
+        Route::post('/cekin', [AttendanceController::class, 'checkin']);
+        Route::post('/cekout', [AttendanceController::class, 'checkOut']);
+        Route::get('/page-checkout', [AttendanceController::class, 'absensiKeluar']);
+    });
+
+    //Route Blank Space Master
+    Route::get('/master', function(){
+        return view('pages.master.home-master');
     });
 });
