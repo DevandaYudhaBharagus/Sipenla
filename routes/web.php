@@ -73,8 +73,14 @@ Route::get('/absensi', function(){
 Route::get('/webcam-absensi', function(){
     return view('pages.absensi.absensi-webcam');
 });
+Route::get('/monitoring', function(){
+    return view('pages.monitoring.monitoring');
+});
+Route::get('/jadwal', function(){
+    return view('pages.jadwal.jadwal');
+});
 
-Auth::routes();
+// Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
