@@ -68,9 +68,7 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/jadwal', function(){
-    return view('pages.jadwal.jadwal');
-});
+
 
 Auth::routes();
 
@@ -195,5 +193,10 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Blank Space Master
     Route::get('/master', function(){
         return view('pages.master.home-master');
+    });
+
+    //Route Jadwal
+    Route::get('/jadwal', function(){
+        return view('pages.jadwal.jadwal');
     });
 });
