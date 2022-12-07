@@ -130,7 +130,6 @@ class AttendanceController extends Controller
             'employee_id' => $employee->employee_id,
             'date' => $date,
             'check_in' => $date,
-            'check_out' => $date,
             'image_check_in' => $imageFix,
         ]);
 
@@ -169,7 +168,9 @@ class AttendanceController extends Controller
         }
 
         $checkIn = Attendance::where('id', '=', $request->attendance_id)->update([
+            'check_out' => $timeNow,
             'image_check_out' => $imageFix,
+            'status' => 'ace'
         ]);
 
         return redirect('/absensi/landpage');
