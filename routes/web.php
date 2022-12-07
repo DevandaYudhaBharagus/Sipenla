@@ -65,7 +65,12 @@ Route::get('/master-isi-saldo', function(){
 Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
-
+Route::get('/monitoring', function(){
+    return view('pages.monitoring.monitoring');
+});
+Route::get('/jadwal', function(){
+    return view('pages.jadwal.jadwal');
+});
 
 Auth::routes();
 
