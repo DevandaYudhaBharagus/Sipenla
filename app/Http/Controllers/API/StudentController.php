@@ -431,8 +431,9 @@ class StudentController extends Controller
                         "nilai",
                     ]);
 
-            $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+            $students = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
                         ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                        ->join('rapors', 'students.student_id', '=', 'rapors.student_id')
                         ->join('semesters', 'rapors.semester_id', '=', 'semesters.semester_id')
                         ->join('academic_years', 'rapors.academic_year_id', '=', 'academic_years.academic_year_id')
                         ->where('students.student_id', '=', $student)
@@ -445,12 +446,22 @@ class StudentController extends Controller
                             "academic_year"
                         ]);
 
-            if(!$student){
+            if(!$students){
+                $murid = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+                        ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                        ->where('students.student_id', '=', $student)
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "nisn",
+                            "grade_name",
+                        ]);
+
                 $response = [
-                    "first_name" => "-",
-                    "last_name" => "-",
-                    "nisn" => "-",
-                    "grade_name" => "-",
+                    "first_name" => $murid->first_name,
+                    "last_name" => $murid->last_name,
+                    "nisn" => $murid->nisn,
+                    "grade_name" => $murid->grade_name,
                     "semester_name" => "-",
                     "academic_year" => "-",
                     "status" => "-",

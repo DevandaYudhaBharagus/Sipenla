@@ -193,6 +193,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('assessmentextra')->group(function () {
         Route::get('/getstudent', [ExtraAssessmentController::class, 'getStudent']);
+        Route::get('/getnilai/{academic}/{semester}', [ExtraAssessmentController::class, 'getNilai']);
         Route::post('/addpenilaian', [ExtraAssessmentController::class, 'addPenilaian']);
         Route::post('/updatepenilaian/{id}', [ExtraAssessmentController::class, 'editPenilaian']);
     });
@@ -241,5 +242,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/postabsenemployee', [PerpustakaanController::class, 'postAbsensiPerpusEmployee']);
         Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
         Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
+        Route::get('/rekap', [PerpustakaanController::class, 'getRekapAbsensi']);
     });
 });
