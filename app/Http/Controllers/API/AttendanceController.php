@@ -217,9 +217,8 @@ class AttendanceController extends Controller
                 }
             }
 
-
             if($hasCheckedIn) {
-                return ResponseFormatter::error([], "Anda sudah Check In hari ini", 400);
+                return ResponseFormatter::error([], "Anda sudah melakukan absensi masuk hari ini", 400);
             }
 
             $image = $this->saveImage($request->attendance_check_in, "azure");
@@ -256,11 +255,11 @@ class AttendanceController extends Controller
                             ->whereDate('date', $timeNow);
 
             if(!is_null($notCheckOut->first()->check_out)){
-                return ResponseFormatter::error([], 'Anda sudah check out', 400);
+                return ResponseFormatter::error([], 'Anda sudah melakukan absensi keluar hari ini', 400);
             }
 
             if(!$hasCheckedIn){
-                return ResponseFormatter::error([], "Anda harus check in terlebih dahulu", 400);
+                return ResponseFormatter::error([], "Anda harus melakukan absensi masuk hari ini", 400);
             }
 
             $image = $this->saveImage($request->attendance_check_out, "azure");
