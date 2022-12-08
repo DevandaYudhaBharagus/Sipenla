@@ -50,6 +50,7 @@
     </div>
     <div class="mb-3">
         <label for="">Unggah Dokumen</label>
+        <input type="file" name="" id="documentCuti" multiple style="display:none">
         <div class="upload-document" onclick="uploadDocument()">
             Pilih Dokumen
         </div>
