@@ -9,9 +9,11 @@ use App\Models\Attendance;
 use App\Models\LeaveApplication;
 use App\Models\OfficialDuty;
 use App\Models\Workday;
+use App\Models\LeaveType;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class AttendanceController extends Controller
 {
@@ -40,10 +42,20 @@ class AttendanceController extends Controller
     public function absensi()
     {
         $user = Auth::user();
-        $employee = Employee::where('user_id', '=', $user->id)->first();
+        $employee = Employee::join('leave_balances', 'employees.employee_id', '=', 'leave_balances.employee_id')->where('user_id', '=', $user->id)->first();
         $attendance = Attendance::where('employee_id', $employee->employee_id)->whereNull('check_out')->where('date', date("Y-m-d"))->first();
 
-        return view('pages.absensi.absensi', compact('employee', 'attendance'));
+        $byweek = Attendance::where('employee_id', $employee->employee_id)
+                    ->get()
+                    ->groupBy(function($date) {
+                        return Carbon::parse($date->date)->format('W');
+                    });
+
+        $byweek = $byweek->reverse();
+
+        $leave = LeaveType::get();
+
+        return view('pages.absensi.absensi', compact('employee', 'attendance', 'byweek', 'leave'));
     }
 
     public function absensiKeluar()
@@ -174,5 +186,79 @@ class AttendanceController extends Controller
         ]);
 
         return redirect('/absensi/landpage');
+    }
+
+    public function addLeave(Request $request)
+    {
+        $data = $request->all();
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+
+        $validate = Validator::make($data, [
+            'leave_type_id' => 'required',
+            'application_from_date' => 'required',
+            'application_to_date' => 'required|after:application_from_date',
+            'purpose' => 'required',
+            'abandoned_job' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $leaveData = LeaveApplication::create([
+            'employee_id' => $employee->employee_id,
+            'leave_type_id' => $data['leave_type_id'],
+            'application_from_date' => $data['application_from_date'],
+            'application_to_date' => $data['application_to_date'],
+            'application_date' => Carbon::now(),
+            'purpose' => $data['purpose'],
+            'abandoned_job' => $data['abandoned_job'],
+        ]);
+
+        return back();
+    }
+
+    public function addDuty(Request $request)
+    {
+        $data = $request->all();
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+
+        $validate = Validator::make($data, [
+            'duty_from_date' => 'required',
+            'duty_to_date' => 'required|after:duty_from_date',
+            'purpose' => 'required',
+            'attachment' => 'required|mimes:pdf, jpeg, jpg, png',
+            'time' => 'required',
+            'place' => 'required',
+            'abandoned_job' => 'required'
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        if ($request->file('attachment')) {
+            $test['attachment'] = $request->file('attachment')->store('attachment');
+        }
+
+        $leaveData = OfficialDuty::create([
+            'employee_id' => $employee->employee_id,
+            'duty_from_date' => $data['duty_from_date'],
+            'duty_to_date' => $data['duty_to_date'],
+            'duty_date' => Carbon::now(),
+            'purpose' => $data['purpose'],
+            'time' => Carbon::createFromFormat('H:i:s', $data['time']),
+            'place' => $data['place'],
+            'abandoned_job' => $data['abandoned_job'],
+            'attachment' => $test['attachment']
+        ]);
+
+        return back();
     }
 }

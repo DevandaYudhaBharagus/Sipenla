@@ -177,11 +177,11 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Mulai</label>
-                                <input type="text" id="jam-mulai" class="form-control">
+                                <input type="text" name="start_time" id="start_time" class="form-control">
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="" class="form-label">Jam Selesai</label>
-                                <input type="text" id="jam-mulai" class="form-control">
+                                <input type="text" name="end_time" id="end_time" class="form-control">
                             </div>
                         </div>
                 </div>
@@ -440,7 +440,14 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        flatpickr("#jam-mulai", {
+        flatpickr("#start_time", {
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true
+        });
+
+        flatpickr("#end_time", {
             enableTime: true,
             noCalendar: true,
             dateFormat: "H:i",
