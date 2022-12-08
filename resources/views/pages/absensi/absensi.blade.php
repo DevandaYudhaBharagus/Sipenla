@@ -114,7 +114,8 @@
                             <div id="show-list-box-biografi" class="show">
                                 <h5>Riwayat Absensi</h5>
                                 <div class="mb-3">
-                                    <label for="">Minggu 1</label>
+                                    @foreach ($byweek as $w => $attendance)
+                                    <label for="">Minggu {{$w}}</label>
                                     <div class="history-present" id="drop-present">
                                         <div class="d-flex justify-content-between align-items-center">
                                             Riwayat Absensi
@@ -122,57 +123,36 @@
                                         </div>
                                     </div>
                                     <div class="list-history-present" id="list-present">
+                                        @foreach ($attendance as $att)
                                         <div class="list-history">
                                             <div class="d-md-flex justify-content-md-between align-items-md-center">
                                                 <div class="time-present">
-                                                    <div class="date">01 September 2022</div>
-                                                    <div class="time">08:00 WIIB</div>
+                                                    <div class="date">{{date('D, d M Y', strtotime($att->date))}}</div>
+                                                    <div class="time">Absensi Masuk : {{date('H:i:s', strtotime($att->check_in))}}</div>
+                                                    <div class="time">Absensi Keluar : {{date('H:i:s', strtotime($att->check_out))}}</div>
                                                 </div>
-                                                <div class="status-present d-flex flex-column justify-content-center">
+                                                @if ($att->status == 'ace')
+                                                    <div class="status-present d-flex flex-column justify-content-center">
+                                                        <h6 id="sakit">Hadir</h6>
+                                                        <div class="status">Status -</div>
+                                                    </div>
+                                                @elseif ($att->status == 'aae')
+                                                    <div class="status-present d-flex flex-column justify-content-center">
+                                                        <h6 id="absen">Tidak Hadir</h6>
+                                                        <div class="status">Status -</div>
+                                                    </div>
+                                                {{-- <div class="status-present d-flex flex-column justify-content-center">
                                                     <h6 id="izin">Izin</h6>
                                                     <div class="status">Status -</div>
-                                                </div>
+                                                </div> --}}
+                                                @endif
                                             </div>
                                         </div>
-                                        <div class="list-history">
-                                            <div class="d-md-flex justify-content-md-between align-items-md-center">
-                                                <div class="time-present">
-                                                    <div class="date">02 September 2022</div>
-                                                    <div class="time">08:00 WIIB</div>
-                                                </div>
-                                                <div class="status-present d-flex flex-column justify-content-center">
-                                                    <h6 id="absen">Tidak Hadir</h6>
-                                                    <div class="status">Status -</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="list-history">
-                                            <div class="d-md-flex justify-content-md-between align-items-md-center">
-                                                <div class="time-present">
-                                                    <div class="date">03 September 2022</div>
-                                                    <div class="time">08:00 WIIB</div>
-                                                </div>
-                                                <div class="status-present d-flex flex-column justify-content-center">
-                                                    <h6 id="sakit">Hadir</h6>
-                                                    <div class="status">Status -</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="list-history">
-                                            <div class="d-md-flex justify-content-md-between align-items-md-center">
-                                                <div class="time-present">
-                                                    <div class="date">03 September 2022</div>
-                                                    <div class="time">08:00 WIIB</div>
-                                                </div>
-                                                <div class="status-present d-flex flex-column justify-content-center">
-                                                    <h6 id="sakit">Hadir</h6>
-                                                    <div class="status">Status -</div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
                                     </div>
+                                    @endforeach
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="">Minggu 2</label>
                                     <div class="history-present" id="drop-present">
                                         <div class="d-flex justify-content-between align-items-center">
@@ -219,7 +199,7 @@
                                         </div>
                                         <!-- alhir history belum absen -->
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                             <div id="show-list-box-biografi">
                                 @include('pages.absensi.form-dinas')
@@ -238,6 +218,21 @@
 @push('addon-javascript')
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        $('#leave_type_id').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+            });
+        $(document).ready(function() {
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+
         function dateTime() {
             const dateWeather = document.querySelector("#date-weather");
             const timeWeather = document.querySelector("#time-weather");
@@ -278,11 +273,34 @@
             });
         }
 
-        flatpickr("#date", {
+        flatpickr("#application_from_date", {
+            allowInput: true,
             altInput: true,
             altFormat: "j F, Y",
-            dateFormat: "d-m-Y",
+            dateFormat: "Y-m-d",
         });
+
+        flatpickr("#application_to_date", {
+            allowInput: true,
+            altInput: true,
+            altFormat: "j F, Y",
+            dateFormat: "Y-m-d",
+        });
+
+        flatpickr("#duty_from_date", {
+            allowInput: true,
+            altInput: true,
+            altFormat: "j F, Y",
+            dateFormat: "Y-m-d",
+        });
+
+        flatpickr("#duty_to_date", {
+            allowInput: true,
+            altInput: true,
+            altFormat: "j F, Y",
+            dateFormat: "Y-m-d",
+        });
+
         flatpickr("#time", {
             enableTime: true,
             noCalendar: true,

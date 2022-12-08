@@ -187,6 +187,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/landpage', [AttendanceController::class, 'absensi']);
         Route::post('/cekin', [AttendanceController::class, 'checkin']);
         Route::post('/cekout', [AttendanceController::class, 'checkOut']);
+        Route::post('/cuti', [AttendanceController::class, 'addLeave']);
+        Route::post('/duty', [AttendanceController::class, 'addDuty']);
         Route::get('/page-checkout', [AttendanceController::class, 'absensiKeluar']);
     });
 
