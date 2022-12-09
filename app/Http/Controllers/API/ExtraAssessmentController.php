@@ -23,6 +23,7 @@ class ExtraAssessmentController extends Controller
             $student = Student::where('extracurricular_id', '=', $employee->extracurricular_id)
                         ->get([
                             "student_id",
+                            "nisn",
                             "first_name",
                             "last_name",
                         ]);
