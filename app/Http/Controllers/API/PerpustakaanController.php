@@ -96,7 +96,7 @@ class PerpustakaanController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $image = $this->saveImage($request->book_image, "posts");
+            $image = $this->saveImage($request->book_image, "azure");
             $code = mt_rand(1000, 9999);
 
             $facilityData = Book::create([
@@ -136,7 +136,7 @@ class PerpustakaanController extends Controller
 
                 return ResponseFormatter::success('Book Has Been Updated');
             }
-            $image = $this->saveImage($request->book_image, "posts");
+            $image = $this->saveImage($request->book_image, "azure");
 
             $edit = [
                 "book_name" => $request->book_name,
@@ -580,7 +580,7 @@ class PerpustakaanController extends Controller
                 return ResponseFormatter::error($response, 'Bad Request', 400);
             }
 
-            $image = $this->saveImage($request->book_image, "posts");
+            $image = $this->saveImage($request->book_image, "azure");
             $code = mt_rand(1000, 9999);
 
             if($user->role == "student"){
