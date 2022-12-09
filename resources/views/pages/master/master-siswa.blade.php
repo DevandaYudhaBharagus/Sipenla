@@ -271,7 +271,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="form-edit">
-                        {{csrf_field()}}
+                        {{ csrf_field() }}
                         <input type="hidden" name="student_id" id="student_id" value="">
                         <div class="row">
                             <div class="col-md-6 col-12">
@@ -295,13 +295,15 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="place_of_birth" class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
+                                    <input type="text" name="place_of_birth" class="form-control"
+                                        id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
-                                    <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" />
+                                    <input type="date" name="date_of_birth" class="form-control"
+                                        id="date_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
@@ -330,7 +332,8 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date_school_now" class="form-label">Tanggal Diterima</label>
-                                    <input type="date" name="date_school_now" id="date_school_now" class="form-control" />
+                                    <input type="date" name="date_school_now" id="date_school_now"
+                                        class="form-control" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
@@ -354,25 +357,29 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="father_profession" class="form-label">Pekerjaan Ayah</label>
-                                    <input type="text" name="father_profession" class="form-control" id="father_profession" />
+                                    <input type="text" name="father_profession" class="form-control"
+                                        id="father_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="mother_profession" class="form-label">Pekerjaan Ibu</label>
-                                    <input type="text" name="mother_profession" class="form-control" id="mother_profession" />
+                                    <input type="text" name="mother_profession" class="form-control"
+                                        id="mother_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="father_education" class="form-label">Pendidikan Terakhir Ayah</label>
-                                    <input type="text" class="form-control" name="father_education" id="father_education" />
+                                    <input type="text" class="form-control" name="father_education"
+                                        id="father_education" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="mother_education" class="form-label">Pendidikan Terkahir Ibu</label>
-                                    <input type="text" class="form-control" id="mother_education" name="mother_education" />
+                                    <input type="text" class="form-control" id="mother_education"
+                                        name="mother_education" />
                                 </div>
                             </div>
                             <div class="col-12">
@@ -390,15 +397,18 @@
                             <div class="col-12">
                                 <div class="mb-3">
                                     <label for="family_profession" class="form-label">Pekerjaan Wali</label>
-                                    <input type="text" class="form-control" id="family_profession" name="family_profession" />
+                                    <input type="text" class="form-control" id="family_profession"
+                                        name="family_profession" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <label for="extracurricular_id" class="form-label">Ekstrakulikuler</label>
-                                <select class="form-select" name="extracurricular_id" id="extracurricular_id" data-dropdown-parent="body" data-placeholder="Pilih Extracurricular">
+                                <select class="form-select" name="extracurricular_id" id="extracurricular_id"
+                                    data-dropdown-parent="body" data-placeholder="Pilih Extracurricular">
                                     <option selected disabled value=''>--- Pilih Ekstrakulikuler ---</option>
                                     @foreach ($extra as $test)
-                                            <option value="{{ $test->extracurricular_id }}">{{ $test->extracurricular_name }}</option>
+                                        <option value="{{ $test->extracurricular_id }}">{{ $test->extracurricular_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -407,7 +417,8 @@
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img id="image" src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img id="image" src="{{ asset('images/internal-images/no-img.png') }}"
+                                            alt="">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
                                             <button type="button" class="btn-edit-master me-2" id="upload-btn"
                                                 onclick="uploadImage()">
@@ -423,10 +434,10 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -441,22 +452,22 @@
             document.querySelector("#image-master").click();
         }
 
-        $( '#extracurricular_id' ).select2( {
-                theme: "bootstrap-5",
-                width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-                placeholder: $( this ).data( 'placeholder' ),
-                dropdownParent: $('#exampleModal'),
-            } );
-
-        $( '#gender' ).select2( {
+        $('#extracurricular_id').select2({
             theme: "bootstrap-5",
-            width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
-            placeholder: $( this ).data( 'placeholder' ),
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
             dropdownParent: $('#exampleModal'),
-        } );
+        });
+
+        $('#gender').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             $.ajaxSetup({
@@ -466,43 +477,44 @@
             });
         });
 
-        Array.prototype.filter.call($('#form-edit'), function (form) {
-                form.addEventListener('submit', function (event) {
-                    event.preventDefault();
-                    let student_id = $("#student_id").val();
-                    var url = (student_id !== undefined && student_id !== null) && student_id ? "{{ url('student')}}" + "/" + student_id : "{{ url('student')}}";
-                    $.ajax({
-                        url: url,
-                        headers: {
+        Array.prototype.filter.call($('#form-edit'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                let student_id = $("#student_id").val();
+                var url = (student_id !== undefined && student_id !== null) && student_id ?
+                    "{{ url('student') }}" + "/" + student_id : "{{ url('student') }}";
+                $.ajax({
+                    url: url,
+                    headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'post',
-                        data: $('#form-edit').serialize(),
-                        // contentType: 'application/json',
-                        processData: false,
-                        success: function (response) {
+                    },
+                    type: 'post',
+                    data: $('#form-edit').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
                         console.log(response)
-                            setTimeout(() => {
-                                $("#table-student").load(window.location.href +
-                                    " #table-student");
-                            }, 0);
-                            $('#exampleModal').modal('hide');
-                        },
-                        error: function (xhr) {
+                        setTimeout(() => {
+                            $("#table-student").load(window.location.href +
+                                " #table-student");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                    },
+                    error: function(xhr) {
                         console.log(xhr.responseText);
-                        }
-                    });
+                    }
                 });
+            });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('student')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('student') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Siswa")
                     $("#button-modal").html("Edit")
                     $('#student_id').val(result.student_id).trigger('change');
@@ -526,11 +538,11 @@
                     $('#family_address').val(result.family_address);
                     $('#family_profession').val(result.family_profession);
                     $('#extracurricular_id').val(result.extracurricular_id).trigger('change');
-                    if(result.image !== null){
-                        document.getElementById("image").src =result.image;
+                    if (result.image !== null) {
+                        document.getElementById("image").src = result.image;
                     }
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -538,60 +550,60 @@
 
         function delete_data(e) {
 
-        Swal.fire({
-            text: "Apakah anda yakin ingin menghapus ?",
-            icon: 'warning',
-            showCancelButton: true,
-            cancelButtonColor: '#d33',
-            confirmButtonColor: '#3085d6',
-            cancelButtonText: 'Batal',
-            confirmButtonText: 'Setuju',
-            reverseButtons: true
+            Swal.fire({
+                text: "Apakah anda yakin ingin menghapus ?",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Setuju',
+                reverseButtons: true
 
-        }).then(function (result) {
+            }).then(function(result) {
 
-        if (result.value) {
+                if (result.value) {
 
-            var id = e.attr('data-id');
-            jQuery.ajax({
-            url: "{{url('/student/delete-student')}}" + "/" + id,
-            type: 'post',
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            data: {
-                '_method': 'delete'
-            },
-            success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/student/delete-student') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                if (result.error) {
+                            if (result.error) {
 
-                Swal.fire({
-                    type: "error",
-                    title: 'Oops...',
-                    text: result.message,
-                    confirmButtonClass: 'btn btn-success',
-                })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                } else {
+                            } else {
 
-                    setTimeout(() => {
-                            $("#table-student").load(window.location.href +
-                                " #table-student");
-                        }, 0);
+                                setTimeout(() => {
+                                    $("#table-student").load(window.location.href +
+                                        " #table-student");
+                                }, 0);
 
-                Swal.fire({
-                    type: "success",
-                    title: 'Menghapus!',
-                    text: result.message,
-                    confirmButtonClass: 'btn btn-success',
-                })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
+                            }
+                        }
+                    });
                 }
-            }
             });
-        }
-        });
         }
     </script>
 @endpush

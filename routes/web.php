@@ -79,6 +79,9 @@ Route::get('/monitoring', function(){
 Route::get('/jadwal', function(){
     return view('pages.jadwal.jadwal');
 });
+Route::get('/master-kelas-siswa', function(){
+    return view('pages.master.master-kelas-siswa');
+});
 
 // Auth::routes();
 

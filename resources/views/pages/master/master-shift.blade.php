@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Master Shift')
 @section('meta_header')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
 
 
@@ -54,7 +54,7 @@
                         <th width="15%">Batas Kedatangan</th>
                         <th width="150px">Aksi</th>
                     </tr>
-                    @foreach ( $shifts as $new )
+                    @foreach ($shifts as $new)
                         <tr>
                             <td width="8%">{{ $loop->iteration }}</td>
                             <td width="22%">{{ $new->shift_name }}</td>
@@ -63,8 +63,10 @@
                             <td width="16%">{{ $new->max_arrival }}</td>
                             <td width="150px">
                                 <div class="d-flex align-items-center justify-content-center">
-                                    <a  class="btn-edit-master me-2" data-id="{{ $new->workshift_id }}" onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->workshift_id }}" onclick=delete_data($(this)) class="btn-edit-master">
+                                    <a class="btn-edit-master me-2" data-id="{{ $new->workshift_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $new->workshift_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
                                         <i class="fa fa-trash-o text-danger"></i>
                                     </a>
                                 </div>
@@ -113,10 +115,10 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -128,22 +130,21 @@
 
 @push('addon-javascript')
     <script>
-
-        $("#exampleModal").on("hidden.bs.modal", function (e) {
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-workshift')[0];
             const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
             $(reset_form_edit).removeClass('was-validated');
             let uniqueField = ["shift_name"]
             for (let i = 0; i < uniqueField.length; i++) {
-            $("#" + uniqueField[i]).removeClass('was-validated');
-            $("#" + uniqueField[i]).removeClass("is-invalid");
-            $("#" + uniqueField[i]).removeClass("invalid-more");
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
             }
         });
 
-        $(document).ready(function () {
-            document.getElementById("add-workshift").addEventListener("click", function () {
+        $(document).ready(function() {
+            document.getElementById("add-workshift").addEventListener("click", function() {
                 document.getElementById("form-workshift").reset();
                 $("#modal-title").html("Tambah Data Jadwal Kerja");
                 document.getElementById("workshift_id").value = null;
@@ -156,51 +157,53 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-workshift'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-workshift'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            let workshift_id = $("#workshift_id").val();
+                let workshift_id = $("#workshift_id").val();
 
-            var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ? "{{ url('workshift')}}" + "/" + workshift_id : "{{ url('workshift')}}"+ "/addshift";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                data: $('#form-workshift').serialize(),
-                // contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#table-workshift").load(window.location.href +
-                                    " #table-workshift");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-workshift')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Jadwal Kerja")
-                    $("#workshift_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ?
+                    "{{ url('workshift') }}" + "/" + workshift_id : "{{ url('workshift') }}" +
+                    "/addshift";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-workshift').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#table-workshift").load(window.location.href +
+                                " #table-workshift");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-workshift')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Jadwal Kerja")
+                        $("#workshift_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('workshift')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('workshift') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Jadwal Kerja")
                     $("#button-modal").html("Edit")
                     $('#workshift_id').val(result.workshift_id).trigger('change');
@@ -209,7 +212,7 @@
                     $('#end_time').val(result.end_time);
                     $('#max_arrival').val(result.max_arrival);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -227,50 +230,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/workshift/delete-shift')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/workshift/delete-shift') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#table-workshift").load(window.location.href +
-                                    " #table-workshift");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#table-workshift").load(window.location.href +
+                                        " #table-workshift");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush
