@@ -144,49 +144,83 @@ class ProfileController extends Controller
             }else{
                 $employee = Employee::where('user_id', '=', $user->id)->join('grades', 'employees.employee_id', '=', 'grades.teacher_id')->first();
                 if(!$employee){
-                    $employeeNotWali = Employee::where('user_id', '=', $user->id)->first();
-                    if(!$employeeNotWali){
+                    $pembina = Employee::where('user_id', '=', $user->id)
+                    ->join('extra_schedules', 'employees.employee_id', '=', 'extra_schedules.teacher_id')
+                    ->join('extracurriculars', 'extra_schedules.extracurricular_id', 'extracurriculars.extracurricular_id')
+                    ->first();
+                    if(!$pembina){
+                        $employeeNotWali = Employee::where('user_id', '=', $user->id)->first();
+                        if(!$employeeNotWali){
+                            $response = [
+                                'employee_id' => 0,
+                                'nuptk' => "-",
+                                'first_name' => "-",
+                                'last_name' => "-",
+                                'npsn' => "-",
+                                'place_of_birth' => "-",
+                                'date_of_birth' => "-",
+                                'gender' => "-",
+                                'religion' => "-",
+                                'address' => "-",
+                                'education' => "-",
+                                'family_name' => "-",
+                                'family_address' => "-",
+                                'position' => "-",
+                                'image' => null,
+                                'status' => "false",
+                                'isWali' => "-",
+                                'extracurricular_id' => 0,
+                                'extracurricular' => '-'
+                            ];
+
+                            return ResponseFormatter::success($response, 'Get User');
+                        }
+
                         $response = [
-                            'employee_id' => 0,
-                            'nuptk' => "-",
-                            'first_name' => "-",
-                            'last_name' => "-",
-                            'npsn' => "-",
-                            'place_of_birth' => "-",
-                            'date_of_birth' => "-",
-                            'gender' => "-",
-                            'religion' => "-",
-                            'address' => "-",
-                            'education' => "-",
-                            'family_name' => "-",
-                            'family_address' => "-",
-                            'position' => "-",
-                            'image' => null,
-                            'status' => "false",
-                            'isWali' => "-"
+                            'employee_id' => $employeeNotWali->employee_id,
+                            'nuptk' => $employeeNotWali->nuptk,
+                            'first_name' => $employeeNotWali->first_name,
+                            'last_name' => $employeeNotWali->last_name,
+                            'npsn' => $employeeNotWali->npsn,
+                            'place_of_birth' => $employeeNotWali->place_of_birth,
+                            'date_of_birth' => $employeeNotWali->date_of_birth,
+                            'gender' => $employeeNotWali->gender,
+                            'religion' => $employeeNotWali->religion,
+                            'address' => $employeeNotWali->address,
+                            'education' => $employeeNotWali->education,
+                            'family_name' => $employeeNotWali->family_name,
+                            'family_address' => $employeeNotWali->family_address,
+                            'position' => $employeeNotWali->position,
+                            'image' => $employeeNotWali->image,
+                            'status' => 'true',
+                            'isWali' => 'false',
+                            'extracurricular_id' => 0,
+                            'extracurricular' => '-'
                         ];
 
                         return ResponseFormatter::success($response, 'Get User');
                     }
 
                     $response = [
-                        'employee_id' => $employeeNotWali->employee_id,
-                        'nuptk' => $employeeNotWali->nuptk,
-                        'first_name' => $employeeNotWali->first_name,
-                        'last_name' => $employeeNotWali->last_name,
-                        'npsn' => $employeeNotWali->npsn,
-                        'place_of_birth' => $employeeNotWali->place_of_birth,
-                        'date_of_birth' => $employeeNotWali->date_of_birth,
-                        'gender' => $employeeNotWali->gender,
-                        'religion' => $employeeNotWali->religion,
-                        'address' => $employeeNotWali->address,
-                        'education' => $employeeNotWali->education,
-                        'family_name' => $employeeNotWali->family_name,
-                        'family_address' => $employeeNotWali->family_address,
-                        'position' => $employeeNotWali->position,
-                        'image' => $employeeNotWali->image,
+                        'employee_id' => $pembina->employee_id,
+                        'nuptk' => $pembina->nuptk,
+                        'first_name' => $pembina->first_name,
+                        'last_name' => $pembina->last_name,
+                        'npsn' => $pembina->npsn,
+                        'place_of_birth' => $pembina->place_of_birth,
+                        'date_of_birth' => $pembina->date_of_birth,
+                        'gender' => $pembina->gender,
+                        'religion' => $pembina->religion,
+                        'address' => $pembina->address,
+                        'education' => $pembina->education,
+                        'family_name' => $pembina->family_name,
+                        'family_address' => $pembina->family_address,
+                        'position' => $pembina->position,
+                        'image' => $pembina->image,
                         'status' => 'true',
-                        'isWali' => 'false'
+                        'isWali' => 'false',
+                        'extracurricular_id' => $pembina->extracurricular_id,
+                        'extracurricular' => $pembina->extracurricular_name
                     ];
 
                     return ResponseFormatter::success($response, 'Get User');
@@ -210,7 +244,9 @@ class ProfileController extends Controller
                     'position' => $employee->position,
                     'image' => $employee->image,
                     'status' => 'true',
-                    'isWali' => 'true'
+                    'isWali' => 'true',
+                    'extracurricular_id' => 0,
+                    'extracurricular' => '-'
                 ];
 
                 return ResponseFormatter::success($response, 'Get User');
