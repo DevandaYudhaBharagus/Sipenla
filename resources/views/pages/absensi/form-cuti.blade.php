@@ -28,48 +28,40 @@
     </div>
     <div class="mb-3">
         <label for="">Nama Lengkap</label>
-        <input type="text" name="" id="" class="form-control" placeholder="Nama Lengkap" />
+        <input type="text" class="form-control" disabled
+            value="{{ $employee->first_name . ' ' . $employee->last_name }}" />
     </div>
     <div class="mb-3">
         <label for="">NUPTK /ID Pegawai</label>
-        <input type="text" name="" id="" class="form-control" placeholder="NUPTK" />
+        <input type="text" class="form-control" disabled value="{{ $employee->nuptk }}" />
     </div>
     <div class="mb-3">
         <label for="">Kuota Cuti Tahunan</label>
-        <input type="text" name="" id="" class="form-control" placeholder="Kuota Cuti Tahunan" />
-    </div>
-    <div class="mb-3">
-        <label for="">Tanggal Pengajuan</label>
-        <input type="text" name="" id="date" placeholder="dd-mm-yy" class="form-control" />
-        <div class="icon-input">
-            <i class="fa fa-calendar"></i>
-        </div>
+        <input type="text" class="form-control" disabled value="{{ $employee->total_balance }}" />
     </div>
     <div class="mb-3">
         <label for="">Tanggal Mulai</label>
-        <input type="text" name="" id="date" placeholder="dd-mm-yy" class="form-control" />
+        <input type="text" name="application_from_date" id="application_from_date" placeholder="dd-mm-yy"
+            class="form-control" />
         <div class="icon-input">
             <i class="fa fa-calendar"></i>
         </div>
     </div>
     <div class="mb-3">
         <label for="">Tanggal Berakhir</label>
-        <input type="text" name="" id="date" placeholder="dd-mm-yy" class="form-control" />
+        <input type="text" name="application_to_date" id="application_to_date" placeholder="dd-mm-yy"
+            class="form-control" />
         <div class="icon-input">
             <i class="fa fa-calendar"></i>
         </div>
     </div>
     <div class="mb-3">
-        <label for="">Lama Hari</label>
-        <input type="number" name="" id="" class="form-control" placeholder="Lama Hari" />
-    </div>
-    <div class="mb-3">
         <label for="">Keterangan Cuti</label>
-        <input type="text" name="" id="" class="form-control" placeholder="Keterangan Cuti" />
+        <input type="text" name="purpose" id="" class="form-control" placeholder="Keterangan Cuti" />
     </div>
     <div class="mb-3">
         <label for="">Pekerjaan Yang Ditinggalkan</label>
-        <input type="text" name="" id="" class="form-control"
+        <input type="text" name="abandoned_job" id="" class="form-control"
             placeholder="Pekerjaan Yang Ditinggalkan" />
     </div>
     <div class="d-flex justify-content-center">

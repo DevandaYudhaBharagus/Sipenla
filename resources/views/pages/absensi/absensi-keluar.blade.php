@@ -32,12 +32,13 @@
                     Absensi
                 </div>
                 <div class="webcam-present">
-                    <h6>Absensi Masuk</h6>
-                    <form action="{{ url('absensi/cekin') }}" method="post" enctype="multipart/form-data">
+                    <h6>Absensi Keluar</h6>
+                    <form action="{{ url('absensi/cekout') }}" method="post" enctype="multipart/form-data">
                     {{ csrf_field() }}
                         <div class="webcam" id="my-camera"></div>
                         <div class="d-flex">
-                            <input type="hidden" name="check_in" id="image-present">
+                            <input type="hidden" name="attendance_id" value="{{ $attendance->id }}">
+                            <input type="hidden" name="check_out" id="image-present">
                             <div class="btn-webcam" id="btn-webcam"></div>
                             <div class="btn-refresh"> <i class="fa fa-refresh"></i> </div>
                         </div>
@@ -56,7 +57,7 @@
                             </table>
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn-submit-present">Masuk</button>
+                            <button type="submit" class="btn-submit-present">Keluar</button>
                         </div>
                     </form>
                 </div>
