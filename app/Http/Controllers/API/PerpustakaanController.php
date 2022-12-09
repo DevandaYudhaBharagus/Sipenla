@@ -1021,7 +1021,7 @@ class PerpustakaanController extends Controller
             $employee = Employee::where('nuptk', '=',  $nuptk)->first();
 
             if(is_null($employee)){
-                return ResponseFormatter::error("Data not found!", 404);
+                return ResponseFormatter::error("Pegawai Tidak Ditemukan!", 404);
             }
 
             $response = $employee;
@@ -1041,12 +1041,12 @@ class PerpustakaanController extends Controller
             $student = Student::where('nisn', '=',  $nisn)->first();
 
             if(is_null($student)){
-                return ResponseFormatter::error("Data not found!", 404);
+                return ResponseFormatter::error("Siswa Tidak Ditemukan!", 404);
             }
 
             $response = $student;
 
-            return ResponseFormatter::success($response, 'Get Employee Success');
+            return ResponseFormatter::success($response, 'Get Student Success');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
