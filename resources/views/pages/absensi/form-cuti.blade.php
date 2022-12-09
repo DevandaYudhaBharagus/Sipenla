@@ -1,16 +1,30 @@
 <h5>Permohonan Izin / Cuti</h5>
-<form action="{{ url('absensi/cuti') }}" method="post">
-    @csrf
+<form action="" method="post">
     <div class="mb-3">
-        <select class="form-select" id="cuti" name="leave_type_id" aria-label="Default select example">
-            <option selected value="">Jenis Cuti</option>
-            @foreach ( $leave as $l )
-                <option value="{{ $l->leave_type_id }}">{{ $l->leave_type_name }}</option>
-            @endforeach
-        </select>
-        <div class="icon-input">
+        {{-- <select class="form-select" aria-label="Default select example">
+            <option selected>Jenis Cuti</option>
+            <option value="cuti melahirkan">Cuti Melahirkan</option>
+            <option value="cuti berobat">Cuti Berobat</option>
+            <option value="cuti kematian ahli keluarga">
+                Cuti Kematian Ahli Keluarga
+            </option>
+            <option value="cuti haji/umroh">
+                Cuti Haji / Umroh
+            </option>
+            <option value="cuti lain-lain">Cuti Lain-lain</option>
+        </select> --}}
+        {{-- <div class="icon-input">
             <i class="fa fa-angle-down"></i>
-        </div>
+        </div> --}}
+        <select class="form-select" id="select-2-field" data-placeholder="Jenis Cuti">
+            <option></option>
+            <option>Cuti Melahirkan</option>
+            <option>Cuti Berobat</option>
+            <option>Cuti Kematian Ahli Keluarga</option>
+            <option>Cuti Haji/Umroh</option>
+            <option>Cuti lain-lain</option>
+        </select>
+
     </div>
     <div class="mb-3">
         <label for="">Nama Lengkap</label>
