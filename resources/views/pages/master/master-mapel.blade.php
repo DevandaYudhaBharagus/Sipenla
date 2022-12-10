@@ -97,10 +97,10 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>

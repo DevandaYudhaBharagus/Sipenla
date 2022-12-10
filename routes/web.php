@@ -68,6 +68,12 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
+Route::get('/jadwal', function(){
+    return view('pages.jadwal.jadwal');
+});
+Route::get('/master-kelas-siswa', function(){
+    return view('pages.master.master-kelas-siswa');
+});
 
 
 Auth::routes();

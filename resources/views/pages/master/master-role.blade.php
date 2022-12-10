@@ -97,11 +97,11 @@
                         Buat Role Baru
                     </h1>
                     <!-- <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button> -->
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button> -->
                 </div>
                 <div class="modal-body">
                     <form action="">
@@ -538,10 +538,10 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="button" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>

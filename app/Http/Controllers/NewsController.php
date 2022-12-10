@@ -56,9 +56,9 @@ class NewsController extends Controller
             ]);
         }
 
-        // $imageEncoded = base64_encode(file_get_contents($request->file('news_image')->path()));
+        $imageEncoded = base64_encode(file_get_contents($request->file('news_image')->path()));
 
-        $imageFix = $this->saveImage($request->news_image, "posts");
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $createNews = News::create([
             "news_title" => $request->news_title,

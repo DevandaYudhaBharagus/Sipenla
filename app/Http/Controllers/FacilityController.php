@@ -46,7 +46,7 @@ class FacilityController extends Controller
         );
 
         $imageEncoded = base64_encode(file_get_contents($request->file('image-facility')->path()));
-        $imageFix = $this->saveImage($imageEncoded, "posts");
+        $imageFix = $this->saveImage($imageEncoded, "azure");
             $code = mt_rand(1000, 9999);
 
             $facilityData = Facility::create([

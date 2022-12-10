@@ -136,7 +136,7 @@ class AttendanceController extends Controller
         $image = $request->check_in;
         $image = str_replace('data:image/jpeg;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageFix = $this->saveImage($image, "posts");
+        $imageFix = $this->saveImage($image, "azure");
 
         $checkIn = Attendance::create([
             'employee_id' => $employee->employee_id,
@@ -158,7 +158,7 @@ class AttendanceController extends Controller
         $image = $request->check_out;
         $image = str_replace('data:image/jpeg;base64,', '', $image);
         $image = str_replace(' ', '+', $image);
-        $imageFix = $this->saveImage($image, "posts");
+        $imageFix = $this->saveImage($image, "azure");
 
         $hasCheckedIn = Attendance::whereDate('date', $timeNow)
                             ->where('employee_id', $employee->employee_id)

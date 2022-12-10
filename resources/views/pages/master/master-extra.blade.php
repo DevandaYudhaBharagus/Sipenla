@@ -103,7 +103,7 @@
                                         id="extracurricular_name" />
                                 </div>
                             </div>
-                           {{-- <div class="col-12 mb-3">
+                            {{-- <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
                                 <div class="select-cekbox" id="select-cekbox">
                                     --- Pilih Anggota Kelas ---
@@ -166,10 +166,10 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="submit" id="button-modal" class="btn btn-permission bg-green-permission">
+                    <button type="submit" id="button-modal" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -181,21 +181,21 @@
 
 @push('addon-javascript')
     <script>
-        $("#exampleModal").on("hidden.bs.modal", function (e) {
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-extra')[0];
             const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
             $(reset_form_edit).removeClass('was-validated');
             let uniqueField = ["extracurricular_name"]
             for (let i = 0; i < uniqueField.length; i++) {
-            $("#" + uniqueField[i]).removeClass('was-validated');
-            $("#" + uniqueField[i]).removeClass("is-invalid");
-            $("#" + uniqueField[i]).removeClass("invalid-more");
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
             }
         });
 
-        $(document).ready(function () {
-            document.getElementById("add-extra").addEventListener("click", function () {
+        $(document).ready(function() {
+            document.getElementById("add-extra").addEventListener("click", function() {
                 document.getElementById("form-extra").reset();
                 $("#modal-title").html("Tambah Data Ekstrakurikuler");
                 document.getElementById("extracurricular_id").value = null;
@@ -208,57 +208,59 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-extra'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-extra'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            let extra_id = $("#extracurricular_id").val();
+                let extra_id = $("#extracurricular_id").val();
 
-            var url = (extra_id !== undefined && extra_id !== null) && extra_id ? "{{ url('ekstrakurikuler')}}" + "/" + extra_id : "{{ url('ekstrakurikuler')}}"+ "/addekstra";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                data: $('#form-extra').serialize(),
-                // contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#extra-table").load(window.location.href +
-                                    " #extra-table");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-extra')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Ekstrakurikuler")
-                    $("#extracurricular_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (extra_id !== undefined && extra_id !== null) && extra_id ?
+                    "{{ url('ekstrakurikuler') }}" + "/" + extra_id : "{{ url('ekstrakurikuler') }}" +
+                    "/addekstra";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-extra').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#extra-table").load(window.location.href +
+                                " #extra-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-extra')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Ekstrakurikuler")
+                        $("#extracurricular_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('ekstrakurikuler')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('ekstrakurikuler') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Ekstrakurikuler")
                     $("#button-modal").html("Edit")
                     $('#extracurricular_id').val(result.extracurricular_id).trigger('change');
                     $('#extracurricular_name').val(result.extracurricular_name);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -275,50 +277,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/ekstrakurikuler/delete-ekstra')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/ekstrakurikuler/delete-ekstra') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#extra-table").load(window.location.href +
-                                    " #extra-table");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#extra-table").load(window.location.href +
+                                        " #extra-table");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush
