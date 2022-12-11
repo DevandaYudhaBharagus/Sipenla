@@ -59,7 +59,7 @@ class HomeController extends Controller
             $day = Carbon::parse($timeNow);
             $day->settings(['formatFunction' => 'translatedFormat']);
             $schedule = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.student_id')
+                                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
                                     ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
                                     ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
                                     ->where('day_name', '=', $day->format('l'))
@@ -67,7 +67,7 @@ class HomeController extends Controller
                                     ->get();
 
                                     // dd($schedule);
-            
+
             return view('pages.dashboard.dashboard', compact('student','schedule'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
