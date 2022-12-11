@@ -54,7 +54,7 @@
                                             <div class="text-subject">{{ $new->subject_name }}</div>
                                             <div class="teacher">{{ $new->first_name.' '. $new->last_name }}</div>
                                         </div>
-                                        <div class="time-schedule">{{ $new->start_time.' - '.$new->end_time }}</div>
+                                        <div class="time-schedule">{{date('H:i', strtotime($new->start_time)) .' - '.date('H:i', strtotime($new->end_time)) }}</div>
                                     </div>
                                 @endforeach
                                 <!-- finish schedule week -->

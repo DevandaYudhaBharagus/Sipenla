@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Employee;
+use App\Models\Student;
+use App\Models\StudentGrade;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,6 +68,48 @@ class GradeController extends Controller
     public function delete($id){
         try {
             Grade::where('grade_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Kelas!"]);
+    }
+
+    public function viewKelasSiswa()
+    {
+
+        $siswa = Student::all();
+        $grade = Grade::all();
+
+        $kelas = StudentGrade::join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                ->join('employees', 'grades.teacher_id', '=', 'employees.employee_id')
+                ->groupBy('student_grades.grade_id')
+                ->get();
+
+        return view('pages.master.master-kelas-siswa', compact('siswa', 'grade', 'kelas'));
+    }
+
+    public function gradeStore(Request $request){
+        $datas = $request->grade_id;
+        $studenData= $request->student_id;
+
+        foreach($studenData as $data){
+            StudentGrade::create([
+                'grade_id' => $datas,
+                'student_id' => $data,
+            ]);
+        }
+
+        return response()->json([
+            "error" => false,
+            "message" => "Successfuly Added Shift Data!"
+        ]);
+    }
+
+    public function deleteGrade($id){
+        try {
+            StudentGrade::where('grade_id', $id)->delete();
         } catch (Exception $e) {
 
             return response()->json(["error" => true, "message" => $e->getMessage()]);
