@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Employee;
+use Carbon\Carbon;
 use App\Models\Student;
+use App\Models\Employee;
 use App\Models\LeaveBalance;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
+use App\Models\LessonSchedule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -53,13 +55,38 @@ class HomeController extends Controller
             if(!$student){
                 return view('pages.dashboard.formulir');
             }
-            return view('pages.dashboard.dashboard', compact('student'));
+            $timeNow = Carbon::now();
+            $day = Carbon::parse($timeNow);
+            $day->settings(['formatFunction' => 'translatedFormat']);
+            $schedule = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.student_id')
+                                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                                    ->where('day_name', '=', $day->format('l'))
+                                    ->where('student_id', '=', $student->student_id)
+                                    ->get();
+
+                                    // dd($schedule);
+            
+            return view('pages.dashboard.dashboard', compact('student','schedule'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){
             return view('pages.dashboard.formulir-pegawai');
         }
-        return view('pages.dashboard.dashboard', compact('employee'));
+        $timeNow = Carbon::now();
+        $day = Carbon::parse($timeNow);
+        $day->settings(['formatFunction' => 'translatedFormat']);
+        $schedule = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                                ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                                ->Join('grades', 'lesson_schedules.teacher_id', '=', 'grades.teacher_id')
+                                ->where('day_name', '=', $day->format('l'))
+                                ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)
+                                ->get();
+
+                            // dd($schedule);
+
+        return view('pages.dashboard.dashboard', compact('employee','schedule'));
 
     }
 
