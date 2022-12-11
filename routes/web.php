@@ -71,9 +71,9 @@ Route::get('/monitoring', function(){
 Route::get('/jadwal', function(){
     return view('pages.jadwal.jadwal');
 });
-Route::get('/master-kelas-siswa', function(){
-    return view('pages.master.master-kelas-siswa');
-});
+// Route::get('/master-kelas-siswa', function(){
+//     return view('pages.master.master-kelas-siswa');
+// });
 
 
 Auth::routes();
@@ -172,10 +172,13 @@ Route::group(['middleware' => ['auth']], function () {
     //Route Grade
     Route::prefix('grade')->group(function (){
         Route::get('/', [GradeController::class, 'index']);
+        Route::get('/class', [GradeController::class, 'viewKelasSiswa']);
+        Route::post('/addclass', [GradeController::class, 'gradeStore']);
         Route::post('/addgrade', [GradeController::class, 'store']);
         Route::get('/{id}/edit', [GradeController::class, 'edit']);
         Route::post('/{id}', [GradeController::class, 'update']);
         Route::delete('/delete-grade/{id}', [GradeController::class, 'delete']);
+        Route::delete('/delete-class/{id}', [GradeController::class, 'deleteGrade']);
     });
 
     //Route Schedules
