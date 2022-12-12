@@ -17,6 +17,7 @@ use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ExtraAssessmentController;
 use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\API\PerpustakaanController;
+use App\Http\Controllers\API\TopupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -243,5 +244,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
         Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
         Route::get('/rekap', [PerpustakaanController::class, 'getRekapAbsensi']);
+    });
+
+    Route::prefix('topup')->group(function () {
+        Route::post('/add', [TopupController::class, 'updateSaldo']);
+        Route::post('/code', [TopupController::class, 'checkCode']);
+        Route::post('/updatebalance/{code}', [TopupController::class, 'approveSaldo']);
+        Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
     });
 });
