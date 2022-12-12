@@ -569,6 +569,24 @@ td {
   align-items: center;
   width: 50%;
 }
+.home-section .content-home .box-content .outher-table .btn-foto-master.member {
+  padding: 6px 10px;
+  text-decoration: none;
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+  width: 70%;
+  justify-content: center;
+  text-align: center;
+}
+.home-section
+  .content-home
+  .box-content
+  .outher-table
+  .btn-foto-master.member:hover {
+  transform: scale(1.1);
+  font-weight: 600;
+}
 .home-section
   .content-home
   .box-content

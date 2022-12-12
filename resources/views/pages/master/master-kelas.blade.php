@@ -116,33 +116,6 @@
                                 <label for="grade_name" class="form-label">Nama Kelas</label>
                                 <input type="text" name="grade_name" class="form-control" id="grade_name" />
                             </div>
-                            {{-- <div class="col-12 mb-3">
-                                <label for="status" class="form-label">Wali Kelas</label>
-                                        @foreach ($teacher as $new)
-                                        <div class="option" id="option1">
-                                            <input type="text" name="teacher_id" id="teacher_id" value="{{ $new->employee_id }}" class="radio" />
-                                            <label id="teacher_name" for="teacher_id">{{ $new->first_name.' '.$new->last_name }}</label>
-                                        </div>
-                                        @endforeach
-
-                                        <div class="option">
-                                            <input type="radio" class="radio" />
-                                            <label for="film">Lorem ipsum, dolor sit </label>
-                                        </div>
-                                    </div>
-                                    <div class="selected">
-                                        --- Pilih Guru ---
-                                    </div>
-                                    <div class="down-form-kelas">
-                                        <i class="fa fa-angle-down"></i>
-                                    </div>
-                                    <div class="search-box">
-                                        <input type="text" placeholder="Pencarian..." />
-                                    </div> --}}
-                            {{-- <select class="form-select" name="teacher_id" id="basic-usage"
-                                    data-placeholder="---Pilih Wali Kelas---">
-                                </select>
-                            </div> --}}
                             <div class="col-12 nb-3">
                                 <label for="status" class="form-label">Wali Kelas</label>
                                 <select class="form-select" id="basic-usage" data-placeholder="--Pilih Wali Kelas ---">
