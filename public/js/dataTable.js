@@ -4825,7 +4825,7 @@
                     sLengthMenu: "Show _MENU_ entries",
                     sLoadingRecords: "Loading...",
                     sProcessing: "",
-                    sSearch: "Search:",
+                    sSearch: "",
                     sSearchPlaceholder: "",
                     sUrl: "",
                     sZeroRecords: "Tidak Ada Data Yang Anda Cari",

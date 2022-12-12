@@ -80,9 +80,20 @@
 
         for (let i = 0; i < btnDropdown.length; i++) {
             btnDropdown[i].addEventListener("click", () => {
+
                 if (sidebar.classList.contains('open')) {
-                    menu[i].classList.toggle("show");
+                    if (menu[i].classList.contains("show")) {
+                        console.log("show")
+                        menu[i].classList.remove("show");
+                        // menu[i].classList.replace("show", "");
+                    } else {
+                        menu.forEach((mnu) => {
+                            mnu.classList.remove("show");
+                        });
+                        menu[i].classList.toggle("show")
+                    }
                 }
+
             });
         }
     </script>

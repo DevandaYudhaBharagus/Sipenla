@@ -68,15 +68,26 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/jadwal', function(){
-    return view('pages.jadwal.jadwal');
-});
-// Route::get('/master-kelas-siswa', function(){
-//     return view('pages.master.master-kelas-siswa');
+// Route::get('/jadwal-pil', function(){
+//     return view('pages.jadwal.jadwal');
 // });
+Route::get('/master-kelas-siswa', function(){
+    return view('pages.master.master-kelas-siswa');
+});
+Route::get('/jadwal-mapel-guru', function(){
+    return view('pages.jadwal.jadwal-mapel-guru');
+});
+Route::get('/jadwal-mapel-siswa', function(){
+    return view('pages.jadwal.jadwal-mapel-siswa');
+});
+Route::get('/master-blank', function(){
+    return view('pages.master.home-master');
+});
+Route::get('/master-jadwal-ekstra', function(){
+    return view('pages.master.master-jadwal-ekstra');
+});
 
-
-Auth::routes();
+// Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
