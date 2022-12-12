@@ -86,6 +86,9 @@ Route::get('/master-blank', function(){
 Route::get('/master-jadwal-ekstra', function(){
     return view('pages.master.master-jadwal-ekstra');
 });
+Route::get('/master-anggota-kelas', function(){
+    return view('pages.master.master-anggota-kelas');
+});
 
 // Auth::routes();
 

@@ -75,12 +75,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td style="width:25%">Basket Lorem ipsum dolor sit amet.</td>
-                        <td style="width:20%">asas Lorem ipsum dolor sit.</td>
-                        <td style="width:10%">Senin </td>
-                        <td style="width:15%">Lorem ipsum dolor sit.</td>
-                        <td style="width:15%">Lorem ipsum dolor sit.</td>
-                        <td style="width:15%">
+                        <td>Basket Lorem ipsum dolor sit amet.</td>
+                        <td>asas Lorem ipsum dolor sit.</td>
+                        <td>Senin </td>
+                        <td>Lorem ipsum dolor sit.</td>
+                        <td>Lorem ipsum dolor sit.</td>
+                        <td>
                             <div class="d-flex align-items-center justify-content-center">
                                 <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
                                         class="fa fa-edit text-primary"></i></a>
@@ -122,8 +122,8 @@
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="teacher_id" class="form-label">Guru</label>
-                                <select class="form-select" name="teacher_id" id="teacher_id"
-                                    data-dropdown-parent="body" data-placeholder="--- Pilih Guru ---">
+                                <select class="form-select" name="teacher_id" id="teacher_id" data-dropdown-parent="body"
+                                    data-placeholder="--- Pilih Guru ---">
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
