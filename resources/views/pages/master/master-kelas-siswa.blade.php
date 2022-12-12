@@ -37,11 +37,8 @@
                     Tambah Data
                 </button>
             </div>
-            {{-- <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div> --}}
         </div>
-        <div class="outher-table" id="grade-table">
+        <div class="outher-table">
             <table id="example" class="display" style="width:100%;">
                 <thead>
                     <tr>
@@ -53,12 +50,11 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($kelas as $k )
                     <tr>
-                        <td class="text-center align-items-center " style="width: 10%">1.</td>
-                        <td style="width:25%">System Architect Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                            Accusamus,
-                            voluptatem.</td>
-                        <td style="width:20%">Edinburgh</td>
+                        <td class="text-center align-items-center " style="width: 10%">{{$loop->iteration}}</td>
+                        <td style="width:25%">{{ $k->grade_name }}</td>
+                        <td style="width:20%">{{$k->first_name. ' '. $k->last_name}}</td>
                         <td style="width:20%">
                             <div class="dropdown">
                                 <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
@@ -88,51 +84,13 @@
                             <div class="d-flex align-items-center justify-content-center">
                                 <a class="btn-edit-master btn me-2" data-id="" onclick=edit_data($(this))><i
                                         class="fa fa-edit text-primary"></i></a>
-                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master btn">
+                                <a data-id="{{ $k->grade_id }}" onclick=delete_data($(this)) class="btn-edit-master btn">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2.</td>
-                        <td>System Architect</td>
-                        <td>Edinburgh</td>
-                        <td>
-                            <div class="dropdown">
-                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <div class="icon-foto-master">
-                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
-                                    </div>
-                                    <div class="fa fa-angle-down"></div>
-                                </div>
-                                <ul class="dropdown-menu dropdown-name">
-                                    <li>
-                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, architecto!
-                                    </li>
-                                    <li>
-                                        Ajiz Bilar
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti
-                                    </li>
-                                    <li>
-                                        Ajiz Lesti Bilar
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
-                                        class="fa fa-edit text-primary"></i></a>
-                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master ">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -151,64 +109,25 @@
                 <form id="form-grade">
                     <div class="modal-body">
                         @csrf
-                        <input type="hidden" name="grade_id" id="grade_id" value="">
+                        <input type="hidden" name="student_grades_id" id="student_grades_id" value="">
                         <div class="row">
                             <div class="col-12 mb-3">
                                 <label for="grade_name" class="form-label">Nama Kelas</label>
-                                <select class="form-select" id="basic-usage" data-placeholder="Nama Kelas">
+                                <select class="form-select" name="grade_id" id="basic-usage" data-placeholder="Nama Kelas">
                                     <option></option>
-                                    <option>Reactive</option>
-                                    <option>Solution</option>
-                                    <option>Conglomeration</option>
-                                    <option>Algoritm</option>
-                                    <option>Holistic</option>
+                                    @foreach ($grade as $g)
+                                        <option value="{{ $g->grade_id }}">{{$g->grade_name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
                                 <label for="" class="form-label">Anggota Kelas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Anggota Kelas ---
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                </div>
+                                <select class="form-select" id="multiple-select-clear-field" name="student_id[]" data-placeholder="Pilih Siswa" multiple="true">
+                                    <option></option>
+                                    @foreach ($siswa as $s)
+                                        <option value="{{ $s->student_id }}">{{$s->first_name. ' '. $s->last_name}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -267,10 +186,18 @@
                     dropdownParent: $('#exampleModal'),
                 });
 
+                $( '#multiple-select-clear-field' ).select2( {
+                    theme: "bootstrap-5",
+                    width: $( this ).data( 'width' ) ? $( this ).data( 'width' ) : $( this ).hasClass( 'w-100' ) ? '100%' : 'style',
+                    placeholder: $( this ).data( 'placeholder' ),
+                    closeOnSelect: false,
+                    allowClear: true,
+                } );
+
                 document.getElementById("add-grade").addEventListener("click", function() {
                     document.getElementById("form-grade").reset();
                     $("#modal-title").html("Tambah Data Kelas");
-                    document.getElementById("grade_id").value = null;
+                    document.getElementById("student_grades_id").value = null;
                 });
 
                 $.ajaxSetup({
@@ -284,10 +211,10 @@
                 form.addEventListener('submit', function(event) {
                     event.preventDefault();
 
-                    let grade_id = $("#grade_id").val();
+                    let student_grades_id = $("#student_grades_id").val();
 
-                    var url = (grade_id !== undefined && grade_id !== null) && grade_id ?
-                        "{{ url('grade') }}" + "/" + grade_id : "{{ url('grade') }}" + "/addgrade";
+                    var url = (student_grades_id !== undefined && student_grades_id !== null) && student_grades_id ?
+                        "{{ url('grade') }}" + "/class" + student_grades_id : "{{ url('grade') }}" + "/addclass";
                     $.ajax({
                         url: url,
                         headers: {
@@ -309,7 +236,7 @@
                             reset_form.reset();
                             $('#exampleModal').modal('hide');
                             $("#modal-title").html("Tambah Data Kelas")
-                            $("#grade_id").val()
+                            $("#student_grades_id").val()
                         },
                         error: function(xhr) {
                             console.log(xhr.responseText);
@@ -318,25 +245,25 @@
                 });
             });
 
-            function edit_data(e) {
-                $('#exampleModal').modal('show')
-                var url = "{{ url('grade') }}" + "/" + e.attr('data-id') + "/" + "edit"
-                $.ajax({
-                    url: url,
-                    method: "GET",
-                    // dataType: "json",
-                    success: function(result) {
-                        $("#modal-title").html("Edit Jadwal Kerja")
-                        $("#button-modal").html("Edit")
-                        $('#grade_id').val(result.grade_id).trigger('change');
-                        $('#grade_name').val(result.grade_name);
-                        $('#basic-usage').val(result.teacher_id).trigger('change');
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            }
+            // function edit_data(e) {
+            //     $('#exampleModal').modal('show')
+            //     var url = "{{ url('grade') }}" + "/" + e.attr('data-id') + "/" + "edit"
+            //     $.ajax({
+            //         url: url,
+            //         method: "GET",
+            //         // dataType: "json",
+            //         success: function(result) {
+            //             $("#modal-title").html("Edit Jadwal Kerja")
+            //             $("#button-modal").html("Edit")
+            //             $('#grade_id').val(result.grade_id).trigger('change');
+            //             $('#grade_name').val(result.grade_name);
+            //             $('#basic-usage').val(result.teacher_id).trigger('change');
+            //         },
+            //         error: function(xhr) {
+            //             console.log(xhr.responseText);
+            //         }
+            //     });
+            // }
 
             function delete_data(e) {
 
@@ -356,7 +283,7 @@
 
                         var id = e.attr('data-id');
                         jQuery.ajax({
-                            url: "{{ url('/grade/delete-grade') }}" + "/" + id,
+                            url: "{{ url('/grade/delete-class') }}" + "/" + id,
                             type: 'post',
                             headers: {
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -394,64 +321,6 @@
                         });
                     }
                 });
-            }
-        </script>
-        <script>
-            const selectCek = document.querySelector("#select-cekbox");
-            const listName = document.querySelector(".ceklist");
-            const boxCekbox = document.querySelectorAll("#cekboxAnggota");
-            const labelCekbox = document.querySelectorAll("#labelCekbox")
-            const ceklistReady = document.querySelector(".ceklist-ready");
-            selectCek.addEventListener("click", () => {
-                listName.classList.toggle("open");
-            })
-            for (let i = 0; i < boxCekbox.length; i++) {
-                boxCekbox[i].addEventListener("click", () => {
-                    let cekLength = ceklistReady.children.length;
-                    if (boxCekbox[i].checked) {
-                        const divCekbox = document.createElement("div");
-                        divCekbox.setAttribute("class", "cekbox-permission");
-                        const label = document.createElement("label");
-                        label.setAttribute("class", "checkbox");
-                        label.innerText = labelCekbox[i].innerText;
-                        const input = document.createElement("input");
-                        input.setAttribute("type", "checkbox");
-                        input.setAttribute("checked", true);
-                        const span = document.createElement("span");
-                        span.setAttribute("class", "check");
-                        label.appendChild(input);
-                        label.appendChild(span);
-                        divCekbox.appendChild(label);
-                        ceklistReady.appendChild(divCekbox);
-                    } else if (!boxCekbox[i].checked) {
-                        for (j = 0; j < cekLength; j++) {
-                            const elem = boxCekbox[i].parentElement.parentElement.parentElement.parentElement.children[
-                                    3]
-                                .children;
-                            if (elem[i].innerText == ceklistReady.children[j].innerText) {
-                                ceklistReady.children[j].remove();
-                            }
-                        }
-                    }
-                });
-            }
-
-            ceklistReady.addEventListener("click", getButtonElement);
-
-            function getButtonElement(e) {
-                if (e.target.classList.contains("checkbox")) {
-                    const elemen = e.target.parentElement;
-                    removeElement(elemen);
-                    elemen.remove();
-                }
-            }
-
-            function removeElement(elemen) {
-                for (let i = 0; i < boxCekbox.length; i++) {
-                    if (boxCekbox[i].parentElement.innerText == elemen.firstElementChild.innerText) {
-                        boxCekbox[i].checked = false;
-                    }
-                }
             }
         </script>
     @endpush
