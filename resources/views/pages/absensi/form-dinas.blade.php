@@ -3,32 +3,26 @@
     @csrf
     <div class="mb-3">
         <label for="">Nama Lengkap</label>
-        <input type="text" class="form-control" disabled value="{{$employee->first_name. ' '. $employee->last_name}}" />
+        <input type="text" class="form-control" disabled */
+            value=" {{ $employee->first_name . ' ' . $employee->last_name }}" />
     </div>
     <div class="mb-3">
         <label for="">NUPTK /ID Pegawai</label>
-        <input type="text" class="form-control" disabled value="{{$employee->nuptk}}" />
+        <input type="text" class="form-control" disabled value="{{ $employee->nuptk }}" />
     </div>
     <div class="mb-3">
         <label for="">Tanggal Mulai</label>
-        <input type="text" name="duty_from_date" id="duty_from_date" placeholder="dd-mm-yy" class="form-control" />
-        <div class="icon-input">
-            <i class="fa fa-calendar"></i>
-        </div>
+        <input type="text" name="duty_from_date" id="duty_from_date" placeholder="dd-mm-yy"
+            class="form-control bg-calendar" />
     </div>
     <div class="mb-3">
         <label for="">Tanggal Berakhir</label>
-        <input type="text" name="duty_to_date" id="duty_to_date" placeholder="dd-mm-yy" class="form-control" />
-        <div class="icon-input">
-            <i class="fa fa-calendar"></i>
-        </div>
+        <input type="text" name="duty_to_date" id="duty_to_date" placeholder="dd-mm-yy"
+            class="form-control bg-calendar" />
     </div>
     <div class="mb-3">
         <label for="">Jam</label>
-        <input type="text" name="time" id="time" class="form-control" placeholder="00:00" />
-        <div class="icon-input">
-            <i class="fa fa-clock-o"></i>
-        </div>
+        <input type="text" name="time" id="time" class="form-control bg-time" placeholder="00:00" />
     </div>
     <div class="mb-3">
         <label for="">Tempat</label>

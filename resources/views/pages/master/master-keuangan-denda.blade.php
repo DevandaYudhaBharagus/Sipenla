@@ -36,9 +36,6 @@
                     Tambah Data
                 </button>
             </div>
-            <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div>
         </div>
         <div class="outher-table">
             <div class="table-scroll">
