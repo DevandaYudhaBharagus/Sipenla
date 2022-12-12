@@ -118,7 +118,7 @@
                   </li>
               </ul>
           </li>
-           <li>
+          <li>
               <a id="dropdown-keuangan">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-perpus.png') }}" alt="" />
@@ -156,7 +156,7 @@
                   </li>
               </ul>
           </li>
-          <li>
+          {{-- <li>
               <a href="{{ url('/schedules') }}">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
@@ -164,16 +164,68 @@
                   <span class="link-name">Data Jadwal</span>
               </a>
               <span class="tool">Data Jadwal</span>
+          </li> --}}
+          <li>
+              <a id="dropdown-keuangan">
+                  <div class="box-icon">
+                      <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
+                  </div>
+                  <span class="link-name">Data Jadwal</span>
+                  <div class="arrow ms-auto">
+                      <i class="fa fa-angle-down"></i>
+                  </div>
+              </a>
+              <span class="tool">Data Jadwal</span>
+              <ul class="menu-dropdown">
+                  <li>
+                      <a href="{{ url('/schedules') }}">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Jadwal Pelajaran</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="" class="d-flex-align-items-center">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-jadwal.png') }}" />
+                          </div>
+                          <div class="text-dropdown">Jadwal Ekstrakulikuler</div>
+                      </a>
+                  </li>
+              </ul>
           </li>
           <li>
-              <a href="{{ url('/grade') }}">
+              <a id="dropdown-keuangan">
                   <div class="box-icon">
                       <img src="{{ asset('images/internal-images/master-kelas.png') }}" alt="" />
                   </div>
                   <span class="link-name">Data Kelas</span>
+                  <div class="arrow ms-auto">
+                      <i class="fa fa-angle-down"></i>
+                  </div>
               </a>
               <span class="tool">Data Kelas</span>
+              <ul class="menu-dropdown">
+                  <li>
+                      <a href="{{ url('/grade') }}">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Kelas</div>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="" class="d-flex-align-items-center">
+                          <div class="box-icon-dropdown">
+                              <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
+                          </div>
+                          <div class="text-dropdown">Kelas Siswa</div>
+                      </a>
+                  </li>
+              </ul>
           </li>
+
           <li>
               <a href="">
                   <div class="box-icon">
@@ -201,7 +253,7 @@
               </a>
               <span class="tool">Data Fasilitas</span>
           </li>
-       
+
           <li>
               <a href="{{ url('/workshift') }}">
                   <div class="box-icon">

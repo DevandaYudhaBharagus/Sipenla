@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Master Jadwal Pelajaran')
+@section('title', 'Master Jadwal EkstraKulikuler')
 @section('meta_header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
@@ -30,90 +30,66 @@
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
-                        <img src="{{ asset('images/internal-images/icon-jadwal-pelajaran.png') }}"
-                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Jadwal Mata
-                        Pelajaran
+                        <img src="{{ asset('images/internal-images/icon-extra.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt="">
+                        Jadwal Esktrakulikuler
                     </div>
                 </li>
             </ol>
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Jadwal Mata Pelajaran</h5>
-        <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
-                <button class="btn-create" id="add-schedule" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Tambah Data
-                </button>
-            </div>
+        <h5>Data Jadwal Ekstrakulikuler</h5>
+        <div class=" mt-4">
+            <button class="btn-create" id="add-schedule" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tambah Data
+            </button>
         </div>
         <div class="outher-table" id="table-schedule">
-            {{-- <div class="table-scroll">
-                <table class="table-master">
-                    <tr>
-                        <th width="22%">Mata Pelajaran</th>
-                        <th width="10%">Kelas</th>
-                        <th width="20%">Guru</th>
-                        <th width="10%">Hari</th>
-                        <th width="11%">Jam Mulai</th>
-                        <th width="11%">Jam Selesai</th>
-                        <th width="180px">Aksi</th>
-                    </tr>
-                    @foreach ($schedule as $new)
-                        <tr>
-                            <td width="22%">{{ $new->subject_name }}</td>
-                            <td width="10%">{{ $new->grade_name }}</td>
-                            <td width="20%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td width="10%">{{ $new->day_name }}</td>
-                            <td width="11%">{{ $new->start_time }}</td>
-                            <td width="11%">{{ $new->end_time }}</td>
-                            <td width="180px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->lesson_schedule_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->lesson_schedule_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div> --}}
-            <table id="master-jadwal" class="display" style="width:100%;">
+            <table id="master-jadwal" class="display " style="width:100%;">
                 <thead>
                     <tr>
-                        <th style="width:20%" class="text-center">Mata Pelajaran</th>
-                        <th style="width:10%" class="text-center">Kelas</th>
-                        <th style="width:20%" class="text-center">Guru</th>
-                        <th style="width:10%" class="text-center">Hari</th>
-                        <th style="width:15%" class="text-center">Jam Mulai</th>
-                        <th style="width:15%" class="text-center">Jam Selesai</th>
-                        <th style="width:10%" class="text-center">Aksi</th>
+                        <th class="text-center">Nama Ekstrakulikuler</th>
+                        <th class="text-center">Guru</th>
+                        <th class="text-center">Hari</th>
+                        <th class="text-center">Jam Mulai</th>
+                        <th class="text-center">Jam Selesai</th>
+                        <th class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($schedule as $new)
-                        <tr>
-                            <td style="width:20%">{{ $new->subject_name }}</td>
-                            <td style="width:10%">{{ $new->grade_name }}</td>
-                            <td style="width:20%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td style="width:10%">{{ $new->day_name }}</td>
-                            <td style="width:15%">{{ $new->start_time }}</td>
-                            <td style="width: 15%">{{ $new->end_time }}</td>
-                            <td style="width:10%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->lesson_schedule_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->lesson_schedule_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td style="width:25%">Basket Lorem ipsum dolor sit amet.</td>
+                        <td style="width:20%">asas Lorem ipsum dolor sit.</td>
+                        <td style="width:10%">Senin </td>
+                        <td style="width:15%">Lorem ipsum dolor sit.</td>
+                        <td style="width:15%">Lorem ipsum dolor sit.</td>
+                        <td style="width:15%">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
+                                        class="fa fa-edit text-primary"></i></a>
+                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master">
+                                    <i class="fa fa-trash-o text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width:25%">Basket Lorem ipsum dolor sit amet.</td>
+                        <td style="width:20%">asas Lorem ipsum dolor sit.</td>
+                        <td style="width:10%">Senin </td>
+                        <td style="width:15%">Lorem ipsum dolor sit.</td>
+                        <td style="width:15%">Lorem ipsum dolor sit.</td>
+                        <td style="width:15%">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
+                                        class="fa fa-edit text-primary"></i></a>
+                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master">
+                                    <i class="fa fa-trash-o text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -121,7 +97,6 @@
 @endsection
 
 @section('modal')
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">
@@ -136,20 +111,12 @@
                         <input type="hidden" name="lesson_schedule_id" id="lesson_schedule_id" value="">
                         <div class="row">
                             <div class="col-md-6 col-12 mb-3">
-                                <label for="subject_id" class="form-label">Mata Pelajaran</label>
+                                <label for="subject_id" class="form-label">Ekstrakulikuler</label>
                                 <select class="form-select" name="subject_id" id="subject_id" data-dropdown-parent="body"
-                                    data-placeholder="--- Pilih Mata Pelajaran ---">
+                                    data-placeholder="--- Pilih Ekstrakulikuler ---">
+                                    <option></option>
                                     @foreach ($subject as $subjects)
                                         <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-md-6 col-12 mb-3">
-                                <label for="grade_id" class="form-label">Kelas</label>
-                                <select class="form-select" name="grade_id" id="grade_id" data-dropdown-parent="body"
-                                    aria-label="Default select example" data-placeholder="--- Pilih Kelas ---">
-                                    @foreach ($grades as $grade)
-                                        <option value="{{ $grade->grade_id }}">{{ $grade->grade_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -212,15 +179,6 @@
             elemenInput.setAttribute("placeholder", "pencarian")
             input.children[0].childNodes[0].textContent = " ";
         });
-    </script>
-    <script>
-        const selected = document.querySelectorAll(".selected");
-        const optionsContainer = document.querySelectorAll(".options-container");
-        const searchBox = document.querySelectorAll(".search-box input");
-
-        function uploadImage() {
-            document.querySelector("#image-master").click();
-        }
     </script>
     <script>
         $("#exampleModal").on("hidden.bs.modal", function(e) {

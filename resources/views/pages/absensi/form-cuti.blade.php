@@ -1,21 +1,6 @@
 <h5>Permohonan Izin / Cuti</h5>
 <form action="" method="post">
     <div class="mb-3">
-        {{-- <select class="form-select" aria-label="Default select example">
-            <option selected>Jenis Cuti</option>
-            <option value="cuti melahirkan">Cuti Melahirkan</option>
-            <option value="cuti berobat">Cuti Berobat</option>
-            <option value="cuti kematian ahli keluarga">
-                Cuti Kematian Ahli Keluarga
-            </option>
-            <option value="cuti haji/umroh">
-                Cuti Haji / Umroh
-            </option>
-            <option value="cuti lain-lain">Cuti Lain-lain</option>
-        </select> --}}
-        {{-- <div class="icon-input">
-            <i class="fa fa-angle-down"></i>
-        </div> --}}
         <select class="form-select" id="select-2-field" data-placeholder="Jenis Cuti">
             <option></option>
             <option>Cuti Melahirkan</option>
@@ -42,18 +27,12 @@
     <div class="mb-3">
         <label for="">Tanggal Mulai</label>
         <input type="text" name="application_from_date" id="application_from_date" placeholder="dd-mm-yy"
-            class="form-control" />
-        <div class="icon-input">
-            <i class="fa fa-calendar"></i>
-        </div>
+            class="form-control bg-calendar" />
     </div>
     <div class="mb-3">
         <label for="">Tanggal Berakhir</label>
         <input type="text" name="application_to_date" id="application_to_date" placeholder="dd-mm-yy"
-            class="form-control" />
-        <div class="icon-input">
-            <i class="fa fa-calendar"></i>
-        </div>
+            class="form-control bg-calendar" />
     </div>
     <div class="mb-3">
         <label for="">Keterangan Cuti</label>

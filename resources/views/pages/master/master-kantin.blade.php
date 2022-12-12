@@ -29,12 +29,9 @@
                     Tambah Data
                 </button>
             </div>
-            <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div>
         </div>
         <div class="outher-table">
-            <div class="table-scroll">
+            {{-- <div class="table-scroll">
                 <table class="table-master">
                     <tr>
                         <th width="10%">No</th>
@@ -89,7 +86,61 @@
                         </td>
                     </tr>
                 </table>
-            </div>
+            </div> --}}
+            <table id="example" class="display" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:10%" class="text-center">No</th>
+                        <th style="width:20%" class="text-center">Foto</th>
+                        <th style="width:20%" class="text-center">Nama Kantin</th>
+                        <th style="width:20%" class="text-center">Nama Barang</th>
+                        <th style="width:15%" class="text-center">Harga</th>
+                        <th style="width:15%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center align-items-center" style="width: 10%">1.</td>
+                        <td style="width:20%">
+                            <div class="dropdown">
+                                <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                    aria-expanded="false">
+                                    <div class="icon-foto-master">
+                                        <img src="{{ asset('images/internal-images/foto-user.png') }}" alt="" />
+                                    </div>
+                                    <div class="fa fa-angle-down"></div>
+                                </div>
+                                <ul class="dropdown-menu dropdown-name">
+                                    <li>
+                                        Ajiz Bilar
+                                    </li>
+                                    <li>
+                                        Ajiz Bilar
+                                    </li>
+                                    <li>
+                                        Ajiz Lesti
+                                    </li>
+                                    <li>
+                                        Ajiz Lesti Bilar
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                        <td style="width:20%">Kantin A</td>
+                        <td style="width:20%">Soto Ayam</td>
+                        <td style="width:15%">Rp 10.000</td>
+                        <td style="width:15%">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a class="btn-edit-master btn me-2" data-id="" onclick=edit_data($(this))><i
+                                        class="fa fa-edit text-primary"></i></a>
+                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master btn">
+                                    <i class="fa fa-trash-o text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
@@ -148,10 +199,10 @@
                         </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="button" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
@@ -162,6 +213,22 @@
 @endsection
 
 @push('addon-javascript')
+    <script src="/js/dataTable.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                scrollY: '60vh',
+                scrollCollapse: true,
+                paging: false,
+            });
+        });
+        window.addEventListener("load", function() {
+            const input = document.querySelector("#example_filter");
+            const elemenInput = input.children[0].children[0];
+            elemenInput.setAttribute("placeholder", "pencarian")
+            input.children[0].childNodes[0].textContent = " ";
+        });
+    </script>
     <script>
         function uploadImage() {
             document.querySelector("#image-master").click();
