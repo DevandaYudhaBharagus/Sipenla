@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\BalanceCode;
 use App\Models\Balance;
+use App\Models\Guardian;
 use Illuminate\Support\Str;
 use App\Helpers\ResponseFormatter;
 use Carbon\Carbon;
@@ -17,9 +18,11 @@ class TopupController extends Controller
     {
         try{
             $user = Auth::user();
+            $code = Str::random(8);
+            $fix = strtoupper($code);
             $balance = BalanceCode::create([
                 'user_id' => $user->id,
-                'balance_code' => Str::random(8),
+                'balance_code' => $fix,
                 'status' => 'pending',
                 'balance' => $request->balance
             ]);
@@ -91,9 +94,7 @@ class TopupController extends Controller
                 $test2 = Carbon::parse($time)->format('d F, H.i');
                 $employee->waktu = $test2;
 
-                $response = [
-                    $employee
-                ];
+                $response = $employee;
                 return ResponseFormatter::success($response, 'Get Code Success');
             }
         }catch (Exception $e) {
@@ -159,6 +160,79 @@ class TopupController extends Controller
             $updateSaldo = BalanceCode::where('balance_code', '=', $code)->update($edit);
 
             return ResponseFormatter::success('Success rejected balance!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getSaldoUser()
+    {
+        try{
+            $user = Auth::user();
+            $saldo = Balance::where('user_id', '=', $user->id)->first(['balance']);
+
+            $response = $saldo;
+
+            return ResponseFormatter::success($response, 'Success get balance!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getHistory($tanggal)
+    {
+        try{
+            $user = Auth::user();
+            if($user->role == 'walimurid'){
+                $walimurid = Guardian::join('students', 'student_guardians.student_id', '=', 'students.student_id')
+                            ->where('student_guardians.user_id', '=', $user->id)
+                            ->first(['students.user_id']);
+
+                $history = BalanceCode::where('user_id', '=', $walimurid->user_id)
+                ->whereDate('created_at', '=', $tanggal)
+                ->get([
+                    "balance_code",
+                    "balance",
+                    "created_at",
+                    "status",
+                ]);
+
+                $response = $history;
+
+                return ResponseFormatter::success($response, 'Success get history!');
+            }
+            $history = BalanceCode::where('user_id', '=', $user->id)
+            ->whereDate('created_at', '=', $tanggal)
+            ->get([
+                "balance_code",
+                "balance",
+                "created_at",
+                "status",
+            ]);
+
+            foreach ($history as $h) {
+                $time = $h->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $h->waktu = $test2;
+            }
+
+            $response = $history;
+
+            return ResponseFormatter::success($response, 'Success get history!');
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();

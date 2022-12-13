@@ -251,5 +251,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/code', [TopupController::class, 'checkCode']);
         Route::post('/updatebalance/{code}', [TopupController::class, 'approveSaldo']);
         Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
+        Route::get('/getsaldo', [TopupController::class, 'getSaldoUser']);
+        Route::get('/gethistory/{tanggal}', [TopupController::class, 'getHistory']);
     });
 });
