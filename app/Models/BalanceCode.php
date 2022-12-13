@@ -9,5 +9,5 @@ class BalanceCode extends Model
 {
     use HasFactory;
 
-    protected $fillable =  ['user_id', 'balance_code', 'balance'];
+    protected $fillable =  ['user_id', 'balance_code', 'balance', 'status'];
 }
