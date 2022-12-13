@@ -124,10 +124,10 @@
                                 <label for="teacher_id" class="form-label">Guru</label>
                                 <select class="form-select" name="teacher_id" id="teacher_id" data-dropdown-parent="body"
                                     data-placeholder="--- Pilih Guru ---">
-                                    @foreach ($teachers as $teacher)
+                                    {{-- @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
-                                    @endforeach --}}
+                                    @endforeach  --}}
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">

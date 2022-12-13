@@ -18,6 +18,7 @@ use App\Http\Controllers\API\ExtraAssessmentController;
 use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\API\PerpustakaanController;
 use App\Http\Controllers\API\TopupController;
+use App\Http\Controllers\API\PayoutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -253,5 +254,15 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
         Route::get('/getsaldo', [TopupController::class, 'getSaldoUser']);
         Route::get('/gethistory/{tanggal}', [TopupController::class, 'getHistory']);
+        Route::get('/getriwayat/{tanggal}', [TopupController::class, 'getData']);
+    });
+
+    Route::prefix('payout')->group(function () {
+        Route::post('/add', [PayoutController::class, 'makePayout']);
+        Route::post('/approve/{id}', [PayoutController::class, 'approvePayout']);
+        Route::post('/reject/{id}', [PayoutController::class, 'rejectPayout']);
+        Route::get('/getconfirm', [PayoutController::class, 'getData']);
+        Route::get('/getriwayat/{tanggal}', [PayoutController::class, 'getHistoryConfirm']);
+        Route::get('/getpayout/{tanggal}', [PayoutController::class, 'getHistory']);
     });
 });
