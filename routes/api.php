@@ -254,15 +254,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
         Route::get('/getsaldo', [TopupController::class, 'getSaldoUser']);
         Route::get('/gethistory/{tanggal}', [TopupController::class, 'getHistory']);
-        Route::get('/getriwayat/{tanggal}', [TopupController::class, 'getData']);
+        Route::get('/getriwayat/{tanggal}', [TopupController::class, 'getDataSiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [TopupController::class, 'getDataPegawai']);
     });
 
     Route::prefix('payout')->group(function () {
         Route::post('/add', [PayoutController::class, 'makePayout']);
-        Route::post('/approve/{id}', [PayoutController::class, 'approvePayout']);
+        Route::post('/approve/{code}', [PayoutController::class, 'approvePayout']);
         Route::post('/reject/{id}', [PayoutController::class, 'rejectPayout']);
-        Route::get('/getconfirm', [PayoutController::class, 'getData']);
-        Route::get('/getriwayat/{tanggal}', [PayoutController::class, 'getHistoryConfirm']);
+        Route::get('/getconfirmsiswa', [PayoutController::class, 'getDataSiswa']);
+        Route::get('/getconfirmpegawai', [PayoutController::class, 'getDataPegawai']);
+        Route::get('/getriwayatsiswa/{tanggal}', [PayoutController::class, 'getHistorySiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [PayoutController::class, 'getHistoryPegawai']);
         Route::get('/getpayout/{tanggal}', [PayoutController::class, 'getHistory']);
     });
 });

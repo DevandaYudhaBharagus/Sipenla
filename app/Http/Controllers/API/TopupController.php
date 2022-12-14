@@ -245,51 +245,66 @@ class TopupController extends Controller
         }
     }
 
-    public function getData($tanggal)
+    public function getDataSiswa($tanggal)
     {
         try{
             $konfirmasi = BalanceCode::where('balance_codes.status', '=', 'approve')
             ->join('users', 'balance_codes.user_id', 'users.id')
+            ->join('students', 'users.id', '=', 'students.user_id')
             ->whereDate('balance_codes.created_at', '=', $tanggal)
             ->get([
-                "role"
+                "balance_codes.id",
+                "first_name",
+                "last_name",
+                "balance_codes.created_at",
+                "balance",
+                "balance_code"
             ]);
 
-            foreach($konfirmasi as $k){
-                if($k->role == 'student'){
-                    $name = BalanceCode::where('balance_codes.status', '=', 'approve')
-                            ->join('users', 'balance_codes.user_id', 'users.id')
-                            ->join('students', 'users.id', '=', 'students.user_id')
-                            ->whereDate('balance_codes.created_at', '=', $tanggal)
-                            ->get([
-                                "balance_codes.id",
-                                "first_name",
-                                "last_name",
-                                "balance_codes.created_at",
-                                "balance"
-                            ]);
-                }else{
-                    $name = BalanceCode::where('balance_codes.status', '=', 'approve')
-                            ->join('users', 'balance_codes.user_id', 'users.id')
-                            ->join('employees', 'users.id', '=', 'employees.user_id')
-                            ->whereDate('balance_codes.created_at', '=', $tanggal)
-                            ->get([
-                                "balance_codes.id",
-                                "first_name",
-                                "last_name",
-                                "balance_codes.created_at",
-                                "balance"
-                            ]);
-                }
-            }
-
-            foreach ($name as $n) {
-                $time = $n->created_at;
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
                 $test2 = Carbon::parse($time)->format('d F, H.i');
-                $n->waktu = $test2;
+                $k->waktu = $test2;
             }
 
-            $response = $name;
+            $response = $konfirmasi;
+
+            return ResponseFormatter::success($response, "Succeed get Hitory Isi Saldo!");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getDataPegawai($tanggal)
+    {
+        try{
+            $konfirmasi = BalanceCode::where('balance_codes.status', '=', 'approve')
+            ->join('users', 'balance_codes.user_id', 'users.id')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->whereDate('balance_codes.created_at', '=', $tanggal)
+            ->get([
+                "balance_codes.id",
+                "first_name",
+                "last_name",
+                "balance_codes.created_at",
+                "balance",
+                "balance_code"
+            ]);
+
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $k->waktu = $test2;
+            }
+
+            $response = $konfirmasi;
 
             return ResponseFormatter::success($response, "Succeed get Hitory Isi Saldo!");
         }catch (Exception $e) {
