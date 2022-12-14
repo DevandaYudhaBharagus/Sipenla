@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class LoanBook extends Model
+class FineTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable =  ['book_id', 'total_book', 'from_date', 'to_date', 'date', 'status', 'status_loan'];
+    protected $fillable =  ['user_id', 'fine_transaction_code', 'fine_transaction', 'status'];
 }
