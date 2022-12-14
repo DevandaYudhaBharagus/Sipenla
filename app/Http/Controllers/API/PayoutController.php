@@ -10,6 +10,7 @@ use App\Models\Balance;
 use App\Models\Guardian;
 use App\Helpers\ResponseFormatter;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 class PayoutController extends Controller
 {
@@ -17,12 +18,15 @@ class PayoutController extends Controller
     {
         try{
             $user = Auth::user();
+            $code = Str::random(8);
+            $fix = strtoupper($code);
             $saldo = Balance::where('user_id', '=', $user->id)->first(['balance']);
             if($request->payout >= $saldo->balance) return ResponseFormatter::error('Saldo Tidak Mencukupi', 400);
 
             $payout = Payout::create([
                 'user_id' => $user->id,
                 'status' => 'pending',
+                'payout_code' => $fix,
                 'payout' => $request->payout
             ]);
 
@@ -39,50 +43,30 @@ class PayoutController extends Controller
         }
     }
 
-    public function getData()
+    public function getDataSiswa()
     {
         try{
-            $konfirmasi = Payout::where('status', '=', 'pending')
+            $konfirmasi = Payout::where('payouts.status', '=', 'pending')
             ->join('users', 'payouts.user_id', 'users.id')
+            ->join('students', 'users.id', '=', 'students.user_id')
             ->get([
-                "role"
+                "payouts.id",
+                "first_name",
+                "last_name",
+                "payouts.created_at",
+                "payout",
+                "payout_code"
             ]);
 
-            foreach($konfirmasi as $k){
-                if($k->role == 'student'){
-                    $name = Payout::where('status', '=', 'pending')
-                            ->join('users', 'payouts.user_id', 'users.id')
-                            ->join('students', 'users.id', '=', 'students.user_id')
-                            ->get([
-                                "payouts.id",
-                                "first_name",
-                                "last_name",
-                                "payouts.created_at",
-                                "payout"
-                            ]);
-                }else{
-                    $name = Payout::where('status', '=', 'pending')
-                            ->join('users', 'payouts.user_id', 'users.id')
-                            ->join('employees', 'users.id', '=', 'employees.user_id')
-                            ->get([
-                                "payouts.id",
-                                "first_name",
-                                "last_name",
-                                "payouts.created_at",
-                                "payout"
-                            ]);
-                }
-            }
-
-            foreach ($name as $n) {
-                $time = $n->created_at;
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
                 $test2 = Carbon::parse($time)->format('d F, H.i');
-                $n->waktu = $test2;
+                $k->waktu = $test2;
             }
 
-            $response = $name;
+            $response = $konfirmasi;
 
-            return ResponseFormatter::success($response, "Succeed get Payout!");
+            return ResponseFormatter::success($response, "Succeed get data!");
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
@@ -95,10 +79,46 @@ class PayoutController extends Controller
         }
     }
 
-    public function approvePayout($id)
+    public function getDataPegawai()
     {
         try{
-            $payout = Payout::where('id', '=', $id)->first();
+            $konfirmasi = Payout::where('payouts.status', '=', 'pending')
+            ->join('users', 'payouts.user_id', 'users.id')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->get([
+                "payouts.id",
+                "first_name",
+                "last_name",
+                "payouts.created_at",
+                "payout",
+                "payout_code"
+            ]);
+
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $k->waktu = $test2;
+            }
+
+            $response = $konfirmasi;
+
+            return ResponseFormatter::success($response, "Succeed get data!");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function approvePayout($code)
+    {
+        try{
+            $payout = Payout::where('payout_code', '=', $code)->first();
             $saldoLogin = Balance::where('user_id', '=', $payout->user_id)->first();
 
             $edit = [
@@ -109,7 +129,7 @@ class PayoutController extends Controller
                 'balance' => $saldoLogin->balance - $payout->payout
             ];
 
-            $editPayout = Payout::where('id', '=', $id)->update($edit);
+            $editPayout = Payout::where('payout_code', '=', $code)->update($edit);
             $editSaldoLogin = Balance::where('user_id', '=', $payout->user_id)->update($editSaldo);
 
             return ResponseFormatter::success("Succeed approve Payout!");
@@ -125,14 +145,14 @@ class PayoutController extends Controller
         }
     }
 
-    public function rejectPayout($id)
+    public function rejectPayout($code)
     {
         try{
             $edit = [
                 'status' => 'rejected'
             ];
 
-            $updateSaldo = Payout::where('id', '=', $id)->update($edit);
+            $updateSaldo = Payout::where('payout_code', '=', $code)->update($edit);
 
             return ResponseFormatter::success('Success rejected payout!');
         }catch (Exception $e) {
@@ -147,53 +167,68 @@ class PayoutController extends Controller
         }
     }
 
-    public function getHistoryConfirm($tanggal)
+    public function getHistorySiswa($tanggal)
     {
         try{
-            $konfirmasi = Payout::where('status', '=', 'pending')
+            $konfirmasi = Payout::where('payouts.status', '=', 'approve')
             ->join('users', 'payouts.user_id', 'users.id')
+            ->join('students', 'users.id', '=', 'students.user_id')
             ->whereDate('payouts.created_at', '=', $tanggal)
             ->get([
-                "role"
+                "payouts.id",
+                "first_name",
+                "last_name",
+                "payouts.created_at",
+                "payout",
+                "payout_code"
             ]);
 
-            foreach($konfirmasi as $k){
-                if($k->role == 'student'){
-                    $name = Payout::where('status', '=', 'pending')
-                            ->join('users', 'payouts.user_id', 'users.id')
-                            ->join('students', 'users.id', '=', 'students.user_id')
-                            ->whereDate('payouts.created_at', '=', $tanggal)
-                            ->get([
-                                "payouts.id",
-                                "first_name",
-                                "last_name",
-                                "payouts.created_at",
-                                "payout"
-                            ]);
-                }else{
-                    $name = Payout::where('status', '=', 'pending')
-                            ->join('users', 'payouts.user_id', 'users.id')
-                            ->join('employees', 'users.id', '=', 'employees.user_id')
-                            ->whereDate('payouts.created_at', '=', $tanggal)
-                            ->get([
-                                "payouts.id",
-                                "first_name",
-                                "last_name",
-                                "payouts.created_at",
-                                "payout"
-                            ]);
-                }
-            }
-
-            foreach ($name as $n) {
-                $time = $n->created_at;
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
                 $test2 = Carbon::parse($time)->format('d F, H.i');
-                $n->waktu = $test2;
+                $k->waktu = $test2;
             }
 
-            $response = $name;
+            $response = $konfirmasi;
 
-            return ResponseFormatter::success($response, "Succeed get Payout!");
+            return ResponseFormatter::success($response, "Succeed get Hitory!");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getHistoryPegawai($tanggal)
+    {
+        try{
+            $konfirmasi = Payout::where('payouts.status', '=', 'approve')
+            ->join('users', 'payouts.user_id', 'users.id')
+            ->join('employees', 'users.id', '=', 'employees.user_id')
+            ->whereDate('payouts.created_at', '=', $tanggal)
+            ->get([
+                "payouts.id",
+                "first_name",
+                "last_name",
+                "payouts.created_at",
+                "payout",
+                "payout_code"
+            ]);
+
+            foreach ($konfirmasi as $k) {
+                $time = $k->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $k->waktu = $test2;
+            }
+
+            $response = $konfirmasi;
+
+            return ResponseFormatter::success($response, "Succeed get Hitory!");
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
