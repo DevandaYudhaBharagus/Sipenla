@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Employee;
 use App\Models\Student;
 use App\Models\LoanBook;
+use App\Models\Balance;
+use App\Models\FineTransaction;
+use Illuminate\Support\Str;
 use App\Models\PerpusAttendance;
 use App\Models\LoanFacility;
 use Illuminate\Support\Facades\DB;
@@ -261,6 +264,7 @@ class PerpustakaanController extends Controller
                         $book->to_date = $value['to_date'];
                         $book->date = Carbon::now();
                         $book->status = 'pending';
+                        $book->status_loan = 'default';
                         $book->student_id = $student->student_id;
                         $book->save();
                     }
@@ -402,6 +406,7 @@ class PerpustakaanController extends Controller
                                 "to_date",
                                 "book_creator",
                                 "book_year",
+                                "book_price",
                                 "loan_books.date",
                                 "loan_books.status",
                                 "loan_books.created_at",
@@ -411,6 +416,16 @@ class PerpustakaanController extends Controller
                                 "number_of_book",
                                 "image"
                             ]);
+
+                foreach ($book as $b) {
+                    $time = Carbon::parse($b->to_date);
+                    $now = Carbon::now()->format('Y-m-d');
+                    $different = $time->diff($now);
+                    $test2 = ($now > $time) ? 2000 * $different->days : "";
+                    $status = ($now > $time) ? "Terkena Denda" : "";
+                    $b->denda = $test2;
+                    $b->status = $status;
+                }
 
                 $response = $book;
 
@@ -469,6 +484,53 @@ class PerpustakaanController extends Controller
         }
     }
 
+    public function pendingReturnDenda(Request $request, $id)
+    {
+        try{
+            $user = Auth::user();
+            $saldo = Balance::where('user_id', '=', $user->id)->first(['balance']);
+            $edit = [
+                "status" => 'pendingreturn',
+                "status_loan" => $request->status_loan
+            ];
+
+            if($saldo->balance < $request->fine_transaction) return ResponseFormatter::error('Saldo Tidak Mencukupi', 400);
+            $code = Str::random(8);
+            $fix = strtoupper($code);
+
+            $editLogin= [
+                'balance' => $saldo->balance - $request->fine_transaction
+            ];
+
+            $transaction = FineTransaction::create([
+                "user_id" => $user->id,
+                "fine_transaction_code" => $fix,
+                "fine_transaction" => $request->fine_transaction,
+                "status" => "approve",
+            ]);
+
+            $updateBook = LoanBook::where('loan_book_id', '=', $id)
+                            ->update($edit);
+
+            $login = Balance::where('user_id', '=', $user->id)
+                            ->update($editLogin);
+
+            $response = [
+                "fine_transaction" => $transaction->fine_transaction,
+                "fine_transaction_code" => $transaction->fine_transaction_code,
+                "status" => $transaction->status,
+                "waktu" => Carbon::parse($transaction->created_at)->format('d F, H.i')
+            ];
+
+            return ResponseFormatter::success($response, 'Book Has Been Returned, wait until Pegawai Perpus approved it');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
     public function getAllReturnEmployee()
     {
         try{
@@ -482,6 +544,7 @@ class PerpustakaanController extends Controller
                         'last_name',
                         'book_code',
                         'book_name',
+                        'book_price',
                         'total_book',
                         "book_creator",
                         "book_year",
@@ -489,8 +552,17 @@ class PerpustakaanController extends Controller
                         'books.image',
                         'employees.nuptk',
                         'from_date',
-                        'to_date'
+                        'to_date',
+                        'status_loan'
                     ]);
+
+            foreach ($loanEmployee as $b) {
+                $time = Carbon::parse($b->to_date);
+                $now = Carbon::now()->format('Y-m-d');
+                $different = $time->diff($now);
+                $test2 = ($now > $time) ? 2000 * $different->days : 0;
+                $b->denda = $test2;
+            }
 
             $response = $loanEmployee;
 

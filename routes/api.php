@@ -19,6 +19,7 @@ use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\API\PerpustakaanController;
 use App\Http\Controllers\API\TopupController;
 use App\Http\Controllers\API\PayoutController;
+use App\Http\Controllers\API\FineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -223,6 +224,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/updateloan/{id}', [PerpustakaanController::class, 'approvalLoan']);
         Route::get('/getreturn', [PerpustakaanController::class, 'getBookOngoing']);
         Route::post('/pendingreturn/{id}', [PerpustakaanController::class, 'pendingReturn']);
+        Route::post('/pendingreturndenda/{id}', [PerpustakaanController::class, 'pendingReturnDenda']);
         Route::get('/getreturnemployee', [PerpustakaanController::class, 'getAllReturnEmployee']);
         Route::get('/getreturnstudent', [PerpustakaanController::class, 'getAllReturnStudent']);
         Route::post('/return/{id}', [PerpustakaanController::class, 'returned']);
@@ -267,5 +269,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/getriwayatsiswa/{tanggal}', [PayoutController::class, 'getHistorySiswa']);
         Route::get('/getriwayatpegawai/{tanggal}', [PayoutController::class, 'getHistoryPegawai']);
         Route::get('/getpayout/{tanggal}', [PayoutController::class, 'getHistory']);
+    });
+
+    Route::prefix('fine')->group(function () {
+        Route::get('/history/{tanggal}', [FineController::class, 'getHistory']);
     });
 });
