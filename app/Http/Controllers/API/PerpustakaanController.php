@@ -287,6 +287,7 @@ class PerpustakaanController extends Controller
                     $book->to_date = $value['to_date'];
                     $book->date = Carbon::now();
                     $book->status = 'pending';
+                    $book->status_loan = 'default';
                     $book->employee_id = $employee->employee_id;
                     $book->save();
                 }
@@ -589,6 +590,7 @@ class PerpustakaanController extends Controller
                         'last_name',
                         'book_code',
                         'book_name',
+                        'book_price',
                         'total_book',
                         "book_creator",
                         "book_year",
@@ -598,6 +600,14 @@ class PerpustakaanController extends Controller
                         'from_date',
                         'to_date'
                     ]);
+
+            foreach ($loanStudent as $b) {
+                $time = Carbon::parse($b->to_date);
+                $now = Carbon::now()->format('Y-m-d');
+                $different = $time->diff($now);
+                $test2 = ($now > $time) ? 2000 * $different->days : 0;
+                $b->denda = $test2;
+            }
 
             $response = $loanStudent;
 
