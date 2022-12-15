@@ -422,7 +422,7 @@ class PerpustakaanController extends Controller
                     $time = Carbon::parse($b->to_date);
                     $now = Carbon::now()->format('Y-m-d');
                     $different = $time->diff($now);
-                    $test2 = ($now > $time) ? 2000 * $different->days : "";
+                    $test2 = ($now > $time) ? 2000 * $different->days : 0;
                     $status = ($now > $time) ? "Terkena Denda" : "";
                     $b->denda = $test2;
                     $b->status = $status;
@@ -453,6 +453,16 @@ class PerpustakaanController extends Controller
                             "number_of_book",
                             "image"
                         ]);
+
+            foreach ($book as $b) {
+                $time = Carbon::parse($b->to_date);
+                $now = Carbon::now()->format('Y-m-d');
+                $different = $time->diff($now);
+                $test2 = ($now > $time) ? 2000 * $different->days : 0;
+                $status = ($now > $time) ? "Terkena Denda" : "";
+                $b->denda = $test2;
+                $b->status = $status;
+            }
 
             $response = $book;
 
