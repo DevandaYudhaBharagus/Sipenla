@@ -1090,13 +1090,19 @@ class PerpustakaanController extends Controller
     public function getBarcodePegawai($nuptk)
     {
         try{
-            $employee = Employee::where('nuptk', '=',  $nuptk)->first();
+            $employee = Employee::join('users', 'employees.user_id', '=', 'users.id')->where('nuptk', '=',  $nuptk)->first();
 
             if(is_null($employee)){
                 return ResponseFormatter::error("Pegawai Tidak Ditemukan!", 404);
             }
 
-            $response = $employee;
+            $response = [
+                "first_name" => $employee->first_name,
+                "last_name" => $employee->last_name,
+                "nuptk" => $employee->nuptk,
+                "jabatan" => $employee->role,
+                "image" => $employee->image,
+            ];
 
             return ResponseFormatter::success($response, 'Get Employee Success');
         }catch (Exception $e) {
@@ -1110,13 +1116,19 @@ class PerpustakaanController extends Controller
     public function getBarcodeSiswa($nisn)
     {
         try{
-            $student = Student::where('nisn', '=',  $nisn)->first();
+            $student = Student::join('users', 'students.user_id', '=', 'users.id')->where('nisn', '=',  $nisn)->first();
 
             if(is_null($student)){
                 return ResponseFormatter::error("Siswa Tidak Ditemukan!", 404);
             }
 
-            $response = $student;
+            $response = [
+                "first_name" => $student->first_name,
+                "last_name" => $student->last_name,
+                "nisn" => $student->nisn,
+                "jabatan" => $student->role,
+                "image" => $student->image,
+            ];
 
             return ResponseFormatter::success($response, 'Get Student Success');
         }catch (Exception $e) {
