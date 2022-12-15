@@ -254,6 +254,7 @@ class PayoutController extends Controller
                 ->whereDate('created_at', '=', $tanggal)
                 ->get([
                     "payout",
+                    "payout_code",
                     "created_at",
                     "status",
                 ]);
@@ -266,6 +267,7 @@ class PayoutController extends Controller
             ->whereDate('created_at', '=', $tanggal)
             ->get([
                 "payout",
+                "payout_code",
                 "created_at",
                 "status",
             ]);
