@@ -199,6 +199,9 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [LessonSchedulesController::class, 'edit']);
         Route::post('/{id}', [LessonSchedulesController::class, 'update']);
         Route::delete('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete']);
+        Route::get('/ekstrakurikuler', [LessonSchedulesController::class, 'schedulesEkstrakurikuler']);
+        Route::get('/del-ekstrakurikuler/{id}', [LessonSchedulesController::class, 'delSchedulesEkstrakurikuler']);
+        Route::get('/{id}/edit-ekstrakurikuler', [LessonSchedulesController::class, 'editSchedulesEkstrakurikuler']);
     });
 
     //Route Absensi
