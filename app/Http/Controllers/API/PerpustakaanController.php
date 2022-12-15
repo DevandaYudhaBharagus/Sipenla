@@ -1097,7 +1097,7 @@ class PerpustakaanController extends Controller
             }
 
             $response = [
-                "employee_id" -> $employee->employee_id,
+                "employee_id" => $employee->employee_id,
                 "first_name" => $employee->first_name,
                 "last_name" => $employee->last_name,
                 "nuptk" => $employee->nuptk,
@@ -1124,7 +1124,7 @@ class PerpustakaanController extends Controller
             }
 
             $response = [
-                "employee_id" -> $student->student_id,
+                "student_id" => $student->student_id,
                 "first_name" => $student->first_name,
                 "last_name" => $student->last_name,
                 "nisn" => $student->nisn,
