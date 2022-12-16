@@ -71,9 +71,6 @@ Route::get('/monitoring', function(){
 // Route::get('/jadwal-pil', function(){
 //     return view('pages.jadwal.jadwal');
 // });
-Route::get('/master-kelas-siswa', function(){
-    return view('pages.master.master-kelas-siswa');
-});
 Route::get('/jadwal-mapel-guru', function(){
     return view('pages.jadwal.jadwal-mapel-guru');
 });
@@ -97,7 +94,7 @@ Route::get('/penilaian-blank', function(){
 });
 
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);

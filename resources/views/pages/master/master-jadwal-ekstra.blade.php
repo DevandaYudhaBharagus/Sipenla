@@ -115,28 +115,28 @@
                                 <select class="form-select" name="subject_id" id="subject_id" data-dropdown-parent="body"
                                     data-placeholder="--- Pilih Ekstrakulikuler ---">
                                     <option></option>
-                                    @foreach ($subject as $subjects)
+                                    {{-- @foreach ($subject as $subjects)
                                         <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="teacher_id" class="form-label">Guru</label>
                                 <select class="form-select" name="teacher_id" id="teacher_id" data-dropdown-parent="body"
                                     data-placeholder="--- Pilih Guru ---">
-                                    @foreach ($teachers as $teacher)
+                                    {{-- @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
-                                    @endforeach
+                                    @endforeach  --}}
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="day_id" class="form-label">Hari</label>
                                 <select class="form-select" name="days_id" id="day_id" data-dropdown-parent="body"
                                     aria-label="Default select example" data-placeholder="--- Pilih Hari ---">
-                                    @foreach ($days as $day)
+                                    {{-- @foreach ($days as $day)
                                         <option value="{{ $day->day_id }}">{{ $day->day_name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
