@@ -1252,6 +1252,12 @@ button.dropdown-toggle {
   font-weight: 500;
   font-size: 12px;
 }
+.formulir .box-formulir .box-form-input input.bg-calendar {
+  background-image: url("/images/internal-images/icon-calendar-fa.png");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 18px 16px;
+}
 .formulir .box-formulir .box-form-input .btn-photo-siswa {
   border: 1px solid #f0f1f2;
   width: 100%;
@@ -2010,6 +2016,182 @@ button.dropdown-toggle {
   margin-bottom: 6px;
 }
 /* ==================== Akhir CSS Untuk Jadwal ================================ */
+
+/* ==================== CSS untuk tabel ======================================= */
+div.dataTables_wrapper div.dataTables_filter input {
+  border-radius: 12px !important;
+  padding: 6px 15px !important;
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  background-image: url("/images/internal-images/icon-search.png");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 18px 18px;
+}
+div.dataTables_wrapper div.dataTables_filter input:focus {
+  outline: none;
+  background-image: none;
+  box-shadow: none;
+  border: 1px solid #4b556b;
+}
+.profile .box-profile .display thead {
+  background: #f0f1f2;
+  color: var(--text-color);
+}
+.profile .box-profile .display tbody tr {
+  background: white;
+}
+.profile .box-profile .display tbody tr:nth-child(even) {
+  background: #f0f1f2;
+}
+.profile .box-profile .display td {
+  font-size: 14px;
+  font-weight: 400;
+}
+.profile .box-profile .display th,
+.profile .box-profile .display td {
+  padding: 5px 8px;
+  text-align: center;
+  color: var(--text-color);
+}
+.profile .box-profile .btn-edit-penilaian {
+  background: var(--bg-onlywhite);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  margin-right: 5px;
+  cursor: pointer;
+  border: none;
+  margin: auto;
+}
+.profile .box-profile .btn-edit-penilaian .fa {
+  font-weight: 600;
+  background: linear-gradient(259.17deg, #3774c3 0%, #2e44a4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 16px;
+}
+.modal-penilaian {
+  max-width: 700px !important;
+  margin-top: 5rem !important;
+}
+.modal-penilaian .modal-content .modal-header {
+  background: #3774c3;
+  color: var(--bg-secondary);
+  padding: 5px 1rem;
+}
+.modal-penilaian .modal-content .modal-footer {
+  border: none;
+}
+.modal-penilaian .btn-penilaian {
+  padding: 4px 4rem;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  border: none;
+  cursor: pointer;
+  color: var(--bg-onlywhite);
+}
+.modal-penilaian .modal-content .label-name {
+  color: var(--text-color);
+  font-weight: 600 !important;
+}
+.modal-penilaian .modal-content table td {
+  padding: 10px 0;
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 400;
+}
+.modal-penilaian .modal-content table input {
+  width: 70%;
+  background-color: #e8eff7;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #808da6;
+  border: none;
+}
+.modal-penilaian .modal-content table input:focus {
+  outline: none;
+  border: none;
+}
+.bg-red-permission {
+  background: #ff4238;
+}
+.bg-green-permission {
+  background: #83bc10;
+}
+.select2-container--bootstrap-5 .select2-selection--single {
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid #3774c3 !important;
+}
+.select2-container--bootstrap-5.select2-container--focus .select2-selection,
+.select2-container--bootstrap-5.select2-container--open .select2-selection {
+  box-shadow: none !important;
+  border-color: none !important;
+}
+.select2-container--bootstrap-5
+  .select2-selection--single
+  .select2-selection__rendered
+  .select2-selection__placeholder {
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+.select2-container--bootstrap-5
+  .select2-dropdown
+  .select2-results__options
+  .select2-results__option {
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
+}
+.select2-container--bootstrap-5
+  .select2-dropdown
+  .select2-search
+  .select2-search__field:focus {
+  box-shadow: none !important;
+}
+.profile .box-profile .semester {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-color) !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  border: 1px solid #3774c3;
+  cursor: pointer;
+}
+.profile .box-profile .semester:focus {
+  box-shadow: none;
+  outline: none;
+}
+.profile .box-profile .search-penilaian {
+  border: none;
+  background: var(--bg-button-primary);
+  border-radius: 8px;
+  padding: 8px 3rem;
+  color: var(--bg-secondary);
+  font-size: 14px;
+  font-weight: 500;
+}
+.profile .box-profile .text-blank {
+  margin: 6rem 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text-color);
+}
+/* ==================== Akhir CSS untuk tabel ================================= */
 @media screen and (max-width: 700px) {
   .header-dashboard {
     margin: 2rem 0;
@@ -2292,5 +2474,8 @@ button.dropdown-toggle {
   }
   .profile .box-profile .btn-select {
     width: 100%;
+  }
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin: 1rem;
   }
 }
