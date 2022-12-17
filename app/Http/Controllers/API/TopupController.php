@@ -119,12 +119,13 @@ class TopupController extends Controller
 
             $saldo = BalanceCode::where('balance_code', '=', $code)->first();
             $saldoLogin = Balance::where('user_id', '=', $userLogin->id)->first();
+            $saldoUser = Balance::where('user_id', '=', $saldo->user_id)->first();
             if($saldoLogin->balance <= 0) return ResponseFormatter::error('Saldo Tidak Mencukupi', 400);
 
             $updateSaldo = BalanceCode::where('balance_code', '=', $code)->update($edit);
 
             $editBalance = [
-                'balance' => $saldo->balance
+                'balance' => $saldoUser->balance + $saldo->balance
             ];
 
             $user = Balance::where('user_id', '=', $saldo->user_id)
