@@ -7,9 +7,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
-    <!-- Or for RTL support -->
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
 @endsection
 @section('content')
     <div class="container">
@@ -50,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">{{$employee->first_name. ' '. $employee->last_name}}</div>
+                                    <div class="name-student">{{ $employee->first_name . ' ' . $employee->last_name }}</div>
                                     <div class="title-student">{{ Auth::user()->role }}</div>
                                 </div>
                             </div>
@@ -74,12 +71,12 @@
                                         Absensi
                                     </button>
                                     <div class="row mt-2">
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-6 col-12 mb-md-0 mb-3">
                                             <button class="btn-choice-monitoring w-100" id="btn-action-present">
                                                 Tugas Dinas
                                             </button>
                                         </div>
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-6 col-12 mb-md-0 mb-3">
                                             <button class="btn-choice-monitoring w-100 mb-md-0 mb-2"
                                                 id="btn-action-present">
                                                 Izin/Cuti
@@ -89,14 +86,16 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="box-student-card mt-md-4">
                             {{-- belum absensi --}}
-                            @if(!$attendance)
+                            @if (!$attendance)
                                 <div class="d-flex  flex-column">
                                     <div class="icon-camera m-auto">
                                         <img src="{{ asset('images/internal-images/icon-camera-red.png') }}">
                                     </div>
-                                    <div class="text-present d-flex justify-content-center">Anda belum melakukan absensi hari
+                                    <div class="text-present d-flex justify-content-center">Anda belum melakukan absensi
+                                        hari
                                         ini</div>
                                 </div>
                                 <div class="d-flex justify-content-center">
@@ -104,19 +103,20 @@
                                 </div>
                             @else
                                 {{-- sudah absensi --}}
-                                    <div class="d-flex  flex-column">
-                                        <div class="icon-camera m-auto">
-                                            <img src="{{ asset('images/internal-images/icon-camera-green.png') }}">
-                                        </div>
-                                        <div class="text-present d-flex justify-content-center">Anda sudah absen</div>
+                                <div class="d-flex  flex-column">
+                                    <div class="icon-camera m-auto">
+                                        <img src="{{ asset('images/internal-images/icon-camera-green.png') }}">
                                     </div>
-                                    <div class="d-flex justify-content-center">
-                                        <a href="{{ url('/absensi/page-checkout') }}" class=" btn-present">Absen Keluar</a>
-                                    </div>
+                                    <div class="text-present d-flex justify-content-center">Anda sudah absen</div>
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <a href="{{ url('/absensi/page-checkout') }}" class=" btn-present">Absen Keluar</a>
+                                </div>
                                 {{-- Akhir sudah absensi --}}
                             @endif
                             {{-- akhir belum absensi --}}
                         </div>
+
                     </div>
                     <div class="col-md-7 col-12">
                         <div class="box-biografi present">
@@ -124,91 +124,44 @@
                                 <h5>Riwayat Absensi</h5>
                                 <div class="mb-3">
                                     @foreach ($byweek as $w => $attendance)
-                                    <label for="">Minggu {{$w}}</label>
-                                    <div class="history-present" id="drop-present">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            Riwayat Absensi
-                                            <i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="list-history-present" id="list-present">
-                                        @foreach ($attendance as $att)
-                                        <div class="list-history">
-                                            <div class="d-md-flex justify-content-md-between align-items-md-center">
-                                                <div class="time-present">
-                                                    <div class="date">{{date('D, d M Y', strtotime($att->date))}}</div>
-                                                    <div class="time">Absensi Masuk : {{date('H:i:s', strtotime($att->check_in))}}</div>
-                                                    <div class="time">Absensi Keluar : {{date('H:i:s', strtotime($att->check_out))}}</div>
-                                                </div>
-                                                @if ($att->status == 'ace')
-                                                    <div class="status-present d-flex flex-column justify-content-center">
-                                                        <h6 id="sakit">Hadir</h6>
-                                                        <div class="status">Status -</div>
-                                                    </div>
-                                                @elseif ($att->status == 'aae')
-                                                    <div class="status-present d-flex flex-column justify-content-center">
-                                                        <h6 id="absen">Tidak Hadir</h6>
-                                                        <div class="status">Status -</div>
-                                                    </div>
-                                                {{-- <div class="status-present d-flex flex-column justify-content-center">
-                                                    <h6 id="izin">Izin</h6>
-                                                    <div class="status">Status -</div>
-                                                </div> --}}
-                                                @endif
+                                        <label for="">Minggu {{ $w }}</label>
+                                        <div class="history-present" id="drop-present">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                Riwayat Absensi
+                                                <i class="fa fa-angle-down"></i>
                                             </div>
                                         </div>
-                                        @endforeach
-                                    </div>
+                                        <div class="list-history-present" id="list-present">
+                                            @foreach ($attendance as $att)
+                                                <div class="list-history">
+                                                    <div class="d-md-flex justify-content-md-between align-items-md-center">
+                                                        <div class="time-present">
+                                                            <div class="date">
+                                                                {{ date('D, d M Y', strtotime($att->date)) }}</div>
+                                                            <div class="time">Absensi Masuk :
+                                                                {{ date('H:i:s', strtotime($att->check_in)) }}</div>
+                                                            <div class="time">Absensi Keluar :
+                                                                {{ date('H:i:s', strtotime($att->check_out)) }}</div>
+                                                        </div>
+                                                        @if ($att->status == 'ace')
+                                                            <div
+                                                                class="status-present d-flex flex-column justify-content-center">
+                                                                <h6 id="sakit">Hadir</h6>
+                                                                <div class="status">Status -</div>
+                                                            </div>
+                                                        @elseif ($att->status == 'aae')
+                                                            <div
+                                                                class="status-present d-flex flex-column justify-content-center">
+                                                                <h6 id="absen">Tidak Hadir</h6>
+                                                                <div class="status">Status -</div>
+                                                            </div>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     @endforeach
                                 </div>
-                                {{-- <div class="mb-3">
-                                    <label for="">Minggu 2</label>
-                                    <div class="history-present" id="drop-present">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            Riwayat Absensi
-                                            <i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="list-history-present null" id="list-present">
-                                        <!-- history apabila belum absen -->
-                                        <div class="list-history null d-flex justify-content-center py-4">
-                                            ---- Belum ada riwayat absensi ----
-                                        </div>
-                                        <!-- alhir history belum absen -->
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Minggu 3</label>
-                                    <div class="history-present" id="drop-present">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            Riwayat Absensi
-                                            <i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="list-history-present null" id="list-present">
-                                        <!-- history apabila belum absen -->
-                                        <div class="list-history null d-flex justify-content-center py-4">
-                                            ---- Belum ada riwayat absensi ----
-                                        </div>
-                                        <!-- alhir history belum absen -->
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="">Minggu 4</label>
-                                    <div class="history-present" id="drop-present">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            Riwayat Absensi
-                                            <i class="fa fa-angle-down"></i>
-                                        </div>
-                                    </div>
-                                    <div class="list-history-present null" id="list-present">
-                                        <!-- history apabila belum absen -->
-                                        <div class="list-history null d-flex justify-content-center py-4">
-                                            ---- Belum ada riwayat absensi ----
-                                        </div>
-                                        <!-- alhir history belum absen -->
-                                    </div>
-                                </div> --}}
                             </div>
                             <div id="show-list-box-biografi">
                                 @include('pages.absensi.form-dinas')

@@ -48,40 +48,34 @@
                             <div class="schedule-welcome">
                                 <h5>Mata Pelajaran Hari Ini</h5>
                                 <!-- start looping schedule week -->
-                                <div class="schedule-week">
-                                    <div class="subject">
-                                        <div class="text-subject">Matematika</div>
-                                        <div class="teacher">Hadi Wijayakusuma.,S.Pd</div>
+                                @foreach ($schedule as $new)
+                                    <div class="schedule-week">
+                                        <div class="subject">
+                                            <div class="text-subject">{{ $new->subject_name }}</div>
+                                            <div class="teacher">{{ $new->first_name.' '. $new->last_name }}</div>
+                                        </div>
+                                        <div class="time-schedule">{{date('H:i', strtotime($new->start_time)) .' - '.date('H:i', strtotime($new->end_time)) }}</div>
                                     </div>
-                                    <div class="time-schedule">07:00 - 09:30</div>
-                                </div>
+                                @endforeach
                                 <!-- finish schedule week -->
-                                <div class="schedule-week">
-                                    <div class="subject">
-                                        <div class="text-subject">Istirahat</div>
+                            </div>
+                        </div>
+                    @endif
+                    @if (Auth::User()->role == 'guru')
+                        <div class="col-md-6 col-12">
+                            <div class="schedule-welcome">
+                                <h5>Jadwal Mengajar Hari Ini</h5>
+                                <!-- start looping schedule week -->
+                                @foreach ($schedule as $new)
+                                    <div class="schedule-week">
+                                        <div class="subject">
+                                            <div class="text-subject">{{ $new->grade_name }}</div>
+                                            <div class="teacher">{{ $new->subject_name }}</div>
+                                        </div>
+                                        <div class="time-schedule">{{ $new->start_time.' - '.$new->end_time }}</div>
                                     </div>
-                                    <div class="time-schedule">07:00 - 09:30</div>
-                                </div>
-                                <div class="schedule-week">
-                                    <div class="subject">
-                                        <div class="text-subject">Ilmu Pengetahuan Alam</div>
-                                        <div class="teacher">Heri Waluyo.,S.Pd</div>
-                                    </div>
-                                    <div class="time-schedule">07:00 - 02:30</div>
-                                </div>
-                                <div class="schedule-week">
-                                    <div class="subject">
-                                        <div class="text-subject">Istirahat</div>
-                                    </div>
-                                    <div class="time-schedule">07:00 - 09:30</div>
-                                </div>
-                                <div class="schedule-week">
-                                    <div class="subject">
-                                        <div class="text-subject">Bahasa Inggris</div>
-                                        <div class="teacher">Endang.,S.Pd</div>
-                                    </div>
-                                    <div class="time-schedule">14:00 - 15:30</div>
-                                </div>
+                                @endforeach
+                                <!-- finish schedule week -->
                             </div>
                         </div>
                     @endif

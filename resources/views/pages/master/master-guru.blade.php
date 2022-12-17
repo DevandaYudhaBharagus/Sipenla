@@ -3,6 +3,12 @@
 @section('title', 'Master Guru')
 @section('meta_header')
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <style>
+        /* div.dataTables_wrapper {
+                width: 1000px;
+                margin: 0 auto;
+            } */
+    </style>
 @endsection
 
 @section('content')
@@ -35,12 +41,9 @@
                     Tambah Data
                 </button>
             </div>
-            <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div>
         </div>
         <div class="outher-table" id="teacher-table">
-            <div class="table-scroll">
+            {{-- <div class="table-scroll">
                 <table class="table-master">
                     <tr>
                         <th width="50px" style="border-left: none">No</th>
@@ -62,8 +65,8 @@
                         <th width="250px">Foto</th>
                         <th width="250px" style="border-right: none">Aksi</th>
                     </tr>
-                    {{-- @foreach ($teacher as $new)
-                    <tr>
+                    @foreach ($teacher as $new)
+                        <tr>
                             <td width="50px" class="no-border">{{ $loop->iteration }}</td>
                             <td width="250px">
                                 {{ $new->first_name }}
@@ -87,7 +90,8 @@
                                     <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         <div class="icon-foto-master">
-                                            <img src="{{ asset('images/internal-images/foto-master.png') }}" alt="" />
+                                            <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                alt="" />
                                         </div>
                                         <div class="fa fa-angle-down"></div>
                                     </div>
@@ -97,7 +101,7 @@
                                             <div class="box-foto-master">
                                                 @if (!$new->image)
                                                     <img src="../../images/pengumuman.jpg" alt="" />
-                                                    @else
+                                                @else
                                                     <img src="{{ $new->image }}" alt="" />
                                                 @endif
                                                 <div class="d-flex align-items-center edit-master justify-content-end">
@@ -123,10 +127,61 @@
                                     </a>
                                 </div>
                             </td>
-                    </tr>
-                    @endforeach --}}
+                        </tr>
+                    @endforeach
                 </table>
-            </div>
+            </div> --}}
+            <table id="example" class="display nowrap" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="width:100px">No</th>
+                        <th style="width: 150px;text-align:center">Nama Depan</th>
+                        <th>Nama Belakang</th>
+                        <th>NUPTK / ID Pegawai</th>
+                        <th>NIPSN</th>
+                        <th>Tempat Lahir</th>
+                        <th>Tanggal Lahir</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Agama</th>
+                        <th>Alamat Tinggal</th>
+                        <th>Riwayat Pendidikan</th>
+                        <th>Nama Ibu</th>
+                        <th>Alamat Orang Tua</th>
+                        <th>Email</th>
+                        <th>Jabatan 1</th>
+                        <th>Shift Kerja</th>
+                        <th>Foto</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="width:100px">1</td>
+                        <td style="width: 150px;text-align:center">Lorem ipsum dolor sit amet consectetur, adipisicing
+                            elit.
+                            Natus, quas? Lorem
+                            ipsum, dolor sit amet consectetur adipisicing elit. Cum,
+                        </td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur
+                            adipisicing elit. Odio, architecto?</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Lorem ipsum dolor sit amet.</td>
+                        <td>Aksi</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
@@ -171,18 +226,17 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="place_of_birth" class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="place_of_birth" class="form-control"
-                                        id="place_of_birth" />
+                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
-                                    <input type="text" name="date_of_birth" placeholder="dd/mm/yy"
-                                        class="form-control" id="date_of_birth" />
-                                    <div class="down-form-full">
+                                    <input type="text" name="date_of_birth" placeholder="dd/mm/yy" class="form-control"
+                                        id="date_of_birth" />
+                                    {{-- <div class="down-form-full">
                                         <i class="fa fa-calendar"></i>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
@@ -193,9 +247,9 @@
                                     <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                 </select>
-                                <div class="down-form">
+                                {{-- <div class="down-form">
                                     <i class="fa fa-angle-down"></i>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
@@ -238,13 +292,10 @@
                                 <select class="form-select" name="workshift_id" id="workshift_id"
                                     data-dropdown-parent="body" data-placeholder="Pilih Shift Kerja">
                                     <option selected disabled value=''>--- Pilih Shift ---</option>
-                                    @foreach ($workshift as $test)
+                                    {{-- @foreach ($workshift as $test)
                                         <option value="{{ $test->workshift_id }}">{{ $test->shift_name }}</option>
-                                    @endforeach
+                                    @endforeach --}}
                                 </select>
-                                <div class="down-form">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <input type="file" name="" id="image-master-guru" style="display: none"
@@ -282,6 +333,23 @@
     </div>
 @endsection
 @push('addon-javascript')
+    <script src="/js/dataTable.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#example').DataTable({
+                scrollY: 400,
+                scrollX: true,
+                paging: false,
+
+            });
+        });
+        window.addEventListener("load", function() {
+            const input = document.querySelector("#example_filter");
+            const elemenInput = input.children[0].children[0];
+            elemenInput.setAttribute("placeholder", "pencarian")
+            input.children[0].childNodes[0].textContent = " ";
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         function uploadImage() {
@@ -345,7 +413,8 @@
                 let workshift_id = $("#workshift_id").val();
 
                 var url = (workshift_id !== undefined && workshift_id !== null) && workshift_id ?
-                    "{{ url('workshift') }}" + "/" + workshift_id : "{{ url('workshift') }}" + "/addshift";
+                    "{{ url('workshift') }}" + "/" + workshift_id : "{{ url('workshift') }}" +
+                    "/addshift";
                 $.ajax({
                     url: url,
                     headers: {

@@ -23,105 +23,42 @@
                 </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
-                        <i class="fa fa-user-o me-1"></i> Data Siswa Kelas
+                        <i class="fa fa-user-o me-1"></i> Data Anggota Siswa Kelas
                     </div>
                 </li>
             </ol>
         </nav>
     </div>
     <div class="box-content">
-        <h5>Data Siswa Kelas</h5>
-        <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
-                <button class="btn-create" id="add-grade" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Tambah Data
-                </button>
-            </div>
-        </div>
+        <h5>Data Anggota Siswa Kelas</h5>
         <div class="outher-table">
             <table id="example" class="display" style="width:100%;">
                 <thead>
                     <tr>
                         <th style="width:10%" class="text-center">No</th>
-                        <th style="width:35%" class="text-center">Nama Kelas</th>
-                        <th style="width:20%" class="text-center">Wali kelas</th>
-                        <th style="width:20%" class="text-center">Anggota Kelas</th>
+                        <th style="width:45%" class="text-start">Nama Anggota Kelas</th>
+                        <th style="width:30%" class="text-center">NISN</th>
                         <th style="width:15%" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($kelas as $k)
-                        <tr>
-                            <td class="text-center align-items-center " style="width: 10%">{{ $loop->iteration }}</td>
-                            <td style="width:25%">{{ $k->grade_name }}</td>
-                            <td style="width:20%">{{ $k->first_name . ' ' . $k->last_name }}</td>
-                            <td style="width:20%">
-                                <a href="" class="btn-foto-master m-auto member">Lihat Anggota</a>
-                            </td>
-                            <td style="width:15%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master btn me-2" data-id="" onclick=edit_data($(this))><i
-                                            class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $k->grade_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master btn">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
+                    <tr>
+                        <td class="text-center align-items-center">1.</td>
+                        <td class="text-start">Aziz Taher Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, ex!
+                        </td>
+                        <td>022541258777552 </td>
+                        <td>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <a class="btn-edit-master btn me-2" data-id="" onclick=edit_data($(this))><i
+                                        class="fa fa-edit text-primary"></i></a>
+                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master btn">
+                                    <i class="fa fa-trash-o text-danger"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
-        </div>
-    </div>
-@endsection
-
-@section('modal')
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-role">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">
-                        Tambah Data Siswa Kelas
-                    </h1>
-                </div>
-                <form id="form-grade">
-                    <div class="modal-body">
-                        @csrf
-                        <input type="hidden" name="student_grades_id" id="student_grades_id" value="">
-                        <div class="row">
-                            <div class="col-12 mb-3">
-                                <label for="grade_name" class="form-label">Nama Kelas</label>
-                                <select class="form-select" name="grade_id" id="basic-usage" data-placeholder="Nama Kelas">
-                                    <option></option>
-                                    @foreach ($grade as $g)
-                                        <option value="{{ $g->grade_id }}">{{ $g->grade_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="col-12 mb-3">
-                                <label for="" class="form-label">Anggota Kelas</label>
-                                <select class="form-select" id="multiple-select-clear-field" name="student_id[]"
-                                    data-placeholder="Pilih Siswa" multiple="true">
-                                    <option></option>
-                                    @foreach ($siswa as $s)
-                                        <option value="{{ $s->student_id }}">{{ $s->first_name . ' ' . $s->last_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn-permission  bg-red-permission me-md-3" data-bs-dismiss="modal">
-                            Batal
-                        </button>
-                        <button type="submit" id="button-modal" class="btn-permission bg-green-permission">
-                            Tambah
-                        </button>
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
 @endsection
@@ -144,7 +81,7 @@
             input.children[0].childNodes[0].textContent = " ";
         });
     </script>
-    <script>
+    {{-- <script>
         $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-grade')[0];
             $(reset_form).removeClass('was-validated');
@@ -307,5 +244,5 @@
                 }
             });
         }
-    </script>
+    </script> --}}
 @endpush

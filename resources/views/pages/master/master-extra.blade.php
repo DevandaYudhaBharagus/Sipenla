@@ -39,12 +39,9 @@
                     Tambah Data
                 </button>
             </div>
-            <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div>
         </div>
         <div class="outher-table" id="extra-table">
-            <div class="table-scroll">
+            {{-- <div class="table-scroll">
                 <table class="table-master" style="border: 1px solid black">
                     <tr>
                         <th width="11%">No</th>
@@ -55,13 +52,6 @@
                         <tr>
                             <td width="11%">{{ $loop->iteration }}</td>
                             <td width="70%" class="text-start">{{ $new->extracurricular_name }}</td>
-                            {{-- <td width="25%">
-                            <p>Aziz Pranaja</p>
-                            <p>Hadi Jaya Kusumo</p>
-                        </td>
-                        <td width="20%">
-                            Wajib
-                        </td> --}}
                             <td width="200px">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}"
@@ -75,7 +65,34 @@
                         </tr>
                     @endforeach
                 </table>
-            </div>
+            </div> --}}
+            <table id="master-extra" class="display" style="width:100%;">
+                <thead>
+                    <tr>
+                        <th style="width:10%" class="text-center">No</th>
+                        <th style="width:70%" class="text-start">Nama Ekstrakulikuler</th>
+                        <th style="width:20%" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($extra as $new)
+                        <tr>
+                            <td class="text-center align-items-center " style="width: 10%">{{ $loop->iteration }}</td>
+                            <td style="width:70%" class="text-start">{{ $new->extracurricular_name }}</td>
+                            <td style="width:20%">
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <a class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}"
+                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                    <a data-id="{{ $new->extracurricular_id }}" onclick=delete_data($(this))
+                                        class="btn-edit-master">
+                                        <i class="fa fa-trash-o text-danger"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -103,66 +120,6 @@
                                         id="extracurricular_name" />
                                 </div>
                             </div>
-                            {{-- <div class="col-12 mb-3">
-                                <label for="" class="form-label">Anggota Kelas</label>
-                                <div class="select-cekbox" id="select-cekbox">
-                                    --- Pilih Anggota Kelas ---
-                                </div>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                                <div class="ceklist-ready">
-                                </div>
-                                <div class="ceklist">
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz Taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Aziz saudara aldi taher
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lorem, ipsum dolor.
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                    <div class="cekbox-permission">
-                                        <label class="checkbox" id="labelCekbox">Lesti Pranaja
-                                            <input type="checkbox" name="" id="cekboxAnggota" />
-                                            <span class="check"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class=" col-12 mb-3">
-                                <label for="" class="form-label">Jenis Ekstrakulikuler</label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>--- Pilih Jenis Ekstrakulikuler ---</option>
-                                    <option value="wajib">Wajib</option>
-                                    <option value="umum">Umum</option>
-                                </select>
-                                <div class="down-form-full">
-                                    <i class="fa fa-angle-down"></i>
-                                </div>
-                            </div> --}}
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -180,6 +137,22 @@
 @endsection
 
 @push('addon-javascript')
+    <script src="/js/dataTable.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#master-extra').DataTable({
+                scrollY: '60vh',
+                scrollCollapse: true,
+                paging: false,
+            });
+        });
+        window.addEventListener("load", function() {
+            const input = document.querySelector("#master-extra_filter");
+            const elemenInput = input.children[0].children[0];
+            elemenInput.setAttribute("placeholder", "pencarian")
+            input.children[0].childNodes[0].textContent = " ";
+        });
+    </script>
     <script>
         $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-extra')[0];

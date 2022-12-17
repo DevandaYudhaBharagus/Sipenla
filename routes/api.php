@@ -17,6 +17,9 @@ use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ExtraAssessmentController;
 use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\API\PerpustakaanController;
+use App\Http\Controllers\API\TopupController;
+use App\Http\Controllers\API\PayoutController;
+use App\Http\Controllers\API\FineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -221,6 +224,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/updateloan/{id}', [PerpustakaanController::class, 'approvalLoan']);
         Route::get('/getreturn', [PerpustakaanController::class, 'getBookOngoing']);
         Route::post('/pendingreturn/{id}', [PerpustakaanController::class, 'pendingReturn']);
+        Route::post('/pendingreturndenda/{id}', [PerpustakaanController::class, 'pendingReturnDenda']);
         Route::get('/getreturnemployee', [PerpustakaanController::class, 'getAllReturnEmployee']);
         Route::get('/getreturnstudent', [PerpustakaanController::class, 'getAllReturnStudent']);
         Route::post('/return/{id}', [PerpustakaanController::class, 'returned']);
@@ -243,5 +247,31 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
         Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
         Route::get('/rekap', [PerpustakaanController::class, 'getRekapAbsensi']);
+    });
+
+    Route::prefix('topup')->group(function () {
+        Route::post('/add', [TopupController::class, 'updateSaldo']);
+        Route::post('/code', [TopupController::class, 'checkCode']);
+        Route::post('/updatebalance/{code}', [TopupController::class, 'approveSaldo']);
+        Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
+        Route::get('/getsaldo', [TopupController::class, 'getSaldoUser']);
+        Route::get('/gethistory/{tanggal}', [TopupController::class, 'getHistory']);
+        Route::get('/getriwayat/{tanggal}', [TopupController::class, 'getDataSiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [TopupController::class, 'getDataPegawai']);
+    });
+
+    Route::prefix('payout')->group(function () {
+        Route::post('/add', [PayoutController::class, 'makePayout']);
+        Route::post('/approve/{code}', [PayoutController::class, 'approvePayout']);
+        Route::post('/reject/{id}', [PayoutController::class, 'rejectPayout']);
+        Route::get('/getconfirmsiswa', [PayoutController::class, 'getDataSiswa']);
+        Route::get('/getconfirmpegawai', [PayoutController::class, 'getDataPegawai']);
+        Route::get('/getriwayatsiswa/{tanggal}', [PayoutController::class, 'getHistorySiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [PayoutController::class, 'getHistoryPegawai']);
+        Route::get('/getpayout/{tanggal}', [PayoutController::class, 'getHistory']);
+    });
+
+    Route::prefix('fine')->group(function () {
+        Route::get('/history/{tanggal}', [FineController::class, 'getHistory']);
     });
 });

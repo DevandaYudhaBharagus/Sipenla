@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
 use App\Models\Student;
+use App\Models\Balance;
 use App\Models\Workshift;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -107,6 +108,11 @@ class AdmissionController extends Controller
                 'total_balance' => 12
             ]);
 
+            $balance = Balance::create([
+                'user_id' => $user->id,
+                'total_balance' => 0
+            ]);
+
             return ResponseFormatter::success( "Succeed added Employee Data.");
         }catch (Exception $e) {
             $statuscode = 500;
@@ -188,6 +194,11 @@ class AdmissionController extends Controller
                 'extracurricular_id' => $data['extracurricular_id'],
                 'image' => $image,
                 'status' => 'active'
+            ]);
+
+            $balance = Balance::create([
+                'user_id' => $user->id,
+                'total_balance' => 0
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");

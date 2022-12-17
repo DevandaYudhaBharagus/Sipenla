@@ -39,30 +39,27 @@
                     Tambah Data
                 </button>
             </div>
-            <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
-            </div>
         </div>
         <div class="outher-table" id="facility-table">
-            <div class="table-scroll">
-                <table class="table-master">
+            <table id="master-fasilitas" class="display" style="width:100%;">
+                <thead>
                     <tr>
-                        <th width="11%">Kode</th>
-                        <th width="25%">Nama Fasilitas</th>
-                        <th width="12%">Jumlah</th>
-                        <th width="14%">Tahun</th>
-                        <th width="20%">Foto</th>
-                        <th width="200px">Aksi</th>
+                        <th style="width:10%" class="text-center">Kode</th>
+                        <th style="width:30%" class="text-center">Nama Fasilitas</th>
+                        <th style="width:15%" class="text-center">Jumlah</th>
+                        <th style="width:15%" class="text-center">Tahun</th>
+                        <th style="width:15%" class="text-center">Foto</th>
+                        <th style="width:15%" class="text-center">Aksi</th>
                     </tr>
+                </thead>
+                <tbody>
                     @foreach ($facility as $new)
                         <tr>
-                            <td width="11%">{{ $new->facility_code }}</td>
-                            <td width="25%">{{ $new->facility_name }}</td>
-                            <td width="12%"> {{ $new->number_of_facility }} </td>
-                            <td width="14%">
-                                {{ $new->year }}
-                            </td>
-                            <td width="20%">
+                            <td class="text-center align-items-center" style="width: 10%">{{ $new->facility_code }}</td>
+                            <td style="width:30%">{{ $new->facility_name }}</td>
+                            <td style="width:15%">{{ $new->number_of_facility }} </td>
+                            <td style="width:15%">{{ $new->year }}</td>
+                            <td style="width:15%">
                                 <div class="dropdown">
                                     <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
                                         aria-expanded="false">
@@ -96,7 +93,7 @@
                                     </ul>
                                 </div>
                             </td>
-                            <td width="200px">
+                            <td style="width:15%">
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a class="btn-edit-master me-2" data-id="{{ $new->facility_id }}"
                                         onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
@@ -108,8 +105,8 @@
                             </td>
                         </tr>
                     @endforeach
-                </table>
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
@@ -192,6 +189,22 @@
 @endsection
 
 @push('addon-javascript')
+    <script src="/js/dataTable.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#master-fasilitas').DataTable({
+                scrollY: '60vh',
+                scrollCollapse: true,
+                paging: false,
+            });
+        });
+        window.addEventListener("load", function() {
+            const input = document.querySelector("#master-fasilitas_filter");
+            const elemenInput = input.children[0].children[0];
+            elemenInput.setAttribute("placeholder", "pencarian")
+            input.children[0].childNodes[0].textContent = " ";
+        });
+    </script>
     <script>
         function uploadImage() {
             document.querySelector("#image-facility").click();
