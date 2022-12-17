@@ -45,6 +45,7 @@ class StudentController extends Controller
     {
         try{
             $employee = Employee::join('users', 'employees.user_id', '=', 'users.id')
+                    ->whereNotIn('role', ['dinaspendidikan'])
                     ->get([
                         "employees.employee_id",
                         "first_name",
@@ -223,7 +224,6 @@ class StudentController extends Controller
                 'user_id' => $employee->user_id,
                 'first_name' => $employee->first_name,
                 'last_name' => $employee->last_name,
-                'nik' => $employee->nik,
                 'nuptk' => $employee->nuptk,
                 'npsn' => $employee->npsn,
                 'place_of_birth' => $employee->place_of_birth,
@@ -374,7 +374,6 @@ class StudentController extends Controller
                 'student_id' => $student->student_id,
                 'user_id' => $student->user_id,
                 'nisn' => $student->nisn,
-                'nik' => $student->nik,
                 'first_name' => $student->first_name,
                 'last_name' => $student->last_name,
                 'mother_name' => $student->mother_name,
@@ -432,7 +431,7 @@ class StudentController extends Controller
                         "nilai",
                     ]);
 
-            $student = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+            $students = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
                         ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
                         ->join('rapors', 'students.student_id', '=', 'rapors.student_id')
                         ->join('semesters', 'rapors.semester_id', '=', 'semesters.semester_id')
@@ -446,6 +445,55 @@ class StudentController extends Controller
                             "semester_name",
                             "academic_year"
                         ]);
+
+            if(!$students){
+                $murid = Student::join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+                        ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                        ->where('students.student_id', '=', $student)
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "nisn",
+                            "grade_name",
+                        ]);
+
+                if(!$murid){
+                    $withoutGrade = Student::where('students.student_id', '=', $student)
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "nisn"
+                        ]);
+
+                    $response = [
+                        "first_name" => $withoutGrade->first_name,
+                        "last_name" => $withoutGrade->last_name,
+                        "nisn" => $withoutGrade->nisn,
+                        "grade_name" => "-",
+                        "semester_name" => "-",
+                        "academic_year" => "-",
+                        "status" => "-",
+                        "nilai" =>[],
+                        "extra" =>[]
+                    ];
+
+                    return ResponseFormatter::success($response, 'Get Rapor Success');
+                }
+
+                $response = [
+                    "first_name" => $murid->first_name,
+                    "last_name" => $murid->last_name,
+                    "nisn" => $murid->nisn,
+                    "grade_name" => $murid->grade_name,
+                    "semester_name" => "-",
+                    "academic_year" => "-",
+                    "status" => "-",
+                    "nilai" =>[],
+                    "extra" =>[]
+                ];
+
+                return ResponseFormatter::success($response, 'Get Rapor Success');
+            }
 
             if(is_null($rapor)){
                 $response = [
@@ -470,12 +518,12 @@ class StudentController extends Controller
             }
 
             $response = [
-                    "first_name" => $student->first_name,
-                    "last_name" => $student->last_name,
-                    "nisn" => $student->nisn,
-                    "grade_name" => $student->grade_name,
-                    "semester_name" => $student->semester_name,
-                    "academic_year" => $student->academic_year,
+                    "first_name" => $students->first_name,
+                    "last_name" => $students->last_name,
+                    "nisn" => $students->nisn,
+                    "grade_name" => $students->grade_name,
+                    "semester_name" => $students->semester_name,
+                    "academic_year" => $students->academic_year,
                     "status" => "naik",
                     "nilai" => $rapor,
                     "extra" => $extra

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Carbon\Carbon;
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\LoanFacility;
 use Illuminate\Support\Facades\Auth;
 
 class Kernel extends ConsoleKernel
@@ -53,6 +54,18 @@ class Kernel extends ConsoleKernel
                         ]);
                 }
         })->dailyAt("17.00");
+
+        $schedule->call(function () {
+            $checks = LoanFacility::where('status', '=', 'ppf')
+                    ->get();
+            foreach ($checks as $check) {
+                if(Carbon::parse($check->created_at)->addHours(2) < Carbon::now())
+                    LoanFacility::where('loan_facility_id', $check->loan_facility_id)
+                        ->update([
+                            'status'     => 'canceled',
+                        ]);
+                }
+        })->everyMinute();
     }
 
     /**

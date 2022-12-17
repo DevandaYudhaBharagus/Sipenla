@@ -195,6 +195,19 @@ class MonitoringController extends Controller
                             ->where('status', '=', 'mls')
                             ->count();
 
+            if(!$history){
+                $response = [
+                    "date" => '-',
+                    "extracurricular" => "-",
+                    "hadir" => "$historyAttend",
+                    "alpha" => "$historyAlpha",
+                    "sakit" => "$historySick",
+                    "izin" => "$historyIzin"
+                ];
+
+                return ResponseFormatter::success($response, 'Get History Success');
+            }
+
             $time = $history->date;
             $test2 =Carbon::parse($history->date);
             $test2->settings(['formatFunction' => 'translatedFormat']);
@@ -354,6 +367,19 @@ class MonitoringController extends Controller
                             ->where('extracurricular_id', '=', $extra)
                             ->where('status', '=', 'els')
                             ->count();
+
+            if(!$history){
+                $response = [
+                    "date" => '-',
+                    "extracurricular" => "-",
+                    "hadir" => "$historyAttend",
+                    "alpha" => "$historyAlpha",
+                    "sakit" => "$historySick",
+                    "izin" => "$historyIzin"
+                ];
+
+                return ResponseFormatter::success($response, 'Get History Success');
+            }
 
             $time = $history->date;
             $test2 =Carbon::parse($history->date);

@@ -56,6 +56,21 @@ html {
     font-size: 16px;
     font-weight: 500;
 }
+.header-landing .navbar .navbar-nav .nav-item .btn-landing-login {
+    align-items: center;
+    padding: 3px 2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    background: #3774c3;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--bg-primary);
+}
+.header-landing .navbar .navbar-nav .nav-item .btn-landing-login:hover {
+    font-weight: 800;
+    font-size: 15px;
+}
 .header-landing .navbar {
     z-index: 5;
 }
@@ -130,10 +145,12 @@ html {
     padding: 10px 20px;
     height: 30rem;
     width: 90%;
+    object-fit: cover;
 }
 .header-landing .content-landing .page-image .frame-image img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .news {
     background-color: #f1f1f1;
@@ -173,11 +190,13 @@ html {
     width: 95%;
     height: 15rem;
     border-radius: 12px;
+    object-fit: cover;
 }
 .news .box-hot-news .image-news img {
     height: 100%;
     width: 100%;
     border-radius: 10px;
+    object-fit: cover;
 }
 .news .box-hot-news .title-hot-news {
     font-size: 18px;
@@ -490,6 +509,7 @@ footer .bottom-footer .text-bottom-footer {
         width: 70%;
         height: 20rem;
         padding: 5px 10px;
+        object-fit: cover;
     }
     .header-landing .content-landing .page-text {
         margin-top: 2rem;

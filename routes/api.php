@@ -15,6 +15,11 @@ use App\Http\Controllers\API\AssessmentController;
 use App\Http\Controllers\API\RaporController;
 use App\Http\Controllers\API\StudentController;
 use App\Http\Controllers\API\ExtraAssessmentController;
+use App\Http\Controllers\API\MutasiController;
+use App\Http\Controllers\API\PerpustakaanController;
+use App\Http\Controllers\API\TopupController;
+use App\Http\Controllers\API\PayoutController;
+use App\Http\Controllers\API\FineController;
 
 /*
 |--------------------------------------------------------------------------
@@ -191,7 +196,82 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('assessmentextra')->group(function () {
         Route::get('/getstudent', [ExtraAssessmentController::class, 'getStudent']);
+        Route::get('/getnilai/{academic}/{semester}', [ExtraAssessmentController::class, 'getNilai']);
         Route::post('/addpenilaian', [ExtraAssessmentController::class, 'addPenilaian']);
         Route::post('/updatepenilaian/{id}', [ExtraAssessmentController::class, 'editPenilaian']);
+    });
+
+    Route::prefix('mutasi')->group(function () {
+        Route::post('/add', [MutasiController::class, 'createMutasi']);
+        Route::post('/update/{id}', [MutasiController::class, 'updateKonfirmasi']);
+        Route::post('/cancel/{id}', [MutasiController::class, 'updateCancel']);
+        Route::get('/historywalmur', [MutasiController::class, 'historyMutasiWalMur']);
+        Route::get('/historysiswa', [MutasiController::class, 'historyMutasiSiswa']);
+        Route::get('/data/{awal}/{akhir}', [MutasiController::class, 'getDataForKonfirmasi']);
+        Route::get('/history/{awal}/{akhir}', [MutasiController::class, 'getDataHistory']);
+    });
+
+    Route::prefix('perpus')->group(function () {
+        Route::post('/addbook', [PerpustakaanController::class, 'addBook']);
+        Route::get('/getbook', [PerpustakaanController::class, 'getBook']);
+        Route::get('/getbook/{code}', [PerpustakaanController::class, 'getBookByCode']);
+        Route::get('/book/{id}', [PerpustakaanController::class, 'getBookById']);
+        Route::post('/updatebook/{id}', [PerpustakaanController::class, 'updateBook']);
+        Route::delete('/deletebook/{id}', [PerpustakaanController::class, 'deleteBook']);
+        Route::post('/createloan', [PerpustakaanController::class, 'createLoan']);
+        Route::get('/getloanstudent', [PerpustakaanController::class, 'getAllLoanStudent']);
+        Route::get('/getloanemployee', [PerpustakaanController::class, 'getAllLoanEmployee']);
+        Route::post('/updateloan/{id}', [PerpustakaanController::class, 'approvalLoan']);
+        Route::get('/getreturn', [PerpustakaanController::class, 'getBookOngoing']);
+        Route::post('/pendingreturn/{id}', [PerpustakaanController::class, 'pendingReturn']);
+        Route::post('/pendingreturndenda/{id}', [PerpustakaanController::class, 'pendingReturnDenda']);
+        Route::get('/getreturnemployee', [PerpustakaanController::class, 'getAllReturnEmployee']);
+        Route::get('/getreturnstudent', [PerpustakaanController::class, 'getAllReturnStudent']);
+        Route::post('/return/{id}', [PerpustakaanController::class, 'returned']);
+        Route::post('/addsumbangan', [PerpustakaanController::class, 'createSumbangBuku']);
+        Route::get('/getsumbanganstudent', [PerpustakaanController::class, 'getListSumbanganStudent']);
+        Route::get('/getsumbanganemployee', [PerpustakaanController::class, 'getListSumbanganEmployee']);
+        Route::post('/approvebook/{id}', [PerpustakaanController::class, 'approveSumbangan']);
+        Route::post('/rejectbook/{id}', [PerpustakaanController::class, 'rejectSumbangan']);
+        Route::post('/rejectloan/{id}', [PerpustakaanController::class, 'rejectPengajuan']);
+        Route::get('/historybyuser', [PerpustakaanController::class, 'getHistoryForUser']);
+        Route::get('/historysumbangbyuser', [PerpustakaanController::class, 'getHistorySumbangForUser']);
+        Route::get('/historyemployee/{date}', [PerpustakaanController::class, 'getHistoryPeminjamanEmployee']);
+        Route::get('/historystudent/{date}', [PerpustakaanController::class, 'getHistoryPeminjamanStudent']);
+        Route::get('/historysumbangstudent/{date}', [PerpustakaanController::class, 'getHistorySumbangStudent']);
+        Route::get('/historysumbangemployee/{date}', [PerpustakaanController::class, 'getHistorySumbangEmployee']);
+        Route::get('/scanemployee/{nuptk}', [PerpustakaanController::class, 'getBarcodePegawai']);
+        Route::get('/scanstudent/{nisn}', [PerpustakaanController::class, 'getBarcodeSiswa']);
+        Route::post('/postabsenstudent', [PerpustakaanController::class, 'postAbsensiPerpusStudent']);
+        Route::post('/postabsenemployee', [PerpustakaanController::class, 'postAbsensiPerpusEmployee']);
+        Route::get('/historyabsenstudent/{date}', [PerpustakaanController::class, 'getHistoryAbsensiSiswa']);
+        Route::get('/historyabsenemployee/{date}', [PerpustakaanController::class, 'getHistoryAbsensiPegawai']);
+        Route::get('/rekap', [PerpustakaanController::class, 'getRekapAbsensi']);
+    });
+
+    Route::prefix('topup')->group(function () {
+        Route::post('/add', [TopupController::class, 'updateSaldo']);
+        Route::post('/code', [TopupController::class, 'checkCode']);
+        Route::post('/updatebalance/{code}', [TopupController::class, 'approveSaldo']);
+        Route::post('/rejectbalance/{code}', [TopupController::class, 'rejectSaldo']);
+        Route::get('/getsaldo', [TopupController::class, 'getSaldoUser']);
+        Route::get('/gethistory/{tanggal}', [TopupController::class, 'getHistory']);
+        Route::get('/getriwayat/{tanggal}', [TopupController::class, 'getDataSiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [TopupController::class, 'getDataPegawai']);
+    });
+
+    Route::prefix('payout')->group(function () {
+        Route::post('/add', [PayoutController::class, 'makePayout']);
+        Route::post('/approve/{code}', [PayoutController::class, 'approvePayout']);
+        Route::post('/reject/{id}', [PayoutController::class, 'rejectPayout']);
+        Route::get('/getconfirmsiswa', [PayoutController::class, 'getDataSiswa']);
+        Route::get('/getconfirmpegawai', [PayoutController::class, 'getDataPegawai']);
+        Route::get('/getriwayatsiswa/{tanggal}', [PayoutController::class, 'getHistorySiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [PayoutController::class, 'getHistoryPegawai']);
+        Route::get('/getpayout/{tanggal}', [PayoutController::class, 'getHistory']);
+    });
+
+    Route::prefix('fine')->group(function () {
+        Route::get('/history/{tanggal}', [FineController::class, 'getHistory']);
     });
 });

@@ -9,5 +9,5 @@ class Facility extends Model
 {
     use HasFactory;
 
-    protected $fillable =  ['facility_code', 'facility_name', 'number_of_facility', 'year', 'owned_by', 'status', 'image', 'date'];
+    protected $fillable =  ['facility_code', 'facility_name', 'number_of_facility', 'year', 'status', 'image', 'date', 'employee_id', 'student_id'];
 }

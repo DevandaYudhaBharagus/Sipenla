@@ -6,3 +6,7 @@
  </script>
  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+ <script src="{{url('js/sweetalert2.all.min.js')}}"></script>
+ {{-- <script src="{{url('js/select2.full.min.js')}}"></script> --}}
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

@@ -23,11 +23,37 @@ class ExtraAssessmentController extends Controller
             $student = Student::where('extracurricular_id', '=', $employee->extracurricular_id)
                         ->get([
                             "student_id",
+                            "nisn",
                             "first_name",
                             "last_name",
                         ]);
 
             $response = $student;
+
+            return ResponseFormatter::success($response, 'Get Student Success');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getNilai($academic, $semester)
+    {
+        try{
+            $nilai = PenilaianExtra::join('students', 'penilaian_extras.student_id', '=', 'students.student_id')
+                        ->where("penilaian_extras.academic_year_id", "=", $academic)
+                        ->where("penilaian_extras.semester_id", "=", $semester)
+                        ->get([
+                            "penilaian_extra_id",
+                            "nisn",
+                            "first_name",
+                            "last_name",
+                            "nilai",
+                        ]);
+
+            $response = $nilai;
 
             return ResponseFormatter::success($response, 'Get Student Success');
         }catch (Exception $e) {

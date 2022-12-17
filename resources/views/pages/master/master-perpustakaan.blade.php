@@ -138,32 +138,61 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <div class="box-image-upload-master">
-                                        <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
-                                        <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <a href="" class="btn-edit-master me-2">
-                                                <i class="fa fa-edit text-primary"></i>
-                                            </a>
-                                            <a href="" class="btn-edit-master">
-                                                <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                    <input type="file" name="" id="image-library" style="display: none"
+                                        multiple />
+                                    <div class="mb-3">
+                                        <div class="box-image-upload-master">
+                                            <label for="" class="form-label">Foto</label>
+                                            <img src="{{ asset('images/internal-images/no-img.png') }}" id="image-master"
+                                                alt="">
+                                            <div class="d-flex align-items-center justify-content-end edit-upload-book">
+                                                <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                    onclick="uploadImage()">
+                                                    <i class="fa fa-edit text-primary"></i>
+                                                </button>
+                                                <button type="button" class="btn-edit-master" id="btn-remove">
+                                                    <i class="fa fa-trash-o text-danger"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
+                    <button type="button" class="btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="button" class="btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+@push('addon-javascript')
+    <script>
+        function uploadImage() {
+            document.querySelector("#image-library").click();
+        }
+        const inputImage = document.querySelector("#image-library");
+        const choseImage = document.querySelector("#image-master");
+        const btnRemove = document.querySelector("#btn-remove");
+
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            reader.onload = () => {
+                choseImage.setAttribute("src", reader.result);
+            }
+        });
+
+        btnRemove.addEventListener("click", () => {
+            choseImage.setAttribute("src", `{{ asset('images/internal-images/no-img.png') }}`);
+            inputImage.value = "";
+        })
+    </script>
+@endpush

@@ -10,24 +10,37 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
-                        <i class="fa fa-book me-1"></i> Data Perpustakaan
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
                     </div>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Kehilangan</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-perpus.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Perpustakaan
+                    </div>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-perpus.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Kehilangan
+                    </div>
+                </li>
             </ol>
         </nav>
     </div>
     <div class="box-content">
         <h5>Data Buku Baru</h5>
-        <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
+        <div class="d-md-flex align-items-md-center justify-content-md-end mt-2">
+            {{-- <div class="d-md-flex align-content-md-center">
                 <button class="btn-create" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     Tambah Data
                 </button>
-            </div>
+            </div> --}}
             <div class="form-search">
                 <input type="search" name="" id="" placeholder="pencarian" />
             </div>
@@ -104,7 +117,7 @@
     </div>
 @endsection
 
-@section('modal')
+{{-- @section('modal')
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
@@ -155,32 +168,44 @@
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
-                                    <div class="box-image-upload-master">
-                                        <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
-                                        <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <a href="" class="btn-edit-master me-2">
-                                                <i class="fa fa-edit text-primary"></i>
-                                            </a>
-                                            <a href="" class="btn-edit-master">
-                                                <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                    <input type="file" name="" id="image-master" style="display: none"
+                                        multiple />
+                                    <div class="mb-3">
+                                        <div class="box-image-upload-master">
+                                            <label for="" class="form-label">Foto</label>
+                                            <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                            <div class="d-flex align-items-center justify-content-end edit-upload-book">
+                                                <button type="button" class="btn-edit-master me-2"
+                                                    onclick="uploadImage()">
+                                                    <i class="fa fa-edit text-primary"></i>
+                                                </button>
+                                                <a href="" class="btn-edit-master">
+                                                    <i class="fa fa-trash-o text-danger"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
                         Batal
                     </button>
-                    <button type="button" class="btn btn-permission bg-green-permission">
+                    <button type="submit" class="btn btn-permission bg-green-permission">
                         Tambah
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+@push('addon-javascript')
+    <script>
+        function uploadImage() {
+            document.querySelector("#image-master").click();
+        }
+    </script>
+@endpush --}}

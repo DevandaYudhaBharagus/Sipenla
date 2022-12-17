@@ -81,8 +81,7 @@ class FacilityController extends Controller
             $validate = Validator::make($data, [
                 'facility_name' => 'required',
                 'number_of_facility' => 'required',
-                'year' => 'required',
-                'owned_by' => 'required'
+                'year' => 'required'
             ]);
 
             if ($validate->fails()) {
@@ -101,7 +100,6 @@ class FacilityController extends Controller
                 'facility_name' => $data['facility_name'],
                 'number_of_facility' => $data['number_of_facility'],
                 'year' => $data['year'],
-                'owned_by' => $data['owned_by'],
                 'status' => "default",
                 'date' => Carbon::now(),
                 "image" => $image
@@ -123,7 +121,6 @@ class FacilityController extends Controller
                     "facility_name" => $request->facility_name,
                     "number_of_facility" => $request->number_of_facility,
                     "year" => $request->year,
-                    "owned_by" => $request->owned_by,
                     "updated_at" => Carbon::now()
                 ];
                 $updateFacility = Facility::where('facility_id', '=', $id)
@@ -137,7 +134,6 @@ class FacilityController extends Controller
                 "facility_name" => $request->facility_name,
                 "number_of_facility" => $request->number_of_facility,
                 "year" => $request->year,
-                "owned_by" => $request->owned_by,
                 "image" => $image,
                 "updated_at" => Carbon::now()
             ];
@@ -175,7 +171,16 @@ class FacilityController extends Controller
         try{
             $facility = Facility::where('facility_code', '=', $code)
                         ->where('status', '=', 'fcl')
-                        ->first();
+                        ->first([
+                            "facility_id",
+                            "facility_code",
+                            "facility_name",
+                            "number_of_facility",
+                            "year",
+                            "status",
+                            "date",
+                            "image",
+                        ]);
 
             if($facility === null){
                 $response = [
@@ -184,7 +189,6 @@ class FacilityController extends Controller
                     'facility_name' => "-",
                     'number_of_facility' => "-",
                     'year' => "-",
-                    'owned_by' => "-",
                     'status' => "-",
                     'date' => "-",
                     'image' => "-"
@@ -469,7 +473,6 @@ class FacilityController extends Controller
                                 "facility_name",
                                 "number_of_facility",
                                 "year",
-                                "owned_by",
                                 "image"
                             ]);
 
@@ -496,7 +499,6 @@ class FacilityController extends Controller
                             "facility_name",
                             "number_of_facility",
                             "year",
-                            "owned_by",
                             "image"
                         ]);
 
@@ -583,7 +585,7 @@ class FacilityController extends Controller
             $facility = LoanFacility::join('facilities', 'loan_facilities.facility_id', '=', 'facilities.facility_id')
                         ->where('loan_facilities.employee_id', '=', $employee->employee_id)
                         ->whereIn('loan_facilities.status', ['prd', 'opf'])
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('loan_facilities.created_at', 'desc')
                         ->get([
                             'facility_code',
                             'facility_name',

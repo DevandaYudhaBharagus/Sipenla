@@ -10,7 +10,13 @@
                     <a href="#" class="d-flex align-items-center"><i class="material-icons">home</i>
                         Beranda</a>
                 </li>
-                <li class="breadcrumb-item" aria-current="page">Data Master</li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ asset('images/internal-images/icon-master.png') }}"
+                            class="d-flex align-items-center me-1" width="16px" height="16px" alt=""> Data
+                        Master
+                    </div>
+                </li>
                 <li class="breadcrumb-item" aria-current="page">
                     <div class="d-flex align-items-center">
                         <i class="fa fa-book me-1"></i> Data Perpustakaan
@@ -34,7 +40,7 @@
         </div>
         <div class="outher-table">
             <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
+                <table class="table-master">
                     <tr>
                         <th width="15%">Kode Buku</th>
                         <th width="22%">Nama Buku</th>
@@ -229,23 +235,25 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
+                                <input type="file" name="" id="image-master" style="display: none" multiple />
                                 <div class="mb-3">
                                     <div class="box-image-upload-master">
                                         <label for="" class="form-label">Foto</label>
-                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="">
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt=""
+                                            id="image-upload-btn">
                                         <div class="d-flex align-items-center justify-content-end edit-upload-book">
-                                            <a href="" class="btn-edit-master me-2">
+                                            <button type="button" class="btn-edit-master me-2" id="upload-btn"
+                                                onclick="uploadImage()">
                                                 <i class="fa fa-edit text-primary"></i>
-                                            </a>
-                                            <a href="" class="btn-edit-master">
+                                            </button>
+                                            <button type="button" class="btn-edit-master" id="btn-remove">
                                                 <i class="fa fa-trash-o text-danger"></i>
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-permission bg-red-permission me-md-3" data-bs-dismiss="modal">
@@ -255,7 +263,33 @@
                         Tambah
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
 @endsection
+
+@push('addon-javascript')
+    <script>
+        function uploadImage() {
+            document.querySelector("#image-master").click();
+        }
+
+        const inputImage = document.querySelector("#image-master");
+        const choseImage = document.querySelector("#image-upload-btn");
+        const btnRemove = document.querySelector("#btn-remove");
+
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            reader.onload = () => {
+                choseImage.setAttribute("src", reader.result);
+            }
+        });
+
+        btnRemove.addEventListener("click", () => {
+            choseImage.setAttribute("src", `{{ asset('images/internal-images/no-img.png') }}`);
+            inputImage.value = "";
+        })
+    </script>
+@endpush

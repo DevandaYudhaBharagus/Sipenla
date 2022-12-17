@@ -9,7 +9,14 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <link rel="stylesheet" href="/css/css-internal/master.css" />
     <link rel="icon" href="{{ asset('images/internal-images/logo.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/datatables.min.css" />
     <title>@yield('title')</title>
+    @yield('meta_header')
 </head>
 
 <body>
@@ -37,13 +44,20 @@
 
     @yield('modal')
     <script>
+        const sidebar = document.querySelector(".sidebar");
+        const closeBtn = document.querySelector("#btn-icon");
+        const btnDropdown = document.querySelectorAll("#dropdown-keuangan");
+        const menu = document.querySelectorAll(".menu-dropdown");
         window.onload = function() {
-            const sidebar = document.querySelector(".sidebar");
-            const closeBtn = document.querySelector("#btn-icon");
 
             closeBtn.addEventListener("click", () => {
                 sidebar.classList.toggle("open");
                 btnIconChange();
+                if (!sidebar.classList.contains("open")) {
+                    menu.forEach((mnu) => {
+                        mnu.classList.remove("show");
+                    });
+                }
             });
 
             function btnIconChange() {
@@ -60,18 +74,25 @@
                 }
             }
         };
-    </script>
-    <script>
-        const btnDropdown = document.querySelector("#dropdown-keuangan");
-        const menu = document.querySelector(".menu-dropdown");
-        btnDropdown.addEventListener("click", () => {
-            console.log("diklik");
-            if (menu.style.display == "block") {
-                menu.style.display = "none";
-            } else {
-                menu.style.display = "block";
-            }
-        });
+
+
+        for (let i = 0; i < btnDropdown.length; i++) {
+            btnDropdown[i].addEventListener("click", () => {
+
+                if (sidebar.classList.contains('open')) {
+                    if (menu[i].classList.contains("show")) {
+                        menu[i].classList.remove("show");
+                        // menu[i].classList.replace("show", "");
+                    } else {
+                        menu.forEach((mnu) => {
+                            mnu.classList.remove("show");
+                        });
+                        menu[i].classList.toggle("show")
+                    }
+                }
+
+            });
+        }
     </script>
 
     @include('includes.script')

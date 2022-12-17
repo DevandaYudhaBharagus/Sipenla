@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
 use App\Models\Student;
+use App\Models\Balance;
 use App\Models\Workshift;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -56,7 +57,6 @@ class AdmissionController extends Controller
             $validate = Validator::make($data, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'nik' => 'required|unique:employees,nik|size:16',
                 'nuptk' => 'required|unique:employees,nuptk|size:16',
                 'npsn' => 'required|unique:employees,npsn|size:16',
                 'place_of_birth' => 'required',
@@ -86,7 +86,6 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'nik' => $data['nik'],
                 'nuptk' => $data['nuptk'],
                 'npsn' => $data['npsn'],
                 'place_of_birth' => $data['place_of_birth'],
@@ -107,6 +106,11 @@ class AdmissionController extends Controller
             $leaveBalance = LeaveBalance::create([
                 'employee_id' => $employeeData['employee_id'],
                 'total_balance' => 12
+            ]);
+
+            $balance = Balance::create([
+                'user_id' => $user->id,
+                'total_balance' => 0
             ]);
 
             return ResponseFormatter::success( "Succeed added Employee Data.");
@@ -131,8 +135,7 @@ class AdmissionController extends Controller
             $validate = Validator::make($data, [
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'nik' => 'required|unique:students,nik|size:16',
-                'nisn' => 'required|unique:students,nik|size:16',
+                'nisn' => 'required|unique:students,nisn|size:16',
                 'father_name' => 'required',
                 'mother_name' => 'required',
                 'gender' => 'required',
@@ -168,7 +171,6 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
-                'nik' => $data['nik'],
                 'nisn' => $data['nisn'],
                 'mother_name' => $data['mother_name'],
                 'place_of_birth' => $data['place_of_birth'],
@@ -191,6 +193,12 @@ class AdmissionController extends Controller
                 'phone' => $data['phone'],
                 'extracurricular_id' => $data['extracurricular_id'],
                 'image' => $image,
+                'status' => 'active'
+            ]);
+
+            $balance = Balance::create([
+                'user_id' => $user->id,
+                'total_balance' => 0
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");
@@ -222,7 +230,6 @@ class AdmissionController extends Controller
                 'student_id' => $student->student_id,
                 'user_id' => $student->user_id,
                 'nisn' => $student->nisn,
-                'nik' => $student->nik,
                 'first_name' => $student->first_name,
                 'last_name' => $student->last_name,
                 'mother_name' => $student->mother_name,
@@ -275,7 +282,6 @@ class AdmissionController extends Controller
                 'user_id' => $employee->user_id,
                 'first_name' => $employee->first_name,
                 'last_name' => $employee->last_name,
-                'nik' => $employee->nik,
                 'nuptk' => $employee->nuptk,
                 'npsn' => $employee->npsn,
                 'place_of_birth' => $employee->place_of_birth,
