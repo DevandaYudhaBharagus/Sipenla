@@ -1,0 +1,12 @@
+docker build -t registry.gitlab.com/rezakurniasetiawan/project-siakad \
+    --build-arg DB_CONNECTION=mysql \
+    --build-arg DB_HOST=sipenla-service.mysql.database.azure.com \
+    --build-arg DB_PORT=3306 \
+    --build-arg DB_DATABASE=sipenla-database \
+    --build-arg DB_USERNAME=admin_sipenla \
+    --build-arg DB_PASSWORD=Sipenla-2022 \
+    --build-arg MYSQL_SSL=true \
+    --build-arg AZURE_STORAGE_NAME=sipenla \
+    --build-arg AZURE_STORAGE_KEY=P5gPOhDnBrjukkH0ZdqqPJvJd/Fz8pnIOUaTxeAHP5lCmMp+Xvs5s2IzW3ZGQsQ71jrJUijWLi0U+AStc+vDDg== \
+    --build-arg AZURE_STORAGE_CONTAINER=sipenla \
+    --build-arg AZURE_STORAGE_URL=https://sipenla.blob.core.windows.net/ .
