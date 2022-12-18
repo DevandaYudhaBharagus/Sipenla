@@ -86,6 +86,13 @@ Route::get('/master-jadwal-ekstra', function(){
 Route::get('/master-anggota-kelas', function(){
     return view('pages.master.master-anggota-kelas');
 });
+Route::get('/penilaian', function(){
+    return view('pages.penilaian.penilaian');
+});
+Route::get('/penilaian-blank', function(){
+    return view('pages.penilaian.penilaian-blank');
+});
+
 
 Auth::routes();
 

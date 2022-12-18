@@ -33,6 +33,7 @@
             </div>
         </div>
     </footer>
+    @yield('modal-dashboard')
     @include('includes.script')
     @stack('addon-javascript')
 </body>

@@ -20,6 +20,7 @@ use App\Http\Controllers\API\PerpustakaanController;
 use App\Http\Controllers\API\TopupController;
 use App\Http\Controllers\API\PayoutController;
 use App\Http\Controllers\API\FineController;
+use App\Http\Controllers\API\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -273,5 +274,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('fine')->group(function () {
         Route::get('/history/{tanggal}', [FineController::class, 'getHistory']);
+    });
+
+    Route::prefix('payment')->group(function () {
+        Route::post('/', [PaymentController::class, 'testPayment']);
+        Route::get('/status/{orderID}', [PaymentController::class, 'getStatus']);
     });
 });

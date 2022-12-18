@@ -457,6 +457,29 @@ class StudentController extends Controller
                             "grade_name",
                         ]);
 
+                if(!$murid){
+                    $withoutGrade = Student::where('students.student_id', '=', $student)
+                        ->first([
+                            "first_name",
+                            "last_name",
+                            "nisn"
+                        ]);
+
+                    $response = [
+                        "first_name" => $withoutGrade->first_name,
+                        "last_name" => $withoutGrade->last_name,
+                        "nisn" => $withoutGrade->nisn,
+                        "grade_name" => "-",
+                        "semester_name" => "-",
+                        "academic_year" => "-",
+                        "status" => "-",
+                        "nilai" =>[],
+                        "extra" =>[]
+                    ];
+
+                    return ResponseFormatter::success($response, 'Get Rapor Success');
+                }
+
                 $response = [
                     "first_name" => $murid->first_name,
                     "last_name" => $murid->last_name,
@@ -495,12 +518,12 @@ class StudentController extends Controller
             }
 
             $response = [
-                    "first_name" => $student->first_name,
-                    "last_name" => $student->last_name,
-                    "nisn" => $student->nisn,
-                    "grade_name" => $student->grade_name,
-                    "semester_name" => $student->semester_name,
-                    "academic_year" => $student->academic_year,
+                    "first_name" => $students->first_name,
+                    "last_name" => $students->last_name,
+                    "nisn" => $students->nisn,
+                    "grade_name" => $students->grade_name,
+                    "semester_name" => $students->semester_name,
+                    "academic_year" => $students->academic_year,
                     "status" => "naik",
                     "nilai" => $rapor,
                     "extra" => $extra
