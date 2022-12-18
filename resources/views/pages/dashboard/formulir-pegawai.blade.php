@@ -2,6 +2,10 @@
 
 @section('title', 'SIPENLA | Formulir Pegawai')
 
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+@endsection
+
 @section('content')
     <div class="container">
         <div class="box-breadcrumb">
@@ -75,7 +79,8 @@
                                         placeholder="Tempat Lahir" />
                                 </div>
                                 <div class="col-6">
-                                    <input type="date" name="date_of_birth" class="form-control" id="tglLahir" />
+                                    <input type="text" name="date_of_birth" class="form-control bg-calendar"
+                                        id="tglLahir" placeholder="dd-mm-yy" />
                                 </div>
                             </div>
                         </div>
@@ -89,7 +94,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Agama</label>
-                            <input type="text" name="religion" class="form-control" id="agama" placeholder="Agama" />
+                            <input type="text" name="religion" class="form-control" id="agama"
+                                placeholder="Agama" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat Tinggal</label>
@@ -150,7 +156,17 @@
 @endsection
 
 @push('addon-javascript')
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+        function uploadPhotoSiswa() {
+            document.querySelector("#fotoSiswa").click();
+        }
+        flatpickr("#tglLahir", {
+            altInput: true,
+            altFormat: "j F, Y",
+            dateFormat: "d-m-Y",
+        });
+
         function uploadPhotoSiswa() {
             document.querySelector("#fotoSiswa").click();
         }
