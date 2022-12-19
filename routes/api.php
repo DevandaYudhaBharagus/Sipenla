@@ -283,5 +283,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/updatesaving', [PaymentController::class, 'updateSaving']);
         Route::post('/update/{orderid}', [PaymentController::class, 'updateStatus']);
         Route::get('/historytopup/{tanggal}', [PaymentController::class, 'getHistoryTopup']);
+        Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
     });
 });
