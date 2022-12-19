@@ -10,6 +10,7 @@ use App\Helpers\ResponseFormatter;
 use App\Models\Transaction;
 use App\Models\Employee;
 use App\Models\Balance;
+use App\Models\Saving;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -170,6 +171,28 @@ class PaymentController extends Controller
             ];
 
             $transaction = Transaction::where('order_id', '=', $orderid)->update($editStatus);
+
+            return ResponseFormatter::success('Success confirm balance!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateSaving(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $saving = Saving::where('user_id', '=', $user->id)->first("total_amount");
+
+            $editBalance = [
+                'total_amount' => $saving->total_amount + $request->saldo
+            ];
+
+            $login = Saving::where('user_id', '=', $user->id)
+                    ->update($editBalance);
 
             return ResponseFormatter::success('Success confirm balance!');
         }catch (Exception $e) {
