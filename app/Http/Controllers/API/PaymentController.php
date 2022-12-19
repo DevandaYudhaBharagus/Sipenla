@@ -228,4 +228,30 @@ class PaymentController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getHistorySaving($tanggal)
+    {
+        try{
+            $user = Auth::user();
+            $transaction = Transaction::where('item_name', '=', 'TABUNGAN')
+            ->whereDate('created_at', '=', $tanggal)
+            ->where('user_id', '=', $user->id)
+            ->get();
+
+            foreach ($transaction as $h) {
+                $time = $h->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $h->waktu = $test2;
+            }
+
+            $response = $transaction;
+
+            return ResponseFormatter::success($response, 'Success get Transaksi!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
