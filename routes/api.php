@@ -281,5 +281,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/status/{orderID}', [PaymentController::class, 'getStatus']);
         Route::post('/updatebalance', [PaymentController::class, 'updateBalance']);
         Route::post('/update/{orderid}', [PaymentController::class, 'updateStatus']);
+        Route::get('/historytopup/{tanggal}', [PaymentController::class, 'getHistoryTopup']);
     });
 });
