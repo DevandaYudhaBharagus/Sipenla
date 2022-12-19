@@ -9,6 +9,7 @@ use App\Models\LeaveBalance;
 use App\Models\Student;
 use App\Models\Balance;
 use App\Models\Workshift;
+use App\Models\Saving;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseFormatter;
@@ -113,6 +114,11 @@ class AdmissionController extends Controller
                 'total_balance' => 0
             ]);
 
+            $saving = Saving::create([
+                'user_id' => $user->id,
+                'total_amount' => 0
+            ]);
+
             return ResponseFormatter::success( "Succeed added Employee Data.");
         }catch (Exception $e) {
             $statuscode = 500;
@@ -200,6 +206,12 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'total_balance' => 0
             ]);
+
+            $saving = Saving::create([
+                'user_id' => $user->id,
+                'total_amount' => 0
+            ]);
+
 
             return ResponseFormatter::success( "Succeed added Student Data.");
         }catch (Exception $e) {
