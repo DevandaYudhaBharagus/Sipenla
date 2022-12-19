@@ -14,6 +14,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
@@ -171,6 +172,32 @@ class PaymentController extends Controller
             $transaction = Transaction::where('order_id', '=', $orderid)->update($editStatus);
 
             return ResponseFormatter::success('Success confirm balance!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function getHistoryTopup($tanggal)
+    {
+        try{
+            $user = Auth::user();
+            $transaction = Transaction::where('item_name', '=', 'TOPUP')
+            ->whereDate('created_at', '=', $tanggal)
+            ->where('user_id', '=', $user->id)
+            ->get();
+
+            foreach ($transaction as $h) {
+                $time = $h->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $h->waktu = $test2;
+            }
+
+            $response = $transaction;
+
+            return ResponseFormatter::success($response, 'Success get Transaksi!');
         }catch (Exception $e) {
             $response = [
                 'errors' => $e->getMessage(),
