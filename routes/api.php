@@ -279,5 +279,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('payment')->group(function () {
         Route::post('/', [PaymentController::class, 'testPayment']);
         Route::get('/status/{orderID}', [PaymentController::class, 'getStatus']);
+        Route::post('/updatebalance', [PaymentController::class, 'updateBalance']);
+        Route::post('/update/{orderid}', [PaymentController::class, 'updateStatus']);
     });
 });
