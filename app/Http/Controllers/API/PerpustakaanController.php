@@ -16,6 +16,7 @@ use App\Models\Employee;
 use App\Models\Student;
 use App\Models\LoanBook;
 use App\Models\Balance;
+use App\Models\User;
 use App\Models\FineTransaction;
 use Illuminate\Support\Str;
 use App\Models\PerpusAttendance;
@@ -500,7 +501,7 @@ class PerpustakaanController extends Controller
     {
         try{
             $user = Auth::user();
-            $koperasi = User::where('role', '=', 'koperasi')->first();
+            $koperasi = User::where('role', '=', 'pegawaikoperasi')->first();
             $saldo = Balance::where('user_id', '=', $user->id)->first(['balance']);
             $saldoKoperasi = Balance::where('user_id', '=', $koperasi->id)->first(['balance']);
 
