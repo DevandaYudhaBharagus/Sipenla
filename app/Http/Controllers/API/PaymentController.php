@@ -9,6 +9,7 @@ use App\Http\Controllers\Midtrans\CoreApi;
 use App\Helpers\ResponseFormatter;
 use App\Models\Transaction;
 use App\Models\Employee;
+use App\Models\Balance;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -119,15 +120,62 @@ class PaymentController extends Controller
 
     public function getStatus($orderID)
     {
-        $response = Http::withBasicAuth(Config::$serverKey, "")
+        try{
+            $response = Http::withBasicAuth(Config::$serverKey, "")
 
-        ->withHeaders([
-            'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-        ])
+            ->withHeaders([
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
+            ])
 
-        ->get(Config::getBaseUrl() . '/' . $orderID . '/status');
+            ->get(Config::getBaseUrl() . '/' . $orderID . '/status');
 
-        return json_decode($response->body(), true);
+            return json_decode($response->body(), true);
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateBalance(Request $request)
+    {
+        try{
+            $user = Auth::user();
+            $balance = Balance::where('user_id', '=', $user->id)->first("balance");
+
+            $editBalance = [
+                'balance' => $balance->balance + $request->saldo
+            ];
+
+            $login = Balance::where('user_id', '=', $user->id)
+                    ->update($editBalance);
+
+            return ResponseFormatter::success('Success confirm balance!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
+
+    public function updateStatus($orderid)
+    {
+        try{
+            $editStatus = [
+                'status' => 'approve'
+            ];
+
+            $transaction = Transaction::where('order_id', '=', $orderid)->update($editStatus);
+
+            return ResponseFormatter::success('Success confirm balance!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
     }
 }
