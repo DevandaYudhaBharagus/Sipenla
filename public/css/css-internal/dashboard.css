@@ -1988,14 +1988,16 @@ button.dropdown-toggle {
 .profile .box-profile.mapel {
   min-height: calc(100vh - 210px);
 }
-.profile .box-profile.mapel .box-schedule h6 {
+.profile .box-profile.mapel .box-schedule h6,
+.modal-schedule .modal-body .box-schedule h6 {
   font-size: 20px;
   font-weight: 700;
   text-align: center;
   color: var(--text-color);
   margin-bottom: 1rem;
 }
-.profile .box-profile.mapel .box-schedule .box-mapel-schedule {
+.profile .box-profile.mapel .box-schedule .box-mapel-schedule,
+.modal-schedule .modal-body .box-schedule .box-mapel-schedule {
   background: var(--bg-secondary);
   width: 100%;
   margin: auto;
@@ -2005,8 +2007,9 @@ button.dropdown-toggle {
   padding: 14px 1.3rem;
   margin-bottom: 10px;
 }
-.profile
-  .box-profile.mapel
+.profile .box-profile.mapel .box-schedule .box-mapel-schedule .content-schedule,
+.modal-schedule
+  .modal-body
   .box-schedule
   .box-mapel-schedule
   .content-schedule {
@@ -2014,6 +2017,10 @@ button.dropdown-toggle {
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 6px;
+}
+.modal-schedule .modal-content {
+  background-color: var(--bg-secondary) !important;
+  margin-top: 10vh !important;
 }
 /* ==================== Akhir CSS Untuk Jadwal ================================ */
 
@@ -2191,7 +2198,267 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
   font-weight: 500;
   color: var(--text-color);
 }
+div.dataTables_scrollBody > table td {
+  border-right: 1px solid #4b556b;
+}
+div.dataTables_scrollBody > table {
+  border-left: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+}
+div.dataTables_scrollHead table.dataTable {
+  border-top: 1px solid #4b556b;
+  border-right: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+}
+div.dataTables_scrollHead table.dataTable th {
+  border-left: 1px solid #4b556b;
+}
+div.dataTables_scrollHead table.dataTable tr {
+  border: 1px solid black;
+}
+.profile .box-profile .table-dash .display tbody tr {
+  background: white;
+}
+.profile .box-profile .table-dash .display tbody tr:nth-child(even) {
+  background: #f0f1f2;
+}
+.profile .box-profile .table-dash .btn-data {
+  background-color: #3774c3;
+  color: var(--bg-secondary);
+  padding: 6px 1.5rem;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+}
+.profile .box-profile .table-dash .btn-data:hover {
+  font-weight: 600;
+}
+.dataTables_filter {
+  display: flex !important;
+  justify-content: end !important;
+}
+.profile .box-profile .employee-text {
+  border: 1px solid #000;
+  border-radius: 8px;
+  margin: 2rem 0;
+  padding: 12px 1.5rem;
+}
+.profile .box-profile .employee-text table th,
+.profile .box-profile .employee-text table td {
+  padding: 5px 0;
+  font-size: 15px;
+  color: var(--text-color);
+}
+.profile .box-profile .history-present {
+  background-color: var(--bg-onlywhite);
+  border: 1px solid #000;
+  border-radius: 8px;
+  padding: 12px 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile .box-profile .scroll-history-present {
+  max-height: 70vh;
+  overflow-x: auto;
+}
+.profile .box-profile .history-present .date-present {
+  color: var(--text-color);
+  font-size: 15px;
+}
+.profile .box-profile .history-present .date-present .date-text {
+  font-weight: 600;
+}
+.profile .box-profile .history-present .date-present .date {
+  font-weight: 500;
+  padding-left: 1rem;
+}
+.profile .box-profile .history-present .display-present {
+  color: #000;
+  font-weight: 600;
+  font-size: 18px;
+}
 /* ==================== Akhir CSS untuk tabel ================================= */
+
+/* ==================== CSS untuk Modal Present =============================== */
+.modal-present,
+.modal-schedule {
+  max-width: 65rem;
+}
+.modal-present .modal-header,
+.modal-schedule .modal-header {
+  border: none !important;
+}
+.modal-present .modal-content .modal-header h1 {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 18px !important;
+}
+.profile .box-profile .sipenla {
+  width: 7rem;
+  height: 6rem;
+  background-image: url("/images/internal-images/logo.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 6rem 4rem;
+}
+.profile .box-profile .tut-wuri {
+  width: 7rem;
+  height: 6rem;
+  background-image: url("/images/internal-images/tut-wuri.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 5rem 4rem;
+}
+.profile .box-profile .form-pegawai {
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 16px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #4b556b;
+}
+.profile .box-profile p {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 16px;
+}
+.profile .box-profile table td {
+  color: var(--text-color);
+  font-size: 16px;
+  padding: 8px 0;
+}
+.profile .box-profile .box-image-employee {
+  width: 8rem;
+  height: 9rem;
+}
+.profile .box-profile .box-image-employee img {
+  width: 7.5rem;
+  height: 8.5rem;
+  object-fit: cover;
+  border-radius: 6px;
+}
+/* ==================== Akhir CSS untuk Modal Present ========================= */
+
+/* ==================== CSS untuk Modal raport ====== ========================= */
+.profile .box-profile .nav-tabs .nav-link {
+  width: 50%;
+  background: linear-gradient(
+      0deg,
+      rgba(217, 217, 217, 0.51),
+      rgba(217, 217, 217, 0.51)
+    ),
+    #f9f9f9;
+  color: rgba(75, 85, 107, 0.7);
+  font-size: 16px;
+  font-weight: 500;
+  padding: 10px 0;
+}
+.profile .box-profile .nav-tabs .nav-link.active {
+  background: var(--bg-secondary);
+  font-weight: 600;
+  color: var(--text-color);
+}
+.profile .box-profile .study-value {
+  color: var(--text-color);
+  margin: 2rem 0 1rem 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+.profile .box-profile .text-raport {
+  color: var(--text-color);
+  font-size: 16px;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+}
+.profile .box-profile .table-raport {
+  width: 100%;
+  border-top: 1px solid #4b556b;
+  text-align: center;
+  border-left: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+}
+
+.profile .box-profile .table-raport th {
+  padding: 8px 0;
+  width: 33%;
+  border-right: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+  font-size: 14px;
+  background-color: #f0f1f2;
+  font-weight: 400;
+}
+.profile .box-profile .table-raport td {
+  padding: 8px 0;
+  width: 33%;
+  font-size: 14px;
+  border-right: 1px solid #4b556b;
+}
+.profile .box-profile .table-raport tbody tr:nth-child(even) {
+  background-color: #f0f1f2;
+}
+.profile .box-profile .table-raport tbody tr {
+  background-color: var(--bg-secondary);
+}
+.profile .box-profile .raport-signature {
+  height: 10rem;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  color: var(--text-color);
+}
+.profile .box-profile .raport-signature .ket-signature {
+  font-weight: 600;
+}
+.profile .box-profile .raport-signature .title-signature {
+  font-size: 14px;
+  font-weight: 500;
+}
+.profile .box-profile .raport-signature .title-signature .number {
+  border-top: 1px solid #4b556b;
+}
+.profile .box-profile .text-kep {
+  color: var(--text-color);
+  font-size: 14px;
+}
+.profile .box-profile .text-grade {
+  color: var(--text-color);
+  font-size: 14px;
+}
+.profile .box-profile .box-grade-class {
+  background-color: #f0f1f2;
+  border: 1px solid #4b556b;
+  border-radius: 8px;
+  padding: 4px 10px;
+  color: var(--text-color);
+  font-size: 13px;
+  margin-top: 10px;
+  font-weight: 500;
+}
+.profile .box-profile .box-grade-class h6 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+  margin: 1rem 0 2rem 0;
+}
+.profile .box-profile .text-raport span {
+  text-decoration: line-through;
+}
+.profile .box-profile .next-grade {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+  padding-right: 1.5rem;
+}
+.profile .box-profile .class-grade {
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* ==================== Akhir CSS untuk Modal raport ====== =================== */
+
 @media screen and (max-width: 700px) {
   .header-dashboard {
     margin: 2rem 0;
@@ -2477,5 +2744,17 @@ div.dataTables_wrapper div.dataTables_filter input:focus {
   }
   div.dataTables_wrapper div.dataTables_filter input {
     margin: 1rem;
+  }
+  .modal-present .modal-content .modal-body table td {
+    font-size: 13px;
+  }
+  .modal-present .modal-content .modal-body .sipenla {
+    background-size: 4rem 2rem;
+  }
+  .modal-present .modal-content .modal-body .tut-wuri {
+    background-size: 4rem 3rem;
+  }
+  div.dataTables_wrapper div.dataTables_filter input {
+    margin: 1rem 0 !important;
   }
 }

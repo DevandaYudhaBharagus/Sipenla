@@ -445,6 +445,7 @@ class PerpustakaanController extends Controller
                             "to_date",
                             "book_creator",
                             "book_year",
+                            "book_price",
                             "loan_books.date",
                             "loan_books.status",
                             "loan_books.created_at",
@@ -619,7 +620,8 @@ class PerpustakaanController extends Controller
                         'books.image',
                         'students.nisn',
                         'from_date',
-                        'to_date'
+                        'to_date',
+                        'status_loan'
                     ]);
 
             foreach ($loanStudent as $b) {

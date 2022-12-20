@@ -8,6 +8,8 @@ use App\Models\Subject;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
+use App\Models\Extracurricular;
+use App\Models\ExtraSchedule;
 use Illuminate\Support\Facades\Validator;
 
 class LessonSchedulesController extends Controller
@@ -100,4 +102,39 @@ class LessonSchedulesController extends Controller
     }
 
 
+
+    //Ekstrakurikuler
+    public function schedulesEkstrakurikuler(){
+        $days = Day::whereNotIn('day_name' ,['Semua','Sabtu','Minggu'])->get();
+        $ekstras = Extracurricular::all();
+        $teachers = Employee::join('users','employees.user_id', '=', 'users.id')
+                            ->join('workshifts','employees.workshift_id','=','workshifts.workshift_id')
+                            ->where('role' ,'=','guru')->get();
+
+        $schedule = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->get();
+
+        return view('pages.master.master-jadwal-ekstra',compact('days','ekstras','teachers','schedule'));
+    }
+
+
+    public function delSchedulesEkstrakurikuler($id){
+        try {
+            ExtraSchedule::where('extra_schedules_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Jadwal Ekstra!"]);
+    }
+
+    public function editSchedulesEkstrakurikuler($id){
+        $where = array('extra_schedules_id' => $id);
+        $post  = ExtraSchedule::where($where)->first();
+
+        return response()->json($post);
+    }
 }
