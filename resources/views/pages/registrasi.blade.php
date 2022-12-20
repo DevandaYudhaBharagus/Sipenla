@@ -30,20 +30,20 @@
             <div class="box-news">
                 <div class="title-news">Daftar</div>
                 <div class="box-form">
-                    <form action="" method="POST">
+                    <form action="{{ route('formregister') }}" method="POST">
                         @csrf
                         <div class="row mb-3">
                             <div class=" col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="title"
+                                    <input type="email" name="email" class="form-control" id="title"
                                         aria-describedby="titleHelp" />
                                 </div>
                             </div>
                             <div class=" col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Sandi</label>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" name="password" class="form-control" id="password"
                                         aria-describedby="titleHelp" />
                                     <span class="show-hide">
                                         <i class="material-icons" id="material-password">visibility</i></span>
@@ -52,7 +52,7 @@
                             <div class=" col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Konfirmasi</label>
-                                    <input type="password" class="form-control" id="password"
+                                    <input type="password" name="password_confirmation" class="form-control" id="password"
                                         aria-describedby="titleHelp" />
                                     <span class="show-hide">
                                         <i class="material-icons" id="material-password">visibility</i></span>
@@ -61,23 +61,23 @@
                             <div class=" col-12">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Role</label>
-                                    <select class="form-select" aria-label="Default select example" id="select-role">
+                                    <select class="form-select" name="role" aria-label="Default select example" id="select-role">
                                         <option selected>Pilih Role</option>
                                         <option value="guru">Guru</option>
-                                        <option value="wali-murid">Wali Murid</option>
-                                        <option value="kepala-sekolah">Kepala Sekolah</option>
-                                        <option value="wali-kelas">Wali Kelas</option>
-                                        <option value="pegawai-tu">Pegawai TU</option>
-                                        <option value="pegawai-perpustakaan">Pegawai Perpsutakaan</option>
-                                        <option value="pegawai-kantin">Pegawai Kantin</option>
-                                        <option value="pegawai-koperasi">Pegawai Koperasi</option>
-                                        <option value="pegawas-sekolah">Pengawas Sekolah</option>
-                                        <option value="dinas-pendidikan">Dinas Pendidikan</option>
+                                        <option value="walimurid">Wali Murid</option>
+                                        <option value="kepsek">Kepala Sekolah</option>
+                                        <option value="tu">Pegawai TU</option>
+                                        <option value="perpus">Pegawai Perpsutakaan</option>
+                                        <option value="pegawaikantin">Pegawai Kantin</option>
+                                        <option value="pegawaikoperasi">Pegawai Koperasi</option>
+                                        <option value="pengawassekolah">Pengawas Sekolah</option>
+                                        <option value="pembinaextra">Pembina Ekstra</option>
+                                        <option value="dinaspendidikan">Dinas Pendidikan</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12 search-student" id="search-student">
+                        {{-- <div class="col-12 search-student" id="search-student">
                             <div class="mb-3 d-flex flex-column">
                                 <label for="title" class="form-label">Cari Siswa</label>
                                 <select class="selectpicker" data-live-search="true">
@@ -86,7 +86,7 @@
                                     <option data-tokens="pranja">Pranaja</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="row mt-3">
                             <div class="col-12">

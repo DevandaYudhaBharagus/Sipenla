@@ -16,6 +16,7 @@ use App\Models\Employee;
 use App\Models\Student;
 use App\Models\LoanBook;
 use App\Models\Balance;
+use App\Models\User;
 use App\Models\FineTransaction;
 use Illuminate\Support\Str;
 use App\Models\PerpusAttendance;
@@ -444,6 +445,7 @@ class PerpustakaanController extends Controller
                             "to_date",
                             "book_creator",
                             "book_year",
+                            "book_price",
                             "loan_books.date",
                             "loan_books.status",
                             "loan_books.created_at",
@@ -499,7 +501,10 @@ class PerpustakaanController extends Controller
     {
         try{
             $user = Auth::user();
+            $koperasi = User::where('role', '=', 'pegawaikoperasi')->first();
             $saldo = Balance::where('user_id', '=', $user->id)->first(['balance']);
+            $saldoKoperasi = Balance::where('user_id', '=', $koperasi->id)->first(['balance']);
+
             $edit = [
                 "status" => 'pendingreturn',
                 "status_loan" => $request->status_loan
@@ -511,6 +516,10 @@ class PerpustakaanController extends Controller
 
             $editLogin= [
                 'balance' => $saldo->balance - $request->fine_transaction
+            ];
+
+            $editBalance= [
+                'balance' => $saldoKoperasi->balance + $request->fine_transaction
             ];
 
             $transaction = FineTransaction::create([
@@ -525,6 +534,9 @@ class PerpustakaanController extends Controller
 
             $login = Balance::where('user_id', '=', $user->id)
                             ->update($editLogin);
+
+            $koperasiSaldo = Balance::where('user_id', '=', $koperasi->id)
+                            ->update($editBalance);
 
             $response = [
                 "fine_transaction" => $transaction->fine_transaction,
@@ -608,7 +620,8 @@ class PerpustakaanController extends Controller
                         'books.image',
                         'students.nisn',
                         'from_date',
-                        'to_date'
+                        'to_date',
+                        'status_loan'
                     ]);
 
             foreach ($loanStudent as $b) {

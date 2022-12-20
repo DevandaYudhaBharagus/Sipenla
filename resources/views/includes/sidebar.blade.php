@@ -23,7 +23,7 @@
               <span class="tool">Data User</span>
               <ul class="menu-dropdown">
                   <li>
-                      <a href="">
+                      <a href="{{ url('/teacher') }}">
                           <div class="box-icon-dropdown">
                               <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
                           </div>

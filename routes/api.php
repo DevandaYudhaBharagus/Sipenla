@@ -20,6 +20,8 @@ use App\Http\Controllers\API\PerpustakaanController;
 use App\Http\Controllers\API\TopupController;
 use App\Http\Controllers\API\PayoutController;
 use App\Http\Controllers\API\FineController;
+use App\Http\Controllers\API\PaymentController;
+use App\Http\Controllers\API\WithdrawalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -263,7 +265,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('payout')->group(function () {
         Route::post('/add', [PayoutController::class, 'makePayout']);
         Route::post('/approve/{code}', [PayoutController::class, 'approvePayout']);
-        Route::post('/reject/{id}', [PayoutController::class, 'rejectPayout']);
+        Route::post('/reject/{code}', [PayoutController::class, 'rejectPayout']);
         Route::get('/getconfirmsiswa', [PayoutController::class, 'getDataSiswa']);
         Route::get('/getconfirmpegawai', [PayoutController::class, 'getDataPegawai']);
         Route::get('/getriwayatsiswa/{tanggal}', [PayoutController::class, 'getHistorySiswa']);
@@ -273,5 +275,25 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('fine')->group(function () {
         Route::get('/history/{tanggal}', [FineController::class, 'getHistory']);
+    });
+
+    Route::prefix('payment')->group(function () {
+        Route::post('/', [PaymentController::class, 'testPayment']);
+        Route::get('/status/{orderID}', [PaymentController::class, 'getStatus']);
+        Route::post('/updatebalance', [PaymentController::class, 'updateBalance']);
+        Route::post('/updatesaving', [PaymentController::class, 'updateSaving']);
+        Route::post('/update/{orderid}', [PaymentController::class, 'updateStatus']);
+        Route::get('/historytopup/{tanggal}', [PaymentController::class, 'getHistoryTopup']);
+        Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
+    });
+
+    Route::prefix('saving')->group(function () {
+        Route::post('/', [WithdrawalController::class, 'makeWithdrawal']);
+        Route::get('/getsiswa', [WithdrawalController::class, 'getDataSiswa']);
+        Route::get('/getpegawai', [WithdrawalController::class, 'getDataPegawai']);
+        Route::post('/approve/{code}', [WithdrawalController::class, 'approveWithdrawal']);
+        Route::post('/reject/{code}', [WithdrawalController::class, 'rejectWithdrawal']);
+        Route::get('/getriwayatsiswa/{tanggal}', [WithdrawalController::class, 'getHistorySiswa']);
+        Route::get('/getriwayatpegawai/{tanggal}', [WithdrawalController::class, 'getHistoryPegawai']);
     });
 });
