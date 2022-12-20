@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             StudentSeeder::class,
             SemesterSeeder::class,
             AssessmentSeeder::class,
+            StatusSavingSeeder::class,
         ]);
     }
 }

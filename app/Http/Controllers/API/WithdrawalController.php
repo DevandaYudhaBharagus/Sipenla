@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SavingWithdrawal;
 use App\Models\Saving;
+use App\Models\StatusSaving;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use App\Helpers\ResponseFormatter;
@@ -228,6 +229,121 @@ class WithdrawalController extends Controller
             $response = $konfirmasi;
 
             return ResponseFormatter::success($response, "Succeed get Hitory!");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getSaldoSaving()
+    {
+        try{
+            $user = Auth::user();
+            $saldo = Saving::where('user_id', '=', $user->id)->first(['total_amount']);
+
+            $response = $saldo;
+
+            return ResponseFormatter::success($response, 'Success get Saving!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getHistory($tanggal)
+    {
+        try{
+            $user = Auth::user();
+            if($user->role == 'walimurid'){
+                $walimurid = Guardian::join('students', 'student_guardians.student_id', '=', 'students.student_id')
+                            ->where('student_guardians.user_id', '=', $user->id)
+                            ->first(['students.user_id']);
+
+                $history = SavingWithdrawal::where('user_id', '=', $walimurid->user_id)
+                ->whereDate('created_at', '=', $tanggal)
+                ->get([
+                    "amount",
+                    "saving_code",
+                    "created_at",
+                    "status",
+                ]);
+
+                $response = $history;
+
+                return ResponseFormatter::success($response, 'Success get history!');
+            }
+            $history = SavingWithdrawal::where('user_id', '=', $user->id)
+            ->whereDate('created_at', '=', $tanggal)
+            ->get([
+                "amount",
+                "saving_code",
+                "created_at",
+                "status",
+            ]);
+
+            foreach ($history as $h) {
+                $time = $h->created_at;
+                $test2 = Carbon::parse($time)->format('d F, H.i');
+                $h->waktu = $test2;
+            }
+
+            $response = $history;
+
+            return ResponseFormatter::success($response, 'Success get history!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getStatusSaving()
+    {
+        try{
+            $status = StatusSaving::get();
+
+            $response = $status;
+
+            return ResponseFormatter::success($response, 'Success get Status!');
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        try{
+            $update = [
+                'status_saving' => $request->status
+            ];
+
+            $statusUpdate = StatusSaving::where('id', $id)->update($update);
+
+            return ResponseFormatter::success('Success Update Status!');
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
