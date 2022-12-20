@@ -22,6 +22,7 @@ use App\Http\Controllers\API\PayoutController;
 use App\Http\Controllers\API\FineController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\WithdrawalController;
+use App\Http\Controllers\API\OtherPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -299,5 +300,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/gethistory/{tanggal}', [WithdrawalController::class, 'getHistory']);
         Route::get('/getstatus', [WithdrawalController::class, 'getStatusSaving']);
         Route::post('/updatestatus/{id}', [WithdrawalController::class, 'updateStatus']);
+    });
+
+    Route::prefix('bill')->group(function () {
+        Route::post('/', [OtherPaymentController::class, 'createTagihan']);
+        Route::get('/', [OtherPaymentController::class, 'getTagihan']);
+        Route::get('/bydate', [OtherPaymentController::class, 'getTagihanByDate']);
     });
 });
