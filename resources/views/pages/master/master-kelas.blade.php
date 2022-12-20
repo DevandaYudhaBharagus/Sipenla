@@ -118,7 +118,7 @@
                             </div>
                             <div class="col-12 nb-3">
                                 <label for="status" class="form-label">Wali Kelas</label>
-                                <select class="form-select" id="basic-usage" data-placeholder="--Pilih Wali Kelas ---">
+                                <select class="form-select" name="teacher_id" id="basic-usage" data-placeholder="--Pilih Wali Kelas ---">
                                     <option></option>
                                     @foreach ($teacher as $new)
                                         <option value="{{ $new->employee_id }}">
