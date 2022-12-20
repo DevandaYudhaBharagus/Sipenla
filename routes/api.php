@@ -23,6 +23,7 @@ use App\Http\Controllers\API\FineController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\WithdrawalController;
 use App\Http\Controllers\API\OtherPaymentController;
+use App\Http\Controllers\API\SchoolFeeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -287,6 +288,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historytopup/{tanggal}', [PaymentController::class, 'getHistoryTopup']);
         Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
         Route::get('/historyadmlain/{tanggal}', [PaymentController::class, 'getHistoryOtherPayment']);
+        Route::get('/historyspp/{tanggal}', [PaymentController::class, 'getHistorySpp']);
     });
 
     Route::prefix('saving')->group(function () {
@@ -307,5 +309,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [OtherPaymentController::class, 'createTagihan']);
         Route::get('/', [OtherPaymentController::class, 'getTagihan']);
         Route::get('/bydate', [OtherPaymentController::class, 'getTagihanByDate']);
+    });
+
+    Route::prefix('schoolfee')->group(function () {
+        Route::post('/', [SchoolFeeController::class, 'createTagihan']);
+        Route::get('/', [SchoolFeeController::class, 'getTagihan']);
+        Route::get('/bydate', [SchoolFeeController::class, 'getTagihanByDate']);
     });
 });
