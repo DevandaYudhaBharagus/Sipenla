@@ -40,45 +40,49 @@
     </div>
     <div class="box-content">
         <h5>Data Jadwal Ekstrakulikuler</h5>
-        <div class=" mt-4">
+        <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
             <button class="btn-create" id="add-schedule" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Tambah Data
             </button>
+            <div class="form-search">
+                <input type="text" name="" id="search" placeholder="Cari Ekstrakulikuler" />
+            </div>
         </div>
-        <div class="outher-table" id="table-schedule">
-            <table id="master-jadwal" class="display " style="width:100%;">
-                <thead>
-                    <tr>
-                        <th class="text-center">Nama Ekstrakulikuler</th>
-                        <th class="text-center">Guru</th>
-                        <th class="text-center">Hari</th>
-                        <th class="text-center">Jam Mulai</th>
-                        <th class="text-center">Jam Selesai</th>
-                        <th class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                @foreach ($schedule as $newschedule )
-                <tbody>
-                    <tr>
-                        <td style="width:25%">{{ $newschedule->extracurricular_name }}</td>
-                        <td style="width:20%">{{ $newschedule->first_name.' '.$newschedule->last_name }}</td>
-                        <td style="width:10%">{{ $newschedule->day_name }} </td>
-                        <td style="width:15%">{{ $newschedule->start_time }}</td>
-                        <td style="width:15%">{{ $newschedule->end_time }}</td>
-                        <td style="width:15%">
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
-                                        class="fa fa-edit text-primary"></i></a>
-                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master">
-                                    <i class="fa fa-trash-o text-danger"></i>
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-                @endforeach
-             
-            </table>
+        <div class="outher-table mt-4" id="table-schedule">
+            <div class="table-scroll">
+                <table class="table-master" id="master-schedule" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th style="width:25%" class="text-center">Nama Ekstrakulikuler</th>
+                            <th style="width:20%" class="text-center">Guru</th>
+                            <th style="width:10%" class="text-center">Hari</th>
+                            <th style="width:15%" class="text-center">Jam Mulai</th>
+                            <th style="width:15%" class="text-center">Jam Selesai</th>
+                            <th style="width:15%" class="text-center">Aksi</th>
+                        </tr>
+                    </thead>
+                    @foreach ($schedule as $newschedule)
+                        <tbody>
+                            <tr>
+                                <td style="width:25%">{{ $newschedule->extracurricular_name }}</td>
+                                <td style="width:20%">{{ $newschedule->first_name . ' ' . $newschedule->last_name }}</td>
+                                <td style="width:10%">{{ $newschedule->day_name }} </td>
+                                <td style="width:15%">{{ $newschedule->start_time }}</td>
+                                <td style="width:15%">{{ $newschedule->end_time }}</td>
+                                <td style="width:15%">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
+                                                class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="" onclick=delete_data($(this)) class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    @endforeach
+                </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -103,18 +107,19 @@
                                     data-placeholder="--- Pilih Ekstrakulikuler ---">
                                     <option></option>
                                     @foreach ($ekstras as $newekstras)
-                                        <option value="{{ $newekstras->extracurricular_id }}">{{ $newekstras->extracurricular_name }}</option>
+                                        <option value="{{ $newekstras->extracurricular_id }}">
+                                            {{ $newekstras->extracurricular_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="teacher_id" class="form-label">Guru</label>
-                                <select class="form-select" name="teacher_id" id="teacher_id" data-dropdown-parent="body"
-                                    data-placeholder="--- Pilih Guru ---">
+                                <select class="form-select" name="teacher_id" id="teacher_id"
+                                    data-dropdown-parent="body" data-placeholder="--- Pilih Guru ---">
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
-                                    @endforeach 
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
@@ -151,7 +156,7 @@
 @endsection
 
 @push('addon-javascript')
-    <script src="/js/dataTable.js"></script>
+    {{-- <script src="/js/dataTable.js"></script>
     <script>
         $(document).ready(function() {
             $('#master-jadwal').DataTable({
@@ -166,6 +171,29 @@
             elemenInput.setAttribute("placeholder", "pencarian")
             input.children[0].childNodes[0].textContent = " ";
         });
+    </script> --}}
+    <script>
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
+
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-schedule");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
     <script>
         $("#exampleModal").on("hidden.bs.modal", function(e) {
@@ -238,7 +266,7 @@
                 let extra_schedules_id = $("#extra_schedules_id").val();
 
                 var url = (extra_schedules_id !== undefined && extra_schedules_id !== null) &&
-                extra_schedules_id ? "{{ url('schedules') }}" + "/" + extra_schedules_id :
+                    extra_schedules_id ? "{{ url('schedules') }}" + "/" + extra_schedules_id :
                     "{{ url('schedules') }}" + "/addschedule";
                 $.ajax({
                     url: url,

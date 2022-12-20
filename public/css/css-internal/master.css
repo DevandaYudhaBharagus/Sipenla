@@ -473,7 +473,7 @@ input[type="number"] {
 }
 .home-section .content-home .box-content .table-scroll {
   margin-top: 2rem;
-  width: 83vw;
+  /* width: 83vw; */
   max-height: 40rem;
   overflow-y: auto;
 }
@@ -501,7 +501,7 @@ input[type="number"] {
   .table-scroll
   .table-master {
   color: #444;
-  min-width: max-content;
+  width: 100%;
   border-collapse: collapse;
   margin-bottom: 5rem;
   border-radius: 10px !important;
@@ -534,8 +534,8 @@ input[type="number"] {
 /* .home-section .content-home .box-content .outher-table td:nth-child(1) {
   border-left: none;
 } */
-.home-section .content-home .box-content .outher-table td {
-  /* border-right: 1px solid #4b556b; */
+.home-section .content-home .box-content .outher-table .table-master td {
+  border-right: 1px solid #4b556b;
   font-size: 14px;
   color: var(--text-color);
 }

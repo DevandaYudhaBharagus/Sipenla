@@ -5,9 +5,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         /* div.dataTables_wrapper {
-                width: 1000px;
-                margin: 0 auto;
-            } */
+                    width: 1000px;
+                    margin: 0 auto;
+                } */
     </style>
 @endsection
 
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="outher-table" id="teacher-table">
-            {{-- <div class="table-scroll">
+            <div class="table-scroll">
                 <table class="table-master">
                     <tr>
                         <th width="50px" style="border-left: none">No</th>
@@ -130,58 +130,7 @@
                         </tr>
                     @endforeach
                 </table>
-            </div> --}}
-            <table id="example" class="display nowrap" style="width:100%">
-                <thead>
-                    <tr>
-                        <th style="width:100px">No</th>
-                        <th style="width: 150px;text-align:center">Nama Depan</th>
-                        <th>Nama Belakang</th>
-                        <th>NUPTK / ID Pegawai</th>
-                        <th>NIPSN</th>
-                        <th>Tempat Lahir</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Jenis Kelamin</th>
-                        <th>Agama</th>
-                        <th>Alamat Tinggal</th>
-                        <th>Riwayat Pendidikan</th>
-                        <th>Nama Ibu</th>
-                        <th>Alamat Orang Tua</th>
-                        <th>Email</th>
-                        <th>Jabatan 1</th>
-                        <th>Shift Kerja</th>
-                        <th>Foto</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="width:100px">1</td>
-                        <td style="width: 150px;text-align:center">Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit.
-                            Natus, quas? Lorem
-                            ipsum, dolor sit amet consectetur adipisicing elit. Cum,
-                        </td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consectetur
-                            adipisicing elit. Odio, architecto?</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Lorem ipsum dolor sit amet.</td>
-                        <td>Aksi</td>
-                    </tr>
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -226,14 +175,15 @@
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="place_of_birth" class="form-label">Tempat Lahir</label>
-                                    <input type="text" name="place_of_birth" class="form-control" id="place_of_birth" />
+                                    <input type="text" name="place_of_birth" class="form-control"
+                                        id="place_of_birth" />
                                 </div>
                             </div>
                             <div class="col-md-6 col-12">
                                 <div class="mb-3">
                                     <label for="date_of_birth" class="form-label">Tanggal Lahir</label>
-                                    <input type="text" name="date_of_birth" placeholder="dd/mm/yy" class="form-control"
-                                        id="date_of_birth" />
+                                    <input type="text" name="date_of_birth" placeholder="dd/mm/yy"
+                                        class="form-control" id="date_of_birth" />
                                     {{-- <div class="down-form-full">
                                         <i class="fa fa-calendar"></i>
                                     </div> --}}
