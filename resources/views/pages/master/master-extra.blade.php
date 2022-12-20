@@ -41,31 +41,6 @@
             </div>
         </div>
         <div class="outher-table" id="extra-table">
-            {{-- <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
-                    <tr>
-                        <th width="11%">No</th>
-                        <th width="70%" class="text-start">Nama Ekstrakulikuler</th>
-                        <th width="200px">Aksi</th>
-                    </tr>
-                    @foreach ($extra as $new)
-                        <tr>
-                            <td width="11%">{{ $loop->iteration }}</td>
-                            <td width="70%" class="text-start">{{ $new->extracurricular_name }}</td>
-                            <td width="200px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->extracurricular_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
-            </div> --}}
             <table id="master-extra" class="display" style="width:100%;">
                 <thead>
                     <tr>
@@ -77,9 +52,9 @@
                 <tbody>
                     @foreach ($extra as $new)
                         <tr>
-                            <td class="text-center align-items-center " style="width: 10%">{{ $loop->iteration }}</td>
-                            <td style="width:70%" class="text-start">{{ $new->extracurricular_name }}</td>
-                            <td style="width:20%">
+                            <td class="text-center align-items-center ">{{ $loop->iteration }}</td>
+                            <td class="text-start">{{ $new->extracurricular_name }}</td>
+                            <td>
                                 <div class="d-flex align-items-center justify-content-center">
                                     <a class="btn-edit-master me-2" data-id="{{ $new->extracurricular_id }}"
                                         onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
@@ -99,7 +74,6 @@
 @endsection
 
 @section('modal')
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">

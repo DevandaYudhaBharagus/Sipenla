@@ -92,9 +92,35 @@ Route::get('/penilaian', function(){
 Route::get('/penilaian-blank', function(){
     return view('pages.penilaian.penilaian-blank');
 });
+Route::get('/tabel-siswa', function(){
+    return view('pages.tabel-data.tabel-siswa');
+});
+Route::get('/tabel-pegawai', function(){
+    return view('pages.tabel-data.tabel-pegawai');
+});
+Route::get('/tabel-pegawai-admin', function(){
+    return view('pages.tabel-data.tabel-pegawai-admin');
+});
+Route::get('/absensi-pegawai', function(){
+    return view('pages.tabel-data.absensi-pegawai');
+});
+Route::get('/data-form-pegawai', function(){
+    return view('pages.tabel-data.data-form-pegawai');
+});
+Route::get('/tabel-siswa-admin', function(){
+    return view('pages.tabel-data.tabel-siswa-admin');
+});
+Route::get('/absensi-siswa', function(){
+    return view('pages.tabel-data.absensi-siswa');
+});
+Route::get('/data-form-siswa', function(){
+    return view('pages.tabel-data.data-form-siswa');
+});
+Route::get('/raport', function(){
+    return view('pages.raport.raport-siswa');
+});
 
-
-Auth::routes();
+// Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
