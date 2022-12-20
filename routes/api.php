@@ -295,5 +295,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/reject/{code}', [WithdrawalController::class, 'rejectWithdrawal']);
         Route::get('/getriwayatsiswa/{tanggal}', [WithdrawalController::class, 'getHistorySiswa']);
         Route::get('/getriwayatpegawai/{tanggal}', [WithdrawalController::class, 'getHistoryPegawai']);
+        Route::get('/getsaldosaving', [WithdrawalController::class, 'getSaldoSaving']);
+        Route::get('/gethistory/{tanggal}', [WithdrawalController::class, 'getHistory']);
+        Route::get('/getstatus', [WithdrawalController::class, 'getStatusSaving']);
+        Route::post('/updatestatus/{id}', [WithdrawalController::class, 'updateStatus']);
     });
 });
