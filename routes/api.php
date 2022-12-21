@@ -24,6 +24,7 @@ use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\WithdrawalController;
 use App\Http\Controllers\API\OtherPaymentController;
 use App\Http\Controllers\API\SchoolFeeController;
+use App\Http\Controllers\API\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -315,5 +316,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [SchoolFeeController::class, 'createTagihan']);
         Route::get('/', [SchoolFeeController::class, 'getTagihan']);
         Route::get('/bydate', [SchoolFeeController::class, 'getTagihanByDate']);
+    });
+
+    Route::prefix('chat')->group(function () {
+        Route::get('/room', [ChatController::class, 'listRoom']);
     });
 });
