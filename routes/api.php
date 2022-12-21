@@ -320,5 +320,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('chat')->group(function () {
         Route::get('/room', [ChatController::class, 'listRoom']);
+        Route::get('/chat/{room}', [ChatController::class, 'readChat']);
+        Route::get('/roomuser', [ChatController::class, 'listRoomByIdUser']);
+        Route::post('/', [ChatController::class, 'createChat']);
     });
 });
