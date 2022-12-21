@@ -10,6 +10,7 @@ use App\Models\Student;
 use App\Models\Balance;
 use App\Models\Workshift;
 use App\Models\Saving;
+use App\Models\Room;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use App\Helpers\ResponseFormatter;
@@ -119,6 +120,13 @@ class AdmissionController extends Controller
                 'total_amount' => 0
             ]);
 
+            $chat = Room::create([
+                'user_id' => $user->id,
+                'admin_id' => 1,
+                'name_room' => $employeeData['first_name']. ' '. $employeeData['last_name'],
+                'image_profile' => $image
+            ]);
+
             return ResponseFormatter::success( "Succeed added Employee Data.");
         }catch (Exception $e) {
             $statuscode = 500;
@@ -212,6 +220,12 @@ class AdmissionController extends Controller
                 'total_amount' => 0
             ]);
 
+            $chat = Room::create([
+                'user_id' => $user->id,
+                'admin_id' => 1,
+                'name_room' => $studentData['first_name']. ' '. $studentData['last_name'],
+                'image_profile' => $image
+            ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");
         }catch (Exception $e) {
