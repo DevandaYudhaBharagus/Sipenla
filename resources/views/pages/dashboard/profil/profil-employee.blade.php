@@ -47,8 +47,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-12">
-                                    <a href="" class="btn link-profile">Data Penerimaan</a>
-                                    <a href="" class="btn link-profile">Mutasi</a>
+                                    <a href="{{ url('/admission') }}" class="btn link-profile">Data Pegawai</a>
+                                    {{-- <a href="" class="btn link-profile">Mutasi</a> --}}
                                 </div>
                             </div>
                         </div>
