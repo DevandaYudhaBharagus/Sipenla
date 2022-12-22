@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use URL;
+use Carbon\Carbon;
 
 
 class AdmissionController extends Controller
@@ -124,7 +125,10 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'admin_id' => 1,
                 'name_room' => $employeeData['first_name']. ' '. $employeeData['last_name'],
-                'image_profile' => $image
+                'image_profile' => $image,
+                'status' => 'tidak',
+                'date' => Carbon::now(),
+                'message' => ""
             ]);
 
             return ResponseFormatter::success( "Succeed added Employee Data.");
@@ -224,7 +228,10 @@ class AdmissionController extends Controller
                 'user_id' => $user->id,
                 'admin_id' => 1,
                 'name_room' => $studentData['first_name']. ' '. $studentData['last_name'],
-                'image_profile' => $image
+                'image_profile' => $image,
+                'status' => 'tidak',
+                'date' => Carbon::now(),
+                'message' => ""
             ]);
 
             return ResponseFormatter::success( "Succeed added Student Data.");

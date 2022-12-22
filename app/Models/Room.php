@@ -9,5 +9,5 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable =  ['user_id', 'admin_id', 'name_room', 'image_profile'];
+    protected $fillable =  ['user_id', 'admin_id', 'name_room', 'image_profile', 'status', 'date', 'message'];
 }
