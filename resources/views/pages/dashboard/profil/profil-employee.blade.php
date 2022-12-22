@@ -56,7 +56,7 @@
                                 @elseif (Auth::User()->role == 'student')
                                     <div class="title-student">Siswa</div>
                                 @endif
-                                 
+
                                 </div>
                             </div>
                             <div class="row mt-4 align-items-center">
@@ -123,7 +123,7 @@
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">{{ $employee->address }}</div>
                                         </div>
-                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML('$ '. $employee->nisn, 'C39') !!}</div>
+                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML("$employee->nuptk", 'C128B') !!}</div>
                                     </div>
                                 </div>
                             </div>
