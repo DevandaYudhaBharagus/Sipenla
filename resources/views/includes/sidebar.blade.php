@@ -31,7 +31,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="">
+                      <a href="{{ url('/student') }}">
                           <div class="box-icon-dropdown">
                               <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
                           </div>
@@ -39,7 +39,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="">
+                      <a href="{{ url('/employee') }}">
                           <div class="box-icon-dropdown">
                               <img src="{{ asset('images/internal-images/master-user.png') }}" alt="" />
                           </div>

@@ -45,93 +45,93 @@
                                 <td style="width: 4%;font-weight:600">1.</td>
                                 <td style="width:40%;font-weight:600">Nama Depan</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Lorem ipsum dolor sit amet.</td>
+                                <td style="width:51%">{{ $employee->first_name }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">2.</td>
                                 <td style="width:40%;font-weight:600">Nama Belakang</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">adipisicing elit. Voluptatem, voluptas?</td>
+                                <td style="width:51%">{{ $employee->last_name }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">3.</td>
                                 <td style="width:40%;font-weight:600">NUPTK/ID Pegawai</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">1254698552001478562</td>
+                                <td style="width:51%">{{ $employee->nuptk }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">4.</td>
                                 <td style="width:40%;font-weight:600">NPSN</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">05874256985545</td>
+                                <td style="width:51%">{{ $employee->npsn }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">5.</td>
                                 <td style="width:40%;font-weight:600">Tempat, tanggallahir</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Surabaya, 28-10-1998</td>
+                                <td style="width:51%">{{ $employee->place_of_birth.", ".$employee->date_of_birth }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">6.</td>
                                 <td style="width:40%;font-weight:600">Jenis Kelamin</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Laki-laki</td>
+                                <td style="width:51%">{{ $employee->gender }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">7.</td>
                                 <td style="width:40%;font-weight:600">Agama</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Konghucu</td>
+                                <td style="width:51%">{{ $employee->religion }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">8.</td>
                                 <td style="width:40%;font-weight:600">Alamat Tinggal</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Jl Surabaya</td>
+                                <td style="width:51%">{{ $employee->address }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">9.</td>
                                 <td style="width:40%;font-weight:600">Pendidikan Terakhir</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">D4 Informatika</td>
+                                <td style="width:51%">{{ $employee->education }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">10.</td>
                                 <td style="width:40%;font-weight:600">Nama Ibu</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Kamu nanya</td>
+                                <td style="width:51%">{{ $employee->family_name }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">11.</td>
                                 <td style="width:40%;font-weight:600">Alamat Orang Tua</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Sama</td>
+                                <td style="width:51%">{{ $employee->family_address }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">12.</td>
                                 <td style="width:40%;font-weight:600">Email</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">email@gmail.com</td>
+                                <td style="width:51%">{{ $employee->email }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">13.</td>
                                 <td style="width:40%;font-weight:600">Jabatan 1</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">Kepala Sekolah</td>
+                                <td style="width:51%">{{ $employee->position }}</td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td style="width: 4%;font-weight:600">14.</td>
                                 <td style="width:40%;font-weight:600">Jabatan 2</td>
                                 <td style="width: 5%;text-align:center">:</td>
                                 <td style="width:51%">Guru</td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td style="width: 4%;font-weight:600">15.</td>
                                 <td style="width:40%;font-weight:600">Foto</td>
                                 <td style="width: 5%;text-align:center">:</td>
                                 <td style="width:51%">
                                     <div class="box-image-employee">
-                                        <img src="{{ asset('images/internal-images/pengumuman.jpg') }}">
+                                        <img src="{{$employee->image }}">
                                     </div>
                                 </td>
                             </tr>

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\API\AdmissionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -120,7 +122,7 @@ Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
@@ -246,6 +248,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/cuti', [AttendanceController::class, 'addLeave']);
         Route::post('/duty', [AttendanceController::class, 'addDuty']);
         Route::get('/page-checkout', [AttendanceController::class, 'absensiKeluar']);
+    });
+
+    Route::prefix('admission')->group(function (){
+        Route::get('/', [ControllersAdmissionController::class, 'index']);
+        Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
     });
 
     //Route Blank Space Master
