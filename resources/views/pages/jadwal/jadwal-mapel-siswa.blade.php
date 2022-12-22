@@ -40,106 +40,96 @@
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>SENIN</h6>
+                            @if (count($senin) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Indonesia</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Pelajaran</div>
                             </div>
+                            @endif
+                            @foreach ($senin as $s)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Matematika</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="box-mapel-schedule">
+                                    <div class="content-schedule">{{ $s->subject_name }}</div>
+                                    <div class="content-schedule">Penagajar: {{ $s->first_name }} {{ $s->last_name }}</div>
+                                    <div class="content-schedule">{{ date('H:i', strtotime($s->start_time)) }} - {{ date('H:i', strtotime($s->end_time)) }}</div>
+                                </div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Inggris</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>SELASA</h6>
+                            @if (count($selasa) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Indonesia</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Pelajaran</div>
                             </div>
+                            @endif
+                            @foreach ($selasa as $l)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Matematika</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="box-mapel-schedule">
+                                    <div class="content-schedule">{{ $l->subject_name }}</div>
+                                    <div class="content-schedule">Penagajar: {{ $l->first_name }} {{ $l->last_name }}</div>
+                                    <div class="content-schedule">{{ date('H:i', strtotime($l->start_time)) }} - {{ date('H:i', strtotime($l->end_time)) }}</div>
+                                </div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Inggris</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>RABU</h6>
+                            @if (count($rabu) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Indonesia</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Pelajaran</div>
                             </div>
+                            @endif
+                            @foreach ($rabu as $r)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Matematika</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="box-mapel-schedule">
+                                    <div class="content-schedule">{{ $r->subject_name }}</div>
+                                    <div class="content-schedule">Penagajar: {{ $r->first_name }} {{ $r->last_name }}</div>
+                                    <div class="content-schedule">{{ date('H:i', strtotime($r->start_time)) }} - {{ date('H:i', strtotime($r->end_time)) }}</div>
+                                </div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Inggris</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>KAMIS</h6>
+                            @if (count($kamis) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Indonesia</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Pelajaran</div>
                             </div>
+                            @endif
+                            @foreach ($kamis as $k)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Matematika</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="box-mapel-schedule">
+                                    <div class="content-schedule">{{ $k->subject_name }}</div>
+                                    <div class="content-schedule">Penagajar: {{ $k->first_name }} {{ $k->last_name }}</div>
+                                    <div class="content-schedule">{{ date('H:i', strtotime($k->start_time)) }} - {{ date('H:i', strtotime($k->end_time)) }}</div>
+                                </div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Inggris</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>JUM'AT</h6>
+                            @if (count($jumat) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Indonesia</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Pelajaran</div>
                             </div>
+                            @endif
+                            @foreach ($jumat as $j)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Matematika</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
+                                <div class="box-mapel-schedule">
+                                    <div class="content-schedule">{{ $j->subject_name }}</div>
+                                    <div class="content-schedule">Penagajar: {{ $j->first_name }} {{ $j->last_name }}</div>
+                                    <div class="content-schedule">{{ date('H:i', strtotime($j->start_time)) }} - {{ date('H:i', strtotime($j->end_time)) }}</div>
+                                </div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Bahasa Inggris</div>
-                                <div class="content-schedule">Penagajar: Pak Aziz</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                            </div>
-
+                            @endforeach
                         </div>
                     </div>
                 </div>
