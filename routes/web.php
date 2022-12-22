@@ -65,26 +65,16 @@ Route::get('/master-isi-saldo', function(){
 Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
+
+// Fokus Yang Dikerjain
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-// Route::get('/jadwal-pil', function(){
-//     return view('pages.jadwal.jadwal');
-// });
 Route::get('/jadwal-mapel-guru', function(){
     return view('pages.jadwal.jadwal-mapel-guru');
 });
 Route::get('/jadwal-mapel-siswa', function(){
     return view('pages.jadwal.jadwal-mapel-siswa');
-});
-Route::get('/master-blank', function(){
-    return view('pages.master.home-master');
-});
-Route::get('/master-jadwal-ekstra', function(){
-    return view('pages.master.master-jadwal-ekstra');
-});
-Route::get('/master-anggota-kelas', function(){
-    return view('pages.master.master-anggota-kelas');
 });
 Route::get('/penilaian', function(){
     return view('pages.penilaian.penilaian');
@@ -120,7 +110,7 @@ Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
@@ -220,9 +210,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/addclass', [GradeController::class, 'gradeStore']);
         Route::post('/addgrade', [GradeController::class, 'store']);
         Route::get('/{id}/edit', [GradeController::class, 'edit']);
+        Route::get('/class/{grade}', [GradeController::class, 'getDetail']);
         Route::post('/{id}', [GradeController::class, 'update']);
         Route::delete('/delete-grade/{id}', [GradeController::class, 'delete']);
         Route::delete('/delete-class/{id}', [GradeController::class, 'deleteGrade']);
+        Route::delete('/delete-student/{id}', [GradeController::class, 'deleteStudent']);
     });
 
     //Route Schedules
@@ -232,9 +224,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/{id}/edit', [LessonSchedulesController::class, 'edit']);
         Route::post('/{id}', [LessonSchedulesController::class, 'update']);
         Route::delete('/delete-schedules/{id}', [LessonSchedulesController::class, 'delete']);
-        Route::get('/ekstrakurikuler', [LessonSchedulesController::class, 'schedulesEkstrakurikuler']);
-        Route::get('/del-ekstrakurikuler/{id}', [LessonSchedulesController::class, 'delSchedulesEkstrakurikuler']);
+    });
+
+    //Route Extra Schedules
+    Route::prefix('extra-schedules')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'schedulesEkstrakurikuler']);
+        Route::post('/addscheduleextra', [LessonSchedulesController::class, 'storeExtra']);
+        Route::post('/{id}', [LessonSchedulesController::class, 'updateExtra']);
         Route::get('/{id}/edit-ekstrakurikuler', [LessonSchedulesController::class, 'editSchedulesEkstrakurikuler']);
+        Route::delete('/del-ekstrakurikuler/{id}', [LessonSchedulesController::class, 'delSchedulesEkstrakurikuler']);
     });
 
     //Route Absensi

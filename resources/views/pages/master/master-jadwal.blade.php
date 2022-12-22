@@ -139,6 +139,7 @@
                                 <label for="subject_id" class="form-label">Mata Pelajaran</label>
                                 <select class="form-select" name="subject_id" id="subject_id" data-dropdown-parent="body"
                                     data-placeholder="--- Pilih Mata Pelajaran ---">
+                                    <option></option>
                                     @foreach ($subject as $subjects)
                                         <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option>
                                     @endforeach
@@ -148,6 +149,7 @@
                                 <label for="grade_id" class="form-label">Kelas</label>
                                 <select class="form-select" name="grade_id" id="grade_id" data-dropdown-parent="body"
                                     aria-label="Default select example" data-placeholder="--- Pilih Kelas ---">
+                                    <option></option>
                                     @foreach ($grades as $grade)
                                         <option value="{{ $grade->grade_id }}">{{ $grade->grade_name }}</option>
                                     @endforeach
@@ -157,6 +159,7 @@
                                 <label for="teacher_id" class="form-label">Guru</label>
                                 <select class="form-select" name="teacher_id" id="teacher_id"
                                     data-dropdown-parent="body" data-placeholder="--- Pilih Guru ---">
+                                    <option></option>
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
@@ -167,6 +170,7 @@
                                 <label for="day_id" class="form-label">Hari</label>
                                 <select class="form-select" name="days_id" id="day_id" data-dropdown-parent="body"
                                     aria-label="Default select example" data-placeholder="--- Pilih Hari ---">
+                                    <option></option>
                                     @foreach ($days as $day)
                                         <option value="{{ $day->day_id }}">{{ $day->day_name }}</option>
                                     @endforeach
