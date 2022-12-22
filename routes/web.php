@@ -72,12 +72,6 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/jadwal-mapel-guru', function(){
-    return view('pages.jadwal.jadwal-mapel-guru');
-});
-Route::get('/jadwal-mapel-siswa', function(){
-    return view('pages.jadwal.jadwal-mapel-siswa');
-});
 Route::get('/penilaian', function(){
     return view('pages.penilaian.penilaian');
 });
@@ -250,6 +244,16 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::prefix('datauser')->group(function (){
         Route::get('/', [ControllersAdmissionController::class, 'index']);
+    });
+
+    //Route Jadwal Mapel Guru
+    Route::prefix('mapel-guru')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getScheduleByUser']);
+    });
+
+    // Jadwal Mapel Siswa
+    Route::prefix('mapel-siswa')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getScheduleByStudent']);
     });
 
     //Route Blank Space Master
