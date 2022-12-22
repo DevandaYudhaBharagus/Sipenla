@@ -56,7 +56,7 @@
                             <td style="width:25%">{{ $k->grade_name }}</td>
                             <td style="width:20%">{{ $k->first_name . ' ' . $k->last_name }}</td>
                             <td style="width:20%">
-                                <a href="" class="btn-foto-master m-auto member">Lihat Anggota</a>
+                                <a href="{{ url('/grade/class/'.$k->grade_id) }}" class="btn-foto-master m-auto member">Lihat Anggota</a>
                             </td>
                             <td style="width:15%">
                                 <div class="d-flex align-items-center justify-content-center">
