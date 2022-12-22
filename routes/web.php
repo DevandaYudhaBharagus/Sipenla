@@ -96,18 +96,12 @@ Route::get('/tabel-pegawai-admin', function(){
 Route::get('/absensi-pegawai', function(){
     return view('pages.tabel-data.absensi-pegawai');
 });
-// Route::get('/data-form-pegawai', function(){
-//     return view('pages.tabel-data.data-form-pegawai');
-// });
 Route::get('/tabel-siswa-admin', function(){
     return view('pages.tabel-data.tabel-siswa-admin');
 });
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
-// Route::get('/data-form-siswa', function(){
-//     return view('pages.tabel-data.data-form-siswa');
-// });
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
@@ -257,10 +251,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('datauser')->group(function (){
         Route::get('/', [ControllersAdmissionController::class, 'index']);
     });
-
-
-
-
 
     //Route Blank Space Master
     Route::get('/master', function(){
