@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
-use App\Http\Controllers\API\AdmissionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -11,17 +9,20 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\ProfleController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\DataUserController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ForgotPassController;
 use App\Http\Controllers\LandingPageController;
+use App\Http\Controllers\API\AdmissionController;
 use App\Http\Controllers\MasterStudentController;
 use App\Http\Controllers\MasterTeacherController;
 use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
-use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,18 +101,18 @@ Route::get('/tabel-siswa', function(){
 Route::get('/tabel-pegawai', function(){
     return view('pages.tabel-data.tabel-pegawai');
 });
-Route::get('/tabel-pegawai-admin', function(){
-    return view('pages.tabel-data.tabel-pegawai-admin');
-});
+// Route::get('/tabel-pegawai-admin', function(){
+//     return view('pages.tabel-data.tabel-pegawai-admin');
+// });
 Route::get('/absensi-pegawai', function(){
     return view('pages.tabel-data.absensi-pegawai');
 });
 // Route::get('/data-form-pegawai', function(){
 //     return view('pages.tabel-data.data-form-pegawai');
 // });
-Route::get('/tabel-siswa-admin', function(){
-    return view('pages.tabel-data.tabel-siswa-admin');
-});
+// Route::get('/tabel-siswa-admin', function(){
+//     return view('pages.tabel-data.tabel-siswa-admin');
+// });
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
@@ -257,7 +258,8 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     Route::prefix('datauser')->group(function (){
-        Route::get('/', [ControllersAdmissionController::class, 'index']);
+        Route::get('/student', [DataUserController::class, 'getDataStudent']);
+        Route::get('/employee', [DataUserController::class, 'getDataEmployee']);
     });
 
 

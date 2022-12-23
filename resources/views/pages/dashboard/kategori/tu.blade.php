@@ -63,7 +63,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/datauser/student') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -75,7 +75,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/datauser/employee') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -121,6 +121,30 @@
                         <img src="{{ asset('images/internal-images/siswa-baru.png') }}" alt="" />
                     </div>
                     <div class="card-text">Penerimaan Siswa Baru</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 col-6">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/fasilitas.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Failitas</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 col-6">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/mutasi.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Mutasi</div>
                 </div>
             </div>
         </a>
