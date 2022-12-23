@@ -186,7 +186,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="" class="d-flex-align-items-center">
+                      <a href="{{ url('/extra-schedules') }}" class="d-flex-align-items-center">
                           <div class="box-icon-dropdown">
                               <img src="{{ asset('images/internal-images/master-jadwal.png') }}" />
                           </div>
@@ -216,7 +216,7 @@
                       </a>
                   </li>
                   <li>
-                      <a href="" class="d-flex-align-items-center">
+                      <a href="{{ url('/grade/class') }}" class="d-flex-align-items-center">
                           <div class="box-icon-dropdown">
                               <img src="{{ asset('images/internal-images/master-jadwal.png') }}" alt="" />
                           </div>

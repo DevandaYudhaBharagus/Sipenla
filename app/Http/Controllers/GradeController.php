@@ -117,4 +117,24 @@ class GradeController extends Controller
 
         return response()->json(["error" => false, "message" => "Sukses Menghapus Data Kelas!"]);
     }
+
+    public function getDetail($grade)
+    {
+        $grades = StudentGrade::join('students', 'student_grades.student_id', '=', 'students.student_id')
+                ->where('grade_id', '=', $grade)
+                ->get();
+
+        return view('pages.master.master-anggota-kelas', compact('grades'));
+    }
+
+    public function deleteStudent($id){
+        try {
+            StudentGrade::where('student_id', $id)->delete();
+        } catch (Exception $e) {
+
+            return response()->json(["error" => true, "message" => $e->getMessage()]);
+        }
+
+        return response()->json(["error" => false, "message" => "Sukses Menghapus Data Anggota Kelas!"]);
+    }
 }
