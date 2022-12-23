@@ -32,67 +32,51 @@
     <div class="box-content">
         <h5>Data Kelas</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
-                <button class="btn-create" id="add-grade" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Tambah Data
-                </button>
+
+            <button class="btn-create" id="add-grade" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tambah Data
+            </button>
+            <div class="form-search">
+                <input type="text" name="" id="search" placeholder="Cari Kelas" />
             </div>
+
         </div>
         <div class="outher-table" id="grade-table">
-            {{-- <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
-                    <tr>
-                        <th width="11%">No</th>
-                        <th width="25%%">Nama Kelas</th>
-                        <th width="25%">Wali Kelas</th>
-                        <th width="200px">Aksi</th>
-                    </tr>
-                    @foreach ($grades as $new)
+            <div class="table-scroll">
+                <table id="master-kelas" class="table-master" style="width:100%;">
+                    <thead>
                         <tr>
-                            <td width="11%">{{ $loop->iteration }}</td>
-                            <td width="40%">{{ $new->grade_name }}</td>
-                            <td width="30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td width="200px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->grade_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->grade_id }}" onclick=delete_data($(this)) class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width:10%" class="text-center">No</th>
+                            <th style="width:30%" class="text-center">Nama Kelas</th>
+                            <th style="width:45%" class="text-center">Wali kelas</th>
+                            <th style="width:15%" class="text-center">Aksi</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @forelse ($grades as $new)
+                            <tr>
+                                <td class="text-center align-items-center " style="width: 10%">{{ $loop->iteration }}</td>
+                                <td style="width:30%">{{ $new->grade_name }}</td>
+                                <td style="width:45%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                <td style="width:15%">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->grade_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $new->grade_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
-            </div> --}}
-            <table id="master-kelas" class="display" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th style="width:10%" class="text-center">No</th>
-                        <th style="width:30%" class="text-center">Nama Kelas</th>
-                        <th style="width:45%" class="text-center">Wali kelas</th>
-                        <th style="width:15%" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($grades as $new)
-                        <tr>
-                            <td class="text-center align-items-center " style="width: 10%">{{ $loop->iteration }}</td>
-                            <td style="width:30%">{{ $new->grade_name }}</td>
-                            <td style="width:45%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td style="width:15%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->grade_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->grade_id }}" onclick=delete_data($(this)) class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -118,7 +102,8 @@
                             </div>
                             <div class="col-12 nb-3">
                                 <label for="status" class="form-label">Wali Kelas</label>
-                                <select class="form-select" name="teacher_id" id="basic-usage" data-placeholder="--Pilih Wali Kelas ---">
+                                <select class="form-select" name="teacher_id" id="basic-usage"
+                                    data-placeholder="--Pilih Wali Kelas ---">
                                     <option></option>
                                     @foreach ($teacher as $new)
                                         <option value="{{ $new->employee_id }}">
@@ -140,176 +125,184 @@
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('addon-javascript')
-        <script src="/js/dataTable.js"></script>
-        <script>
-            $(document).ready(function() {
-                $('#master-kelas').DataTable({
-                    scrollY: '60vh',
-                    scrollCollapse: true,
-                    paging: false,
-                });
+@push('addon-javascript')
+    <script>
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
+
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-kelas");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
+            const reset_form = $('#form-grade')[0];
+            $(reset_form).removeClass('was-validated');
+            $("#grade_id").val("");
+            $("#basic-usage").val("").change();
+            $("#form-grade").trigger("reset")
+            let uniqueField = ["grade_name"]
+            for (let i = 0; i < uniqueField.length; i++) {
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
+            }
+        });
+
+        $(document).ready(function() {
+            $('#basic-usage').select2({
+                theme: "bootstrap-5",
+                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+                    'style',
+                placeholder: $(this).data('placeholder'),
+                dropdownParent: $('#exampleModal'),
             });
-            window.addEventListener("load", function() {
-                const input = document.querySelector("#master-kelas_filter");
-                const elemenInput = input.children[0].children[0];
-                elemenInput.setAttribute("placeholder", "pencarian")
-                input.children[0].childNodes[0].textContent = " ";
+
+            document.getElementById("add-grade").addEventListener("click", function() {
+                document.getElementById("form-grade").reset();
+                $("#modal-title").html("Tambah Data Kelas");
+                document.getElementById("grade_id").value = null;
             });
-        </script>
-        <script>
-            $("#exampleModal").on("hidden.bs.modal", function(e) {
-                const reset_form = $('#form-grade')[0];
-                $(reset_form).removeClass('was-validated');
-                $("#grade_id").val("");
-                $("#basic-usage").val("").change();
-                $("#form-grade").trigger("reset")
-                let uniqueField = ["grade_name"]
-                for (let i = 0; i < uniqueField.length; i++) {
-                    $("#" + uniqueField[i]).removeClass('was-validated');
-                    $("#" + uniqueField[i]).removeClass("is-invalid");
-                    $("#" + uniqueField[i]).removeClass("invalid-more");
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+        })
 
-            $(document).ready(function() {
-                $('#basic-usage').select2({
-                    theme: "bootstrap-5",
-                    width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                        'style',
-                    placeholder: $(this).data('placeholder'),
-                    dropdownParent: $('#exampleModal'),
-                });
+        Array.prototype.filter.call($('#form-grade'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-                document.getElementById("add-grade").addEventListener("click", function() {
-                    document.getElementById("form-grade").reset();
-                    $("#modal-title").html("Tambah Data Kelas");
-                    document.getElementById("grade_id").value = null;
-                });
+                let grade_id = $("#grade_id").val();
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-            })
-
-            Array.prototype.filter.call($('#form-grade'), function(form) {
-                form.addEventListener('submit', function(event) {
-                    event.preventDefault();
-
-                    let grade_id = $("#grade_id").val();
-
-                    var url = (grade_id !== undefined && grade_id !== null) && grade_id ?
-                        "{{ url('grade') }}" + "/" + grade_id : "{{ url('grade') }}" + "/addgrade";
-                    $.ajax({
-                        url: url,
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        },
-                        type: 'post',
-                        data: $('#form-grade').serialize(),
-                        // contentType: 'application/json',
-                        processData: false,
-                        success: function(response) {
-                            console.log(response)
-                            setTimeout(() => {
-                                $("#grade-table").load(window.location.href +
-                                    " #grade-table");
-                            }, 0);
-                            $('#exampleModal').modal('hide');
-                            var reset_form = $('#form-grade')[0];
-                            $(reset_form).removeClass('was-validated');
-                            reset_form.reset();
-                            $('#exampleModal').modal('hide');
-                            $("#modal-title").html("Tambah Data Kelas")
-                            $("#grade_id").val()
-                        },
-                        error: function(xhr) {
-                            console.log(xhr.responseText);
-                        }
-                    });
-                });
-            });
-
-            function edit_data(e) {
-                $('#exampleModal').modal('show')
-                var url = "{{ url('grade') }}" + "/" + e.attr('data-id') + "/" + "edit"
+                var url = (grade_id !== undefined && grade_id !== null) && grade_id ?
+                    "{{ url('grade') }}" + "/" + grade_id : "{{ url('grade') }}" + "/addgrade";
                 $.ajax({
                     url: url,
-                    method: "GET",
-                    // dataType: "json",
-                    success: function(result) {
-                        $("#modal-title").html("Edit Jadwal Kerja")
-                        $("#button-modal").html("Edit")
-                        $('#grade_id').val(result.grade_id).trigger('change');
-                        $('#grade_name').val(result.grade_name);
-                        $('#basic-usage').val(result.teacher_id).trigger('change');
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-grade').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#grade-table").load(window.location.href +
+                                " #grade-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-grade')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Kelas")
+                        $("#grade_id").val()
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);
                     }
                 });
-            }
+            });
+        });
 
-            function delete_data(e) {
+        function edit_data(e) {
+            $('#exampleModal').modal('show')
+            var url = "{{ url('grade') }}" + "/" + e.attr('data-id') + "/" + "edit"
+            $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                success: function(result) {
+                    $("#modal-title").html("Edit Jadwal Kerja")
+                    $("#button-modal").html("Edit")
+                    $('#grade_id').val(result.grade_id).trigger('change');
+                    $('#grade_name').val(result.grade_name);
+                    $('#basic-usage').val(result.teacher_id).trigger('change');
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
 
-                Swal.fire({
-                    text: "Apakah anda yakin ingin menghapus ?",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    cancelButtonColor: '#d33',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonText: 'Batal',
-                    confirmButtonText: 'Setuju',
-                    reverseButtons: true
+        function delete_data(e) {
 
-                }).then(function(result) {
+            Swal.fire({
+                text: "Apakah anda yakin ingin menghapus ?",
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#3085d6',
+                cancelButtonText: 'Batal',
+                confirmButtonText: 'Setuju',
+                reverseButtons: true
 
-                    if (result.value) {
+            }).then(function(result) {
 
-                        var id = e.attr('data-id');
-                        jQuery.ajax({
-                            url: "{{ url('/grade/delete-grade') }}" + "/" + id,
-                            type: 'post',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: {
-                                '_method': 'delete'
-                            },
-                            success: function(result) {
+                if (result.value) {
 
-                                if (result.error) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/grade/delete-grade') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                                    Swal.fire({
-                                        type: "error",
-                                        title: 'Oops...',
-                                        text: result.message,
-                                        confirmButtonClass: 'btn btn-success',
-                                    })
+                            if (result.error) {
 
-                                } else {
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                                    setTimeout(() => {
-                                        $("#grade-table").load(window.location.href +
-                                            " #grade-table");
-                                    }, 0);
+                            } else {
 
-                                    Swal.fire({
-                                        type: "success",
-                                        title: 'Menghapus!',
-                                        text: result.message,
-                                        confirmButtonClass: 'btn btn-success',
-                                    })
+                                setTimeout(() => {
+                                    $("#grade-table").load(window.location.href +
+                                        " #grade-table");
+                                }, 0);
 
-                                }
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
+
                             }
-                        });
-                    }
-                });
-            }
-        </script>
-    @endpush
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+@endpush

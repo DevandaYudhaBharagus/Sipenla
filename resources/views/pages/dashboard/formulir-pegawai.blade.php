@@ -123,9 +123,9 @@
                                 placeholder="Jabatan 1" />
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Phone</label>
+                            <label for="" class="form-label">Nomor</label>
                             <input type="number" name="phone" class="form-control" id="nisn"
-                                placeholder="Jabatan 1" />
+                                placeholder="Nomor" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Shift Kerja</label>

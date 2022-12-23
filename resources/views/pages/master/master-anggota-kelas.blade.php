@@ -43,18 +43,17 @@
                 </thead>
                 <tbody>
                     @foreach ($grades as $g)
-                    <tr>
-                        <td class="text-center align-items-center">{{ $loop->iteration }}</td>
-                        <td class="text-start">{{ $g->first_name . ' ' . $g->last_name }}
-                        </td>
-                        <td>{{ $g->nisn }}</td>
-                        <td>
+                        <tr>
+                            <td class="text-center align-items-center">{{ $loop->iteration }}</td>
+                            <td class="text-start">{{ $g->first_name . ' ' . $g->last_name }}
+                            </td>
+                            <td>{{ $g->nisn }}</td>
+                            <td class="d-flex justify-content-center">
                                 <a data-id="{{ $g->student_id }}" onclick=delete_data($(this)) class="btn-edit-master btn">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
