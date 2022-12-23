@@ -127,4 +127,26 @@ class ChatController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
         }
     }
+
+    public function updateStatusChat(Request $request, $room)
+    {
+        try{
+            $edit = [
+                'status' => $request->status,
+            ];
+
+            $updateRoom = Room::where('room_id', '=', $room)->update($edit);
+
+            return ResponseFormatter::success("Sukses Update Status.");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
 }
