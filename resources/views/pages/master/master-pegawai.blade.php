@@ -48,100 +48,105 @@
         <div class="outher-table" id="employee-table">
             <div class="table-scroll">
                 <table class="table-master">
-                    <tr>
-                        <th width="50px">No</th>
-                        <th width="250px">Nama Depan</th>
-                        <th width="250px">Nama Belakang</th>
-                        <th width="250px">NUPTK / ID Pegawai</th>
-                        <th width="250px">NPSN</th>
-                        <th width="250px">Tempat Lahir</th>
-                        <th width="250px">Tanggal Lahir</th>
-                        <th width="250px">Jenis Kelamin</th>
-                        <th width="250px">Agama</th>
-                        <th width="500px">Alamat Tinggal</th>
-                        <th width="250px">Riwayat Pendidikan</th>
-                        <th width="250px">Nama Ibu</th>
-                        <th width="500px">Alamat Orang Tua</th>
-                        <th width="250px">Email</th>
-                        <th width="250px">Jabatan 1</th>
-                        <th width="250px">Shift Kerja</th>
-                        <th width="250px">Foto</th>
-                        <th width="250px">Aksi</th>
-                    </tr>
-                    @foreach ($employees as $employee)
+                    <thead>
                         <tr>
-                            <td width="50px">{{ $loop->iteration }}</td>
-                            <td width="250px">
-                                {{ $employee->first_name }}
-                            </td>
-                            <td width="250px">{{ $employee->last_name }}</td>
-                            <td width="250px">{{ $employee->nuptk }}</td>
-                            <td width="250px">{{ $employee->npsn }}</td>
-                            <td width="250px">{{ $employee->place_of_birth }}</td>
-                            <td width="250px">{{ $employee->date_of_birth }}</td>
-                            <td width="250px">{{ $employee->gender }}</td>
-                            <td width="250px">{{ $employee->religion }}</td>
-                            <td width="500px">{{ $employee->address }}</td>
-                            <td width="250px">{{ $employee->education }}</td>
-                            <td width="250px">{{ $employee->family_name }}</td>
-                            <td width="500px">{{ $employee->family_address }}</td>
-                            <td width="250px">{{ $employee->email }}</td>
-                            <td width="250px">{{ $employee->position }}</td>
-                            <td width="250px">{{ $employee->shift_name }}</td>
-                            <td width="250px">
-                                <div class="dropdown">
-                                    <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <div class="icon-foto-master">
-                                            <img src="{{ asset('images/internal-images/foto-master.png') }}"
-                                                alt="" />
-                                        </div>
-                                        <div class="fa fa-angle-down"></div>
-                                    </div>
-                                    <ul class="dropdown-menu dropdown-foto">
-                                        <li>
-                                            <h6>Foto</h6>
-                                            <div class="box-foto-master">
-                                                @if (!$employee->image)
-                                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
-                                                        alt="" />
-                                                @else
-                                                    <img src="{{ $employee->image }}" alt="" />
-                                                @endif
-                                                <div class="d-flex align-items-center edit-master justify-content-end">
-                                                    <form
-                                                        action="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
-                                                        method="post" enctype="multipart/form-data">
-                                                        @csrf
-                                                        <input type="file" name="profile_employee" class="form-control"
-                                                            id="fotoSiswa" style="display: none" multiple />
-                                                        <button class="btn-edit-master" type="button"
-                                                            onclick="uploadPhotoSiswa()">
-                                                            <i class="fa fa-edit text-primary"></i>
-                                                        </button>
-                                                    </form>
-                                                    <a href="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
-                                                        class="btn-edit-master">
-                                                        <i class="fa fa-trash-o text-danger"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td width="250px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $employee->employee_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $employee->user_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width: 300px">No</th>
+                            <th style="width: 300px">Nama Depan</th>
+                            <th style="width: 300px">Nama Belakang</th>
+                            <th style="width: 300px">NUPTK / ID Pegawai</th>
+                            <th style="width: 300px">NPSN</th>
+                            <th style="width: 300px">Tempat Lahir</th>
+                            <th style="width: 300px">Tanggal Lahir</th>
+                            <th style="width: 300px">Jenis Kelamin</th>
+                            <th style="width: 300px">Agama</th>
+                            <th style="width: 300px">Alamat Tinggal</th>
+                            <th style="width: 300px">Riwayat Pendidikan</th>
+                            <th style="width: 300px">Nama Ibu</th>
+                            <th style="width: 300px">Alamat Orang Tua</th>
+                            <th style="width: 300px">Email</th>
+                            <th style="width: 300px">Jabatan 1</th>
+                            <th style="width: 300px">Shift Kerja</th>
+                            <th style="width: 300px">Foto</th>
+                            <th style="width: 300px">Aksi</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @foreach ($employees as $employee)
+                            <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>
+                                    {{ $employee->first_name }}
+                                </td>
+                                <td>{{ $employee->last_name }}</td>
+                                <td>{{ $employee->nuptk }}</td>
+                                <td>{{ $employee->npsn }}</td>
+                                <td>{{ $employee->place_of_birth }}</td>
+                                <td>{{ $employee->date_of_birth }}</td>
+                                <td>{{ $employee->gender }}</td>
+                                <td>{{ $employee->religion }}</td>
+                                <td>{{ $employee->address }}</td>
+                                <td>{{ $employee->education }}</td>
+                                <td>{{ $employee->family_name }}</td>
+                                <td>{{ $employee->family_address }}</td>
+                                <td> {{ $employee->email }}</td>
+                                <td>{{ $employee->position }}</td>
+                                <td>{{ $employee->shift_name }}</td>
+                                <td>
+                                    <div class="dropdown">
+                                        <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="icon-foto-master">
+                                                <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                    alt="" />
+                                            </div>
+                                            <div class="fa fa-angle-down"></div>
+                                        </div>
+                                        <ul class="dropdown-menu dropdown-foto">
+                                            <li>
+                                                <h6>Foto</h6>
+                                                <div class="box-foto-master">
+                                                    @if (!$employee->image)
+                                                        <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
+                                                            alt="" />
+                                                    @else
+                                                        <img src="{{ $employee->image }}" alt="" />
+                                                    @endif
+                                                    <div class="d-flex align-items-center edit-master justify-content-end">
+                                                        <form
+                                                            action="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
+                                                            method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="file" name="profile_employee"
+                                                                class="form-control" id="fotoSiswa" style="display: none"
+                                                                multiple />
+                                                            <button class="btn-edit-master" type="button"
+                                                                onclick="uploadPhotoSiswa()">
+                                                                <i class="fa fa-edit text-primary"></i>
+                                                            </button>
+                                                        </form>
+                                                        <a href="{{ url('/employee' . '/photo/' . $employee->employee_id) }}"
+                                                            class="btn-edit-master">
+                                                            <i class="fa fa-trash-o text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $employee->employee_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $employee->user_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
                 </table>
             </div>
         </div>

@@ -78,33 +78,37 @@
                 <h6>Berita Terbaru</h6>
                 <div class="hot-news mt-4 mb-4">
                     @foreach ($hots as $hot)
-                    <div class="blog-news">
-                        <div class="row">
-                            <div class="col-md-5 col-12">
-                                <div class="image-news ms-auto">
-                                    @if(!$hot->news_image)
-                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                                    @else
-                                        <img src="{{ $hot->news_image }}" alt="" />
-                                    @endif
+                        <?php
+                        $description = substr($hot->news_content, 0, 350);
+                        ?>
+                        <div class="blog-news">
+                            <div class="row">
+                                <div class="col-md-5 col-12">
+                                    <div class="image-news ms-auto">
+                                        @if (!$hot->news_image)
+                                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
+                                                alt="" />
+                                        @else
+                                            <img src="{{ $hot->news_image }}" alt="" />
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-7 col-12 mt-3">
-                                <div class="title-hot-news">
-                                    {{ $hot->news_title }}
-                                </div>
-                                <div class="date-hot-news">
-                                    {{ $hot->created_at->format('j F, Y') }}
-                                </div>
-                                <div class="text-hot-news">
-                                    <p>
-                                        {{ $hot->news_content }}
-                                        <a href="{{ url('detail-news/'.$hot->news_id) }}">BACA SELENGKAPNYA</a>
-                                    </p>
+                                <div class="col-md-7 col-12 mt-3">
+                                    <div class="title-hot-news">
+                                        {{ $hot->news_title }}
+                                    </div>
+                                    <div class="date-hot-news">
+                                        {{ $hot->created_at->format('j F, Y') }}
+                                    </div>
+                                    <div class="text-hot-news">
+                                        <p>
+                                            {!! $description !!}
+                                            <a href="{{ url('detail-news/' . $hot->news_id) }}"> BACA SELENGKAPNYA</a>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
@@ -117,7 +121,7 @@
                     @foreach ($news as $new)
                         <div class="card card-news">
                             <div class="card-image">
-                                @if(!$new->news_image)
+                                @if (!$new->news_image)
                                     <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
                                 @else
                                     <img src="{{ $new->news_image }}" alt="" />
@@ -129,7 +133,8 @@
                                 </h5>
                                 <div class="date-new-news">{{ $new->created_at->format('j F, Y') }}</div>
                                 <div class="d-flex justify-content-end mt-2">
-                                    <a href="{{ url('detail-news/'.$new->news_id) }}" class="link-new-news">Baca Selengkapnya...</a>
+                                    <a href="{{ url('detail-news/' . $new->news_id) }}" class="link-new-news">Baca
+                                        Selengkapnya...</a>
                                 </div>
                             </div>
                         </div>
@@ -271,12 +276,8 @@
                     </div>
                     <div class="desk-footer">
                         <p>
-                            Lorem Ipsum is simply dummy text of the printing and typesetting
-                            industry. Lorem Ipsum has been the industry's standard dummy
-                            text ever since the 1500s, when an unknown printer took a galley
-                            of type and scrambled it to make a type specimen book. Taq
-                            engkok iki isi en tentang kami terkait sipenla dsb sg menurutmu
-                            iki tentang kami, aku ga isok mendongeng soale wkwkwk
+                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste quisquam odit ab vel. Iste in
+                            velit ex maiores ad aspernatur qui vel, tempora unde
                         </p>
                     </div>
                 </div>

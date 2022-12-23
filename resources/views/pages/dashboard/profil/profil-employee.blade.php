@@ -18,7 +18,7 @@
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="profile-student">
-                                        {{-- @if(!$employee->image)
+                                        {{-- @if (!$employee->image)
                                             <img src="{{ asset('images/internal-images/profile-user.png') }}" alt="" />
                                         @else
                                             <img src="{{ $employee->image }}" alt="" />
@@ -30,32 +30,32 @@
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">{{ $employee->first_name." ". $employee->last_name}}</div>
+                                    <div class="name-student">{{ $employee->first_name . ' ' . $employee->last_name }}</div>
                                     @if (Auth::User()->role == 'admin')
-                                    <div class="title-student">Admin</div>
-                                @elseif (Auth::User()->role == 'guru')
-                                    <div class="title-student">Guru</div>
-                                @elseif (Auth::User()->role == 'kepsek')
-                                    <div class="title-student">Kepala Sekolah</div>
-                                @elseif (Auth::User()->role == 'tu')
-                                    <div class="title-student">Pegawai TU</div>
-                                @elseif (Auth::User()->role == 'walimurid')
-                                    <div class="title-student">Wali Murid</div>
-                                @elseif (Auth::User()->role == 'perpus')
-                                    <div class="title-student">Pegawai Perpustakaan</div>
-                                @elseif (Auth::User()->role == 'pengawassekolah')
-                                    <div class="title-student">Pengawas Sekolah</div>
-                                @elseif (Auth::User()->role == 'pegawaikoperasi')
-                                    <div class="title-student">Pegawai Koperasi</div>
-                                @elseif (Auth::User()->role == 'pegawaikantin')
-                                    <div class="title-student">Pegawai Kantin</div>
-                                @elseif (Auth::User()->role == 'pembinaextra')
-                                    <div class="title-student">Pembina Ekstrakulikuler</div>
-                                @elseif (Auth::User()->role == 'dinaspendidikan')
-                                    <div class="title-student">Dinas Pendidikan</div>
-                                @elseif (Auth::User()->role == 'student')
-                                    <div class="title-student">Siswa</div>
-                                @endif
+                                        <div class="title-student">Admin</div>
+                                    @elseif (Auth::User()->role == 'guru')
+                                        <div class="title-student">Guru</div>
+                                    @elseif (Auth::User()->role == 'kepsek')
+                                        <div class="title-student">Kepala Sekolah</div>
+                                    @elseif (Auth::User()->role == 'tu')
+                                        <div class="title-student">Pegawai TU</div>
+                                    @elseif (Auth::User()->role == 'walimurid')
+                                        <div class="title-student">Wali Murid</div>
+                                    @elseif (Auth::User()->role == 'perpus')
+                                        <div class="title-student">Pegawai Perpustakaan</div>
+                                    @elseif (Auth::User()->role == 'pengawassekolah')
+                                        <div class="title-student">Pengawas Sekolah</div>
+                                    @elseif (Auth::User()->role == 'pegawaikoperasi')
+                                        <div class="title-student">Pegawai Koperasi</div>
+                                    @elseif (Auth::User()->role == 'pegawaikantin')
+                                        <div class="title-student">Pegawai Kantin</div>
+                                    @elseif (Auth::User()->role == 'pembinaextra')
+                                        <div class="title-student">Pembina Ekstrakulikuler</div>
+                                    @elseif (Auth::User()->role == 'dinaspendidikan')
+                                        <div class="title-student">Dinas Pendidikan</div>
+                                    @elseif (Auth::User()->role == 'student')
+                                        <div class="title-student">Siswa</div>
+                                    @endif
 
                                 </div>
                             </div>
@@ -94,8 +94,9 @@
                                 </div>
                                 <div class="d-flex align-items-center mt-4">
                                     <div class="profile-student-card">
-                                        @if(!$employee->image)
-                                            <img src="{{ asset('images/internal-images/profile-card.png') }}" alt="" />
+                                        @if (!$employee->image)
+                                            <img src="{{ asset('images/internal-images/profile-card.png') }}"
+                                                alt="" />
                                         @else
                                             <img src="{{ $employee->image }}" alt="" />
                                         @endif
@@ -104,7 +105,9 @@
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nama</div>
                                             <div class="barrier-card">:</div>
-                                            <div class="explain-card">{{ $employee->first_name.' '.$employee->last_name }}</div>
+                                            <div class="explain-card">
+                                                {{ $employee->first_name . ' ' . $employee->last_name }}
+                                            </div>
                                         </div>
                                         <div class="d-flex align-items-center mb-2">
                                             <div class="name-card">Nisn</div>
@@ -123,7 +126,7 @@
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">{{ $employee->address }}</div>
                                         </div>
-                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML("$employee->nuptk", 'C128B') !!}</div>
+                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML("$employee->nuptk", 'C128B', 1, 13) !!}</div>
                                     </div>
                                 </div>
                             </div>
@@ -143,7 +146,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-3">Nama</div>
                                     <div class="col-1 text-center">:</div>
-                                    <div class="col-8">{{ $employee->first_name.' '.$employee->last_name }}</div>
+                                    <div class="col-8">{{ $employee->first_name . ' ' . $employee->last_name }}</div>
                                 </div>
                             </div>
                             <div class="box-text-biografi">
