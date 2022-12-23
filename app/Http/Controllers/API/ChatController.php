@@ -8,13 +8,14 @@ use App\Helpers\ResponseFormatter;
 use App\Models\Room;
 use App\Models\Chat;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ChatController extends Controller
 {
     public function listRoom()
     {
         try{
-            $room = Room::get();
+            $room = Room::orderBy('date', 'desc')->get();
 
             $response = $room;
 
@@ -91,6 +92,52 @@ class ChatController extends Controller
             $response = $chat;
 
             return ResponseFormatter::success($response, "Sukses Get Chat.");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function updateChat(Request $request, $room)
+    {
+        try{
+            $edit = [
+                'status' => $request->status,
+                'date' => Carbon::now(),
+                'message' => $request->message
+            ];
+
+            $updateRoom = Room::where('room_id', '=', $room)->update($edit);
+
+            return ResponseFormatter::success("Sukses Update Chat.");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function updateStatusChat(Request $request, $room)
+    {
+        try{
+            $edit = [
+                'status' => $request->status,
+            ];
+
+            $updateRoom = Room::where('room_id', '=', $room)->update($edit);
+
+            return ResponseFormatter::success("Sukses Update Status.");
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();

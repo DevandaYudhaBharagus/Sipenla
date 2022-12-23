@@ -40,39 +40,47 @@
                 </button>
             </div>
             <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
+                <input type="text" name="" id="search" placeholder="Cari Shift" />
             </div>
         </div>
-        <div class="outher-table" id="table-workshift">
+        <div class="outher-table mt-4" id="table-workshift">
             <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
-                    <tr>
-                        <th width="8%">No</th>
-                        <th width="22%">Nama Shift</th>
-                        <th width="10%">Jam Mulai</th>
-                        <th width="10%">Jam Selesai</th>
-                        <th width="15%">Batas Kedatangan</th>
-                        <th width="150px">Aksi</th>
-                    </tr>
-                    @foreach ($shifts as $new)
+                <table class="table-master" id="master-shift">
+                    <thead>
                         <tr>
-                            <td width="8%">{{ $loop->iteration }}</td>
-                            <td width="22%">{{ $new->shift_name }}</td>
-                            <td width="10%">{{ $new->start_time }}</td>
-                            <td width="10%">{{ $new->end_time }}</td>
-                            <td width="16%">{{ $new->max_arrival }}</td>
-                            <td width="150px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->workshift_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->workshift_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width: 8%">No</th>
+                            <th style="width: 32%">Nama Shift</th>
+                            <th style="width: 10%">Jam Mulai</th>
+                            <th style="width: 10%">Jam Selesai</th>
+                            <th style="width: 15%">Batas Kedatangan</th>
+                            <th style="width: 25%">Aksi</th>
                         </tr>
-                    @endforeach
+                        <thead>
+                        <tbody>
+                            @forelse ($shifts as $new)
+                                <tr>
+                                    <td style="width: 8%">{{ $loop->iteration }}</td>
+                                    <td style="width: 32%">{{ $new->shift_name }}</td>
+                                    <td style="width: 10%">{{ $new->start_time }}</td>
+                                    <td style="width: 10%">{{ $new->end_time }}</td>
+                                    <td style="width: 15%">{{ $new->max_arrival }}</td>
+                                    <td style="width: 25%">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <a class="btn-edit-master me-2" data-id="{{ $new->workshift_id }}"
+                                                onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                            <a data-id="{{ $new->workshift_id }}" onclick=delete_data($(this))
+                                                class="btn-edit-master">
+                                                <i class="fa fa-trash-o text-danger"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6">Tidak ada data</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
                 </table>
             </div>
         </div>
@@ -129,6 +137,29 @@
 @endsection
 
 @push('addon-javascript')
+    <script>
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
+
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-shift");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
     <script>
         $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-workshift')[0];

@@ -40,33 +40,41 @@
                 </button>
             </div>
             <div class="form-search">
-                <input type="search" name="" id="" placeholder="pencarian" />
+                <input type="text" name="" id="search" placeholder="Cari Mapel" />
             </div>
         </div>
         <div class="outher-table" id="subject-table">
             <div class="table-scroll">
-                <table class="table-master" style="border: 1px solid black">
-                    <tr>
-                        <th width="10%">No</th>
-                        <th width="81%" class="text-start">Nama Mata Pelajaran</th>
-                        <th width="13%">Aksi</th>
-                    </tr>
-                    @foreach ($subcject as $new)
+                <table class="table-master" id="master-mapel" style="width:100%;">
+                    <thead>
                         <tr>
-                            <td width="10%">{{ $loop->iteration }}</td>
-                            <td width="81%">{{ $new->subject_name }}</td>
-                            <td width="13%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->subject_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->subject_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width: 10%">No</th>
+                            <th style="width: 80%" class="text-start">Nama Mata Pelajaran</th>
+                            <th style="width: 10%">Aksi</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @forelse ($subcject as $new)
+                            <tr>
+                                <td style="width: 10%">{{ $loop->iteration }}</td>
+                                <td style="width: 80%">{{ $new->subject_name }}</td>
+                                <td style="width: 10%">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->subject_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $new->subject_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="3">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -112,22 +120,44 @@
 
 @push('addon-javascript')
     <script>
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
 
-        $("#exampleModal").on("hidden.bs.modal", function (e) {
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-mapel");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-mapel')[0];
             const reset_form_edit = $('#form_edit_data')[0];
             $(reset_form).removeClass('was-validated');
             $(reset_form_edit).removeClass('was-validated');
             let uniqueField = ["subject_name"]
             for (let i = 0; i < uniqueField.length; i++) {
-            $("#" + uniqueField[i]).removeClass('was-validated');
-            $("#" + uniqueField[i]).removeClass("is-invalid");
-            $("#" + uniqueField[i]).removeClass("invalid-more");
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
             }
         });
 
-        $(document).ready(function () {
-            document.getElementById("add-subject").addEventListener("click", function () {
+        $(document).ready(function() {
+            document.getElementById("add-subject").addEventListener("click", function() {
                 document.getElementById("form-mapel").reset();
                 $("#modal-title").html("Tambah Data Mata Pelajaran");
                 document.getElementById("subject_id").value = null;
@@ -140,57 +170,58 @@
             });
         });
 
-        Array.prototype.filter.call($('#form-mapel'), function (form) {
-            form.addEventListener('submit', function (event) {
-            event.preventDefault();
+        Array.prototype.filter.call($('#form-mapel'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
 
-            let subject_id = $("#subject_id").val();
+                let subject_id = $("#subject_id").val();
 
-            var url = (subject_id !== undefined && subject_id !== null) && subject_id ? "{{ url('subject')}}" + "/" + subject_id : "{{ url('subject')}}"+ "/addsubject";
-            $.ajax({
-                url: url,
-                headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: 'post',
-                data: $('#form-mapel').serialize(),
-                // contentType: 'application/json',
-                processData: false,
-                success: function (response) {
-                console.log(response)
-                    setTimeout(() => {
-                                $("#subject-table").load(window.location.href +
-                                    " #subject-table");
-                            }, 0);
-                    $('#exampleModal').modal('hide');
-                    var reset_form = $('#form-mapel')[0];
-                    $(reset_form).removeClass('was-validated');
-                    reset_form.reset();
-                    $('#exampleModal').modal('hide');
-                    $("#modal-title").html("Tambah Data Mata Pelajaran")
-                    $("#subject_id").val()
-                },
-                error: function (xhr) {
-                console.log(xhr.responseText);
-                }
-            });
+                var url = (subject_id !== undefined && subject_id !== null) && subject_id ?
+                    "{{ url('subject') }}" + "/" + subject_id : "{{ url('subject') }}" + "/addsubject";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-mapel').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#subject-table").load(window.location.href +
+                                " #subject-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-mapel')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Mata Pelajaran")
+                        $("#subject_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
             });
         });
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{url('subject')}}" + "/" + e.attr('data-id') + "/" + "edit"
+            var url = "{{ url('subject') }}" + "/" + e.attr('data-id') + "/" + "edit"
             $.ajax({
                 url: url,
                 method: "GET",
                 // dataType: "json",
-                success: function (result) {
+                success: function(result) {
                     $("#modal-title").html("Edit Mata Pelajaran")
                     $("#button-modal").html("Edit")
                     $('#subject_id').val(result.subject_id).trigger('change');
                     $('#subject_name').val(result.subject_name);
                 },
-                error: function (xhr) {
+                error: function(xhr) {
                     console.log(xhr.responseText);
                 }
             });
@@ -208,50 +239,50 @@
                 confirmButtonText: 'Setuju',
                 reverseButtons: true
 
-            }).then(function (result) {
+            }).then(function(result) {
 
-            if (result.value) {
+                if (result.value) {
 
-                var id = e.attr('data-id');
-                jQuery.ajax({
-                url: "{{url('/subject/delete-subject')}}" + "/" + id,
-                type: 'post',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    '_method': 'delete'
-                },
-                success: function (result) {
+                    var id = e.attr('data-id');
+                    jQuery.ajax({
+                        url: "{{ url('/subject/delete-subject') }}" + "/" + id,
+                        type: 'post',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            '_method': 'delete'
+                        },
+                        success: function(result) {
 
-                    if (result.error) {
+                            if (result.error) {
 
-                    Swal.fire({
-                        type: "error",
-                        title: 'Oops...',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    } else {
+                            } else {
 
-                        setTimeout(() => {
-                                $("#subject-table").load(window.location.href +
-                                    " #subject-table");
-                            }, 0);
+                                setTimeout(() => {
+                                    $("#subject-table").load(window.location.href +
+                                        " #subject-table");
+                                }, 0);
 
-                    Swal.fire({
-                        type: "success",
-                        title: 'Menghapus!',
-                        text: result.message,
-                        confirmButtonClass: 'btn btn-success',
-                    })
+                                Swal.fire({
+                                    type: "success",
+                                    title: 'Menghapus!',
+                                    text: result.message,
+                                    confirmButtonClass: 'btn btn-success',
+                                })
 
-                    }
+                            }
+                        }
+                    });
                 }
-                });
-            }
             });
-            }
+        }
     </script>
 @endpush

@@ -8,7 +8,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href="{{ url('/dashboard') }}" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="{{ url('/dashboard') }}" class="d-flex align-items-center"><i class="material-icons">home</i>
+                            Beranda</a>
                     </li>
                     <li class="breadcrumb-item active" aria-current="page">
                         Berita Sekolah
@@ -32,42 +33,46 @@
                                 </div>
                             </div>
                             <div class="box-image-detail">
-                                @if(!$news->news_image)
-                                <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                @if (!$news->news_image)
+                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
                                 @else
-                                <img src="{{ $news->news_image }}" alt="" />
+                                    <img src="{{ $news->news_image }}" alt="" />
                                 @endif
                             </div>
                             <div class="text-detail-news">
                                 <p>
-                                    {{$news->news_content}}
+                                    {!! $news->news_content !!}
                                 </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-5 col-12">
                         @foreach ($datas as $data)
-                        <div class="detail-new-news">
-                            <a href="" class="content-new-news">
-                                <div class="box-img-new-news">
-                                    @if(!$data->news_image)
-                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
-                                    @else
-                                    <img src="{{ $data->news_image }}" alt="" />
-                                    @endif
-                                </div>
-                                <div class="text-new-news">
-                                    <div class="title-new-news">
-                                        {{$data->news_title}}
+                            <?php
+                            $descriptionDetailNews = substr($data->news_content, 0, 100);
+                            ?>
+                            <div class="detail-new-news">
+                                <a href="" class="content-new-news">
+                                    <div class="box-img-new-news">
+                                        @if (!$data->news_image)
+                                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
+                                                alt="" />
+                                        @else
+                                            <img src="{{ $data->news_image }}" alt="" />
+                                        @endif
                                     </div>
-                                    <div class="text-content-news">
-                                        <p>
-                                            {{ $data->news_content }}
-                                        </p>
+                                    <div class="text-new-news">
+                                        <div class="title-new-news">
+                                            {{ $data->news_title }}
+                                        </div>
+                                        <div class="text-content-news">
+                                            <p>
+                                                {!! $descriptionDetailNews !!}
+                                            </p>
+                                        </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
                         @endforeach
                     </div>
                 </div>
