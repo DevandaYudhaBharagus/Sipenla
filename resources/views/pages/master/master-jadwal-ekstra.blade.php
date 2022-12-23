@@ -93,7 +93,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5 m-auto" id="modal-title">
-                        Tambah Data Jadwal
+                        Tambah Data Jadwal Ekstrakulikuler
                     </h1>
                 </div>
                 <div class="modal-body">
@@ -103,7 +103,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="subject_id" class="form-label">Ekstrakulikuler</label>
-                                <select class="form-select" name="subject_id" id="subject_id" data-dropdown-parent="body"
+                                <select class="form-select" name="subject_id" id="subject_id"
                                     data-placeholder="--- Pilih Ekstrakulikuler ---">
                                     <option></option>
                                     @foreach ($ekstras as $newekstras)
@@ -115,7 +115,8 @@
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="teacher_id" class="form-label">Guru</label>
                                 <select class="form-select" name="teacher_id" id="teacher_id"
-                                    data-dropdown-parent="body" data-placeholder="--- Pilih Guru ---">
+                                    data-placeholder="--- Pilih Guru ---">
+                                    <option value=""></option>
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
@@ -124,8 +125,8 @@
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="day_id" class="form-label">Hari</label>
-                                <select class="form-select" name="days_id" id="day_id" data-dropdown-parent="body"
-                                    aria-label="Default select example" data-placeholder="--- Pilih Hari ---">
+                                <select class="form-select" name="days_id" id="day_id"
+                                    data-placeholder="--- Pilih Hari ---">
                                     @foreach ($days as $day)
                                         <option value="{{ $day->day_id }}">{{ $day->day_name }}</option>
                                     @endforeach
@@ -196,6 +197,35 @@
         }
     </script>
     <script>
+        $('#subject_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#teacher_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#day_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#grade_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+
         $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-schedule')[0];
             $(reset_form).removeClass('was-validated');
@@ -220,37 +250,7 @@
                 document.getElementById("extra_schedules_id").value = null;
             });
 
-            $('#subject_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
 
-            $('#teacher_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
-
-            $('#day_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
-
-            $('#grade_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
 
             $.ajaxSetup({
                 headers: {

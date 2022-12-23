@@ -120,7 +120,7 @@ Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
 
-// Auth::routes();
+Auth::routes();
 
 //Forgot Pass
 Route::get('/lupa-sandi', [ForgotPassController::class, 'index']);
