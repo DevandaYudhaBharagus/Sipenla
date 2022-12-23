@@ -41,17 +41,19 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($employee as $new )
                             <tr>
-                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
-                                </td>
-                                <td>loremyhyyy@gmail.com</td>
-                                <td>Guru</td>
-                                <td>Guru</td>
+                                <td>{{ $new->first_name." ".$new->last_name }}</td>
+                                <td>{{ $new->nuptk }}</td>
+                                <td>{{ $new->email }}</td>
+                                <td>{{ $new->position }}</td>
                                 <td> <a href="/absensi-pegawai" class="btn-data">Lihat</a> </td>
                                 <td>
                                     <a href="/data-form-pegawai" class="btn-data">Lihat</a>
                                 </td>
                             </tr>
+                            @endforeach
+                          
                         </tbody>
                     </table>
                 </div>
