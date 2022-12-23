@@ -324,5 +324,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/roomuser', [ChatController::class, 'listRoomByIdUser']);
         Route::post('/', [ChatController::class, 'createChat']);
         Route::post('/update/{room}', [ChatController::class, 'updateChat']);
+        Route::post('/status/{room}', [ChatController::class, 'updateStatusChat']);
     });
 });
