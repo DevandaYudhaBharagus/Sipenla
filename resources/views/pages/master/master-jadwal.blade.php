@@ -41,81 +41,55 @@
     <div class="box-content">
         <h5>Data Jadwal Mata Pelajaran</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
-                <button class="btn-create" id="add-schedule" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Tambah Data
-                </button>
+            <button class="btn-create" id="add-schedule" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tambah Data
+            </button>
+            <div class="form-search">
+                <input type="text" name="" id="search" placeholder="Cari Mata Pelajaran" />
             </div>
         </div>
         <div class="outher-table" id="table-schedule">
-            {{-- <div class="table-scroll">
-                <table class="table-master">
-                    <tr>
-                        <th width="22%">Mata Pelajaran</th>
-                        <th width="10%">Kelas</th>
-                        <th width="20%">Guru</th>
-                        <th width="10%">Hari</th>
-                        <th width="11%">Jam Mulai</th>
-                        <th width="11%">Jam Selesai</th>
-                        <th width="180px">Aksi</th>
-                    </tr>
-                    @foreach ($schedule as $new)
+            <div class="table-scroll">
+                <table id="master-jadwal" class="table-master" style="width:100%;">
+                    <thead>
                         <tr>
-                            <td width="22%">{{ $new->subject_name }}</td>
-                            <td width="10%">{{ $new->grade_name }}</td>
-                            <td width="20%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td width="10%">{{ $new->day_name }}</td>
-                            <td width="11%">{{ $new->start_time }}</td>
-                            <td width="11%">{{ $new->end_time }}</td>
-                            <td width="180px">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->lesson_schedule_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->lesson_schedule_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width:20%" class="text-center">Mata Pelajaran</th>
+                            <th style="width:10%" class="text-center">Kelas</th>
+                            <th style="width:20%" class="text-center">Guru</th>
+                            <th style="width:10%" class="text-center">Hari</th>
+                            <th style="width:15%" class="text-center">Jam Mulai</th>
+                            <th style="width:15%" class="text-center">Jam Selesai</th>
+                            <th style="width:10%" class="text-center">Aksi</th>
                         </tr>
-                    @endforeach
+                    </thead>
+                    <tbody>
+                        @forelse ($schedule as $new)
+                            <tr>
+                                <td style="width:20%">{{ $new->subject_name }}</td>
+                                <td style="width:10%">{{ $new->grade_name }}</td>
+                                <td style="width:20%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                <td style="width:10%">{{ $new->day_name }}</td>
+                                <td style="width:15%">{{ $new->start_time }}</td>
+                                <td style="width: 15%">{{ $new->end_time }}</td>
+                                <td style="width:10%">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->lesson_schedule_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $new->lesson_schedule_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
-            </div> --}}
-            <table id="master-jadwal" class="display" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th style="width:20%" class="text-center">Mata Pelajaran</th>
-                        <th style="width:10%" class="text-center">Kelas</th>
-                        <th style="width:20%" class="text-center">Guru</th>
-                        <th style="width:10%" class="text-center">Hari</th>
-                        <th style="width:15%" class="text-center">Jam Mulai</th>
-                        <th style="width:15%" class="text-center">Jam Selesai</th>
-                        <th style="width:10%" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($schedule as $new)
-                        <tr>
-                            <td style="width:20%">{{ $new->subject_name }}</td>
-                            <td style="width:10%">{{ $new->grade_name }}</td>
-                            <td style="width:20%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                            <td style="width:10%">{{ $new->day_name }}</td>
-                            <td style="width:15%">{{ $new->start_time }}</td>
-                            <td style="width: 15%">{{ $new->end_time }}</td>
-                            <td style="width:10%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->lesson_schedule_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->lesson_schedule_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -140,7 +114,8 @@
                                     data-placeholder="--- Pilih Mata Pelajaran ---">
                                     <option></option>
                                     @foreach ($subject as $subjects)
-                                        <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option>
+                                        <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -200,21 +175,28 @@
 @endsection
 
 @push('addon-javascript')
-    <script src="/js/dataTable.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#master-jadwal').DataTable({
-                scrollY: '60vh',
-                scrollCollapse: true,
-                paging: false,
-            });
-        });
-        window.addEventListener("load", function() {
-            const input = document.querySelector("#master-jadwal_filter");
-            const elemenInput = input.children[0].children[0];
-            elemenInput.setAttribute("placeholder", "pencarian")
-            input.children[0].childNodes[0].textContent = " ";
-        });
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
+
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-jadwal");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
     <script>
         const selected = document.querySelectorAll(".selected");

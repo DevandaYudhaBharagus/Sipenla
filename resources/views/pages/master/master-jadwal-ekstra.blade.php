@@ -61,8 +61,8 @@
                             <th style="width:15%" class="text-center">Aksi</th>
                         </tr>
                     </thead>
-                    @foreach ($schedule as $newschedule)
-                        <tbody>
+                    <tbody>
+                        @forelse ($schedule as $newschedule)
                             <tr>
                                 <td style="width:25%">{{ $newschedule->extracurricular_name }}</td>
                                 <td style="width:20%">{{ $newschedule->first_name . ' ' . $newschedule->last_name }}</td>
@@ -80,8 +80,12 @@
                                     </div>
                                 </td>
                             </tr>
-                        </tbody>
-                    @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="6">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
                 </table>
             </div>
         </div>

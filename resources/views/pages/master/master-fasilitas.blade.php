@@ -34,79 +34,87 @@
     <div class="box-content">
         <h5>Data Fasilitas</h5>
         <div class="d-md-flex align-items-md-center justify-content-md-between mt-2">
-            <div class="d-md-flex align-content-md-center">
-                <button class="btn-create" id="add-facility" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Tambah Data
-                </button>
+            <button class="btn-create" id="add-facility" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Tambah Data
+            </button>
+            <div class="form-search">
+                <input type="text" name="" id="search" placeholder="Cari Fasilitas" />
             </div>
+
         </div>
         <div class="outher-table" id="facility-table">
-            <table id="master-fasilitas" class="display" style="width:100%;">
-                <thead>
-                    <tr>
-                        <th style="width:10%" class="text-center">Kode</th>
-                        <th style="width:30%" class="text-center">Nama Fasilitas</th>
-                        <th style="width:15%" class="text-center">Jumlah</th>
-                        <th style="width:15%" class="text-center">Tahun</th>
-                        <th style="width:15%" class="text-center">Foto</th>
-                        <th style="width:15%" class="text-center">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($facility as $new)
+            <div class="table-scroll">
+                <table id="master-fasilitas" class="table-master" style="width:100%;">
+                    <thead>
                         <tr>
-                            <td class="text-center align-items-center" style="width: 10%">{{ $new->facility_code }}</td>
-                            <td style="width:30%">{{ $new->facility_name }}</td>
-                            <td style="width:15%">{{ $new->number_of_facility }} </td>
-                            <td style="width:15%">{{ $new->year }}</td>
-                            <td style="width:15%">
-                                <div class="dropdown">
-                                    <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
-                                        aria-expanded="false">
-                                        <div class="icon-foto-master">
-                                            <img src="{{ asset('images/internal-images/foto-master.png') }}"
-                                                alt="" />
-                                        </div>
-                                        <div class="fa fa-angle-down"></div>
-                                    </div>
-                                    <ul class="dropdown-menu dropdown-foto">
-                                        <li>
-                                            <h6>Foto</h6>
-                                            <div class="box-foto-master">
-                                                @if (!$new->image)
-                                                    <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
-                                                        alt="" />
-                                                @else
-                                                    <img src="{{ $new->image }}" alt="" />
-                                                @endif
-
-                                                <div class="d-flex align-items-center edit-master justify-content-end">
-                                                    <a href="" class="btn-edit-master">
-                                                        <i class="fa fa-edit text-primary"></i>
-                                                    </a>
-                                                    <a href="" class="btn-edit-master">
-                                                        <i class="fa fa-trash-o text-danger"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                            <td style="width:15%">
-                                <div class="d-flex align-items-center justify-content-center">
-                                    <a class="btn-edit-master me-2" data-id="{{ $new->facility_id }}"
-                                        onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
-                                    <a data-id="{{ $new->facility_id }}" onclick=delete_data($(this))
-                                        class="btn-edit-master">
-                                        <i class="fa fa-trash-o text-danger"></i>
-                                    </a>
-                                </div>
-                            </td>
+                            <th style="width:10%" class="text-center">Kode</th>
+                            <th style="width:30%" class="text-center">Nama Fasilitas</th>
+                            <th style="width:15%" class="text-center">Jumlah</th>
+                            <th style="width:15%" class="text-center">Tahun</th>
+                            <th style="width:15%" class="text-center">Foto</th>
+                            <th style="width:15%" class="text-center">Aksi</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @forelse ($facility as $new)
+                            <tr>
+                                <td class="text-center align-items-center" style="width: 10%">{{ $new->facility_code }}</td>
+                                <td style="width:30%">{{ $new->facility_name }}</td>
+                                <td style="width:15%">{{ $new->number_of_facility }} </td>
+                                <td style="width:15%">{{ $new->year }}</td>
+                                <td style="width:15%">
+                                    <div class="dropdown">
+                                        <div class="btn btn-foto-master m-auto" type="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <div class="icon-foto-master">
+                                                <img src="{{ asset('images/internal-images/foto-master.png') }}"
+                                                    alt="" />
+                                            </div>
+                                            <div class="fa fa-angle-down"></div>
+                                        </div>
+                                        <ul class="dropdown-menu dropdown-foto">
+                                            <li>
+                                                <h6>Foto</h6>
+                                                <div class="box-foto-master">
+                                                    @if (!$new->image)
+                                                        <img src="{{ asset('images/internal-images/pengumuman.jpg') }}"
+                                                            alt="" />
+                                                    @else
+                                                        <img src="{{ $new->image }}" alt="" />
+                                                    @endif
+
+                                                    <div class="d-flex align-items-center edit-master justify-content-end">
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-edit text-primary"></i>
+                                                        </a>
+                                                        <a href="" class="btn-edit-master">
+                                                            <i class="fa fa-trash-o text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td style="width:15%">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->facility_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $new->facility_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
+                                            <i class="fa fa-trash-o text-danger"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6">Tidak ada data</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
@@ -189,21 +197,28 @@
 @endsection
 
 @push('addon-javascript')
-    <script src="/js/dataTable.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#master-fasilitas').DataTable({
-                scrollY: '60vh',
-                scrollCollapse: true,
-                paging: false,
-            });
-        });
-        window.addEventListener("load", function() {
-            const input = document.querySelector("#master-fasilitas_filter");
-            const elemenInput = input.children[0].children[0];
-            elemenInput.setAttribute("placeholder", "pencarian")
-            input.children[0].childNodes[0].textContent = " ";
-        });
+        const inpuTSearch = document.querySelector("#search");
+        inpuTSearch.addEventListener("keyup", searchDataTable);
+
+        function searchDataTable() {
+            let filter, table, tr, td, i, txtValue;
+            filter = inpuTSearch.value.toUpperCase();
+            table = document.querySelector("#master-fasilitas");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    // console.log(txtValue.toUpperCase().indexOf(filter))
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
     </script>
     <script>
         function uploadImage() {
