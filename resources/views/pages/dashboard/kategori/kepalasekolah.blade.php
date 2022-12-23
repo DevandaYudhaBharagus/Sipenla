@@ -55,15 +55,15 @@
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
-                        <img src="{{ asset('images/internal-images/registrasi.png') }}" alt="" />
+                        <img src="{{ asset('images/internal-images/monitoring.png') }}" alt="" />
                     </div>
-                    <div class="card-text">Registrasi</div>
+                    <div class="card-text">Monitoring</div>
                 </div>
             </div>
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/datauser/student') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -75,7 +75,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/datauser/employee') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -133,6 +133,18 @@
                         <img src="{{ asset('images/internal-images/siswa-baru.png') }}" alt="" />
                     </div>
                     <div class="card-text">Penerimaan Siswa Baru</div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-3 col-6">
+        <a href="">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/rapot.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Rapor</div>
                 </div>
             </div>
         </a>
