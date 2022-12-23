@@ -121,7 +121,6 @@
 @endsection
 
 @section('modal')
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-role">
             <div class="modal-content">
@@ -137,7 +136,7 @@
                         <div class="row">
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="subject_id" class="form-label">Mata Pelajaran</label>
-                                <select class="form-select" name="subject_id" id="subject_id" data-dropdown-parent="body"
+                                <select class="form-select" name="subject_id" id="subject_id"
                                     data-placeholder="--- Pilih Mata Pelajaran ---">
                                     <option></option>
                                     @foreach ($subject as $subjects)
@@ -147,7 +146,7 @@
                             </div>
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="grade_id" class="form-label">Kelas</label>
-                                <select class="form-select" name="grade_id" id="grade_id" data-dropdown-parent="body"
+                                <select class="form-select" name="grade_id" id="grade_id"
                                     aria-label="Default select example" data-placeholder="--- Pilih Kelas ---">
                                     <option></option>
                                     @foreach ($grades as $grade)
@@ -227,6 +226,33 @@
         }
     </script>
     <script>
+        $('#subject_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#teacher_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#day_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#grade_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
         $("#exampleModal").on("hidden.bs.modal", function(e) {
             const reset_form = $('#form-schedule')[0];
             $(reset_form).removeClass('was-validated');
@@ -249,38 +275,6 @@
                 document.getElementById("form-schedule").reset();
                 $("#modal-title").html("Tambah Data Jadwal Mata Pelajaran");
                 document.getElementById("lesson_schedule_id").value = null;
-            });
-
-            $('#subject_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
-
-            $('#teacher_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
-
-            $('#day_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
-
-            $('#grade_id').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
             });
 
             $.ajaxSetup({
