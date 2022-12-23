@@ -31,7 +31,32 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="name-student">{{ $employee->first_name." ". $employee->last_name}}</div>
+                                    @if (Auth::User()->role == 'admin')
+                                    <div class="title-student">Admin</div>
+                                @elseif (Auth::User()->role == 'guru')
+                                    <div class="title-student">Guru</div>
+                                @elseif (Auth::User()->role == 'kepsek')
+                                    <div class="title-student">Kepala Sekolah</div>
+                                @elseif (Auth::User()->role == 'tu')
+                                    <div class="title-student">Pegawai TU</div>
+                                @elseif (Auth::User()->role == 'walimurid')
+                                    <div class="title-student">Wali Murid</div>
+                                @elseif (Auth::User()->role == 'perpus')
+                                    <div class="title-student">Pegawai Perpustakaan</div>
+                                @elseif (Auth::User()->role == 'pengawassekolah')
+                                    <div class="title-student">Pengawas Sekolah</div>
+                                @elseif (Auth::User()->role == 'pegawaikoperasi')
+                                    <div class="title-student">Pegawai Koperasi</div>
+                                @elseif (Auth::User()->role == 'pegawaikantin')
+                                    <div class="title-student">Pegawai Kantin</div>
+                                @elseif (Auth::User()->role == 'pembinaextra')
+                                    <div class="title-student">Pembina Ekstrakulikuler</div>
+                                @elseif (Auth::User()->role == 'dinaspendidikan')
+                                    <div class="title-student">Dinas Pendidikan</div>
+                                @elseif (Auth::User()->role == 'student')
                                     <div class="title-student">Siswa</div>
+                                @endif
+
                                 </div>
                             </div>
                             <div class="row mt-4 align-items-center">
@@ -47,8 +72,8 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-12">
-                                    <a href="" class="btn link-profile">Data Penerimaan</a>
-                                    <a href="" class="btn link-profile">Mutasi</a>
+                                    <a href="{{ url('/admission') }}" class="btn link-profile">Data Pegawai</a>
+                                    {{-- <a href="" class="btn link-profile">Mutasi</a> --}}
                                 </div>
                             </div>
                         </div>
@@ -98,7 +123,7 @@
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">{{ $employee->address }}</div>
                                         </div>
-                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML('$ '. $employee->nisn, 'C39') !!}</div>
+                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML("$employee->nuptk", 'C128B') !!}</div>
                                     </div>
                                 </div>
                             </div>

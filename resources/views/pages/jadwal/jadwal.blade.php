@@ -26,7 +26,8 @@
             <div class="box-profile ">
                 <div class="row justify-content-center schedule ">
                     <div class="col-md-3 col-12 mb-3 mb-md-0">
-                        <a href="">
+                        {{-- catetan ini munculin hanya pada role student --}}
+                        <a href="{{ url('/mapel-siswa') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-pelajaran.png') }}" alt="">
                                 <div class="text-blank-schedule">Jadwal Pelajaran</div>
@@ -34,7 +35,8 @@
                         </a>
                     </div>
                     <div class="col-md-3  col-12">
-                        <a href="">
+                        {{-- catetan ini munculin hanya role guru --}}
+                        <a href="{{ url('/mapel-guru') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-mengajar.png') }}" alt="">
                                 <div class="text-blank-schedule">Jadwal Mengajar</div>

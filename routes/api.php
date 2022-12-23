@@ -22,6 +22,9 @@ use App\Http\Controllers\API\PayoutController;
 use App\Http\Controllers\API\FineController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\WithdrawalController;
+use App\Http\Controllers\API\OtherPaymentController;
+use App\Http\Controllers\API\SchoolFeeController;
+use App\Http\Controllers\API\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -285,6 +288,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update/{orderid}', [PaymentController::class, 'updateStatus']);
         Route::get('/historytopup/{tanggal}', [PaymentController::class, 'getHistoryTopup']);
         Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
+        Route::get('/historyadmlain/{tanggal}', [PaymentController::class, 'getHistoryOtherPayment']);
+        Route::get('/historyspp/{tanggal}', [PaymentController::class, 'getHistorySpp']);
     });
 
     Route::prefix('saving')->group(function () {
@@ -299,5 +304,25 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/gethistory/{tanggal}', [WithdrawalController::class, 'getHistory']);
         Route::get('/getstatus', [WithdrawalController::class, 'getStatusSaving']);
         Route::post('/updatestatus/{id}', [WithdrawalController::class, 'updateStatus']);
+    });
+
+    Route::prefix('bill')->group(function () {
+        Route::post('/', [OtherPaymentController::class, 'createTagihan']);
+        Route::get('/', [OtherPaymentController::class, 'getTagihan']);
+        Route::get('/bydate', [OtherPaymentController::class, 'getTagihanByDate']);
+    });
+
+    Route::prefix('schoolfee')->group(function () {
+        Route::post('/', [SchoolFeeController::class, 'createTagihan']);
+        Route::get('/', [SchoolFeeController::class, 'getTagihan']);
+        Route::get('/bydate', [SchoolFeeController::class, 'getTagihanByDate']);
+    });
+
+    Route::prefix('chat')->group(function () {
+        Route::get('/room', [ChatController::class, 'listRoom']);
+        Route::get('/chat/{room}', [ChatController::class, 'readChat']);
+        Route::get('/roomuser', [ChatController::class, 'listRoomByIdUser']);
+        Route::post('/', [ChatController::class, 'createChat']);
+        Route::post('/update/{room}', [ChatController::class, 'updateChat']);
     });
 });

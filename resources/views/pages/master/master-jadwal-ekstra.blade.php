@@ -71,9 +71,10 @@
                                 <td style="width:15%">{{ $newschedule->end_time }}</td>
                                 <td style="width:15%">
                                     <div class="d-flex align-items-center justify-content-center">
-                                        <a class="btn-edit-master me-2" data-id="" onclick=edit_data($(this))><i
-                                                class="fa fa-edit text-primary"></i></a>
-                                        <a data-id="" onclick=delete_data($(this)) class="btn-edit-master">
+                                        <a class="btn-edit-master me-2" data-id="{{ $newschedule->extra_schedules_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
+                                        <a data-id="{{ $newschedule->extra_schedules_id }}" onclick=delete_data($(this))
+                                            class="btn-edit-master">
                                             <i class="fa fa-trash-o text-danger"></i>
                                         </a>
                                     </div>
@@ -97,13 +98,13 @@
                     </h1>
                 </div>
                 <div class="modal-body">
-                    <form id="form-schedule">
+                    <form id="form-extra-schedule">
                         @csrf
                         <input type="hidden" name="extra_schedules_id" id="extra_schedules_id" value="">
                         <div class="row">
                             <div class="col-md-6 col-12 mb-3">
                                 <label for="subject_id" class="form-label">Ekstrakulikuler</label>
-                                <select class="form-select" name="subject_id" id="subject_id"
+                                <select class="form-select" name="extracurricular_id" id="extracurricular_id"
                                     data-placeholder="--- Pilih Ekstrakulikuler ---">
                                     <option></option>
                                     @foreach ($ekstras as $newekstras)
@@ -116,7 +117,7 @@
                                 <label for="teacher_id" class="form-label">Guru</label>
                                 <select class="form-select" name="teacher_id" id="teacher_id"
                                     data-placeholder="--- Pilih Guru ---">
-                                    <option value=""></option>
+                                    <option></option>
                                     @foreach ($teachers as $teacher)
                                         <option value="{{ $teacher->employee_id }}">
                                             {{ $teacher->first_name . ' ' . $teacher->last_name }}</option>
@@ -127,17 +128,18 @@
                                 <label for="day_id" class="form-label">Hari</label>
                                 <select class="form-select" name="days_id" id="day_id"
                                     data-placeholder="--- Pilih Hari ---">
+                                    <option></option>
                                     @foreach ($days as $day)
                                         <option value="{{ $day->day_id }}">{{ $day->day_name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Jam Mulai</label>
+                                <label for="start_time" class="form-label">Jam Mulai</label>
                                 <input type="text" name="start_time" id="start_time" class="form-control bg-down">
                             </div>
                             <div class="col-md-6 col-12 mb-3">
-                                <label for="" class="form-label">Jam Selesai</label>
+                                <label for="end_time" class="form-label">Jam Selesai</label>
                                 <input type="text" name="end_time" id="end_time" class="form-control bg-down">
                             </div>
                         </div>
@@ -197,7 +199,7 @@
         }
     </script>
     <script>
-        $('#subject_id').select2({
+        $('#extracurricular_id').select2({
             theme: "bootstrap-5",
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
@@ -218,23 +220,15 @@
             dropdownParent: $('#exampleModal'),
         });
 
-        $('#grade_id').select2({
-            theme: "bootstrap-5",
-            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-            placeholder: $(this).data('placeholder'),
-            dropdownParent: $('#exampleModal'),
-        });
-
 
         $("#exampleModal").on("hidden.bs.modal", function(e) {
-            const reset_form = $('#form-schedule')[0];
+            const reset_form = $('#form-extra-schedule')[0];
             $(reset_form).removeClass('was-validated');
             $("#extra_schedules_id").val("");
-            $("#grade_id").val("").change();
             $("#teacher_id").val("").change();
             $("#day_id").val("").change();
-            $("#subject_id").val("").change();
-            $("#form-grade").trigger("reset")
+            $("#extracurricular_id").val("").change();
+            $("#form-extra-schedule").trigger("reset")
             let uniqueField = ["start_time"]
             for (let i = 0; i < uniqueField.length; i++) {
                 $("#" + uniqueField[i]).removeClass('was-validated');
@@ -245,13 +239,10 @@
 
         $(document).ready(function() {
             document.getElementById("add-schedule").addEventListener("click", function() {
-                document.getElementById("form-schedule").reset();
-                $("#modal-title").html("Tambah Data Jadwal Mata Pelajaran");
+                document.getElementById("form-extra-schedule").reset();
+                $("#modal-title").html("Tambah Data Jadwal Extrakurikuler");
                 document.getElementById("extra_schedules_id").value = null;
             });
-
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -259,22 +250,23 @@
             });
         })
 
-        Array.prototype.filter.call($('#form-schedule'), function(form) {
+        Array.prototype.filter.call($('#form-extra-schedule'), function(form) {
             form.addEventListener('submit', function(event) {
                 event.preventDefault();
 
                 let extra_schedules_id = $("#extra_schedules_id").val();
 
-                var url = (extra_schedules_id !== undefined && extra_schedules_id !== null) &&
-                    extra_schedules_id ? "{{ url('schedules') }}" + "/" + extra_schedules_id :
-                    "{{ url('schedules') }}" + "/addschedule";
+                let url = (extra_schedules_id !== undefined && extra_schedules_id !== null) &&
+                    extra_schedules_id ? "{{ url('extra-schedules') }}" + "/" + extra_schedules_id :
+                    "{{ url('extra-schedules') }}" + "/addscheduleextra";
+
                 $.ajax({
                     url: url,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     type: 'post',
-                    data: $('#form-schedule').serialize(),
+                    data: $('#form-extra-schedule').serialize(),
                     // contentType: 'application/json',
                     processData: false,
                     success: function(response) {
@@ -284,7 +276,7 @@
                                 " #table-schedule");
                         }, 0);
                         $('#exampleModal').modal('hide');
-                        var reset_form = $('#form-schedule')[0];
+                        var reset_form = $('#form-extra-schedule')[0];
                         $(reset_form).removeClass('was-validated');
                         reset_form.reset();
                         $('#exampleModal').modal('hide');
@@ -300,7 +292,7 @@
 
         function edit_data(e) {
             $('#exampleModal').modal('show')
-            var url = "{{ url('schedules') }}" + "/" + e.attr('data-id') + "/" + "edit-ekstrakurikuler"
+            var url = "{{ url('extra-schedules') }}" + "/" + e.attr('data-id') + "/" + "edit-ekstrakurikuler"
             $.ajax({
                 url: url,
                 method: "GET",
@@ -309,10 +301,9 @@
                     $("#modal-title").html("Edit Jadwal Ekstrakurikuler")
                     $("#button-modal").html("Edit")
                     $('#extra_schedules_id').val(result.extra_schedules_id).trigger('change');
-                    // $('#subject_id').val(result.subject_id).trigger('change');
+                    $('#extracurricular_id').val(result.extracurricular_id).trigger('change');
                     $('#teacher_id').val(result.teacher_id).trigger('change');
-                    // $('#grade_id').val(result.grade_id).trigger('change');
-                    $('#day_id').val(result.days_id).trigger('change');
+                    $('#days_id').val(result.days_id).trigger('change');
                     $('#start_time').val(result.start_time);
                     $('#end_time').val(result.end_time);
                 },
@@ -339,7 +330,7 @@
 
                     var id = e.attr('data-id');
                     jQuery.ajax({
-                        url: "{{ url('/schedules/del-ekstrakurikuler/') }}" + "/" + id,
+                        url: "{{ url('/extra-schedules/del-ekstrakurikuler/') }}" + "/" + id,
                         type: 'post',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

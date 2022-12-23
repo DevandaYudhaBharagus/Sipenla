@@ -40,71 +40,86 @@
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>SENIN</h6>
+                            @if (count($senin) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Mengajar</div>
                             </div>
+                            @endif
+                            @foreach ($senin as $s)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule">{{ $s->grade_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($s->start_time)) }} - {{ date('H:i', strtotime($s->end_time)) }}</div>
+                                <div class="content-schedule">{{ $s->subject_name }}</div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>SELASA</h6>
+                            @if (count($selasa) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Mengajar</div>
                             </div>
+                            @endif
+                            @foreach ($selasa as $l)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule">{{ $l->grade_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($l->start_time)) }} - {{ date('H:i', strtotime($l->end_time)) }}</div>
+                                <div class="content-schedule">{{ $l->subject_name }}</div>
                             </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>RABU</h6>
+                            @if (count($rabu) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Mengajar</div>
                             </div>
+                            @endif
+                            @foreach ($rabu as $r)
+                            <div class="box-mapel-schedule">
+                                <div class="content-schedule">{{ $r->grade_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($r->start_time)) }} - {{ date('H:i', strtotime($r->end_time)) }}</div>
+                                <div class="content-schedule">{{ $r->subject_name }}</div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>KAMIS</h6>
+                            @if (count($kamis) == 0)
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Kelas 7A</div>
-                                <div class="content-schedule">08:00 - 09:00</div>
-                                <div class="content-schedule">IPA</div>
+                                <div class="content-schedule text-center">Tidak Ada Jadwal Mengajar</div>
                             </div>
+                            @endif
+                            @foreach ($kamis as $k)
+                            <div class="box-mapel-schedule">
+                                <div class="content-schedule">{{ $k->grade_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($k->start_time)) }} - {{ date('H:i', strtotime($k->end_time)) }}</div>
+                                <div class="content-schedule">{{ $k->subject_name }}</div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div class="col-md-2 col-6 me-md-3 mb-3 mb-md-0">
                         <div class="box-schedule">
                             <h6>JUM'AT</h6>
-                            {{-- ketika tidak ada jadwal mengajar --}}
+                            @if (count($jumat) == 0)
                             <div class="box-mapel-schedule">
                                 <div class="content-schedule text-center">Tidak Ada Jadwal Mengajar</div>
                             </div>
-                            {{-- akhir tidak ada jadwal mengajar --}}
+                            @endif
+                            @foreach ($jumat as $j)
+                            <div class="box-mapel-schedule">
+                                <div class="content-schedule">{{ $j->grade_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($j->start_time)) }} - {{ date('H:i', strtotime($j->end_time)) }}</div>
+                                <div class="content-schedule">{{ $j->subject_name }}</div>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

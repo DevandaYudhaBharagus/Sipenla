@@ -45,20 +45,165 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
              <!-- navbar untuk tampilan desktop -->
-             <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                 <li class="nav-item">
-                     <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Pembelajaran</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Laporan</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Layanan</a>
-                 </li>
-             </ul>
+             @if (Auth::User()->role == 'admin')
+              <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'guru')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'kepsek')
+                      <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'tu')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'walimurid')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'perpus')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pengawassekolah')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pegawaikoperasi')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pegawaikantin')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pembinaextra')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'dinaspendidikan')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'student')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @endif
+        
+              
              <!-- akhir navbar untuk tampilan desktop -->
 
              <!-- navbar untuk tampilan hp -->

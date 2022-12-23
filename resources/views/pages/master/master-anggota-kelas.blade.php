@@ -42,21 +42,20 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($grades as $g)
                     <tr>
-                        <td class="text-center align-items-center">1.</td>
-                        <td class="text-start">Aziz Taher Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod, ex!
+                        <td class="text-center align-items-center">{{ $loop->iteration }}</td>
+                        <td class="text-start">{{ $g->first_name . ' ' . $g->last_name }}
                         </td>
-                        <td>022541258777552 </td>
+                        <td>{{ $g->nisn }}</td>
                         <td>
-                            <div class="d-flex align-items-center justify-content-center">
-                                <a class="btn-edit-master btn me-2" data-id="" onclick=edit_data($(this))><i
-                                        class="fa fa-edit text-primary"></i></a>
-                                <a data-id="" onclick=delete_data($(this)) class="btn-edit-master btn">
+                                <a data-id="{{ $g->student_id }}" onclick=delete_data($(this)) class="btn-edit-master btn">
                                     <i class="fa fa-trash-o text-danger"></i>
                                 </a>
                             </div>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -81,91 +80,91 @@
             input.children[0].childNodes[0].textContent = " ";
         });
     </script>
-    {{-- <script>
-        $("#exampleModal").on("hidden.bs.modal", function(e) {
-            const reset_form = $('#form-grade')[0];
-            $(reset_form).removeClass('was-validated');
-            $("#grade_id").val("");
-            $("#basic-usage").val("").change();
-            $("#form-grade").trigger("reset")
-            let uniqueField = ["grade_name"]
-            for (let i = 0; i < uniqueField.length; i++) {
-                $("#" + uniqueField[i]).removeClass('was-validated');
-                $("#" + uniqueField[i]).removeClass("is-invalid");
-                $("#" + uniqueField[i]).removeClass("invalid-more");
-            }
-        });
+    <script>
+        // $("#exampleModal").on("hidden.bs.modal", function(e) {
+        //     const reset_form = $('#form-grade')[0];
+        //     $(reset_form).removeClass('was-validated');
+        //     $("#grade_id").val("");
+        //     $("#basic-usage").val("").change();
+        //     $("#form-grade").trigger("reset")
+        //     let uniqueField = ["grade_name"]
+        //     for (let i = 0; i < uniqueField.length; i++) {
+        //         $("#" + uniqueField[i]).removeClass('was-validated');
+        //         $("#" + uniqueField[i]).removeClass("is-invalid");
+        //         $("#" + uniqueField[i]).removeClass("invalid-more");
+        //     }
+        // });
 
-        $(document).ready(function() {
-            $('#basic-usage').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                dropdownParent: $('#exampleModal'),
-            });
+        // $(document).ready(function() {
+        //     $('#basic-usage').select2({
+        //         theme: "bootstrap-5",
+        //         width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+        //             'style',
+        //         placeholder: $(this).data('placeholder'),
+        //         dropdownParent: $('#exampleModal'),
+        //     });
 
-            $('#multiple-select-clear-field').select2({
-                theme: "bootstrap-5",
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
-                    'style',
-                placeholder: $(this).data('placeholder'),
-                closeOnSelect: false,
-                allowClear: true,
-            });
+        //     $('#multiple-select-clear-field').select2({
+        //         theme: "bootstrap-5",
+        //         width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' :
+        //             'style',
+        //         placeholder: $(this).data('placeholder'),
+        //         closeOnSelect: false,
+        //         allowClear: true,
+        //     });
 
-            document.getElementById("add-grade").addEventListener("click", function() {
-                document.getElementById("form-grade").reset();
-                $("#modal-title").html("Tambah Data Kelas");
-                document.getElementById("student_grades_id").value = null;
-            });
+        //     document.getElementById("add-grade").addEventListener("click", function() {
+        //         document.getElementById("form-grade").reset();
+        //         $("#modal-title").html("Tambah Data Kelas");
+        //         document.getElementById("student_grades_id").value = null;
+        //     });
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-        })
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+        // })
 
-        Array.prototype.filter.call($('#form-grade'), function(form) {
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
+        // Array.prototype.filter.call($('#form-grade'), function(form) {
+        //     form.addEventListener('submit', function(event) {
+        //         event.preventDefault();
 
-                let student_grades_id = $("#student_grades_id").val();
+        //         let student_grades_id = $("#student_grades_id").val();
 
-                var url = (student_grades_id !== undefined && student_grades_id !== null) &&
-                    student_grades_id ?
-                    "{{ url('grade') }}" + "/class" + student_grades_id : "{{ url('grade') }}" +
-                    "/addclass";
-                $.ajax({
-                    url: url,
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'post',
-                    data: $('#form-grade').serialize(),
-                    // contentType: 'application/json',
-                    processData: false,
-                    success: function(response) {
-                        console.log(response)
-                        setTimeout(() => {
-                            $("#grade-table").load(window.location.href +
-                                " #grade-table");
-                        }, 0);
-                        $('#exampleModal').modal('hide');
-                        var reset_form = $('#form-grade')[0];
-                        $(reset_form).removeClass('was-validated');
-                        reset_form.reset();
-                        $('#exampleModal').modal('hide');
-                        $("#modal-title").html("Tambah Data Kelas")
-                        $("#student_grades_id").val()
-                    },
-                    error: function(xhr) {
-                        console.log(xhr.responseText);
-                    }
-                });
-            });
-        });
+        //         var url = (student_grades_id !== undefined && student_grades_id !== null) &&
+        //             student_grades_id ?
+        //             "{{ url('grade') }}" + "/class" + student_grades_id : "{{ url('grade') }}" +
+        //             "/addclass";
+        //         $.ajax({
+        //             url: url,
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             },
+        //             type: 'post',
+        //             data: $('#form-grade').serialize(),
+        //             // contentType: 'application/json',
+        //             processData: false,
+        //             success: function(response) {
+        //                 console.log(response)
+        //                 setTimeout(() => {
+        //                     $("#grade-table").load(window.location.href +
+        //                         " #grade-table");
+        //                 }, 0);
+        //                 $('#exampleModal').modal('hide');
+        //                 var reset_form = $('#form-grade')[0];
+        //                 $(reset_form).removeClass('was-validated');
+        //                 reset_form.reset();
+        //                 $('#exampleModal').modal('hide');
+        //                 $("#modal-title").html("Tambah Data Kelas")
+        //                 $("#student_grades_id").val()
+        //             },
+        //             error: function(xhr) {
+        //                 console.log(xhr.responseText);
+        //             }
+        //         });
+        //     });
+        // });
 
         // function edit_data(e) {
         //     $('#exampleModal').modal('show')
@@ -205,7 +204,7 @@
 
                     var id = e.attr('data-id');
                     jQuery.ajax({
-                        url: "{{ url('/grade/delete-class') }}" + "/" + id,
+                        url: "{{ url('/grade/delete-student') }}" + "/" + id,
                         type: 'post',
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -227,8 +226,8 @@
                             } else {
 
                                 setTimeout(() => {
-                                    $("#grade-table").load(window.location.href +
-                                        " #grade-table");
+                                    $("#example").load(window.location.href +
+                                        " #example");
                                 }, 0);
 
                                 Swal.fire({
@@ -244,5 +243,5 @@
                 }
             });
         }
-    </script> --}}
+    </script>
 @endpush

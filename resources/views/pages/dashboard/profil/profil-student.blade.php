@@ -47,7 +47,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-12">
-                                    <a href="" class="btn link-profile">Data Penerimaan</a>
+                                    <a href="{{ url('admission/datasiswa') }}" class="btn link-profile">Data Siswa</a>
                                     <a href="" class="btn link-profile">Mutasi</a>
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
                                             <div class="barrier-card">:</div>
                                             <div class="explain-card">{{ $student->address }}</div>
                                         </div>
-                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML('$ '. $student->nisn, 'C39') !!}</div>
+                                        <div class="barcode-student">{!! DNS1D::getBarcodeHTML("$student->nisn", 'C128B') !!}</div>
                                     </div>
                                 </div>
                             </div>
@@ -234,7 +234,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-7 col-12">
-                                    <a href="" class="btn link-profile">Data Penerimaan</a>
+                                    {{-- <a href="" class="btn link-profile">Data Penerimaan</a> --}}
                                     <a href="" class="btn link-profile">Mutasi</a>
                                 </div>
                             </div>
