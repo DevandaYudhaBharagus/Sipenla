@@ -37,47 +37,34 @@
                 </div>
                 <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
                     <div class="col-md-2 col-6 mb-2 mb-md-0">
-                        <select class="form-select" id="semester" data-placeholder="Semester">
-                            <option></option>
-                            <option>Ganjil</option>
-                            <option>Genap</option>
+                        <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
+                            <option>{{ $semesters->semester_name }}</option>
+                            {{-- <option value="{{ $semesters->semester_id }}">{{ $semesters->semester_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
-                        <select class="form-select" id="tahun" data-placeholder="Tahun">
-                            <option></option>
-                            <option>2019/2020</option>
-                            <option>2020/2021</option>
-                            <option>2021/2022</option>
+                        <select class="form-select" name="tahun" id="tahun" data-placeholder="Tahun">
+                            <option>{{ $academics->academic_year }}</option>
+                            {{-- <option value="{{ $academics->academic_year_id }}">{{ $academics->academic_year }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6 mb-2 mb-md-0">
-                        <select class="form-select" id="mapel" data-placeholder="Mapel">
-                            <option></option>
-                            <option>B indonesia</option>
-                            <option>B Inggris</option>
-                            <option>Matematika</option>
+                        <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
+                            <option>{{ $subjects->subject_name }}</option>
+                            {{-- <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
-                        <select class="form-select" id="kelas" data-placeholder="Kelas">
-                            <option></option>
-                            <option>7A</option>
-                            <option>7B</option>
-                            <option>8A</option>
+                        <select class="form-select" name="grade" id="kelas" data-placeholder="Kelas">
+                            <option>{{ $grades->grade_name }}</option>
+                            {{-- <option value="{{ $grades->grade_id }}">{{ $grades->grade_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
-                        <select class="form-select" id="penilaian-tugas" data-placeholder="Penilaian">
-                            <option></option>
-                            <option>Tugas 1</option>
-                            <option>Tugas 2</option>
-                            <option>Tugas 3</option>
-                            <option>UH 1</option>
+                        <select class="form-select" name="penilaian" id="penilaian-tugas" data-placeholder="Penilaian">
+                            <option>{{ $assessments->assessment_name }}</option>
+                            {{-- <option value="{{ $assessments->assessment_id }}">{{ $assessments->assessment_name }}</option> --}}
                         </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <button type="submit" class="search-penilaian">Cari</button>
                     </div>
                 </div>
                 <div class="table-dash">
@@ -91,15 +78,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Tiger Nixon</td>
-                                <td>System Architect</td>
-                                <td>Edinburgh</td>
-                                <td>
-                                    <button type="button" class="btn-edit-penilaian" data-bs-toggle="modal"
-                                        data-bs-target="#exampleModal"><i class="fa fa-edit"></i> </button>
-                                </td>
-                            </tr>
+                            @foreach ($student as $new)
+                                <tr>
+                                    <td>{{ $new->nisn }}</td>
+                                    <td>{{ $new->first_name.' '.$new->last_name }}</td>
+                                    <td>Edinburgh</td>
+                                    <td>
+                                        <button type="button" class="btn-edit-penilaian" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"><i class="fa fa-edit"></i> </button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
