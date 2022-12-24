@@ -35,51 +35,53 @@
                 <div class="header-profile">
                     Penilaian Pembelajaran
                 </div>
-                <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
-                    <div class="col-md-2 col-6 mb-2 mb-md-0">
-                        <select class="form-select" id="semester" data-placeholder="Semester">
-                            <option></option>
-                            <option>Ganjil</option>
-                            <option>Genap</option>
-                        </select>
+                <form action="{{ route('getStudentForPenilaian') }}" method="GET">
+                    <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
+                        <div class="col-md-2 col-6 mb-2 mb-md-0">
+                            <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
+                                <option></option>
+                                @foreach ($semester as $newsemester )
+                                    <option value="{{ $newsemester->semester_id }}">{{ $newsemester->semester_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select" name="tahun" id="tahun" data-placeholder="Tahun">
+                                <option></option>
+                                @foreach ($academic as $newAcademicYears )
+                                    <option value="{{ $newAcademicYears->academic_year_id }}">{{ $newAcademicYears->academic_year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6 mb-2 mb-md-0">
+                            <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
+                                <option></option>
+                                @foreach ($subject as $newsubject )
+                                    <option value="{{ $newsubject->subject_id }}">{{ $newsubject->subject_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select" name="grade" id="kelas" data-placeholder="Kelas">
+                                <option></option>
+                                @foreach ($grade as $newgrade )
+                                <option value="{{ $newgrade->grade_id }}">{{ $newgrade->grade_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <select class="form-select" name="penilaian" id="penilaian-tugas" data-placeholder="Penilaian">
+                                <option></option>
+                            @foreach ($assessment as $newassessment )
+                                <option value="{{ $newassessment->assessment_id }}">{{ $newassessment->assessment_name }}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-6">
+                            <button type="submit" class="search-penilaian">Cari</button>
+                        </div>
                     </div>
-                    <div class="col-md-2 col-6">
-                        <select class="form-select" id="tahun" data-placeholder="Tahun">
-                            <option></option>
-                            <option>2019/2020</option>
-                            <option>2020/2021</option>
-                            <option>2021/2022</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6 mb-2 mb-md-0">
-                        <select class="form-select" id="mapel" data-placeholder="Mapel">
-                            <option></option>
-                            <option>B indonesia</option>
-                            <option>B Inggris</option>
-                            <option>Matematika</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <select class="form-select" id="kelas" data-placeholder="Kelas">
-                            <option></option>
-                            <option>7A</option>
-                            <option>7B</option>
-                            <option>8A</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <select class="form-select" id="penilaian-tugas" data-placeholder="Penilaian">
-                            <option></option>
-                            <option>Tugas 1</option>
-                            <option>Tugas 2</option>
-                            <option>Tugas 3</option>
-                            <option>UH 1</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2 col-6">
-                        <button type="submit" class="search-penilaian">Cari</button>
-                    </div>
-                </div>
+                </form>
                 <div class="row">
                     <div class="col-12">
                         <div class="text-blank text-center">--- Pilih Kelas dan Mata Pelajaran terlebih dahulu ---</div>

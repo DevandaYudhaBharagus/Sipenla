@@ -49,7 +49,7 @@
                                 <td>{{ $new->grade_name }}</td>
                                 <td> <a href="/absensi-siswa" class="btn-data">Lihat</a> </td>
                                 <td>
-                                    <a href="/data-form-siswa" class="btn-data">Lihat</a>
+                                    <a href="/datauser/folmulirsiswa/{{ $new->id }}" class="btn-data">Lihat</a>
                                 </td>
                             </tr>
                             @endforeach
