@@ -104,6 +104,27 @@ Route::get('/absensi-siswa', function(){
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
+Route::get('/home-penilaian', function(){
+    return view('pages.penilaian.pil-penilaian');
+});
+Route::get('/riwayat-penilaian', function(){
+    return view('pages.penilaian.riwayat-penilaian');
+});
+Route::get('/jadwal-shift-kerja', function(){
+    return view('pages.jadwal.jadwal-shift-kerja');
+});
+Route::get('/daftar-blank', function(){
+    return view('pages.daftar.daftar-blank');
+});
+Route::get('/daftar-siswa', function(){
+    return view('pages.daftar.daftar-siswa');
+});
+Route::get('/daftar-pegawai', function(){
+    return view('pages.daftar.daftar-pegawai');
+});
+Route::get('/daftar-walimurid', function(){
+    return view('pages.daftar.daftar-walmur');
+});
 
 Auth::routes();
 
@@ -245,7 +266,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
         Route::get('/datasiswa', [ControllersAdmissionController::class, 'getDataSiswa']);
-      
+
     });
 
     Route::prefix('datauser')->group(function (){
