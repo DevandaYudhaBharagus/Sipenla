@@ -370,4 +370,22 @@ class PaymentController extends Controller
             return ResponseFormatter::error($response, 'Something went wrong', 500);
         }
     }
+
+    public function getHistoryByUser()
+    {
+        try{
+            $user = Auth::user();
+            $transaction = Transaction::where('user_id', '=', $user->id)
+                            ->get();
+
+            $response = $transaction;
+
+            return ResponseFormatter::success($response, 'Success get Transaksi!');
+        }catch (Exception $e) {
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+            return ResponseFormatter::error($response, 'Something went wrong', 500);
+        }
+    }
 }
