@@ -47,9 +47,9 @@
                                 <td>{{ $new->nuptk }}</td>
                                 <td>{{ $new->email }}</td>
                                 <td>{{ $new->position }}</td>
-                                <td> <a href="/absensi-pegawai" class="btn-data">Lihat</a> </td>
+                                <td> <a href="/datauser/absensipegawai/{{ $new->id }}" class="btn-data">Lihat</a> </td>
                                 <td>
-                                    <a href="/data-form-pegawai" class="btn-data">Lihat</a>
+                                    <a href="/datauser/folmulirpegawai/{{ $new->id }}" class="btn-data">Lihat</a>
                                 </td>
                             </tr>
                             @endforeach

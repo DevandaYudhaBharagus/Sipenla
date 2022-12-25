@@ -23,6 +23,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\PenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +77,9 @@ Route::get('/monitoring', function(){
 Route::get('/penilaian', function(){
     return view('pages.penilaian.penilaian');
 });
-Route::get('/penilaian-blank', function(){
-    return view('pages.penilaian.penilaian-blank');
-});
+// Route::get('/penilaian-blank', function(){
+//     return view('pages.penilaian.penilaian-blank');
+// });
 Route::get('/tabel-siswa', function(){
     return view('pages.tabel-data.tabel-siswa');
 });
@@ -97,9 +98,6 @@ Route::get('/absensi-pegawai', function(){
 // Route::get('/tabel-siswa-admin', function(){
 //     return view('pages.tabel-data.tabel-siswa-admin');
 // });
-Route::get('/tabel-siswa-admin', function(){
-    return view('pages.tabel-data.tabel-siswa-admin');
-});
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
@@ -247,11 +245,20 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
         Route::get('/datasiswa', [ControllersAdmissionController::class, 'getDataSiswa']);
+      
     });
 
     Route::prefix('datauser')->group(function (){
         Route::get('/student', [DataUserController::class, 'getDataStudent']);
         Route::get('/employee', [DataUserController::class, 'getDataEmployee']);
+        Route::get('/folmulirsiswa/{id}', [DataUserController::class, 'getFolmulirsiswa']);
+        Route::get('/folmulirpegawai/{id}', [DataUserController::class, 'getFolmulirpegawai']);
+        Route::get('/absensipegawai/{id}', [DataUserController::class, 'getAbsensiPegawai']);
+    });
+
+    Route::prefix('penilaian')->group(function (){
+        Route::get('/', [PenilaianController::class, 'getFilteringPenilaian']);
+        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');;
     });
 
     //Route Jadwal Mapel Guru

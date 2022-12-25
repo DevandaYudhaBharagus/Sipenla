@@ -24,7 +24,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/penilaian') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
