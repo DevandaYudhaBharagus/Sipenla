@@ -41,7 +41,7 @@ class LessonSchedulesController extends Controller
                 'days_id' => 'required',
                 'grade_id' => 'required',
                 'subject_id' => 'required',
-                'teacher_id' => 'required',
+                'teacher_id' => 'required|unique:lesson_schedules,teacher_id',
                 'start_time' => 'required',
                 'end_time' => 'required|after:start_time',
             ],
