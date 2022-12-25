@@ -56,7 +56,7 @@
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
                                 <option></option>
-                                @foreach ($subject as $newsubject )
+                                @foreach ($grade as $newsubject )
                                     <option value="{{ $newsubject->subject_id }}">{{ $newsubject->subject_name }}</option>
                                 @endforeach
                             </select>

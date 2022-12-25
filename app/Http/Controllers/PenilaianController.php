@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Grade;
 use App\Models\Subject;
+use App\Models\Employee;
 use App\Models\Semester;
 use App\Models\Assessment;
 use App\Models\StudentGrade;
 use Illuminate\Http\Request;
 use App\Models\AcademicYears;
+use App\Models\LessonSchedule;
+use Illuminate\Support\Facades\Auth;
 
 
 class PenilaianController extends Controller
@@ -16,18 +19,35 @@ class PenilaianController extends Controller
     public function getFilteringPenilaian(){
 
         //Noteeeeee
-        $grade = Grade::get();
-        $subject = Subject::get();
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+        $grade =  LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
+        ->join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+        ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)->get([
+            'grades.grade_id',
+            'grade_name',
+            'start_time',
+            'end_time',
+            'subject_name',
+            'subjects.subject_id'
+        ]);
 
+        // $subject = LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
+        // ->join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+        // ->where('lesson_schedules.teacher_id', '=', $employee->employee_id)->get([
+        //     'grades.grade_id',
+        //     'grade_name',
+        //     'start_time',
+        //     'end_time',
+        //     'subject_name'
+        // ]);
         $semester = Semester::get();
-
         $academic = AcademicYears::get();
-
         $assessment = Assessment::get();
         
        
 
-        return view('pages.penilaian.penilaian-blank', compact('semester','academic','assessment','grade','subject'));
+        return view('pages.penilaian.penilaian-blank', compact('semester','academic','assessment','grade'));
     }
 
     public function PenilaianSiswa(Request $request){
