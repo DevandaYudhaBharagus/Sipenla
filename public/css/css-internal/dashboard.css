@@ -2279,6 +2279,32 @@ div.dataTables_scrollHead table.dataTable tr {
   font-weight: 600;
   font-size: 18px;
 }
+.profile .box-profile .table-dash .entry-nilai {
+  background-color: #d9d9d9;
+  color: var(--text-color);
+  font-weight: 600;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 5px;
+  width: 30%;
+  margin: auto;
+}
+.profile .box-profile .table-dash .entry-nilai:focus {
+  box-shadow: none;
+  border: 1px solid #000;
+}
+.profile .box-profile .table-dash .btn-save {
+  background: var(--bg-button-primary);
+  color: var(--bg-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 6px 2rem;
+  text-align: center;
+  border: none;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
 /* ==================== Akhir CSS untuk tabel ================================= */
 
 /* ==================== CSS untuk Modal Present =============================== */

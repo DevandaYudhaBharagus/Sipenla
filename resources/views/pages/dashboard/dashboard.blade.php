@@ -52,9 +52,11 @@
                                     <div class="schedule-week">
                                         <div class="subject">
                                             <div class="text-subject">{{ $new->subject_name }}</div>
-                                            <div class="teacher">{{ $new->first_name.' '. $new->last_name }}</div>
+                                            <div class="teacher">{{ $new->first_name . ' ' . $new->last_name }}</div>
                                         </div>
-                                        <div class="time-schedule">{{date('H:i', strtotime($new->start_time)) .' - '.date('H:i', strtotime($new->end_time)) }}</div>
+                                        <div class="time-schedule">
+                                            {{ date('H:i', strtotime($new->start_time)) . ' - ' . date('H:i', strtotime($new->end_time)) }}
+                                        </div>
                                     </div>
                                 @endforeach
                                 <!-- finish schedule week -->
@@ -72,7 +74,7 @@
                                             <div class="text-subject">{{ $new->grade_name }}</div>
                                             <div class="teacher">{{ $new->subject_name }}</div>
                                         </div>
-                                        <div class="time-schedule">{{ $new->start_time.' - '.$new->end_time }}</div>
+                                        <div class="time-schedule">{{ $new->start_time . ' - ' . $new->end_time }}</div>
                                     </div>
                                 @endforeach
                                 <!-- finish schedule week -->
@@ -134,14 +136,16 @@
                 </div>
                 <!-- start looping announcement -->
                 <div class="announcement-item">
-                    <div class="btn-item-annnouncement">
-                        <div class="icon-announcement">
-                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                    @if (Auth::User()->role == 'admin')
+                        <div class="btn-item-annnouncement">
+                            <div class="icon-announcement">
+                                <a href=""><i class="fa fa-trash-o text-danger"></i></a>
+                            </div>
+                            <div class="icon-announcement">
+                                <a href=""><i class="fa fa-edit text-primary"></i></a>
+                            </div>
                         </div>
-                        <div class="icon-announcement">
-                            <a href=""><i class="fa fa-edit text-primary"></i></a>
-                        </div>
-                    </div>
+                    @endif
                     <div class="title-announcement">
                         SMP Lorem Ipsum Class Meeting 2021/2022
                     </div>
@@ -179,46 +183,6 @@
                     </div>
                 </div>
                 <!-- end looping announcement -->
-                <!-- example announcement -->
-                <div class="announcement-item">
-                    <div class="btn-item-annnouncement">
-                        <div class="icon-announcement">
-                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                        </div>
-                        <div class="icon-announcement">
-                            <a href=""><i class="fa fa-edit text-primary"></i></a>
-                        </div>
-                    </div>
-                    <div class="title-announcement">
-                        Peringatan hari jadi kota Surabaya dan Hari proklamasi Kemerdekaan
-                        Republik Indonesia
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="image-announcement">
-                                <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <a href="">
-                                <div class="text-item-announcement">
-                                    <div class="title-item-announcement">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                        Quia obcaecati pariatur temporibus a repellat ab aperiam
-                                        cum minus laudantium, earum culpa adipisci possimus
-                                        voluptatem, neque itaque eligendi, dignissimos voluptates
-                                        nam illo recusandae placeat magni incidunt harum
-                                        consequatur. Deleniti, maxime eligendi? ....
-                                    </div>
-                                    <div class="date-item-announcement">
-                                        Acara dimulai tanggal 9 Maret 2022
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <!-- end example announcement -->
             </div>
         </div>
     </section>

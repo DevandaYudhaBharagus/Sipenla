@@ -86,8 +86,7 @@
                                 <div class="col-md-5 col-12">
                                     <div class="image-news ms-auto">
                                         @if (!$hot->news_image)
-                                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
-                                                alt="" />
+                                            <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
                                         @else
                                             <img src="{{ $hot->news_image }}" alt="" />
                                         @endif
@@ -276,8 +275,7 @@
                     </div>
                     <div class="desk-footer">
                         <p>
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste quisquam odit ab vel. Iste in
-                            velit ex maiores ad aspernatur qui vel, tempora unde
+                           Sistem Smart School (SIPENLA) ini merupakan sistem pendidikan yang berbasis aplikasi android dan website yang menghubungkan antar pengguna seperti administrator, kepala sekolah, guru/wali kelas, pembina ekstrakurikuler, pegawai TU, siswa, wali murid, pengawas sekolah, pegawai perpustakaan, pegawai koperasi sekolah, pegawai kantin, dan dinas pendidikan.
                         </p>
                     </div>
                 </div>
