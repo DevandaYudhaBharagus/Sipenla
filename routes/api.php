@@ -291,6 +291,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
         Route::get('/historyadmlain/{tanggal}', [PaymentController::class, 'getHistoryOtherPayment']);
         Route::get('/historyspp/{tanggal}', [PaymentController::class, 'getHistorySpp']);
+        Route::get('/historybyuser', [PaymentController::class, 'getHistoryByUser']);
     });
 
     Route::prefix('saving')->group(function () {
