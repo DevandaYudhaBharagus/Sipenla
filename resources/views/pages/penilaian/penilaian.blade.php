@@ -68,73 +68,50 @@
                     </div>
                 </div>
                 <div class="table-dash">
-                    <table id="penilaian" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th style="width:30%">NISN</th>
-                                <th style="width:30%">Nama</th>
-                                <th style="width:20%">Penilaian</th>
-                                <th style="width: 20%">Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($student as $new)
+                    <form action="" action="POST">
+                        @csrf
+                        <table id="penilaian" class="display" style="width:100%">
+                            <thead>
                                 <tr>
-                                    <td>{{ $new->nisn }}</td>
-                                    <td>{{ $new->first_name.' '.$new->last_name }}</td>
-                                    <td>Edinburgh</td>
-                                    <td>
-                                        <button type="button" class="btn-edit-penilaian" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"><i class="fa fa-edit"></i> </button>
-                                    </td>
+                                    <th style="width:30%">NISN</th>
+                                    <th style="width:30%">Nama</th>
+                                    <th style="width:20%">Penilaian</th>
+                                    <th style="width:20%">Input Nilai</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {{-- start looping data dari sini   --}}
+                                @foreach ($student as $new)
+                                    <input type="hidden" name="id_student[]" value="" multiple="true">
+                                    <input type="hidden" name="grade[]" multiple="true">
+                                    <input type="hidden" name="id_mapel[]" multiple="true">
+                                    <input type="hidden" name="id_semester[]" multiple="true">
+                                    <input type="hidden" name="id_nilai[]" multiple="true">
+                                    <input type="hidden" name="id_tahun_ajaran[]" multiple="true">
+                                    <tr>
+                                        <td style="width:30%">{{ $new->nisn }}</td>
+                                        <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                        <td style="width:20%">-</td>
+                                        <td style="width:20%">
+                                            <input type="text" class="form-control entry-nilai" name="nilai[]"
+                                                multiple="true" id="" onkeypress="return hanyaAngka(event)"
+                                                maxlength="3">
+                                        </td>
+                                    </tr>
+                                    {{-- end looping data dari sini --}}
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" class="btn-save">Simpan</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </section>
 @endsection
 
-@section('modal-dashboard')
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-penilaian">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Tambah Nilai</h1>
-                </div>
-                <div class="modal-body">
-                    <table>
-                        <tr>
-                            <td style="width: 25%" class="label-name">Nama</td>
-                            <td style="width: 5%;text-align:center">:</td>
-                            <td style="width: 70%">Lorem, ipsum dolor sit amet consectetur adipisicing</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 25%" class="label-name">Nisn</td>
-                            <td style="width: 5%; text-align:center">:</td>
-                            <td style="width: 70%">1245878956321552</td>
-                        </tr>
-                        <tr>
-                            <td style="width: 25%" class="label-name">Nilai</td>
-                            <td style="width: 5%;text-align:center">:</td>
-                            <td style="width: 70%">
-                                <input type="text" name="" id="nilai-siswa" onkeypress="return hanyaAngka(event)"
-                                    maxlength="3">
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-penilaian bg-red-permission me-md-3"
-                        data-bs-dismiss="modal">kembali</button>
-                    <button type="submit" class="btn-penilaian bg-green-permission">Tambah</button>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
 
 @push('addon-javascript')
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
