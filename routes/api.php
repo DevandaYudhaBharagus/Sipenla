@@ -25,6 +25,7 @@ use App\Http\Controllers\API\WithdrawalController;
 use App\Http\Controllers\API\OtherPaymentController;
 use App\Http\Controllers\API\SchoolFeeController;
 use App\Http\Controllers\API\ChatController;
+use App\Http\Controllers\API\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -324,5 +325,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/roomuser', [ChatController::class, 'listRoomByIdUser']);
         Route::post('/', [ChatController::class, 'createChat']);
         Route::post('/update/{room}', [ChatController::class, 'updateChat']);
+        Route::post('/status/{room}', [ChatController::class, 'updateStatusChat']);
+    });
+
+    Route::prefix('notif')->group(function () {
+        Route::get('/', [NotificationController::class, 'getNotif']);
     });
 });

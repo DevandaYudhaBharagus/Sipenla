@@ -9,4 +9,8 @@ docker build -t registry.gitlab.com/rezakurniasetiawan/project-siakad \
     --build-arg AZURE_STORAGE_NAME=sipenla \
     --build-arg AZURE_STORAGE_KEY=P5gPOhDnBrjukkH0ZdqqPJvJd/Fz8pnIOUaTxeAHP5lCmMp+Xvs5s2IzW3ZGQsQ71jrJUijWLi0U+AStc+vDDg== \
     --build-arg AZURE_STORAGE_CONTAINER=sipenla \
-    --build-arg AZURE_STORAGE_URL=https://sipenla.blob.core.windows.net/ .
+    --build-arg AZURE_STORAGE_URL=https://sipenla.blob.core.windows.net/
+    --build-arg ONESIGNAL_APP_ID=3d785dce-89eb-4c78-96d3-04c553081ccf
+    --build-arg ONESIGNAL_REST_API_KEY=NWE1ZTJjMmMtMWZmOC00NTEwLWIwOTQtZDIwYWRkNjc1YTgy
+    --build-arg ONESIGNAL_URL=https://onesignal.com/api/v1/notifications
+    --build-arg ONESIGNAL_ANDROID_CHANNEL_ID=aba9cf82-3f66-419d-92ab-fdd07f3489d2 .
