@@ -25,7 +25,12 @@
         <div class="container">
             <div class="box-news">
                 <div class="d-lg-flex d-block align-items-center justify-content-between">
-                    <div class="title-news">Input Berita Sekolah</div>
+                    @if (Auth::User()->role == 'admin')
+                    <div class="title-news">Tambah Berita Sekolah</div>
+                    @else
+                    <div class="title-news">Berita Sekolah</div>
+                    @endif
+                 
                     <div class="form-news">
                         <form action="" class="d-flex align-items-center">
                             <input type="search" name="" id="" placeholder="Pencarian" />
@@ -35,18 +40,21 @@
                         </form>
                     </div>
                 </div>
+                @if (Auth::User()->role == 'admin')
                 <div class="row mt-4 mb-4">
                     <div class="col-l2">
                         <a href="{{ url('/news/create-news') }}" class="create-news">Tambah Berita</a>
                     </div>
                 </div>
+                @endif
+             
                 @foreach ($news as $new)
                     <div class="list-news" id="list-news">
                         <div class="row align-items-center">
                             <div class="col-md-4">
                                 <div class="box-img-news">
                                     @if(!$new->news_image)
-                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                    <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
                                     @else
                                     <img src="{{ $new->news_image }}" alt="" />
                                     @endif
@@ -56,13 +64,16 @@
                                 <div class="title-news d-md-flex d-block justify-content-between">
                                     <h6>{{ $new->news_title }}</h6>
                                     <!-- muncul hanya pada role admin edit news -->
+                                    @if (Auth::User()->role == 'admin')
                                     <div class="icon-news d-md-flex d-none align-items-center">
                                         <a data-id="{{ $new->news_id }}" onclick=delete_data($(this)) class="icon text-danger">
                                             <i class="fa fa-trash-o text-danger"></i>
                                         </a>
-                                        <a href="" class="icon text-primary"><i class="fa fa-edit"></i>
+                                        <a href="{{ url('news/update-news/'.$new->news_id) }}" class="icon text-primary"><i class="fa fa-edit"></i>
                                         </a>
                                     </div>
+                                    @endif
+                                  
                                     <!-- akhir muncul pada role admin edit -->
                                 </div>
                                 <a href="{{ url('detail-news/'.$new->news_id) }}">

@@ -30,31 +30,31 @@
         <div class="container">
             <div class="box-profile ">
                 <div class="header-profile">
-                    Daftar
+                    Daftar Wali Murid
                 </div>
-                <form action="">
+                <form action="{{ route('addGuardian') }}" method="POST">
+                    @csrf
+                    <input type="text" style="display: none" name="role" value="walimurid" >
                     <div class="form-new-regis search-student">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1">
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-3">Cari Siswa</label>
-                            <select class="form-select" id="single-select-field" data-placeholder="--- Pilih Role ---">
+                            <select class="form-select" name="student_id" id="single-select-field" data-placeholder="--- Pilih Siswa ---">
                                 <option></option>
-                                <option>Reactive</option>
-                                <option>Solution</option>
-                                <option>Conglomeration</option>
-                                <option>Algoritm</option>
-                                <option>Holistic</option>
+                                @foreach ( $students as $new )
+                                    <option value="{{ $new->user_id }}" >{{ $new->first_name.' '.$new->last_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="d-flex justify-content-center">
