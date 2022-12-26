@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+    $email = Auth::user()->email;
+    $hashGenerated = hash_hmac('sha256', $email, env('ONESIGNAL_REST_API_KEY'));
+?>
 
 <head>
     <meta charset="UTF-8" />
@@ -13,6 +17,18 @@
     @yield('css')
     <title>@yield('title')</title>
     @yield('meta_header')
+
+    <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+        <script>
+        window.OneSignal = window.OneSignal || [];
+        OneSignal.push(function() {
+            OneSignal.init({
+            appId: '{{ env('ONESIGNAL_APP_ID') }}',
+            });
+            let externalUserId = {!! json_encode($email) !!};
+            OneSignal.setExternalUserId(externalUserId,{!! json_encode($hashGenerated) !!});
+        });
+        </script>
 </head>
 
 <body>

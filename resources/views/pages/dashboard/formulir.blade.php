@@ -1,6 +1,11 @@
 @extends('layouts.dashboard-layouts')
 
 @section('title', 'SIPENLA | Formulir Peserta')
+@section('css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+@endsection
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -49,7 +54,7 @@
                     <hr class="border-form" />
                     <div class="biodata-text-form">BIODATA PESERTA DIDIK</div>
                 </div>
-                <form action="{{ route('formstudent') }}" method="post">
+                <form action="{{ route('formstudent') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="box-form-input">
                         <div class="mb-3">
@@ -86,15 +91,23 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" name="gender" aria-label="Default select example">
-                                <option selected>Pilih Jenis Kelamin</option>
+                            <select class="form-select" id="gender" name="gender" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Jenis Kelamin ---">
+                                <option></option>
                                 <option value="Laki-Laki">Laki-Laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Agama</label>
-                            <input type="text" name="religion" class="form-control" id="agama" placeholder="Agama" />
+                            <label for="" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select" id="religion" name="religion" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Agama ---">
+                                <option></option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Budha">Budha</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat</label>
@@ -180,29 +193,32 @@
                                 placeholder="No Induk Siswa Nasional" />
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Phone</label>
-                            <input type="text" name="phone" class="form-control" id="nisn"
-                                placeholder="No Induk Siswa Nasional" />
+                            <label for="" class="form-label">No Telp</label>
+                            <input type="number" name="phone" class="form-control" id="nisn"
+                                placeholder="Nomor Telp" />
                         </div>
 
                         <div class="mb-3">
-                            <label for="" class="form-label">Upload Foto</label>
+                            <label for="" class="form-label">Foto</label>
                             <input type="file" name="profile_student" class="form-control" id="fotoSiswa"
                                 style="display: none" multiple />
                             <div class="col-md-6 col-12">
                                 <button class="d-block btn-photo-siswa" type="button" onclick="uploadPhotoSiswa()">
                                     Upload Photo
                                 </button>
+                                <div id="text-preview"
+                                    style="font-size: 12px;margin-top:10px; font-weight:400;color:#4b556b"></div>
                                 <span class="ket-photo-siswa">*Foto harus background merah dan berseragam putih
                                     biru</span>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Ekstrakulikuler</label>
-                            <select class="form-select" name="extracurricular_id" aria-label="Default select example">
-                                <option selected>Pilih Jenis Ekstrakulikuler</option>
-                                <option value="1">Basket</option>
-                                <option value="2">Futsal</option>
+                            <select class="form-select" name="extracurricular_id" id="extracurricular_id" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Jenis Ekstrakulikuler ---">
+                                <option></option>
+                                @foreach ($ekstra as $e)
+                                <option value="{{ $e->extracurricular_id }}">{{ $e->extracurricular_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -219,6 +235,28 @@
         function uploadPhotoSiswa() {
             document.querySelector("#fotoSiswa").click();
         }
+
+        $('#extracurricular_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#gender').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#religion').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
         flatpickr("#tglLahir", {
             altInput: true,
             altFormat: "j F, Y",
@@ -228,6 +266,18 @@
             altInput: true,
             altFormat: "j F, Y",
             dateFormat: "d-m-Y",
+        });
+
+        const inputImage = document.querySelector("#fotoSiswa");
+        const text = document.querySelector("#text-preview");
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            text.textContent = inputImage.files[0].name;
+            console.log(inputImage.files[0].name);
+            // reader.onload = () => {
+            //     choseImage.setAttribute("src", reader.result);
+            // }
         });
     </script>
 @endpush

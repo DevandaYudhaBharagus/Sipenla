@@ -45,26 +45,12 @@
          </button>
          <div class="collapse navbar-collapse" id="navbarNav">
              <!-- navbar untuk tampilan desktop -->
-             @if (Auth::User()->role == 'admin')
+             @if (!Auth::user())
               <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Pembelajaran</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Laporan</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Layanan</a>
-                    </li>
+
                 </ul>
                 @elseif (Auth::User()->role == 'guru')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pembelajaran</a>
                     </li>
@@ -78,9 +64,6 @@
                 @elseif (Auth::User()->role == 'kepsek')
                       <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Pembelajaran</a>
                     </li>
                     <li class="nav-item">
@@ -93,9 +76,6 @@
                 @elseif (Auth::User()->role == 'tu')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
                     <li class="nav-item">
@@ -104,9 +84,6 @@
                 </ul>
                 @elseif (Auth::User()->role == 'walimurid')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pembelajaran</a>
                     </li>
@@ -120,9 +97,6 @@
                 @elseif (Auth::User()->role == 'perpus')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
                     <li class="nav-item">
@@ -131,9 +105,6 @@
                 </ul>
                 @elseif (Auth::User()->role == 'pengawassekolah')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
@@ -144,9 +115,6 @@
                 @elseif (Auth::User()->role == 'pegawaikoperasi')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
                     <li class="nav-item">
@@ -156,17 +124,11 @@
                 @elseif (Auth::User()->role == 'pegawaikantin')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
                 </ul>
                 @elseif (Auth::User()->role == 'pembinaextra')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Pembelajaran</a>
                     </li>
@@ -180,13 +142,22 @@
                 @elseif (Auth::User()->role == 'dinaspendidikan')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
-                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" href="#">Laporan</a>
                     </li>
                 </ul>
                 @elseif (Auth::User()->role == 'student')
+                <ul class="navbar-nav d-lg-flex ms-auto d-none">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif(Auth::User()->role == 'admin')
                 <ul class="navbar-nav d-lg-flex ms-auto d-none">
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
@@ -202,27 +173,144 @@
                     </li>
                 </ul>
                 @endif
-        
-              
+
+
              <!-- akhir navbar untuk tampilan desktop -->
 
              <!-- navbar untuk tampilan hp -->
+             @if (!Auth::user())
              <ul class="navbar-nav d-lg-none ms-auto d-flex">
-                 <li class="nav-item">
-                     <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Pembelajaran</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Laporan</a>
-                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="#">Layanan</a>
-                 </li>
-             </ul>
+
+            </ul>
+             @elseif (Auth::User()->role == 'guru')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'kepsek')
+                      <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'tu')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'walimurid')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'perpus')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pengawassekolah')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pegawaikoperasi')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pegawaikantin')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'pembinaextra')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'dinaspendidikan')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                </ul>
+                @elseif (Auth::User()->role == 'student')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @elseif(Auth::User()->role == 'admin')
+                <ul class="navbar-nav d-lg-none ms-auto d-flex">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{ url('/master') }}">Data Master</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pembelajaran</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Laporan</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Layanan</a>
+                    </li>
+                </ul>
+                @endif
              <!-- navbar untuk tampilan hp -->
          </div>
+         @if (!Auth::user())
+
+         @else
          <div class="d-lg-flex d-none ms-auto align-items-center">
              <div class="dropstart">
                  <button class="btn btn-dropdown" href="#" role="button" data-bs-toggle="dropdown"
@@ -321,5 +409,6 @@
                  </ul>
              </div>
          </div>
+         @endif
      </div>
  </nav>
