@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use App\Models\News;
 use App\Models\Student;
 use App\Models\Employee;
+use App\Models\Balance;
+use App\Models\Room;
+use App\Models\Saving;
 use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
@@ -129,7 +132,7 @@ class HomeController extends Controller
             ]);
         }
 
-        // $imageEncoded = base64_encode(file_get_contents($request->file('profile_student')->path()));
+        $imageEncoded = base64_encode(file_get_contents($request->file('profile_student')->path()));
 
         $imageFix = $this->saveImage($request->profile_employee, "azure");
 
@@ -159,6 +162,26 @@ class HomeController extends Controller
             'phone' => $data['phone'],
             'extracurricular_id' => $data['extracurricular_id'],
             'image' => $imageFix,
+        ]);
+
+        $balance = Balance::create([
+            'user_id' => $user->id,
+            'total_balance' => 0
+        ]);
+
+        $saving = Saving::create([
+            'user_id' => $user->id,
+            'total_amount' => 0
+        ]);
+
+        $chat = Room::create([
+            'user_id' => $user->id,
+            'admin_id' => 1,
+            'name_room' => $studentData['first_name']. ' '. $studentData['last_name'],
+            'image_profile' => $image,
+            'status' => 'tidak',
+            'date' => Carbon::now(),
+            'message' => ""
         ]);
 
         return redirect('/dashboard');
@@ -221,6 +244,26 @@ class HomeController extends Controller
         $leaveBalance = LeaveBalance::create([
             'employee_id' => $employeeData['employee_id'],
             'total_balance' => 12
+        ]);
+
+        $balance = Balance::create([
+            'user_id' => $user->id,
+            'total_balance' => 0
+        ]);
+
+        $saving = Saving::create([
+            'user_id' => $user->id,
+            'total_amount' => 0
+        ]);
+
+        $chat = Room::create([
+            'user_id' => $user->id,
+            'admin_id' => 1,
+            'name_room' => $employeeData['first_name']. ' '. $employeeData['last_name'],
+            'image_profile' => $image,
+            'status' => 'tidak',
+            'date' => Carbon::now(),
+            'message' => ""
         ]);
 
         return redirect('/dashboard');
