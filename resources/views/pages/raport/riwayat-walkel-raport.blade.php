@@ -1,4 +1,4 @@
-@extends('layouts.new-layouts-dashboard')
+@extends('layouts.dashboard-layouts')
 
 @section('title', 'Penlian Siswa')
 
@@ -43,24 +43,63 @@
                 <div class="header-profile">
                     Data Pembelajaran Siswa
                 </div>
-                <div class="d-md-flex align-items-md-center justify-content-md-between mt-4 mb-3">
-                    <div class="desc-rapor-student">
-                        <div class="text-desc-rapor"> Semester Genap 2021/2022</div>
-                        <div class="text-desc-rapor">Kelas 8A</div>
+
+                <form action="{{ route('getStudentForPenilaian') }}" method="GET">
+                    <div class="row mt-4 mb-4">
+                        <div class="col-6 col-md-2  mb-2 mb-md-0">
+                            <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
+                                <option></option>
+                                <option>semester</option>
+                                {{-- @foreach ($semester as $newsemester)
+                                    <option value="{{ $newsemester->semester_id }}">{{ $newsemester->semester_name }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2  mb-2 mb-md-0">
+                            <select class="form-select" name="kelas" id="kelas" data-placeholder="Kelas">
+                                <option></option>
+                                <option>Kelas</option>
+                                {{-- @foreach ($semester as $newsemester)
+                                    <option value="{{ $newsemester->semester_id }}">{{ $newsemester->semester_name }}</option>
+                                @endforeach --}}
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2 ">
+                            <select class="form-select" name="tahun" id="tahun" data-placeholder="Tahun Ajaran">
+                                <option></option>
+                                {{-- @foreach ($academic as $newAcademicYears)
+                                    <option value="{{ $newAcademicYears->academic_year_id }}">{{ $newAcademicYears->academic_year }}</option>
+                                @endforeach --}}
+                                <option>20222</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2 ">
+                            <select class="form-select" name="mapel" id="mapel" data-placeholder="Mata Pelajaran">
+                                <option></option>
+                                {{-- @foreach ($academic as $newAcademicYears)
+                                    <option value="{{ $newAcademicYears->academic_year_id }}">{{ $newAcademicYears->academic_year }}</option>
+                                @endforeach --}}
+                                <option>Mapel</option>
+                            </select>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <button type="submit" class="search-penilaian">Cari</button>
+                        </div>
+                        <div class="col-6 col-md-2">
+                            <div class="form-search">
+                                <input type="text" name="" id="search" placeholder="Cari Nama" />
+                            </div>
+                        </div>
                     </div>
-                    </form>
-                    <div class="form-search">
-                        <input type="text" name="" id="search" placeholder="Cari Ekstrakulikuler" />
-                    </div>
-                </div>
+                </form>
                 <div class="table-dash mt-4">
                     <table id="tabel-pembelajaran" class="display-dashboard" style="width:100%">
                         <thead>
                             <tr>
-                                <th style="width:15%">No</th>
+                                <th style="width:10%">No</th>
                                 <th style="width:35%">Nama Siswa</th>
-                                <th style="width:25%">NISN</th>
-                                <th style="width:25%">Status</th>
+                                <th style="width:30%">Nisn</th>
+                                <th style="width:20%">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,15 +107,11 @@
                                 {{-- start looping --}}
                                 <tr>
                                     <td>1.</td>
-                                    <td>Aziz Taher</td>
-                                    <td>1254412012444</td>
+                                    <td>Aziz asas</td>
+                                    <td>102254001</td>
                                     <td>
-                                        {{-- walkel sudah conirm --}}
-                                        {{-- <div class="confirmed-walkel">
-                                            Aziz Taher
-                                        </div> --}}
-                                        <div class="not-confirmed-walkel">
-                                            Telah Terkonfirmasi
+                                        <div class="d-flex justify-content-center px-2">
+                                            <button class="btn-confirm-raport" type="submit">Konfirmasi</button>
                                         </div>
                                     </td>
                                 </tr>

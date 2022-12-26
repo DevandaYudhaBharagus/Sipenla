@@ -41,15 +41,20 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-3">Role</label>
-                            <select class="form-select" name="role" id="single-select-field" data-placeholder="--- Pilih Role ---">
+                            <select class="form-select" name="role" id="single-select-field"
+                                data-placeholder="--- Pilih Role ---">
                                 <option></option>
                                 <option value="guru">Guru</option>
                                 {{-- <option value="walimurid">Wali Murid</option> --}}
@@ -82,5 +87,21 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
         });
+    </script>
+    <script>
+        const btnPassword = document.querySelectorAll("#material-password");
+        const password = document.querySelectorAll("#password");
+
+        for (let i = 0; i < btnPassword.length; i++) {
+            btnPassword[i].addEventListener("click", () => {
+                if (password[i].type == "password") {
+                    password[i].type = "text";
+                    btnPassword[i].innerHTML = "visibility_off"
+                } else {
+                    password[i].type = "password";
+                    btnPassword[i].innerHTML = "visibility"
+                }
+            })
+        }
     </script>
 @endpush

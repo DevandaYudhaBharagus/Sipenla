@@ -2619,6 +2619,41 @@ div.dataTables_scrollHead table.dataTable tr {
   font-weight: 500;
 }
 
+.profile .profile-finance {
+  width: 60%;
+  margin: auto;
+  background-color: var(--bg-secondary);
+  padding: 10px 1rem;
+  box-shadow: -2px 3px 4px rgba(74, 78, 100, 0.1);
+  border-radius: 10px;
+}
+.profile .profile-finance img.logo-finance {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+.profile .profile-finance .text-logo-finance {
+  text-align: center;
+  color: var(--text-color);
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 14px;
+}
+.profile .profile-finance .icon-saldo-finance {
+  background-color: var(--bg-secondary);
+  width: 10rem;
+  display: flex;
+  align-items: center;
+  box-shadow: -2px 3px 4px rgba(74, 78, 100, 0.1);
+  border-radius: 10px;
+  padding: 12px;
+}
+.profile .profile-finance .icon-saldo-finance .color-finance {
+  background-color: #83bc10;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 5px;
+}
 @media screen and (max-width: 700px) {
   .header-dashboard {
     margin: 2rem 0;
