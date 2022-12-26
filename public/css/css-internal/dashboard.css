@@ -2210,17 +2210,72 @@ div.dataTables_scrollHead table.dataTable {
   border-right: 1px solid #4b556b;
   border-bottom: 1px solid #4b556b;
 }
+.profile .box-profile .table-dash .display-dashboard {
+  border-top: 1px solid #4b556b;
+  border-right: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+}
 div.dataTables_scrollHead table.dataTable th {
   border-left: 1px solid #4b556b;
 }
 div.dataTables_scrollHead table.dataTable tr {
   border: 1px solid black;
 }
+.profile .box-profile .table-dash .display-dashboard thead th {
+  border-left: 1px solid #4b556b;
+  border-bottom: 1px solid #4b556b;
+  padding: 5px 0;
+  background-color: #f0f1f2;
+  text-align: center;
+}
+.profile .box-profile .table-dash .display-dashboard tbody td {
+  border-left: 1px solid #4b556b;
+}
 .profile .box-profile .table-dash .display tbody tr {
   background: white;
 }
 .profile .box-profile .table-dash .display tbody tr:nth-child(even) {
   background: #f0f1f2;
+}
+.profile .box-profile .table-dash .display-dashboard tbody tr {
+  background: #f0f1f2;
+}
+.profile .box-profile .table-dash .display-dashboard tbody tr:nth-child(even) {
+  background: white;
+}
+.profile .box-profile .table-dash .display-dashboard tbody th,
+.profile .box-profile .table-dash .display-dashboard tbody td {
+  font-size: 15px;
+  padding: 5px 0;
+  color: var(--text-color);
+  font-weight: 500;
+  text-align: center;
+}
+.profile .box-profile .form-search input {
+  background-color: var(--bg-secondary);
+  padding: 8px 12px;
+  border-radius: 20px;
+  border: 1px solid #808da6;
+  font-size: 12px;
+  font-weight: 600;
+  color: #808da6;
+  width: 100%;
+  background-image: url("/images/internal-images/icon-search.png");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 14px 12px;
+}
+.profile .box-profile .form-search input:focus {
+  background-image: none;
+}
+.profile .box-profile .desc-rapor-student .text-desc-rapor {
+  color: var(--text-color);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile .box-profile .form-search input:focus {
+  outline: none;
 }
 .profile .box-profile .table-dash .btn-data {
   background-color: #3774c3;
@@ -2534,6 +2589,34 @@ div.dataTables_scrollHead table.dataTable tr {
   .select2-selection--single {
   background-image: url("/images/internal-images/icon-search.png") !important;
   background-size: 16px 14px !important;
+}
+.profile .box-profile .table-dash .btn-detail-raport {
+  background-color: #83bc10;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--bg-secondary);
+  padding: 0 15px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+}
+.profile .box-profile .table-dash .btn-confirm-raport {
+  background: var(--bg-button-primary);
+  color: var(--bg-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 12px;
+  padding: 4px 1.5rem;
+  border: none;
+}
+.profile .box-profile .table-dash .confirmed-walkel {
+  color: #83bc10;
+  font-weight: 500;
+}
+.profile .box-profile .table-dash .not-confirmed-walkel {
+  color: #ffb711;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 700px) {
