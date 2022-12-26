@@ -34,7 +34,7 @@
                 </div>
                 <form action="{{ route('addGuardian') }}" method="POST">
                     @csrf
-                    <input type="text" style="display: none" name="role" value="walimurid" >
+                    <input type="text" style="display: none" name="role" value="walimurid">
                     <div class="form-new-regis search-student">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -42,18 +42,24 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-3">Cari Siswa</label>
-                            <select class="form-select" name="student_id" id="single-select-field" data-placeholder="--- Pilih Siswa ---">
+                            <select class="form-select" name="student_id" id="single-select-field"
+                                data-placeholder="--- Pilih Siswa ---">
                                 <option></option>
-                                @foreach ( $students as $new )
-                                    <option value="{{ $new->user_id }}" >{{ $new->first_name.' '.$new->last_name }}</option>
+                                @foreach ($students as $new)
+                                    <option value="{{ $new->user_id }}">{{ $new->first_name . ' ' . $new->last_name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
@@ -76,5 +82,21 @@
             width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
             placeholder: $(this).data('placeholder'),
         });
+    </script>
+    <script>
+        const btnPassword = document.querySelectorAll("#material-password");
+        const password = document.querySelectorAll("#password");
+
+        for (let i = 0; i < btnPassword.length; i++) {
+            btnPassword[i].addEventListener("click", () => {
+                if (password[i].type == "password") {
+                    password[i].type = "text";
+                    btnPassword[i].innerHTML = "visibility_off"
+                } else {
+                    password[i].type = "password";
+                    btnPassword[i].innerHTML = "visibility"
+                }
+            })
+        }
     </script>
 @endpush

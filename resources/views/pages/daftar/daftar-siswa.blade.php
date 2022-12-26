@@ -29,7 +29,7 @@
                 </div>
                 <form action="{{ route('formregister') }}" method="POST">
                     @csrf
-                    <input type="text" style="display: none" name="role" value="student" >
+                    <input type="text" style="display: none" name="role" value="student">
                     <div class="form-new-regis">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -37,11 +37,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="password">
+                            <span class="show-hide" style="left:62rem">
+                                <i class="material-icons" id="material-password">visibility</i></span>
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-save-regis">Simpan</button>
@@ -53,3 +57,22 @@
         </div>
     </section>
 @endsection
+
+@push('addon-javascript')
+    <script>
+        const btnPassword = document.querySelectorAll("#material-password");
+        const password = document.querySelectorAll("#password");
+
+        for (let i = 0; i < btnPassword.length; i++) {
+            btnPassword[i].addEventListener("click", () => {
+                if (password[i].type == "password") {
+                    password[i].type = "text";
+                    btnPassword[i].innerHTML = "visibility_off"
+                } else {
+                    password[i].type = "password";
+                    btnPassword[i].innerHTML = "visibility"
+                }
+            })
+        }
+    </script>
+@endpush
