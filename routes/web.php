@@ -74,30 +74,15 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/penilaian', function(){
-    return view('pages.penilaian.penilaian');
-});
-// Route::get('/penilaian-blank', function(){
-//     return view('pages.penilaian.penilaian-blank');
-// });
 Route::get('/tabel-siswa', function(){
     return view('pages.tabel-data.tabel-siswa');
 });
 Route::get('/tabel-pegawai', function(){
     return view('pages.tabel-data.tabel-pegawai');
 });
-// Route::get('/tabel-pegawai-admin', function(){
-//     return view('pages.tabel-data.tabel-pegawai-admin');
-// });
 Route::get('/absensi-pegawai', function(){
     return view('pages.tabel-data.absensi-pegawai');
 });
-// Route::get('/data-form-pegawai', function(){
-//     return view('pages.tabel-data.data-form-pegawai');
-// });
-// Route::get('/tabel-siswa-admin', function(){
-//     return view('pages.tabel-data.tabel-siswa-admin');
-// });
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
@@ -245,7 +230,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
         Route::get('/datasiswa', [ControllersAdmissionController::class, 'getDataSiswa']);
-      
     });
 
     Route::prefix('datauser')->group(function (){
@@ -256,9 +240,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/absensipegawai/{id}', [DataUserController::class, 'getAbsensiPegawai']);
     });
 
+    //Route Penilaian
     Route::prefix('penilaian')->group(function (){
         Route::get('/', [PenilaianController::class, 'getFilteringPenilaian']);
-        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');;
+        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
+        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru

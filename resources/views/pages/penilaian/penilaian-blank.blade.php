@@ -1,6 +1,6 @@
 @extends('layouts.dashboard-layouts')
 
-@section('title', 'Penlian Siswa')
+@section('title', 'Penilaian Siswa')
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
@@ -35,7 +35,13 @@
                 <div class="header-profile">
                     Penilaian Pembelajaran
                 </div>
-                <form action="{{ route('getStudentForPenilaian') }}" method="GET">
+                @if (session('status'))
+                <div class=" alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+                <form action="{{ route('getStudentForPenilaian') }}">
+                    @csrf
                     <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
@@ -56,9 +62,7 @@
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
                                 <option></option>
-                                @foreach ($grade as $newsubject )
-                                    <option value="{{ $newsubject->subject_id }}">{{ $newsubject->subject_name }}</option>
-                                @endforeach
+                                    <option value="{{ $subject->subject_id }}">{{ $subject->subject_name }}</option>
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
