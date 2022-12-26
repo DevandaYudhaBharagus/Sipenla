@@ -24,7 +24,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="{{ url('/penilaian') }}">
+        <a href="{{ url('/penilaian/home') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -67,18 +67,6 @@
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
-                        <img src="{{ asset('images/internal-images/fasilitas.png') }}" alt="" />
-                    </div>
-                    <div class="card-text">Fasilitas</div>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="col-md-3 col-6">
-        <a href="">
-            <div class="card-category">
-                <div class="card-body-category">
-                    <div class="card-image">
                         <img src="{{ asset('images/internal-images/kantin.png') }}" alt="" />
                     </div>
                     <div class="card-text">Kantin</div>
@@ -87,7 +75,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="{{ url('/datauser/student') }}">
+        <a href="{{ url('/table/siswa') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -98,9 +86,6 @@
             </div>
         </a>
     </div>
-</div>
-
-<div class="row mb-3" data-aos="fade-up" data-aos-delay="400">
     <div class="col-md-3 col-6 mb-3">
         <a href="">
             <div class="card-category">
@@ -113,14 +98,17 @@
             </div>
         </a>
     </div>
+</div>
+
+<div class="row mb-3" data-aos="fade-up" data-aos-delay="400">
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/table/pegawai') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
-                        <img src="{{ asset('images/internal-images/perpustakaan.png') }}" alt="" />
+                        <img src="{{ asset('images/internal-images/data-pegawai.png') }}" alt="" />
                     </div>
-                    <div class="card-text">Perpustakaan</div>
+                    <div class="card-text">Data Pegawai</div>
                 </div>
             </div>
         </a>
