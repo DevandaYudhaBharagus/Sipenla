@@ -74,21 +74,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- start looping data dari sini   --}}
-                            @foreach ($student as $new)
-                                <input type="hidden" name="id_student[]" value="" multiple="true">
-                                <input type="hidden" name="grade[]" multiple="true">
-                                <input type="hidden" name="id_mapel[]" multiple="true">
-                                <input type="hidden" name="id_semester[]" multiple="true">
-                                <input type="hidden" name="id_nilai[]" multiple="true">
-                                <input type="hidden" name="id_tahun_ajaran[]" multiple="true">
+                            @foreach ($nilai as $new)
                                 <tr>
                                     <td style="width:30%">{{ $new->nisn }}</td>
                                     <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                                    <td style="width:20%">-</td>
+                                    <td style="width:20%">{{$new->nilai}}</td>
                                     <td style="width:20%">
-                                        <button type="button" class="btn-edit-penilaian" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal"><i class="fa fa-edit"></i> </button>
+                                        <a class="btn-edit-master me-2" data-id="{{ $new->penilaian_id }}"
+                                            onclick=edit_data($(this))><i class="fa fa-edit text-primary"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -105,37 +98,39 @@
         <div class="modal-dialog modal-penilaian">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Edit Nilai</h1>
+                    <h1 class="modal-title fs-5 m-auto" id="modal-title">Edit Nilai</h1>
                 </div>
                 <div class="modal-body">
-                    <form action="">
+                    <form id="form-penilaian">
+                        @csrf
+                        <input type="hidden" name="penilaian_id" id="penilaian_id" value="">
                         <table>
                             <tr>
                                 <td style="width: 25%" class="label-name">Nama</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width: 70%">Lorem, ipsum dolor sit amet consectetur adipisicing</td>
+                                <td style="width: 70%" id="name"></td>
                             </tr>
                             <tr>
                                 <td style="width: 25%" class="label-name">Nisn</td>
                                 <td style="width: 5%; text-align:center">:</td>
-                                <td style="width: 70%">1245878956321552</td>
+                                <td style="width: 70%" id="nisn"></td>
                             </tr>
                             <tr>
                                 <td style="width: 25%" class="label-name">Nilai</td>
                                 <td style="width: 5%;text-align:center">:</td>
                                 <td style="width: 70%">
-                                    <input type="text" name="" id="nilai-siswa"
+                                    <input type="text" name="nilai" id="nilai"
                                         onkeypress="return hanyaAngka(event)" maxlength="3">
                                 </td>
                             </tr>
                         </table>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn-penilaian bg-red-permission me-md-3"
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn-penilaian bg-red-permission me-md-3"
                         data-bs-dismiss="modal">Kembali</button>
-                    <button type="submit" class="btn-penilaian bg-green-permission">Simpan</button>
-                </div>
+                        <button type="submit" class="btn-penilaian bg-green-permission">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -143,7 +138,6 @@
 
 
 @push('addon-javascript')
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.0/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -239,5 +233,92 @@
             dateFormat: "H:i",
             time_24hr: true
         });
+
+        $("#exampleModal").on("hidden.bs.modal", function(e) {
+            const reset_form = $('#form-workshift')[0];
+            const reset_form_edit = $('#form_edit_data')[0];
+            $(reset_form).removeClass('was-validated');
+            $(reset_form_edit).removeClass('was-validated');
+            let uniqueField = ["shift_name"]
+            for (let i = 0; i < uniqueField.length; i++) {
+                $("#" + uniqueField[i]).removeClass('was-validated');
+                $("#" + uniqueField[i]).removeClass("is-invalid");
+                $("#" + uniqueField[i]).removeClass("invalid-more");
+            }
+        });
+
+        $(document).ready(function() {
+            // document.getElementById("add-workshift").addEventListener("click", function() {
+            //     document.getElementById("form-penilaian").reset();
+            //     $("#modal-title").html("Edit Data Penilaian");
+            //     document.getElementById("workshift_id").value = null;
+            // });
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        })
+
+        Array.prototype.filter.call($('#form-penilaian'), function(form) {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+
+                let penilaian_id = $("#penilaian_id").val();
+
+                var url = (penilaian_id !== undefined && penilaian_id !== null) && penilaian_id ?
+                    "{{ url('penilaian') }}" + "/" + penilaian_id : "{{ url('penilaian') }}";
+                $.ajax({
+                    url: url,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: 'post',
+                    data: $('#form-penilaian').serialize(),
+                    // contentType: 'application/json',
+                    processData: false,
+                    success: function(response) {
+                        console.log(response)
+                        setTimeout(() => {
+                            $("#employee-table").load(window.location.href +
+                                " #employee-table");
+                        }, 0);
+                        $('#exampleModal').modal('hide');
+                        var reset_form = $('#form-penilaian')[0];
+                        $(reset_form).removeClass('was-validated');
+                        reset_form.reset();
+                        $('#exampleModal').modal('hide');
+                        $("#modal-title").html("Tambah Data Penilaian")
+                        $("#penilaian_id").val()
+                    },
+                    error: function(xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+
+        function edit_data(e) {
+            $('#exampleModal').modal('show')
+            var url = "{{ url('penilaian') }}" + "/" + e.attr('data-id') + "/" + "edit"
+            $.ajax({
+                url: url,
+                method: "GET",
+                // dataType: "json",
+                success: function(result) {
+                    $("#modal-title").html("Edit Penilaian")
+                    $("#button-modal").html("Edit")
+                    $('#penilaian_id').val(result.penilaian_id).trigger('change');
+                    $('#name').html(`${result.first_name} ${result.last_name}`);
+                    $('#nisn').html(result.nisn);
+                    $('#nilai').val(result.nilai);
+                },
+                error: function(xhr) {
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+
     </script>
 @endpush

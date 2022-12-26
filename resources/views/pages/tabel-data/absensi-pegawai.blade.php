@@ -64,8 +64,7 @@
                     </div>
                 </div>
                 <div class="row justify-content-center mt-5 mb-4 scroll-history-present">
-                    @foreach ($listAbsen as $newabsen)
-                    @endforeach
+                    @foreach ( $listAbsen as $newabsen )
                     <div class="col-md-7 col-12 mb-3">
                         <div class="history-present">
                             <div class="date-present">
@@ -84,6 +83,7 @@
                                 @endif
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

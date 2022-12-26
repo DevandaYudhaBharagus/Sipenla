@@ -36,7 +36,7 @@
                 <div class="header-profile">
                     Penilaian Pembelajaran
                 </div>
-                <form action="{{ route('getStudentForPenilaian') }}" method="GET">
+                <form action="{{ route('riwayatPenilaian') }}">
                     <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="semester" id="semester" data-placeholder="Semester">

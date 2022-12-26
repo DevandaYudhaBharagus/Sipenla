@@ -75,13 +75,13 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/table/pegawai') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
-                        <img src="{{ asset('images/internal-images/perpustakaan.png') }}" alt="" />
+                        <img src="{{ asset('images/internal-images/data-pegawai.png') }}" alt="" />
                     </div>
-                    <div class="card-text">Perpustakaan</div>
+                    <div class="card-text">Data Pegawai</div>
                 </div>
             </div>
         </a>
