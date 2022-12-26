@@ -2364,6 +2364,7 @@ div.dataTables_scrollHead table.dataTable tr {
   object-fit: cover;
   border-radius: 6px;
 }
+
 /* ==================== Akhir CSS untuk Modal Present ========================= */
 
 /* ==================== CSS untuk Modal raport ====== ========================= */
@@ -2484,6 +2485,56 @@ div.dataTables_scrollHead table.dataTable tr {
 }
 
 /* ==================== Akhir CSS untuk Modal raport ====== =================== */
+
+.profile .box-profile .form-new-regis {
+  padding: 1rem 2rem;
+}
+.profile .box-profile .form-new-regis label {
+  font-size: 16px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+.profile .box-profile .form-new-regis input[type="text"],
+.profile .box-profile .form-new-regis input[type="email"],
+.profile .box-profile .form-new-regis input[type="password"] {
+  background-color: #f0f1f2;
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 500;
+  border-radius: 12px;
+}
+.profile .box-profile .form-new-regis input:focus {
+  box-shadow: none;
+  outline: none;
+  border: none;
+}
+.profile .box-profile .form-new-regis .btn-save-regis {
+  background: var(--bg-button-primary);
+  color: var(--bg-secondary);
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 1.5rem;
+  margin-top: 2rem;
+  border-radius: 10px;
+}
+.profile
+  .box-profile
+  .form-new-regis
+  .select2-container--bootstrap-5
+  .select2-selection--single {
+  background-color: #f0f1f2 !important;
+  border: 1px solid #ced4da !important;
+  border-radius: 10px !important;
+}
+.profile
+  .box-profile
+  .form-new-regis.search-student
+  .select2-container--bootstrap-5
+  .select2-selection--single {
+  background-image: url("/images/internal-images/icon-search.png") !important;
+  background-size: 16px 14px !important;
+}
 
 @media screen and (max-width: 700px) {
   .header-dashboard {
