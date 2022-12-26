@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\News;
 use App\Models\Student;
 use App\Models\Employee;
 use App\Models\LeaveBalance;
@@ -67,8 +68,9 @@ class HomeController extends Controller
                                     ->get();
 
                                     // dd($schedule);
+            $news = News::orderBy('created_at', 'desc')->get();
 
-            return view('pages.dashboard.dashboard', compact('student','schedule'));
+            return view('pages.dashboard.dashboard', compact('student','schedule','news'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){
@@ -85,8 +87,9 @@ class HomeController extends Controller
                                 ->get();
 
                             // dd($schedule);
+        $news = News::orderBy('created_at', 'desc')->paginate(5);
 
-        return view('pages.dashboard.dashboard', compact('employee','schedule'));
+        return view('pages.dashboard.dashboard', compact('employee','schedule','news'));
 
     }
 
