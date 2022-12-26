@@ -12,10 +12,20 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="mb-4 mt-3">
-                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email" />
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" placeholder="Email" />
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="mb-3">
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" />
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" />
+                    @error('password')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <span class="show-hide">
                         <i class="material-icons" id="material-password">visibility</i></span>
                 </div>

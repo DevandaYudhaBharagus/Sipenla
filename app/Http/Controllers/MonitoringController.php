@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Grade;
 use App\Models\Subject;
 use App\Models\Employee;
+use App\Models\StudentAttendance;
 use App\Models\StudentGrade;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class MonitoringController extends Controller
 {
-    public function index(){
+    public function index()
+    {
 
         $user = Auth::user();
         $employee = Employee::where('user_id', '=', $user->id)->first();
@@ -35,10 +38,13 @@ class MonitoringController extends Controller
             'subject_name'
         ]);
 
-   
-        return view('pages.monitoring.monitoring', compact('grade','subject'));
+
+        return view('pages.monitoring.monitoring', compact('grade','subject', 'employee'));
     }
-    public function filteringPembelajaran(Request $request){
+    public function filteringPembelajaran(Request $request)
+    {
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
         $student = StudentGrade::join('students', 'student_grades.student_id', '=', 'students.student_id')
         ->where('student_grades.grade_id', '=', $request->grade)
         ->get([
@@ -49,9 +55,25 @@ class MonitoringController extends Controller
         ]);
         $grades = Grade::where('grade_id', '=', $request->grade)->first();
         $subjects = Subject::where('subject_id', '=', $request->mapel)->first();
-   
-        return view('pages.monitoring.monitoring2',compact('student','grades','subjects'));
+
+        return view('pages.monitoring.monitoring2',compact('student','grades','subjects', 'employee'));
     }
 
+    public function monitoringStore(Request $request)
+    {
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+        foreach($request->student_id as $key => $value){
+                StudentAttendance::create([
+                    'student_id' => $request->student_id[$key],
+                    'status' => $request->status[$key],
+                    'grade_id' => $request->grade,
+                    'subject_id' => $request->mapel,
+                    'teacher_id' => $employee->employee_id,
+                    'date' => Carbon::now(),
+                ]);
+        }
 
+        return redirect('/monitoring')->with('status', 'Monitoring Pembelajaran Terisi!');
+    }
 }

@@ -73,10 +73,7 @@ Route::get('/master-tarik-saldo', function(){
     return view('pages.master.master-keuangan-tarik-saldo');
 });
 
-// Fokus Yang Dikerjain
-// Route::get('/monitoring', function(){
-//     return view('pages.monitoring.monitoring');
-// });
+// Fokus Yang Dikerjain;
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
@@ -92,8 +89,6 @@ Route::get('/detail-raport-kelas', function(){
 Route::get('/walkel-detail-raport', function(){
     return view('pages.raport.riwayat-walkel-raport');
 });
-
-
 // keuangan
 Route::get('/keuangan', function(){
     return view('pages.keuangan.dash-keuangan');
@@ -262,6 +257,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Route Penilaian
     Route::prefix('penilaian')->group(function (){
+        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
         Route::get('/home', [PenilaianController::class, 'index']);
         Route::get('/riwayat', [PenilaianController::class, 'riwayatPenilaian']);
         Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayat'])->name('riwayatPenilaian');
@@ -269,7 +265,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
         Route::get('/{id}/edit', [PenilaianController::class, 'edit']);
         Route::post('/{id}', [PenilaianController::class, 'update']);
-        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru
@@ -298,9 +293,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [JadwalController::class, 'index']);
         Route::get('/jadwal-kerja', [JadwalController::class, 'jadwalkerja'])->name('jadwalkerja');
     });
-  
+
     //Route Monitoring
     Route::prefix('monitoring')->group(function (){
+        Route::post('/store', [MonitoringController::class, 'monitoringStore'])->name('monitoringStore');
         Route::get('/', [MonitoringController::class, 'index']);
         Route::get('/filteringpembelajaran', [MonitoringController::class, 'filteringPembelajaran'])->name('filteringPembelajaran');
     });

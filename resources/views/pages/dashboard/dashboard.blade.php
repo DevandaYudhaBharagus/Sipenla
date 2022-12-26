@@ -1,4 +1,4 @@
-@extends('layouts.dashboard-layouts')
+@extends('layouts.new-layouts-dashboard')
 
 @section('title', 'Dashboard')
 
@@ -179,7 +179,7 @@
                                     {{-- <div class="date-item-announcement">
                                         Acara dimulai tanggal 9 Maret 2022
                                     </div> --}}
-                                    
+
                                 </div>
                             </a>
                         </div>

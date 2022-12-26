@@ -41,12 +41,16 @@
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="profile-student">
-                                        <img src="{{ asset('images/internal-images/kantin.png') }}" alt="" />
+                                        @if(!$employee->image)
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
+                                        @else
+                                        <img src="{{ $employee->image }}" alt="" />
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">Bambang Pamungkas</div>
-                                    <div class="title-student">Guru</div>
+                                    <div class="name-student">{{ $employee->first_name }} {{ $employee->last_name }}</div>
+                                    <div class="title-student">{{ Auth::user()->role }}</div>
                                 </div>
                             </div>
                             <div class="row mt-4 align-items-center">
@@ -83,7 +87,7 @@
                         <div class="box-student-card mt-md-4" id="mapel-class">
                             <h3>Ini Ekstrakulikuler</h3>
                         </div>
-                        <div class="box-student-card mt-md-4">
+                        {{-- <div class="box-student-card mt-md-4">
                             <div class="chart-present">
                                 <div class="desk-date">
                                     <div class="date-chart">
@@ -101,13 +105,14 @@
                                 <canvas id="myChart"></canvas>
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-md-7 col-12">
                         <div class="box-biografi present">
                             <div class="show" id="show-monitoring">
                                 <div class="table-monitoring-present">
-                                    <form action="" method="post">
+                                    <form action="{{ route('monitoringStore') }}" method="post">
+                                        @csrf
                                         <input type="text" style="display: none" name="mapel" value="{{ $subjects->subject_id }}">
                                         <input type="text" style="display: none" name="grade" value="{{ $grades->grade_id }}">
                                         <table class="table-responsive table-borderless table-monitoring">
@@ -126,24 +131,25 @@
                                                 @foreach ($student as $new )
                                                 <tr>
                                                     <td class="text-cente widt-1">{{ $loop->iteration }}</td>
-                                                
+                                                    <input type="text"  multiple
+                                                    value="{{ $new->student_id }}" style="display: none" name="student_id[]">
                                                    <td class="widt-3"> <input type="text"  multiple
                                                     value="{{ $new->first_name.' '.$new->last_name }}" disabled> </td>
                                                     <td class="widt-2"><input type="text" multiple
-                                                            value="139857468525" disabled></td>
-                                                    <td class="widt-5"> <input type="checkbox" name="status"
-                                                            class="form-check-input present" id="exampleCheck1">
+                                                            value="{{ $new->nisn }}" disabled></td>
+                                                    <td class="widt-5"> <input type="checkbox" name="status[]"
+                                                            class="form-check-input present" value="mas" id="exampleCheck1">
                                                     </td>
-                                                    <td class="widt-5"><input type="checkbox" name="status"
-                                                            class="form-check-input izin" id="exampleCheck1">
+                                                    <td class="widt-5"><input type="checkbox" name="status[]"
+                                                            class="form-check-input izin" value="mls" id="exampleCheck1">
                                                     </td>
-                                                    <td class="widt-5"><input type="checkbox" name="status"
-                                                            class="form-check-input sick" id="exampleCheck1">
+                                                    <td class="widt-5"><input type="checkbox" name="status[]"
+                                                            class="form-check-input sick" value="mss" id="exampleCheck1">
                                                     </td>
-                                                    <td class="widt-5"><input type="checkbox" name="status"
-                                                            class="form-check-input alpha" id="exampleCheck1">
+                                                    <td class="widt-5"><input type="checkbox" name="status[]"
+                                                            class="form-check-input alpha" value="mes" id="exampleCheck1">
                                                     </td>
-                                                
+
                                                 </tr>
                                                 @endforeach
 
@@ -250,7 +256,7 @@
             placeholder: $(this).data('placeholder'),
         });
     </script>
-    <script>
+    {{-- <script>
         const ctx = document.getElementById('myChart');
 
         new Chart(ctx, {
@@ -294,7 +300,7 @@
 
             }
         });
-    </script>
+    </script> --}}
     <script>
         flatpickr("#date-chart", {
             altInput: true,
