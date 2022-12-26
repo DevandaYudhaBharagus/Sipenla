@@ -47,7 +47,7 @@ ENV ONESIGNAL_URL $ONESIGNAL_URL
 ENV ONESIGNAL_ANDROID_CHANNEL_ID $ONESIGNAL_ANDROID_CHANNEL_ID
 
 # Run Composer Update
-RUN composer update && cp .env.example .env && php artisan key:generate
+RUN composer update && cp .env.example .env && php artisan key:generate && php artisan schedule:run
 
 # Run script
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

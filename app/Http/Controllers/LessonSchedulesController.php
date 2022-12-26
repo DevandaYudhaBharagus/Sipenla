@@ -41,7 +41,7 @@ class LessonSchedulesController extends Controller
                 'days_id' => 'required',
                 'grade_id' => 'required',
                 'subject_id' => 'required',
-                'teacher_id' => 'required|unique:lesson_schedules,teacher_id',
+                'teacher_id' => 'required',
                 'start_time' => 'required',
                 'end_time' => 'required|after:start_time',
             ],
@@ -58,6 +58,16 @@ class LessonSchedulesController extends Controller
         if ($validate->fails()) {
             return response()->json([
                 'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $lesson = LessonSchedule::where('subject_id', '=', $data['subject_id'])
+                ->where('teacher_id', '=', $data['teacher_id'])
+                ->where('grade_id', '=', $data['grade_id']);
+
+        if($lesson->exists()){
+            return response()->json([
+                "error" => "Jadwal Telah tersedia!"
             ]);
         }
 
