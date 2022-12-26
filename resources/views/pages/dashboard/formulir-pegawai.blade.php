@@ -143,6 +143,8 @@
                                 <button class="d-block btn-photo-siswa" type="button" onclick="uploadPhotoSiswa()">
                                     Upload Photo
                                 </button>
+                                <div id="text-preview"
+                                    style="font-size: 12px;margin-top:10px; font-weight:400;color:#4b556b"></div>
                                 <span class="ket-photo-siswa">*Foto harus background merah dan berseragam putih
                                     biru</span>
                             </div>
@@ -167,8 +169,16 @@
             dateFormat: "d-m-Y",
         });
 
-        function uploadPhotoSiswa() {
-            document.querySelector("#fotoSiswa").click();
-        }
+        const inputImage = document.querySelector("#fotoSiswa");
+        const text = document.querySelector("#text-preview");
+        inputImage.addEventListener("change", () => {
+            let reader = new FileReader();
+            reader.readAsDataURL(inputImage.files[0]);
+            text.textContent = inputImage.files[0].name;
+            console.log(inputImage.files[0].name);
+            // reader.onload = () => {
+            //     choseImage.setAttribute("src", reader.result);
+            // }
+        });
     </script>
 @endpush

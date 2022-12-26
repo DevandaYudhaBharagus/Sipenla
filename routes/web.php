@@ -110,6 +110,16 @@ Route::get('/riwayat-raport', function(){
 Route::get('/detail-raport-kelas', function(){
     return view('pages.raport.detail-raport-kelas');
 });
+Route::get('/walkel-detail-raport', function(){
+    return view('pages.raport.riwayat-walkel-raport');
+});
+
+
+// keuangan
+Route::get('/keuangan', function(){
+    return view('pages.keuangan.dash-keuangan');
+});
+
 
 
 Auth::routes();
