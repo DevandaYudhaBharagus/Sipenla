@@ -82,19 +82,6 @@ Route::get('/absensi-siswa', function(){
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
-Route::get('/home-penilaian', function(){
-    return view('pages.penilaian.pil-penilaian');
-});
-Route::get('/riwayat-penilaian', function(){
-    return view('pages.penilaian.riwayat-penilaian');
-});
-// Route::get('/jadwal-shift-kerja', function(){
-//     return view('pages.jadwal.jadwal-shift-kerja');
-// });
-// raportuntuk sirah sekolah
-// Route::get('/pil-raport', function(){
-//     return view('pages.raport.pil-raport');
-// });
 Route::get('/riwayat-raport', function(){
     return view('pages.raport.riwayat-raport');
 });
