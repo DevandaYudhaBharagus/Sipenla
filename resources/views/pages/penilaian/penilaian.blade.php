@@ -15,7 +15,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i>
+                            Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -80,22 +81,27 @@
                             </thead>
                             <tbody>
                                 {{-- {!! Form::hidden('grade_id', $grades->grade_id )!!} --}}
-                                <input type="text" style="display: none" name="grade_id" value="{{ $grades->grade_id }}" >
-                                <input type="text" name="subject_id" style="display: none" value="{{ $subjects->subject_id }}" >
-                                <input type="text" name="semester_id" style="display: none" value="{{ $semesters->semester_id }}" >
-                                <input type="text" name="academic_year_id" style="display: none" value="{{  $academics->academic_year_id}}" >
-                                <input type="text" name="assessment_id" style="display: none" value="{{  $assessments->assessment_id}}" >
+                                <input type="text" style="display: none" name="grade_id" value="{{ $grades->grade_id }}">
+                                <input type="text" name="subject_id" style="display: none"
+                                    value="{{ $subjects->subject_id }}">
+                                <input type="text" name="semester_id" style="display: none"
+                                    value="{{ $semesters->semester_id }}">
+                                <input type="text" name="academic_year_id" style="display: none"
+                                    value="{{ $academics->academic_year_id }}">
+                                <input type="text" name="assessment_id" style="display: none"
+                                    value="{{ $assessments->assessment_id }}">
                                 @foreach ($student as $new)
-                                <input type="text" style="display: none" name="student_id[]" value="{{ $new->student_id }}" multiple="true">
-                                <tr>
-                                    <td style="width:30%">{{ $new->nisn }}</td>
-                                    <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                                    <td style="width:20%">
-                                        <input type="text" class="form-control entry-nilai" name="nilai[]"
-                                            multiple="true" id="" onkeypress="return hanyaAngka(event)"
-                                            maxlength="3">
-                                    </td>
-                                </tr>
+                                    <input type="text" style="display: none" name="student_id[]"
+                                        value="{{ $new->student_id }}" multiple="true">
+                                    <tr>
+                                        <td style="width:30%">{{ $new->nisn }}</td>
+                                        <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                        <td style="width:20%">
+                                            <input type="text" class="form-control entry-nilai" name="nilai[]"
+                                                multiple="true" id="" onkeypress="return hanyaAngka(event)"
+                                                maxlength="3">
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

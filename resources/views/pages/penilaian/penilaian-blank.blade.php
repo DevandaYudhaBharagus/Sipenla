@@ -15,7 +15,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i>
+                            Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -29,6 +30,7 @@
         </div>
     </div>
 
+
     <section class="profile">
         <div class="container">
             <div class="box-profile">
@@ -36,49 +38,52 @@
                     Penilaian Pembelajaran
                 </div>
                 @if (session('status'))
-                <div class=" alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
+                    <div class=" alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <form action="{{ route('getStudentForPenilaian') }}">
                     @csrf
                     <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
                                 <option></option>
-                                @foreach ($semester as $newsemester )
-                                    <option value="{{ $newsemester->semester_id }}">{{ $newsemester->semester_name }}</option>
+                                @foreach ($semester as $newsemester)
+                                    <option value="{{ $newsemester->semester_id }}">{{ $newsemester->semester_name }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select" name="tahun" id="tahun" data-placeholder="Tahun">
                                 <option></option>
-                                @foreach ($academic as $newAcademicYears )
-                                    <option value="{{ $newAcademicYears->academic_year_id }}">{{ $newAcademicYears->academic_year }}</option>
+                                @foreach ($academic as $newAcademicYears)
+                                    <option value="{{ $newAcademicYears->academic_year_id }}">
+                                        {{ $newAcademicYears->academic_year }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 col-6 mb-2 mb-md-0">
                             <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
                                 <option></option>
-                                    <option value="{{ $subject->subject_id }}">{{ $subject->subject_name }}</option>
+                                <option value="{{ $subject->subject_id }}">{{ $subject->subject_name }}</option>
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select" name="grade" id="kelas" data-placeholder="Kelas">
                                 <option></option>
-                                @foreach ($grade as $newgrade )
-                                <option value="{{ $newgrade->grade_id }}">{{ $newgrade->grade_name }}</option>
-                            @endforeach
+                                @foreach ($grade as $newgrade)
+                                    <option value="{{ $newgrade->grade_id }}">{{ $newgrade->grade_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 col-6">
                             <select class="form-select" name="penilaian" id="penilaian-tugas" data-placeholder="Penilaian">
                                 <option></option>
-                            @foreach ($assessment as $newassessment )
-                                <option value="{{ $newassessment->assessment_id }}">{{ $newassessment->assessment_name }}</option>
-                            @endforeach
+                                @foreach ($assessment as $newassessment)
+                                    <option value="{{ $newassessment->assessment_id }}">
+                                        {{ $newassessment->assessment_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="col-md-2 col-6">

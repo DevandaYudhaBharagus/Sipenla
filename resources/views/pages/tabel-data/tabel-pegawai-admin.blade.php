@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -41,19 +41,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($employee as $new )
-                            <tr>
-                                <td>{{ $new->first_name." ".$new->last_name }}</td>
-                                <td>{{ $new->nuptk }}</td>
-                                <td>{{ $new->email }}</td>
-                                <td>{{ $new->position }}</td>
-                                <td> <a href="/datauser/absensipegawai/{{ $new->id }}" class="btn-data">Lihat</a> </td>
-                                <td>
-                                    <a href="/datauser/folmulirpegawai/{{ $new->id }}" class="btn-data">Lihat</a>
-                                </td>
-                            </tr>
+                            @foreach ($employee as $new)
+                                <tr>
+                                    <td>{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                    <td>{{ $new->nuptk }}</td>
+                                    <td>{{ $new->email }}</td>
+                                    <td>{{ $new->position }}</td>
+                                    <td> <a href="/datauser/absensipegawai/{{ $new->id }}" class="btn-data">Lihat</a>
+                                    </td>
+                                    <td>
+                                        <a href="/datauser/folmulirpegawai/{{ $new->id }}" class="btn-data">Lihat</a>
+                                    </td>
+                                </tr>
                             @endforeach
-                          
+
                         </tbody>
                     </table>
                 </div>
