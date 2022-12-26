@@ -154,7 +154,7 @@
                     if (txtValue.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                     } else {
-                        tr[i].style.display = "none";
+                        let trNew = tr[i].style.display = "none";
                     }
                 }
             }

@@ -34,12 +34,12 @@
                             <tr>
                                 <td style="width:25%;font-weight:600">Nama</td>
                                 <td style="width:5%;text-align:center;font-weight:600">:</td>
-                                <td style="width:70%;font-weight:600">Doni Pamungkas S.Pd</td>
+                                <td style="width:70%;font-weight:600">{{ $employee->first_name.' '.$employee->last_name }}</td>
                             </tr>
                             <tr>
                                 <td style="width:25%;">Jabatan</td>
                                 <td style="width:5%;text-align:center"> :</td>
-                                <td style="width:70%;">Pegawai Perpustakaan</td>
+                                <td style="width:70%;">{{ $employee->position }}</td>
                             </tr>
                         </table>
                     </div>
@@ -54,15 +54,18 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>0</td>
-                                    <td>20</td>
-                                    <td>0</td>
+                                    <td>{{ $alpha }}</td>
+                                    <td>{{ $hadir }}</td>
+                                    <td>{{ $izin }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row justify-content-center mt-5 mb-4 scroll-history-present">
+                    @foreach ( $listAbsen as $newabsen )
+                        
+                    @endforeach
                     <div class="col-md-7 col-12 mb-3">
                         <div class="history-present">
                             <div class="date-present">
@@ -70,11 +73,15 @@
                                     Tanggal Presensi
                                 </div>
                                 <div class="date">
-                                    26-10-2022
+                                    {{ date('d - m - Y', strtotime($newabsen->check_in)) }}
                                 </div>
                             </div>
                             <div class="display-present">
-                                H
+                                @if ( $newabsen->status == 'ace' )
+                                    H
+                                @elseif ($newabsen->status == 'aab')
+                                    A
+                                @endif
                             </div>
                         </div>
                     </div>

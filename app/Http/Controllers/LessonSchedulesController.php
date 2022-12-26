@@ -61,6 +61,16 @@ class LessonSchedulesController extends Controller
             ]);
         }
 
+        $lesson = LessonSchedule::where('subject_id', '=', $data['subject_id'])
+                ->where('teacher_id', '=', $data['teacher_id'])
+                ->where('grade_id', '=', $data['grade_id']);
+
+        if($lesson->exists()){
+            return response()->json([
+                "error" => "Jadwal Telah tersedia!"
+            ]);
+        }
+
         $CreateLessonSchedule = LessonSchedule::create([
             'days_id' => $data['days_id'],
             'grade_id' => $data['grade_id'],

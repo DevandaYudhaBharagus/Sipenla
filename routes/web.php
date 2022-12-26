@@ -23,6 +23,7 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\PenilaianController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,38 +74,41 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/penilaian', function(){
-    return view('pages.penilaian.penilaian');
-});
-Route::get('/penilaian-blank', function(){
-    return view('pages.penilaian.penilaian-blank');
-});
 Route::get('/tabel-siswa', function(){
     return view('pages.tabel-data.tabel-siswa');
 });
 Route::get('/tabel-pegawai', function(){
     return view('pages.tabel-data.tabel-pegawai');
 });
-// Route::get('/tabel-pegawai-admin', function(){
-//     return view('pages.tabel-data.tabel-pegawai-admin');
-// });
 Route::get('/absensi-pegawai', function(){
     return view('pages.tabel-data.absensi-pegawai');
-});
-// Route::get('/data-form-pegawai', function(){
-//     return view('pages.tabel-data.data-form-pegawai');
-// });
-// Route::get('/tabel-siswa-admin', function(){
-//     return view('pages.tabel-data.tabel-siswa-admin');
-// });
-Route::get('/tabel-siswa-admin', function(){
-    return view('pages.tabel-data.tabel-siswa-admin');
 });
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
+});
+Route::get('/home-penilaian', function(){
+    return view('pages.penilaian.pil-penilaian');
+});
+Route::get('/riwayat-penilaian', function(){
+    return view('pages.penilaian.riwayat-penilaian');
+});
+Route::get('/jadwal-shift-kerja', function(){
+    return view('pages.jadwal.jadwal-shift-kerja');
+});
+Route::get('/daftar-blank', function(){
+    return view('pages.daftar.daftar-blank');
+});
+Route::get('/daftar-siswa', function(){
+    return view('pages.daftar.daftar-siswa');
+});
+Route::get('/daftar-pegawai', function(){
+    return view('pages.daftar.daftar-pegawai');
+});
+Route::get('/daftar-walimurid', function(){
+    return view('pages.daftar.daftar-walmur');
 });
 
 Auth::routes();
@@ -247,11 +251,22 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
         Route::get('/datasiswa', [ControllersAdmissionController::class, 'getDataSiswa']);
+
     });
 
     Route::prefix('datauser')->group(function (){
         Route::get('/student', [DataUserController::class, 'getDataStudent']);
         Route::get('/employee', [DataUserController::class, 'getDataEmployee']);
+        Route::get('/folmulirsiswa/{id}', [DataUserController::class, 'getFolmulirsiswa']);
+        Route::get('/folmulirpegawai/{id}', [DataUserController::class, 'getFolmulirpegawai']);
+        Route::get('/absensipegawai/{id}', [DataUserController::class, 'getAbsensiPegawai']);
+    });
+
+    //Route Penilaian
+    Route::prefix('penilaian')->group(function (){
+        Route::get('/', [PenilaianController::class, 'getFilteringPenilaian']);
+        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
+        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru

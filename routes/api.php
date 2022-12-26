@@ -25,6 +25,7 @@ use App\Http\Controllers\API\WithdrawalController;
 use App\Http\Controllers\API\OtherPaymentController;
 use App\Http\Controllers\API\SchoolFeeController;
 use App\Http\Controllers\API\ChatController;
+use App\Http\Controllers\API\NotificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -290,6 +291,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/historytabungan/{tanggal}', [PaymentController::class, 'getHistorySaving']);
         Route::get('/historyadmlain/{tanggal}', [PaymentController::class, 'getHistoryOtherPayment']);
         Route::get('/historyspp/{tanggal}', [PaymentController::class, 'getHistorySpp']);
+        Route::get('/historybyuser', [PaymentController::class, 'getHistoryByUser']);
     });
 
     Route::prefix('saving')->group(function () {
@@ -325,5 +327,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/', [ChatController::class, 'createChat']);
         Route::post('/update/{room}', [ChatController::class, 'updateChat']);
         Route::post('/status/{room}', [ChatController::class, 'updateStatusChat']);
+    });
+
+    Route::prefix('notif')->group(function () {
+        Route::get('/', [NotificationController::class, 'getNotif']);
     });
 });

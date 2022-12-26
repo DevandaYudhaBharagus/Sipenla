@@ -1,6 +1,6 @@
 @extends('layouts.dashboard-layouts')
 
-@section('title', 'Penilaian Siswa')
+@section('title', 'Penlian Siswa')
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
@@ -39,74 +39,105 @@
                     <div class="col-md-2 col-6 mb-2 mb-md-0">
                         <select class="form-select" name="semester" id="semester" data-placeholder="Semester">
                             <option>{{ $semesters->semester_name }}</option>
-                            {{-- <option value="{{ $semesters->semester_id }}">{{ $semesters->semester_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <select class="form-select" name="tahun" id="tahun" data-placeholder="Tahun">
                             <option>{{ $academics->academic_year }}</option>
-                            {{-- <option value="{{ $academics->academic_year_id }}">{{ $academics->academic_year }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6 mb-2 mb-md-0">
                         <select class="form-select" name="mapel" id="mapel" data-placeholder="Mapel">
                             <option>{{ $subjects->subject_name }}</option>
-                            {{-- <option value="{{ $subjects->subject_id }}">{{ $subjects->subject_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <select class="form-select" name="grade" id="kelas" data-placeholder="Kelas">
                             <option>{{ $grades->grade_name }}</option>
-                            {{-- <option value="{{ $grades->grade_id }}">{{ $grades->grade_name }}</option> --}}
                         </select>
                     </div>
                     <div class="col-md-2 col-6">
                         <select class="form-select" name="penilaian" id="penilaian-tugas" data-placeholder="Penilaian">
                             <option>{{ $assessments->assessment_name }}</option>
-                            {{-- <option value="{{ $assessments->assessment_id }}">{{ $assessments->assessment_name }}</option> --}}
                         </select>
                     </div>
                 </div>
                 <div class="table-dash">
-                    <form action="{{ route('penilaianStore') }}" method="post">
-                        {{ csrf_field() }}
-                        <table id="penilaian" class="display" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th style="width:30%">NISN</th>
-                                    <th style="width:30%">Nama</th>
-                                    <th style="width:20%">Penilaian</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{-- {!! Form::hidden('grade_id', $grades->grade_id )!!} --}}
-                                <input type="text" style="display: none" name="grade_id" value="{{ $grades->grade_id }}" >
-                                <input type="text" name="subject_id" style="display: none" value="{{ $subjects->subject_id }}" >
-                                <input type="text" name="semester_id" style="display: none" value="{{ $semesters->semester_id }}" >
-                                <input type="text" name="academic_year_id" style="display: none" value="{{  $academics->academic_year_id}}" >
-                                <input type="text" name="assessment_id" style="display: none" value="{{  $assessments->assessment_id}}" >
-                                @foreach ($student as $new)
-                                <input type="text" style="display: none" name="student_id[]" value="{{ $new->student_id }}" multiple="true">
+                    <table id="penilaian" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th style="width:30%">NISN</th>
+                                <th style="width:30%">Nama</th>
+                                <th style="width:20%">Nilai</th>
+                                <th style="width:20%">Keterangan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{-- start looping data dari sini   --}}
+                            @foreach ($student as $new)
+                                <input type="hidden" name="id_student[]" value="" multiple="true">
+                                <input type="hidden" name="grade[]" multiple="true">
+                                <input type="hidden" name="id_mapel[]" multiple="true">
+                                <input type="hidden" name="id_semester[]" multiple="true">
+                                <input type="hidden" name="id_nilai[]" multiple="true">
+                                <input type="hidden" name="id_tahun_ajaran[]" multiple="true">
                                 <tr>
                                     <td style="width:30%">{{ $new->nisn }}</td>
                                     <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                    <td style="width:20%">-</td>
                                     <td style="width:20%">
-                                        <input type="text" class="form-control entry-nilai" name="nilai[]"
-                                            multiple="true" id="" onkeypress="return hanyaAngka(event)"
-                                            maxlength="3">
+                                        <button type="button" class="btn-edit-penilaian" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal"><i class="fa fa-edit"></i> </button>
                                     </td>
                                 </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn-save">Simpan</button>
-                        </div>
-                    </form>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </section>
+@endsection
+
+@section('modal-dashboard')
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-penilaian">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 m-auto" id="exampleModalLabel">Edit Nilai</h1>
+                </div>
+                <div class="modal-body">
+                    <form action="">
+                        <table>
+                            <tr>
+                                <td style="width: 25%" class="label-name">Nama</td>
+                                <td style="width: 5%;text-align:center">:</td>
+                                <td style="width: 70%">Lorem, ipsum dolor sit amet consectetur adipisicing</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%" class="label-name">Nisn</td>
+                                <td style="width: 5%; text-align:center">:</td>
+                                <td style="width: 70%">1245878956321552</td>
+                            </tr>
+                            <tr>
+                                <td style="width: 25%" class="label-name">Nilai</td>
+                                <td style="width: 5%;text-align:center">:</td>
+                                <td style="width: 70%">
+                                    <input type="text" name="" id="nilai-siswa"
+                                        onkeypress="return hanyaAngka(event)" maxlength="3">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn-penilaian bg-red-permission me-md-3"
+                        data-bs-dismiss="modal">Kembali</button>
+                    <button type="submit" class="btn-penilaian bg-green-permission">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 

@@ -285,18 +285,26 @@
                     // contentType: 'application/json',
                     processData: false,
                     success: function(response) {
-                        console.log(response)
-                        setTimeout(() => {
+                        if (response.error) {
+                                Swal.fire({
+                                    type: "error",
+                                    title: 'Oops...',
+                                    text: `${response.error}`,
+                                    confirmButtonClass: 'btn btn-success',
+                                });
+                        }else{
+                            setTimeout(() => {
                             $("#table-schedule").load(window.location.href +
                                 " #table-schedule");
-                        }, 0);
-                        $('#exampleModal').modal('hide');
-                        var reset_form = $('#form-schedule')[0];
-                        $(reset_form).removeClass('was-validated');
-                        reset_form.reset();
-                        $('#exampleModal').modal('hide');
-                        $("#modal-title").html("Tambah Data Jadwal Kelas")
-                        $("#employee_id").val()
+                            }, 0);
+                            $('#exampleModal').modal('hide');
+                            var reset_form = $('#form-schedule')[0];
+                            $(reset_form).removeClass('was-validated');
+                            reset_form.reset();
+                            $('#exampleModal').modal('hide');
+                            $("#modal-title").html("Tambah Data Jadwal Kelas")
+                            $("#employee_id").val()
+                        }
                     },
                     error: function(xhr) {
                         console.log(xhr.responseText);

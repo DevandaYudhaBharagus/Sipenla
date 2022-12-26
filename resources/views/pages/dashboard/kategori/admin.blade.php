@@ -57,7 +57,7 @@
                     <div class="card-image">
                         <img src="{{ asset('images/internal-images/registrasi.png') }}" alt="" />
                     </div>
-                    <div class="card-text">Registrasi</div>
+                    <div class="card-text">Daftar</div>
                 </div>
             </div>
         </a>
