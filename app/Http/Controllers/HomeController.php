@@ -9,6 +9,8 @@ use App\Models\Employee;
 use App\Models\Balance;
 use App\Models\Room;
 use App\Models\Saving;
+use App\Models\Workshift;
+use App\Models\Extracurricular;
 use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
@@ -57,7 +59,8 @@ class HomeController extends Controller
         if($user->role == "student"){
             $student = Student::where('user_id', '=', $user->id)->first();
             if(!$student){
-                return view('pages.dashboard.formulir');
+                $ekstra = Extracurricular::get();
+                return view('pages.dashboard.formulir', compact('ekstra'));
             }
             $timeNow = Carbon::now();
             $day = Carbon::parse($timeNow);
@@ -70,14 +73,14 @@ class HomeController extends Controller
                                     ->where('student_id', '=', $student->student_id)
                                     ->get();
 
-                                    // dd($schedule);
             $news = News::orderBy('created_at', 'desc')->get();
 
             return view('pages.dashboard.dashboard', compact('student','schedule','news'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){
-            return view('pages.dashboard.formulir-pegawai');
+            $workshift = Workshift::get();
+            return view('pages.dashboard.formulir-pegawai', compact('workshift'));
         }
         $timeNow = Carbon::now();
         $day = Carbon::parse($timeNow);
@@ -134,7 +137,7 @@ class HomeController extends Controller
 
         $imageEncoded = base64_encode(file_get_contents($request->file('profile_student')->path()));
 
-        $imageFix = $this->saveImage($request->profile_employee, "azure");
+        $imageFix = $this->saveImage($imageEncoded, "azure");
 
         $studentData = Student::create([
             'user_id' => $user->id,
@@ -178,7 +181,7 @@ class HomeController extends Controller
             'user_id' => $user->id,
             'admin_id' => 1,
             'name_room' => $studentData['first_name']. ' '. $studentData['last_name'],
-            'image_profile' => $image,
+            'image_profile' => $imageFix,
             'status' => 'tidak',
             'date' => Carbon::now(),
             'message' => ""
@@ -260,7 +263,7 @@ class HomeController extends Controller
             'user_id' => $user->id,
             'admin_id' => 1,
             'name_room' => $employeeData['first_name']. ' '. $employeeData['last_name'],
-            'image_profile' => $image,
+            'image_profile' => $imageFix,
             'status' => 'tidak',
             'date' => Carbon::now(),
             'message' => ""

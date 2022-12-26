@@ -251,6 +251,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Route Penilaian
     Route::prefix('penilaian')->group(function (){
+        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
         Route::get('/home', [PenilaianController::class, 'index']);
         Route::get('/riwayat', [PenilaianController::class, 'riwayatPenilaian']);
         Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayat'])->name('riwayatPenilaian');
@@ -258,7 +259,6 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
         Route::get('/{id}/edit', [PenilaianController::class, 'edit']);
         Route::post('/{id}', [PenilaianController::class, 'update']);
-        Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru

@@ -4,6 +4,9 @@
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 @endsection
 
 @section('content')
@@ -86,16 +89,23 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" name="gender" aria-label="Default select example">
-                                <option selected>Pilih Jenis Kelamin</option>
+                            <select class="form-select" id="gender" name="gender" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Jenis Kelamin ---">
+                                <option></option>
                                 <option value="Laki-Laki">Laki-Laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Agama</label>
-                            <input type="text" name="religion" class="form-control" id="agama"
-                                placeholder="Agama" />
+                            <label for="" class="form-label">Jenis Kelamin</label>
+                            <select class="form-select" id="religion" name="religion" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Agama ---">
+                                <option></option>
+                                <option value="Islam">Islam</option>
+                                <option value="Kristen">Kristen</option>
+                                <option value="Katolik">Katolik</option>
+                                <option value="Hindu">Hindu</option>
+                                <option value="Budha">Budha</option>
+                                <option value="Konghucu">Konghucu</option>
+                            </select>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Alamat Tinggal</label>
@@ -129,10 +139,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Shift Kerja</label>
-                            <select class="form-select" name="workshift_id" aria-label="Default select example">
-                                <option selected>Pilih Shift Kerja</option>
-                                <option value="1">Shift Khusus</option>
-                                <option value="2">Shift Normal</option>
+                            <select class="form-select" name="workshift_id" id="workshift_id" aria-label="Default select example" data-dropdown-parent="body" data-placeholder="--- Pilih Shift Kerja ---">
+                                <option></option>
+                                @foreach ($workshift as $e)
+                                <option value="{{ $e->workshift_id }}">{{ $e->shift_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
@@ -161,6 +172,28 @@
         function uploadPhotoSiswa() {
             document.querySelector("#fotoSiswa").click();
         }
+
+        $('#workshift_id').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#gender').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
+        $('#religion').select2({
+            theme: "bootstrap-5",
+            width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+            placeholder: $(this).data('placeholder'),
+            dropdownParent: $('#exampleModal'),
+        });
+
         flatpickr("#tglLahir", {
             altInput: true,
             altFormat: "j F, Y",

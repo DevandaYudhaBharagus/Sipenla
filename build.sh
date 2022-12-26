@@ -13,4 +13,12 @@ docker build -t registry.gitlab.com/rezakurniasetiawan/project-siakad \
     --build-arg ONESIGNAL_APP_ID=3d785dce-89eb-4c78-96d3-04c553081ccf \
     --build-arg ONESIGNAL_REST_API_KEY=NWE1ZTJjMmMtMWZmOC00NTEwLWIwOTQtZDIwYWRkNjc1YTgy \
     --build-arg ONESIGNAL_URL=https://onesignal.com/api/v1/notifications \
-    --build-arg ONESIGNAL_ANDROID_CHANNEL_ID=aba9cf82-3f66-419d-92ab-fdd07f3489d2 .
+    --build-arg ONESIGNAL_ANDROID_CHANNEL_ID=aba9cf82-3f66-419d-92ab-fdd07f3489d2 \
+    --build-arg MAIL_MAILER=smtp \
+    --build-arg MAIL_HOST=smtp.mailtrap.io \
+    --build-arg MAIL_PORT=2525 \
+    --build-arg MAIL_USERNAME=cb550c88ab8eea \
+    --build-arg MAIL_PASSWORD=b642ee46d3b2dd \
+    --build-arg MAIL_ENCRYPTION=tls \
+    --build-arg MAIL_FROM_ADDRESS=sipenladev@gmail.com \
+    --build-arg MAIL_FROM_NAME=SIPENLA .
