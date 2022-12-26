@@ -35,29 +35,33 @@
                     </a>
                     Monitoring
                 </div>
+                @if (session('status'))
+                    <div class=" alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <div class="row mt-md-4 mt-3">
                     <div class="col-md-5 col-12">
                         <div class="box-student-profile">
                             <div class="row align-items-center">
                                 <div class="col-5">
                                     <div class="profile-student">
-                                        <img src="{{ asset('images/internal-images/kantin.png') }}" alt="" />
+                                        @if(!$employee->image)
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
+                                        @else
+                                        <img src="{{ $employee->image }}" alt="" />
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="col-7">
-                                    <div class="name-student">Bambang Pamungkas</div>
-                                    <div class="title-student">Guru</div>
+                                    <div class="name-student">{{ $employee->first_name }} {{ $employee->last_name }}</div>
+                                    <div class="title-student">{{ Auth::user()->role }}</div>
                                 </div>
                             </div>
                             <div class="row mt-4 align-items-center">
                                 <div class="col-12 mb-3">
                                     <button class="btn btn-choice-monitoring w-100" id="btn-monitoring">
                                         Monitoring Pembelajaran
-                                    </button>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-choice-monitoring w-100" id="btn-monitoring">
-                                        Monitoring Ekstrakulikuler
                                     </button>
                                 </div>
                             </div>
@@ -69,7 +73,6 @@
                                     data-placeholder="Mata Pelajaran">
                                     <option></option>
                                     @foreach ($subject as $new )
-                                        
                                     <option value="{{ $new->subject_id }}" >{{ $new->subject_name }}</option>
                                     @endforeach
                                 </select>
@@ -85,10 +88,7 @@
                             </div>
                            </form>
                         </div>
-                        <div class="box-student-card mt-md-4" id="mapel-class">
-                            <h3>Ini Ekstrakulikuler</h3>
-                        </div>
-                        <div class="box-student-card mt-md-4">
+                        {{-- <div class="box-student-card mt-md-4">
                             <div class="chart-present">
                                 <div class="desk-date">
                                     <div class="date-chart">
@@ -106,7 +106,7 @@
                                 <canvas id="myChart"></canvas>
                             </div>
 
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="col-md-7 col-12">
                         <div class="box-biografi present">
@@ -115,72 +115,11 @@
                                     -- Tentukan Mata Pelajaran--
                                 </div>
                             </div>
-                            <div id="show-monitoring">
-                                <h5>Bahasa Inggris</h5>
-                                <div class="sub-text">Kelas 7A</div>
-                                <div class="table-monitoring-present">
-                                    <form action="" method="post">
-                                        <table class="table-responsive table-borderless table-monitoring">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" class="text-center">No Absen</th>
-                                                    <th scope="col">Nama</th>
-                                                    <th scope="col">NISN</th>
-                                                    <th scope="col">H</th>
-                                                    <th scope="col">I</th>
-                                                    <th scope="col">S</th>
-                                                    <th scope="col">A</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-cente widt-1">1</td>
-                                                    <td class="widt-3"> <input type="text" name="nameStudent[]" multiple
-                                                            value="Aziz" disabled> </td>
-                                                    <td class="widt-2"><input type="text" name="nisn[]" multiple
-                                                            value="139857468525" disabled></td>
-                                                    <td class="widt-5"> <input type="checkbox"
-                                                            class="form-check-input present" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input izin" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input sick" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input alpha" id="exampleCheck1">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-cente widt-1">2</td>
-                                                    <td class="widt-3"> <input type="text" name="nameStudent[]"
-                                                            multiple value="Pranaja" disabled> </td>
-                                                    <td class="widt-2"><input type="text" name="nisn[]" multiple
-                                                            value="139857468525" disabled></td>
-                                                    <td class="widt-5"> <input type="checkbox"
-                                                            class="form-check-input present" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input izin" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input sick" id="exampleCheck1">
-                                                    </td>
-                                                    <td class="widt-5"><input type="checkbox"
-                                                            class="form-check-input alpha" id="exampleCheck1">
-                                                    </td>
-                                                </tr>
-
-                                            </tbody>
-                                        </table>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="submit" class="submit-monitoring ">Perbarui Data</button>
-                                        </div>
-                                    </form>
+                            <div  id="show-monitoring">
+                                <div class="monitoring-blank">
+                                    -- Tentukan Mata Pelajaran--
                                 </div>
                             </div>
-                         
                         </div>
                     </div>
                 </div>
@@ -211,7 +150,7 @@
             placeholder: $(this).data('placeholder'),
         });
     </script>
-    <script>
+    {{-- <script>
         const ctx = document.getElementById('myChart');
 
         new Chart(ctx, {
@@ -255,7 +194,7 @@
 
             }
         });
-    </script>
+    </script> --}}
     <script>
         flatpickr("#date-chart", {
             altInput: true,
