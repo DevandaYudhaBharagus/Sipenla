@@ -37,8 +37,8 @@ class DataUserController extends Controller
             $date = ($student->date_of_birth !== null) ? date('d F Y', strtotime($student->date_of_birth)) : '';
             $student->date_of_birth = $date;
 
-        
-        return view('pages.tabel-data.data-form-siswa', compact('student'));    
+
+        return view('pages.tabel-data.data-form-siswa', compact('student'));
     }
     public function getFolmulirpegawai($id){
         $user = Auth::user();
@@ -49,8 +49,8 @@ class DataUserController extends Controller
         $date = ($employee->date_of_birth !== null) ? date('d F Y', strtotime($employee->date_of_birth)) : '';
         $employee->date_of_birth = $date;
 
-        
-            return view('pages.tabel-data.data-form-pegawai', compact('employee')); 
+
+            return view('pages.tabel-data.data-form-pegawai', compact('employee'));
     }
     public function getAbsensiPegawai($id){
         $employee = Employee::where('user_id', '=', $id)->first();
@@ -71,7 +71,21 @@ class DataUserController extends Controller
 
         $listAbsen = Attendance::where('employee_id', '=', $employee->employee_id)
                     ->get();
- 
-            return view('pages.tabel-data.absensi-pegawai',compact('hadir','alpha','izin','employee','listAbsen')); 
+
+            return view('pages.tabel-data.absensi-pegawai',compact('hadir','alpha','izin','employee','listAbsen'));
+    }
+
+    public function getSiswa()
+    {
+        $siswa = Student::join('users', 'students.user_id', '=', 'users.id')->get();
+
+        return view('pages.tabel-data.tabel-siswa', compact('siswa'));
+    }
+
+    public function getPegawai()
+    {
+        $pegawai = Employee::join('users', 'employees.user_id', '=', 'users.id')->get();
+
+        return view('pages.tabel-data.tabel-pegawai', compact('pegawai'));
     }
 }

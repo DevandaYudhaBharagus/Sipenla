@@ -26,8 +26,7 @@
             <div class="box-profile ">
                 <div class="row justify-content-center schedule ">
                     <div class="col-md-3 col-12 mb-3 mb-md-0">
-                        {{-- ini ke masukkan nilai pembelajaran --}}
-                        <a href="{{ url('/mapel-siswa') }}">
+                        <a href="{{ url('/penilaian') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-pil-penilaian.png') }}" alt="">
                                 <div class="text-blank-schedule text-center">Masukkan Nilai Pembelajaran</div>
@@ -36,7 +35,7 @@
                     </div>
                     <div class="col-md-3  col-12">
                         {{-- ini ke riwayat penilaian --}}
-                        <a href="{{ url('/mapel-guru') }}">
+                        <a href="{{ url('/penilaian/riwayat') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-pil-penilaian.png') }}" alt="">
                                 <div class="text-blank-schedule text-center">Riwayat Penilaian Pembelajaran</div>
