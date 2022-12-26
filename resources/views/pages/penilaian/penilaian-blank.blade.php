@@ -36,10 +36,10 @@
                     Penilaian Pembelajaran
                 </div>
                 @if (session('status'))
-                <div class=" alert alert-success">
-                    {{ session('status') }}
-                </div>
-            @endif
+                    <div class=" alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
                 <form action="{{ route('getStudentForPenilaian') }}">
                     @csrf
                     <div class="row mt-mb-3 mt-md-4  mt-3 mb-md-2">

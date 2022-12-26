@@ -76,34 +76,12 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/tabel-siswa', function(){
-    return view('pages.tabel-data.tabel-siswa');
-});
-Route::get('/tabel-pegawai', function(){
-    return view('pages.tabel-data.tabel-pegawai');
-});
-Route::get('/absensi-pegawai', function(){
-    return view('pages.tabel-data.absensi-pegawai');
-});
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
-Route::get('/home-penilaian', function(){
-    return view('pages.penilaian.pil-penilaian');
-});
-Route::get('/riwayat-penilaian', function(){
-    return view('pages.penilaian.riwayat-penilaian');
-});
-// Route::get('/jadwal-shift-kerja', function(){
-//     return view('pages.jadwal.jadwal-shift-kerja');
-// });
-// raportuntuk sirah sekolah
-// Route::get('/pil-raport', function(){
-//     return view('pages.raport.pil-raport');
-// });
 Route::get('/riwayat-raport', function(){
     return view('pages.raport.riwayat-raport');
 });
@@ -254,6 +232,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/page-checkout', [AttendanceController::class, 'absensiKeluar']);
     });
 
+    //Route Data Siswa dan Pegawai
     Route::prefix('admission')->group(function (){
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
@@ -261,6 +240,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
+    //Route Formulir
     Route::prefix('datauser')->group(function (){
         Route::get('/student', [DataUserController::class, 'getDataStudent']);
         Route::get('/employee', [DataUserController::class, 'getDataEmployee']);
@@ -271,14 +251,25 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Route Penilaian
     Route::prefix('penilaian')->group(function (){
+        Route::get('/home', [PenilaianController::class, 'index']);
+        Route::get('/riwayat', [PenilaianController::class, 'riwayatPenilaian']);
+        Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayat'])->name('riwayatPenilaian');
         Route::get('/', [PenilaianController::class, 'getFilteringPenilaian']);
         Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
+        Route::get('/{id}/edit', [PenilaianController::class, 'edit']);
+        Route::post('/{id}', [PenilaianController::class, 'update']);
         Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru
     Route::prefix('mapel-guru')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByUser']);
+    });
+
+    //Route Tabel Siswa
+    Route::prefix('table')->group(function (){
+        Route::get('/siswa', [DataUserController::class, 'getSiswa']);
+        Route::get('/pegawai', [DataUserController::class, 'getPegawai']);
     });
 
     // Jadwal Mapel Siswa
