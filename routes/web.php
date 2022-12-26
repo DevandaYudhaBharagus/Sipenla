@@ -24,6 +24,7 @@ use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RaportController;
 
@@ -73,9 +74,9 @@ Route::get('/master-tarik-saldo', function(){
 });
 
 // Fokus Yang Dikerjain
-Route::get('/monitoring', function(){
-    return view('pages.monitoring.monitoring');
-});
+// Route::get('/monitoring', function(){
+//     return view('pages.monitoring.monitoring');
+// });
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
@@ -291,10 +292,15 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     //Route Jadwal
-    Route::get('jadwal', function(){
-        // return view('pages.jadwal.jadwal');
+    Route::prefix('jadwal')->group(function (){
         Route::get('/', [JadwalController::class, 'index']);
         Route::get('/jadwal-kerja', [JadwalController::class, 'jadwalkerja'])->name('jadwalkerja');
+    });
+  
+    //Route Monitoring
+    Route::prefix('monitoring')->group(function (){
+        Route::get('/', [MonitoringController::class, 'index']);
+        Route::get('/filteringpembelajaran', [MonitoringController::class, 'filteringPembelajaran'])->name('filteringPembelajaran');
     });
 
     // Raport
