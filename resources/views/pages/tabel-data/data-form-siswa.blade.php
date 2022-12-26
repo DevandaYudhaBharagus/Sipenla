@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -63,7 +63,7 @@
                                 <td style="width: 4%;font-weight:600">4.</td>
                                 <td style="width:40%;font-weight:600">Tempat, tanggallahir</td>
                                 <td style="width: 5%;text-align:center">:</td>
-                                <td style="width:51%">{{ $student->place_of_birth.", ".$student->date_of_birth }}</td>
+                                <td style="width:51%">{{ $student->place_of_birth . ', ' . $student->date_of_birth }}</td>
                             </tr>
                             <tr>
                                 <td style="width: 4%;font-weight:600">5.</td>
@@ -182,7 +182,7 @@
                                 <td style="width: 5%;text-align:center">:</td>
                                 <td style="width:51%">
                                     <div class="box-image-employee">
-                                        <img src="{{ $student->image}}">
+                                        <img src="{{ $student->image }}">
                                     </div>
                                 </td>
                             </tr>

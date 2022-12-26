@@ -23,7 +23,9 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\RaportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -74,42 +76,19 @@ Route::get('/master-tarik-saldo', function(){
 Route::get('/monitoring', function(){
     return view('pages.monitoring.monitoring');
 });
-Route::get('/tabel-siswa', function(){
-    return view('pages.tabel-data.tabel-siswa');
-});
-Route::get('/tabel-pegawai', function(){
-    return view('pages.tabel-data.tabel-pegawai');
-});
-Route::get('/absensi-pegawai', function(){
-    return view('pages.tabel-data.absensi-pegawai');
-});
 Route::get('/absensi-siswa', function(){
     return view('pages.tabel-data.absensi-siswa');
 });
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
-Route::get('/home-penilaian', function(){
-    return view('pages.penilaian.pil-penilaian');
+Route::get('/riwayat-raport', function(){
+    return view('pages.raport.riwayat-raport');
 });
-Route::get('/riwayat-penilaian', function(){
-    return view('pages.penilaian.riwayat-penilaian');
+Route::get('/detail-raport-kelas', function(){
+    return view('pages.raport.detail-raport-kelas');
 });
-Route::get('/jadwal-shift-kerja', function(){
-    return view('pages.jadwal.jadwal-shift-kerja');
-});
-Route::get('/daftar-blank', function(){
-    return view('pages.daftar.daftar-blank');
-});
-Route::get('/daftar-siswa', function(){
-    return view('pages.daftar.daftar-siswa');
-});
-Route::get('/daftar-pegawai', function(){
-    return view('pages.daftar.daftar-pegawai');
-});
-Route::get('/daftar-walimurid', function(){
-    return view('pages.daftar.daftar-walmur');
-});
+
 
 Auth::routes();
 
@@ -131,17 +110,23 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
         Route::post('/formemployee', [HomeController::class, 'addEmployee'])->name('formemployee');
-        Route::get('/registrasi', [RegisterController::class, 'index']);
-        Route::post('/registrasiuser', [RegisterController::class, 'addUser'])->name('formregister');
         Route::get('/profil', [ProfleController::class, 'index']);
+        Route::get('/registrasi', [RegisterController::class, 'index']);
+        Route::get('/registrasi/employee', [RegisterController::class, 'registeremployee'])->name('registeremployee');
+        Route::get('/registrasi/student', [RegisterController::class, 'registerstudent'])->name('registerstudent');
+        Route::get('/registrasi/walimurid', [RegisterController::class, 'registerwalimuird'])->name('registerwalimuird');
+        Route::post('/registrasiuser', [RegisterController::class, 'addUser'])->name('formregister');
+        Route::post('/registerguardian', [RegisterController::class, 'addGuardian'])->name('addGuardian');
     });
 
     //Route News
     Route::prefix('news')->group(function () {
-        Route::get('/', [NewsController::class, 'index']);
+        Route::get('/', [NewsController::class, 'index'])->name('getNews');
         Route::get('/create-news', [NewsController::class, 'show']);
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
         Route::delete('/delete-news/{id}', [NewsController::class, 'delete']);
+        Route::get('/update-news/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+        Route::post('/fungsi-update-news/{id}', [NewsController::class, 'fungsiupdate'])->name('fungsiupdate');
     });
 
     //Route Pegawai
@@ -247,6 +232,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/page-checkout', [AttendanceController::class, 'absensiKeluar']);
     });
 
+    //Route Data Siswa dan Pegawai
     Route::prefix('admission')->group(function (){
         Route::get('/', [ControllersAdmissionController::class, 'index']);
         Route::get('/datapegawai', [ControllersAdmissionController::class, 'getDataPegawai']);
@@ -254,6 +240,7 @@ Route::group(['middleware' => ['auth']], function () {
 
     });
 
+    //Route Formulir
     Route::prefix('datauser')->group(function (){
         Route::get('/student', [DataUserController::class, 'getDataStudent']);
         Route::get('/employee', [DataUserController::class, 'getDataEmployee']);
@@ -264,14 +251,25 @@ Route::group(['middleware' => ['auth']], function () {
 
     //Route Penilaian
     Route::prefix('penilaian')->group(function (){
+        Route::get('/home', [PenilaianController::class, 'index']);
+        Route::get('/riwayat', [PenilaianController::class, 'riwayatPenilaian']);
+        Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayat'])->name('riwayatPenilaian');
         Route::get('/', [PenilaianController::class, 'getFilteringPenilaian']);
         Route::get('/inputnilai', [PenilaianController::class, 'PenilaianSiswa'])->name('getStudentForPenilaian');
+        Route::get('/{id}/edit', [PenilaianController::class, 'edit']);
+        Route::post('/{id}', [PenilaianController::class, 'update']);
         Route::post('/store', [PenilaianController::class, 'penilaianStore'])->name('penilaianStore');
     });
 
     //Route Jadwal Mapel Guru
     Route::prefix('mapel-guru')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByUser']);
+    });
+
+    //Route Tabel Siswa
+    Route::prefix('table')->group(function (){
+        Route::get('/siswa', [DataUserController::class, 'getSiswa']);
+        Route::get('/pegawai', [DataUserController::class, 'getPegawai']);
     });
 
     // Jadwal Mapel Siswa
@@ -285,7 +283,14 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     //Route Jadwal
-    Route::get('/jadwal', function(){
-        return view('pages.jadwal.jadwal');
+    Route::get('jadwal', function(){
+        // return view('pages.jadwal.jadwal');
+        Route::get('/', [JadwalController::class, 'index']);
+        Route::get('/jadwal-kerja', [JadwalController::class, 'jadwalkerja'])->name('jadwalkerja');
+    });
+
+    // Raport
+    Route::prefix('raport')->group(function (){
+        Route::get('/', [RaportController::class, 'index']);
     });
 });

@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -38,17 +38,14 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($pegawai as $p)
                             <tr>
-                                <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                                <td>{{ $p->first_name }} {{ $p->last_name }}
                                 </td>
-                                <td>loremyhyyy@gmail.com</td>
-                                <td>Guru</td>
+                                <td>{{ $p->email }}</td>
+                                <td>{{ $p->position }}</td>
                             </tr>
-                            <tr>
-                                <td>Lorem ipsum dolor sit amet, consectetur </td>
-                                <td>loremyhgt@gmail.com</td>
-                                <td>Pegawai Perpustakaan</td>
-                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

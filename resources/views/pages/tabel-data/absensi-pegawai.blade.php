@@ -8,7 +8,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
-                        <a href class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
+                        <a href="/dashboard" class="d-flex align-items-center"><i class="material-icons">home</i> Beranda</a>
                     </li>
                     <li class="breadcrumb-item" aria-current="page">
                         <div class="d-flex align-items-center">
@@ -34,7 +34,8 @@
                             <tr>
                                 <td style="width:25%;font-weight:600">Nama</td>
                                 <td style="width:5%;text-align:center;font-weight:600">:</td>
-                                <td style="width:70%;font-weight:600">{{ $employee->first_name.' '.$employee->last_name }}</td>
+                                <td style="width:70%;font-weight:600">{{ $employee->first_name . ' ' . $employee->last_name }}
+                                </td>
                             </tr>
                             <tr>
                                 <td style="width:25%;">Jabatan</td>
@@ -64,8 +65,6 @@
                 </div>
                 <div class="row justify-content-center mt-5 mb-4 scroll-history-present">
                     @foreach ( $listAbsen as $newabsen )
-                        
-                    @endforeach
                     <div class="col-md-7 col-12 mb-3">
                         <div class="history-present">
                             <div class="date-present">
@@ -77,13 +76,14 @@
                                 </div>
                             </div>
                             <div class="display-present">
-                                @if ( $newabsen->status == 'ace' )
+                                @if ($newabsen->status == 'ace')
                                     H
                                 @elseif ($newabsen->status == 'aab')
                                     A
                                 @endif
                             </div>
                         </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

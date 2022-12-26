@@ -12,7 +12,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="{{ url('/jadwal') }}">
+        <a href="{{ url('/dashboard/jadwal') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
@@ -43,6 +43,20 @@
                         <img src="{{ asset('images/internal-images/keuangan.png') }}" alt="" />
                     </div>
                     <div class="card-text">Laporan Keuangan</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">
+    <div class="col-md-3 col-6">
+        <a href="{{ url('/table/pegawai') }}">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/data-pegawai.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Data Pegawai</div>
                 </div>
             </div>
         </a>
