@@ -34,7 +34,7 @@
                             </div>
                             <div class="box-image-detail">
                                 @if (!$news->news_image)
-                                    <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}" alt="" />
+                                <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
                                 @else
                                     <img src="{{ $news->news_image }}" alt="" />
                                 @endif
@@ -55,8 +55,7 @@
                                 <a href="" class="content-new-news">
                                     <div class="box-img-new-news">
                                         @if (!$data->news_image)
-                                            <img src="{{ asset('images/internal-images/berita-terbaru.jpg') }}"
-                                                alt="" />
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
                                         @else
                                             <img src="{{ $data->news_image }}" alt="" />
                                         @endif

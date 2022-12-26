@@ -30,31 +30,37 @@
         <div class="container">
             <div class="box-profile ">
                 <div class="header-profile">
-                    Daftar
+                    Daftar Pegawai
                 </div>
-                <form action="">
+                <form action="{{ route('formregister') }}" method="POST">
+                    @csrf
                     <div class="form-new-regis">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1">
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-3">Role</label>
-                            <select class="form-select" id="single-select-field" data-placeholder="--- Pilih Role ---">
+                            <select class="form-select" name="role" id="single-select-field" data-placeholder="--- Pilih Role ---">
                                 <option></option>
-                                <option>Reactive</option>
-                                <option>Solution</option>
-                                <option>Conglomeration</option>
-                                <option>Algoritm</option>
-                                <option>Holistic</option>
+                                <option value="guru">Guru</option>
+                                {{-- <option value="walimurid">Wali Murid</option> --}}
+                                <option value="kepsek">Kepala Sekolah</option>
+                                <option value="tu">Pegawai TU</option>
+                                <option value="perpus">Pegawai Perpsutakaan</option>
+                                <option value="pegawaikantin">Pegawai Kantin</option>
+                                <option value="pegawaikoperasi">Pegawai Koperasi</option>
+                                <option value="pengawassekolah">Pengawas Sekolah</option>
+                                <option value="pembinaextra">Pembina Ekstra</option>
+                                <option value="dinaspendidikan">Dinas Pendidikan</option>
                             </select>
                         </div>
                         <div class="d-flex justify-content-center">

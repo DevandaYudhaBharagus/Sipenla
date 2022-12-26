@@ -25,21 +25,23 @@
         <div class="container">
             <div class="box-profile ">
                 <div class="header-profile">
-                    Daftar
+                    Daftar Siswa
                 </div>
-                <form action="">
+                <form action="{{ route('formregister') }}" method="POST">
+                    @csrf
+                    <input type="text" style="display: none" name="role" value="student" >
                     <div class="form-new-regis">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="exampleInputEmail1">
+                            <input type="email" name="email" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Sandi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Konfirmasi</label>
-                            <input type="password" class="form-control" id="exampleInputEmail1">
+                            <input type="password" name="password_confirmation" class="form-control" id="exampleInputEmail1">
                         </div>
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-save-regis">Simpan</button>

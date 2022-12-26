@@ -25,6 +25,7 @@
         <div class="container">
             <div class="box-profile ">
                 <div class="row justify-content-center schedule ">
+                    @if (Auth::User()->role == 'student')
                     <div class="col-md-3 col-12 mb-3 mb-md-0">
                         {{-- catetan ini munculin hanya pada role student --}}
                         <a href="{{ url('/mapel-siswa') }}">
@@ -34,6 +35,7 @@
                             </div>
                         </a>
                     </div>
+                    @elseif (Auth::User()->role == 'guru')
                     <div class="col-md-3  col-12">
                         {{-- catetan ini munculin hanya role guru --}}
                         <a href="{{ url('/mapel-guru') }}">
@@ -43,6 +45,16 @@
                             </div>
                         </a>
                     </div>
+                    @else
+                    <div class="col-md-3  col-12">
+                        <a href="{{ url('/jadwal/jadwal-kerja') }}">
+                            <div class="box-icon-schedule">
+                                <img src="{{ asset('images/internal-images/icon-mengajar.png') }}" alt="">
+                                <div class="text-blank-schedule">Jadwal Kerja</div>
+                            </div>
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

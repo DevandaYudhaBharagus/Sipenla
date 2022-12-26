@@ -12,13 +12,13 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="">
+        <a href="{{ url('/jadwal') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
-                        <img src="{{ asset('images/internal-images/rapot.png') }}" alt="" />
+                        <img src="{{ asset('images/internal-images/jadwal.png') }}" alt="" />
                     </div>
-                    <div class="card-text">Rapor</div>
+                    <div class="card-text">Jadwal</div>
                 </div>
             </div>
         </a>
@@ -145,6 +145,20 @@
                         <img src="{{ asset('images/internal-images/mutasi.png') }}" alt="" />
                     </div>
                     <div class="card-text">Mutasi</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="row mb-3" data-aos="fade-up" data-aos-delay="400">
+    <div class="col-md-3 col-6">
+        <a href="{{ url('/dashboard/jadwal') }}">
+            <div class="card-category">
+                <div class="card-body-category">
+                    <div class="card-image">
+                        <img src="{{ asset('images/internal-images/rapot.png') }}" alt="" />
+                    </div>
+                    <div class="card-text">Rapor</div>
                 </div>
             </div>
         </a>

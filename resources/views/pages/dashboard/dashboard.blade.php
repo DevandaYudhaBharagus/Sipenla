@@ -129,11 +129,12 @@
                         <h6 class="text-announcement ">Berita dan Pengumuman</h6>
                         @if (Auth::User()->role == 'admin')
                             <div class="box-add-news">
-                                <a href=""><i class="fa fa-plus"></i></a>
+                                <a href="{{ url('/news') }}"><i class="fa fa-plus"></i></a>
                             </div>
                         @endif
                     </div>
                 </div>
+                @foreach ($news as $newsku )
                 <!-- start looping announcement -->
                 <div class="announcement-item">
                     @if (Auth::User()->role == 'admin')
@@ -147,14 +148,18 @@
                         </div>
                     @endif
                     <div class="title-announcement">
-                        SMP Lorem Ipsum Class Meeting 2021/2022
+                       {{ $newsku->news_title }}
                     </div>
                     <div class="row">
                         <div class="col-md-3">
                             <div class="image-announcement">
-                                <img src="{{ asset('images/internal-images/pengumuman.jpg') }}" alt="" />
-                                @if (Auth::User()->role == 'admin')
-                                    <div class="btn-item-annnouncement">
+                                @if(!$newsku->news_image)
+                                    <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
+                                @else
+                                    <img src="{{ $newsku->news_image }}" alt="" />
+                                @endif
+                                {{-- @if (Auth::User()->role == 'admin')
+                                <div class="btn-item-annnouncement">
                                         <div class="icon-announcement">
                                             <a href=""><i class="fa fa-trash-o text-danger"></i></a>
                                         </div>
@@ -162,25 +167,27 @@
                                             <a href=""><i class="fa fa-edit text-primary"></i></a>
                                         </div>
                                     </div>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                         <div class="col-md-9">
-                            <a href="">
+                            <a href="{{ url('detail-news/'.$newsku->news_id) }}">
                                 <div class="text-item-announcement">
                                     <div class="title-item-announcement">
-                                        SMP Lorem Ipsum Class Meeting 2021/2022 Hadir untuk
-                                        menghibur kalian yang suntuk abis UAS dengan beragam lomba
-                                        Olahraga dan Kesenian yang pastinya bakal bikin fresh
-                                        lagi, illo. ....
+                                        {{ $newsku->news_content }}
                                     </div>
-                                    <div class="date-item-announcement">
+                                    {{-- <div class="date-item-announcement">
                                         Acara dimulai tanggal 9 Maret 2022
-                                    </div>
+                                    </div> --}}
+                                    
                                 </div>
                             </a>
                         </div>
                     </div>
+                </div>
+                @endforeach
+                <div class="d-flex justify-content-center">
+                    <a href="{{ url('/news') }}" class="btn btn-login">Lihat Selengkapnya</a>
                 </div>
                 <!-- end looping announcement -->
             </div>

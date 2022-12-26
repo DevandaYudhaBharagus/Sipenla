@@ -26,7 +26,7 @@
             <div class="box-profile ">
                 <div class="row justify-content-center schedule ">
                     <div class="col-md-3 col-12 mb-3 mb-md-0">
-                        <a href="">
+                        <a href="{{ route('registeremployee') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-user.png') }}" alt="">
                                 <div class="text-blank-schedule">Pegawai</div>
@@ -35,7 +35,7 @@
                     </div>
                     <div class="col-md-3 col-12">
                         {{-- catetan ini munculin hanya role guru --}}
-                        <a href="">
+                        <a href="{{ route('registerstudent') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-user.png') }}" alt="">
                                 <div class="text-blank-schedule">Siswa</div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="col-md-3 col-12">
                         {{-- catetan ini munculin hanya role guru --}}
-                        <a href="">
+                        <a href="{{ route('registerwalimuird') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-user.png') }}" alt="">
                                 <div class="text-blank-schedule">Wali Murid</div>

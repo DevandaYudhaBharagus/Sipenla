@@ -12,7 +12,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6">
-        <a href="{{ url('/jadwal') }}">
+        <a href="{{ url('/dashboard/jadwal') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">
