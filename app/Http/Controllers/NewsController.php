@@ -7,7 +7,7 @@ use App\Models\News;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
-
+use Carbon\Carbon;
 class NewsController extends Controller
 {
 
@@ -87,4 +87,41 @@ class NewsController extends Controller
 
         return response()->json(["error" => false, "message" => "Sukses Menghapus Data Berita & Pengumuman!"]);
     }
+    
+    public function updatenews($id){
+        $news = News::where('news_id', '=', $id)->first();
+        
+        return view('pages.news.update-news', compact('news'));
+    }
+
+    public function fungsiupdate(Request $request, $id){
+        if($request->news_image == null){
+            $edit = [
+                "news_title" => $request->news_title,
+                "news_content" => $request->news_content,
+                "updated_at" => Carbon::now()
+            ];
+            $updateNews = News::where('news_id', '=', $id)
+                        ->update($edit);
+
+        return redirect()->route('getNews');
+
+        }
+        $imageEncoded = base64_encode(file_get_contents($request->file('news_image')->path()));
+
+        $imageFix = $this->saveImage($imageEncoded, "azure");
+
+        $edit = [
+            "news_title" => $request->news_title,
+            "news_content" => $request->news_content,
+            "news_image" => $imageFix,
+            "updated_at" => Carbon::now()
+        ];
+
+        $updateNews = News::where('news_id', '=', $id)
+                        ->update($edit);
+        
+        return redirect()->route('getNews');
+    }
+
 }

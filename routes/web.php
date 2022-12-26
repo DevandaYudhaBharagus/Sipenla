@@ -23,7 +23,9 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\RaportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,25 +82,19 @@ Route::get('/absensi-siswa', function(){
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
-Route::get('/jadwal-shift-kerja', function(){
-    return view('pages.jadwal.jadwal-shift-kerja');
+Route::get('/home-penilaian', function(){
+    return view('pages.penilaian.pil-penilaian');
 });
-Route::get('/daftar-blank', function(){
-    return view('pages.daftar.daftar-blank');
+Route::get('/riwayat-penilaian', function(){
+    return view('pages.penilaian.riwayat-penilaian');
 });
-Route::get('/daftar-siswa', function(){
-    return view('pages.daftar.daftar-siswa');
-});
-Route::get('/daftar-pegawai', function(){
-    return view('pages.daftar.daftar-pegawai');
-});
-Route::get('/daftar-walimurid', function(){
-    return view('pages.daftar.daftar-walmur');
-});
+// Route::get('/jadwal-shift-kerja', function(){
+//     return view('pages.jadwal.jadwal-shift-kerja');
+// });
 // raportuntuk sirah sekolah
-Route::get('/pil-raport', function(){
-    return view('pages.raport.pil-raport');
-});
+// Route::get('/pil-raport', function(){
+//     return view('pages.raport.pil-raport');
+// });
 Route::get('/riwayat-raport', function(){
     return view('pages.raport.riwayat-raport');
 });
@@ -127,17 +123,23 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [HomeController::class, 'index'])->name('dashboard');
         Route::post('/formstudent', [HomeController::class, 'addStudent'])->name('formstudent');
         Route::post('/formemployee', [HomeController::class, 'addEmployee'])->name('formemployee');
-        Route::get('/registrasi', [RegisterController::class, 'index']);
-        Route::post('/registrasiuser', [RegisterController::class, 'addUser'])->name('formregister');
         Route::get('/profil', [ProfleController::class, 'index']);
+        Route::get('/registrasi', [RegisterController::class, 'index']);
+        Route::get('/registrasi/employee', [RegisterController::class, 'registeremployee'])->name('registeremployee');
+        Route::get('/registrasi/student', [RegisterController::class, 'registerstudent'])->name('registerstudent');
+        Route::get('/registrasi/walimurid', [RegisterController::class, 'registerwalimuird'])->name('registerwalimuird');
+        Route::post('/registrasiuser', [RegisterController::class, 'addUser'])->name('formregister');
+        Route::post('/registerguardian', [RegisterController::class, 'addGuardian'])->name('addGuardian');
     });
 
     //Route News
     Route::prefix('news')->group(function () {
-        Route::get('/', [NewsController::class, 'index']);
+        Route::get('/', [NewsController::class, 'index'])->name('getNews');
         Route::get('/create-news', [NewsController::class, 'show']);
         Route::post('/create-news', [NewsController::class, 'store'])->name('createnews');
         Route::delete('/delete-news/{id}', [NewsController::class, 'delete']);
+        Route::get('/update-news/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+        Route::post('/fungsi-update-news/{id}', [NewsController::class, 'fungsiupdate'])->name('fungsiupdate');
     });
 
     //Route Pegawai
@@ -294,7 +296,14 @@ Route::group(['middleware' => ['auth']], function () {
     });
 
     //Route Jadwal
-    Route::get('/jadwal', function(){
-        return view('pages.jadwal.jadwal');
+    Route::get('jadwal', function(){
+        // return view('pages.jadwal.jadwal');
+        Route::get('/', [JadwalController::class, 'index']);
+        Route::get('/jadwal-kerja', [JadwalController::class, 'jadwalkerja'])->name('jadwalkerja');
+    });
+
+    // Raport
+    Route::prefix('raport')->group(function (){
+        Route::get('/', [RaportController::class, 'index']);
     });
 });
