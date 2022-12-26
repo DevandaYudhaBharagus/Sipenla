@@ -51,39 +51,34 @@
                             </div>
                             <div class="row mt-4 align-items-center">
                                 <div class="col-12 mb-3">
-                                    <button class="btn btn-choice-monitoring w-100" id="btn-monitoring">
+                                    <button class="btn btn-choice-monitoring w-100" >
                                         Monitoring Pembelajaran
                                     </button>
                                 </div>
-                                <div class="col-12">
+                                {{-- <div class="col-12">
                                     <button class="btn btn-choice-monitoring w-100" id="btn-monitoring">
                                         Monitoring Ekstrakulikuler
                                     </button>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="box-student-card mt-md-4" id="mapel-class">
-                           <form action="{{ route('filteringPembelajaran') }}" method="get">
                             <div class="mb-3">
-                                <select class="form-select monitoring" name="mapel" id="single-select-field"
+                                <select class="form-select monitoring" id="single-select-field"
                                     data-placeholder="Mata Pelajaran">
                                     <option></option>
-                                    @foreach ($subject as $new )
-                                        
-                                    <option value="{{ $new->subject_id }}" >{{ $new->subject_name }}</option>
-                                    @endforeach
+                                    <option>{{ $subjects->subject_name }}</option>
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <select class="form-select monitoring" name="grade" id="single-select-class" data-placeholder="Kelas">
+                                <select class="form-select monitoring" id="single-select-class" data-placeholder="Kelas">
                                     <option></option>
-                                    <option value="{{ $grade->subject_id }}" >{{ $grade->grade_name }}</option>
+                                    <option>{{ $grades->grade_name }}</option>
                                 </select>
                             </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-choice-monitoring">Cari</button>
-                            </div>
-                           </form>
+                            {{-- <div class="down-form">
+                                <i class="fa fa-angle-down"></i>
+                            </div> --}}
                         </div>
                         <div class="box-student-card mt-md-4" id="mapel-class">
                             <h3>Ini Ekstrakulikuler</h3>
@@ -111,8 +106,53 @@
                     <div class="col-md-7 col-12">
                         <div class="box-biografi present">
                             <div class="show" id="show-monitoring">
-                                <div class="monitoring-blank">
-                                    -- Tentukan Mata Pelajaran--
+                                <div class="table-monitoring-present">
+                                    <form action="" method="post">
+                                        <input type="text" style="display: none" name="mapel" value="{{ $subjects->subject_id }}">
+                                        <input type="text" style="display: none" name="grade" value="{{ $grades->grade_id }}">
+                                        <table class="table-responsive table-borderless table-monitoring">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" class="text-center">No</th>
+                                                    <th scope="col">Nama</th>
+                                                    <th scope="col">NISN</th>
+                                                    <th scope="col">H</th>
+                                                    <th scope="col">I</th>
+                                                    <th scope="col">S</th>
+                                                    <th scope="col">A</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($student as $new )
+                                                <tr>
+                                                    <td class="text-cente widt-1">{{ $loop->iteration }}</td>
+                                                
+                                                   <td class="widt-3"> <input type="text"  multiple
+                                                    value="{{ $new->first_name.' '.$new->last_name }}" disabled> </td>
+                                                    <td class="widt-2"><input type="text" multiple
+                                                            value="139857468525" disabled></td>
+                                                    <td class="widt-5"> <input type="checkbox" name="status"
+                                                            class="form-check-input present" id="exampleCheck1">
+                                                    </td>
+                                                    <td class="widt-5"><input type="checkbox" name="status"
+                                                            class="form-check-input izin" id="exampleCheck1">
+                                                    </td>
+                                                    <td class="widt-5"><input type="checkbox" name="status"
+                                                            class="form-check-input sick" id="exampleCheck1">
+                                                    </td>
+                                                    <td class="widt-5"><input type="checkbox" name="status"
+                                                            class="form-check-input alpha" id="exampleCheck1">
+                                                    </td>
+                                                
+                                                </tr>
+                                                @endforeach
+
+                                            </tbody>
+                                        </table>
+                                        <div class="d-flex justify-content-end">
+                                            <button type="submit" class="submit-monitoring ">Perbarui Data</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                             <div id="show-monitoring">
@@ -180,7 +220,6 @@
                                     </form>
                                 </div>
                             </div>
-                         
                         </div>
                     </div>
                 </div>
