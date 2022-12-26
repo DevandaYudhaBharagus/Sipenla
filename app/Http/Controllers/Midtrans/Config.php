@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 class Config extends Controller
 {
-    public static $serverKey = "SB-Mid-server-rSxyEK7DWogt4aUrHqeU-xi-";
+    public static $serverKey = "SB-Mid-server-Ri-ekMTTKVzlR7Cjf2dec9MJ";
     /**
      * Your merchant's client key
      *

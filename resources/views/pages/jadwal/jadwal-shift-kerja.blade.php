@@ -39,12 +39,8 @@
                             </div>
                             @endif --}}
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 1</div>
-                                <div class="content-schedule">08:00 - 08:30</div>
-                            </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 2</div>
-                                <div class="content-schedule">08:30 - 09:00</div>
+                                <div class="content-schedule">{{ $scheduleSenin->first_name.' '.$scheduleSenin->last_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($scheduleSenin->start_time)) . ' - ' . date('H:i', strtotime($scheduleSenin->end_time)) }}</div>
                             </div>
                         </div>
                     </div>
@@ -57,12 +53,8 @@
                             </div>
                             @endif --}}
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 1</div>
-                                <div class="content-schedule">08:00 - 08:30</div>
-                            </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 2</div>
-                                <div class="content-schedule">08:30 - 09:00</div>
+                                <div class="content-schedule">{{ $scheduleSelasa->first_name.' '.$scheduleSelasa->last_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($scheduleSelasa->start_time)) . ' - ' . date('H:i', strtotime($scheduleSelasa->end_time)) }}</div>
                             </div>
                         </div>
                     </div>
@@ -75,12 +67,8 @@
                             </div>
                             @endif --}}
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 1</div>
-                                <div class="content-schedule">08:00 - 08:30</div>
-                            </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 2</div>
-                                <div class="content-schedule">08:30 - 09:00</div>
+                                <div class="content-schedule">{{ $scheduleRabu->first_name.' '.$scheduleRabu->last_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($scheduleRabu->start_time)) . ' - ' . date('H:i', strtotime($scheduleRabu->end_time)) }}</div>
                             </div>
                         </div>
                     </div>
@@ -93,12 +81,8 @@
                             </div>
                             @endif --}}
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 1</div>
-                                <div class="content-schedule">08:00 - 08:30</div>
-                            </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 2</div>
-                                <div class="content-schedule">08:30 - 09:00</div>
+                                <div class="content-schedule">{{ $scheduleKamis->first_name.' '.$scheduleKamis->last_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($scheduleKamis->start_time)) . ' - ' . date('H:i', strtotime($scheduleKamis->end_time)) }}</div>
                             </div>
                         </div>
                     </div>
@@ -111,12 +95,8 @@
                             </div>
                             @endif --}}
                             <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 1</div>
-                                <div class="content-schedule">08:00 - 08:30</div>
-                            </div>
-                            <div class="box-mapel-schedule">
-                                <div class="content-schedule">Admin 2</div>
-                                <div class="content-schedule">08:30 - 09:00</div>
+                                <div class="content-schedule">{{ $scheduleJumat->first_name.' '.$scheduleJumat->last_name }}</div>
+                                <div class="content-schedule">{{ date('H:i', strtotime($scheduleJumat->start_time)) . ' - ' . date('H:i', strtotime($scheduleJumat->end_time)) }}</div>
                             </div>
                         </div>
                     </div>
