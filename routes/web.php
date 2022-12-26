@@ -110,6 +110,17 @@ Route::get('/daftar-pegawai', function(){
 Route::get('/daftar-walimurid', function(){
     return view('pages.daftar.daftar-walmur');
 });
+// raportuntuk sirah sekolah
+Route::get('/pil-raport', function(){
+    return view('pages.raport.pil-raport');
+});
+Route::get('/riwayat-raport', function(){
+    return view('pages.raport.riwayat-raport');
+});
+Route::get('/detail-raport-kelas', function(){
+    return view('pages.raport.detail-raport-kelas');
+});
+
 
 Auth::routes();
 
