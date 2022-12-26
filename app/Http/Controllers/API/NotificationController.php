@@ -15,12 +15,20 @@ class NotificationController extends Controller
     {
         try{
             $user = Auth::user();
-            $student = Student::where('user_id', '=', $user->id)->first();
-            $notif = Notification::where('student_id', '=', $student->student_id)->get();
+            if($user->role == 'student'){
+                $student = Student::where('user_id', '=', $user->id)->first();
+                $notif = Notification::where('student_id', '=', $student->student_id)->get();
 
-            $response = $notif;
+                if(!$notif){
+                    return ResponseFormatter::success([], "Anda Tidak Memiliki Notif.");
+                }
 
-            return ResponseFormatter::success($response, "Succeed Get Tagihan.");
+                $response = $notif;
+
+                return ResponseFormatter::success($response, "Succeed Get Tagihan.");
+            }else{
+                return ResponseFormatter::success([], "Anda Tidak Memiliki Notif.");
+            }
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();

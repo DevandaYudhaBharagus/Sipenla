@@ -1,6 +1,6 @@
 @extends('layouts.dashboard-layouts')
 
-@section('title', 'Penlian Siswa')
+@section('title', 'Penilaian Siswa')
 
 @section('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" />
@@ -68,37 +68,34 @@
                     </div>
                 </div>
                 <div class="table-dash">
-                    <form action="" action="POST">
-                        @csrf
+                    <form action="{{ route('penilaianStore') }}" method="post">
+                        {{ csrf_field() }}
                         <table id="penilaian" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th style="width:30%">NISN</th>
                                     <th style="width:30%">Nama</th>
                                     <th style="width:20%">Penilaian</th>
-                                    <th style="width:20%">Input Nilai</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- start looping data dari sini   --}}
+                                {{-- {!! Form::hidden('grade_id', $grades->grade_id )!!} --}}
+                                <input type="text" style="display: none" name="grade_id" value="{{ $grades->grade_id }}" >
+                                <input type="text" name="subject_id" style="display: none" value="{{ $subjects->subject_id }}" >
+                                <input type="text" name="semester_id" style="display: none" value="{{ $semesters->semester_id }}" >
+                                <input type="text" name="academic_year_id" style="display: none" value="{{  $academics->academic_year_id}}" >
+                                <input type="text" name="assessment_id" style="display: none" value="{{  $assessments->assessment_id}}" >
                                 @foreach ($student as $new)
-                                    <input type="hidden" name="id_student[]" value="" multiple="true">
-                                    <input type="hidden" name="grade[]" multiple="true">
-                                    <input type="hidden" name="id_mapel[]" multiple="true">
-                                    <input type="hidden" name="id_semester[]" multiple="true">
-                                    <input type="hidden" name="id_nilai[]" multiple="true">
-                                    <input type="hidden" name="id_tahun_ajaran[]" multiple="true">
-                                    <tr>
-                                        <td style="width:30%">{{ $new->nisn }}</td>
-                                        <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
-                                        <td style="width:20%">-</td>
-                                        <td style="width:20%">
-                                            <input type="text" class="form-control entry-nilai" name="nilai[]"
-                                                multiple="true" id="" onkeypress="return hanyaAngka(event)"
-                                                maxlength="3">
-                                        </td>
-                                    </tr>
-                                    {{-- end looping data dari sini --}}
+                                <input type="text" style="display: none" name="student_id[]" value="{{ $new->student_id }}" multiple="true">
+                                <tr>
+                                    <td style="width:30%">{{ $new->nisn }}</td>
+                                    <td style="width:30%">{{ $new->first_name . ' ' . $new->last_name }}</td>
+                                    <td style="width:20%">
+                                        <input type="text" class="form-control entry-nilai" name="nilai[]"
+                                            multiple="true" id="" onkeypress="return hanyaAngka(event)"
+                                            maxlength="3">
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
