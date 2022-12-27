@@ -2656,20 +2656,77 @@ div.dataTables_scrollHead table.dataTable tr {
   font-weight: 600;
   font-size: 14px;
 }
-.profile .profile-finance .icon-saldo-finance {
+.profile .icon-saldo-finance {
   background-color: var(--bg-secondary);
-  width: 10rem;
+  width: 12rem;
   display: flex;
   align-items: center;
   box-shadow: -2px 3px 4px rgba(74, 78, 100, 0.1);
   border-radius: 10px;
   padding: 12px;
 }
-.profile .profile-finance .icon-saldo-finance .color-finance {
-  background-color: #83bc10;
+.profile .icon-history-finance {
+  width: 12rem;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 12px;
+}
+.profile .icon-saldo-finance .color-finance,
+.profile .icon-history-finance .color-finance {
   width: 1rem;
   height: 1rem;
   margin-right: 5px;
+}
+.profile .icon-saldo-finance .color-finance.bg-green,
+.profile .icon-history-finance .color-finance.bg-green {
+  background-color: #83bc10;
+}
+.profile .icon-saldo-finance .color-finance.bg-red,
+.profile .icon-history-finance .color-finance.bg-red {
+  background-color: #ff4238;
+}
+.profile .icon-saldo-finance .saldo-finance,
+.profile .icon-history-finance .saldo-finance {
+  margin-left: 12px;
+}
+.profile .icon-saldo-finance .saldo-finance .text-sald,
+.profile .icon-history-finance .saldo-finance .text-sald {
+  font-size: 12px;
+  color: var(--text-color);
+  font-weight: 400;
+}
+.profile .icon-saldo-finance .saldo-finance .price-finance,
+.profile .icon-history-finance .saldo-finance .price-finance {
+  font-size: 14px;
+  color: var(--text-color);
+  font-weight: 600;
+}
+.profile .history-finance {
+  background-color: var(--bg-secondary);
+  padding: 10px 1.5rem;
+  margin-top: 2rem;
+}
+.profile .history-finance h6 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text-color);
+  text-align: center;
+}
+.profile .history-finance .box-history-finance {
+  background-color: var(--bg-secondary);
+  box-shadow: -2px 3px 4px rgba(74, 78, 100, 0.1);
+  padding: 3px 1rem;
+  display: flex;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: center;
+}
+.profile .history-finance .box-history-finance .text-history-finance {
+  font-size: 15px;
+  font-weight: 600;
+  color: #83bc10;
 }
 @media screen and (max-width: 700px) {
   .header-dashboard {
