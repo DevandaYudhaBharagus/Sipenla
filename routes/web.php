@@ -325,6 +325,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/', [RaportController::class, 'index']);
     });
 
+    // Route Mutasi
     Route::prefix('mutasi')->group(function(){
         Route::get('/', [MutationController::class, 'index']);
         Route::get('/choice', [MutationController::class, 'choice']);
