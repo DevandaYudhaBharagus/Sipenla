@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Balance;
 use App\Helpers\ResponseFormatter;
 use App\Models\Kantin;
 use App\Models\KantinTransaction;
@@ -111,12 +113,18 @@ class KantinController extends Controller
         }
     }
 
-    public function createTransaction(Request $request)
+    public function createTransaction(Request $request, $employee_id)
     {
         try{
             $user = Auth::user();
             $code = Str::random(8);
             $fix = strtoupper($code);
+            $saldoLogin = Balance::where('user_id', '=', $user->id)->first();
+            $kantin = Kantin::join('employees', 'kantins.employee_id', '=', 'employees.employee_id')
+                    ->where('kantins.employee_id', '=', $employee_id)
+                    ->first();
+            $balance = Balance::where('user_id', '=', $kantin->user_id)->first(['balance']);
+            if($saldoLogin->balance < $request->price) return ResponseFormatter::error('Saldo Tidak Mencukupi', 400);
             $transaction = KantinTransaction::create([
                 "user_id" =>$user->id,
                 "price" =>$request->price,
@@ -124,15 +132,42 @@ class KantinController extends Controller
                 "date" =>Carbon::now(),
             ]);
 
-            $saldoLogin = Balance::where('user_id', '=', $user->id)->first();
-            if($saldoLogin->balance < $request->price) return ResponseFormatter::error('Saldo Tidak Mencukupi', 400);
-
             $edit = [
                 'balance' => $saldoLogin->balance - $request->price
             ];
 
+            $editBalance = [
+                'balance' => $balance->balance + $request->price
+            ];
+
             $login = Balance::where('user_id', '=', $user->id)
                     ->update($edit);
+
+            $saldoKantin = Balance::where('user_id', '=', $kantin->user_id)
+                    ->update($editBalance);
+
+            return ResponseFormatter::success("Succeed Create Kantin!");
+        }catch (Exception $e) {
+            $statuscode = 500;
+            if ($e->getCode()) $statuscode = $e->getCode();
+
+            $response = [
+                'errors' => $e->getMessage(),
+            ];
+
+            return ResponseFormatter::error($response, 'Something went wrong', $statuscode);
+        }
+    }
+
+    public function getHistoryByUser()
+    {
+        try{
+            $user = Auth::user();
+            $history = KantinTransaction::where('user_id', '=', $user->id)->get();
+
+            $response = $history;
+
+            return ResponseFormatter::success($response, "Succeed Get History!");
         }catch (Exception $e) {
             $statuscode = 500;
             if ($e->getCode()) $statuscode = $e->getCode();
