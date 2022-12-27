@@ -87,7 +87,7 @@
         </a>
     </div>
     <div class="col-md-3 col-6 mb-3">
-        <a href="">
+        <a href="{{ url('/payment') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">

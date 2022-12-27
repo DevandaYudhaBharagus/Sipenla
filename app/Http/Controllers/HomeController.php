@@ -4,16 +4,17 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\News;
-use App\Models\Student;
-use App\Models\Employee;
-use App\Models\Balance;
 use App\Models\Room;
 use App\Models\Saving;
+use App\Models\Balance;
+use App\Models\Student;
+use App\Models\Employee;
+use App\Models\Guardian;
 use App\Models\Workshift;
-use App\Models\Extracurricular;
 use App\Models\LeaveBalance;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
+use App\Models\Extracurricular;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
@@ -76,6 +77,15 @@ class HomeController extends Controller
             $news = News::orderBy('created_at', 'desc')->get();
 
             return view('pages.dashboard.dashboard', compact('student','schedule','news'));
+        }else if ($user->role == "walimurid") {
+                $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
+                ->join('students', 'student_guardians.student_id', '=', 'students.student_id')
+                ->first();
+        
+    
+                $news = News::orderBy('created_at', 'desc')->get();
+    
+                return view('pages.dashboard.dashboard', compact('guardian','news'));
         }
         $employee = Employee::where('user_id', '=', $user->id)->first();
         if(!$employee){

@@ -25,6 +25,7 @@ use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\PaymentWebController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RaportController;
 
@@ -88,10 +89,6 @@ Route::get('/detail-raport-kelas', function(){
 });
 Route::get('/walkel-detail-raport', function(){
     return view('pages.raport.riwayat-walkel-raport');
-});
-// keuangan
-Route::get('/keuangan', function(){
-    return view('pages.keuangan.dash-keuangan');
 });
 
 
@@ -304,5 +301,10 @@ Route::group(['middleware' => ['auth']], function () {
     // Raport
     Route::prefix('raport')->group(function (){
         Route::get('/', [RaportController::class, 'index']);
+    });
+
+     // Raport
+     Route::prefix('payment')->group(function (){
+        Route::get('/', [PaymentWebController::class, 'index']);
     });
 });
