@@ -8,7 +8,9 @@ use App\Models\Employee;
 use App\Models\Semester;
 use App\Models\Assessment;
 use App\Models\Penilaian;
+use App\Models\PenilaianExtra;
 use App\Models\StudentGrade;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\AcademicYears;
 use App\Models\LessonSchedule;
@@ -26,7 +28,7 @@ class PenilaianController extends Controller
         return view('pages.penilaian.pil-penilaian');
     }
 
-    public function riwayatPenilaian(Request $request)
+    public function riwayatPenilaian()
     {
 
         $user = Auth::user();
@@ -106,9 +108,8 @@ class PenilaianController extends Controller
         return view('pages.penilaian.riwayat-penilaian', compact('nilai','grades','subjects','semesters','academics','assessments'));
     }
 
-    public function getFilteringPenilaian(){
-
-        //Noteeeeee
+    public function getFilteringPenilaian()
+    {
         $user = Auth::user();
         $employee = Employee::where('user_id', '=', $user->id)->first();
         $grade =  LessonSchedule::join('grades', 'lesson_schedules.grade_id', '=', 'grades.grade_id')
@@ -221,5 +222,125 @@ class PenilaianController extends Controller
         $data = request()->except(['_token']);
         $student = Penilaian::where('penilaian_id', $id);
         $student->update($data);
+    }
+
+    public function getFilteringPenilaianExtra()
+    {
+        $semester = Semester::get();
+        $academic = AcademicYears::get();
+
+        return view('pages.penilaian.penilaian-extra-blank',
+            compact('semester','academic')
+        );
+    }
+
+    public function PenilaianExtra(Request $request){
+        $data = $request->all();
+
+        $validate = Validator::make($data,[
+            'semester' => 'required',
+            'tahun' => 'required'
+        ],
+        [
+            'semester.required' => 'Semester Harus Diisi.',
+            'tahun.required' => 'Tahun Akademik Harus Diisi.'
+        ]
+        );
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $user = Auth::user();
+        $employee = Employee::join('extra_schedules', 'employees.employee_id', '=', 'extra_schedules.teacher_id')
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+        $student = Student::where('extracurricular_id', '=', $employee->extracurricular_id)
+                    ->get([
+                        "student_id",
+                        "nisn",
+                        "first_name",
+                        "last_name",
+                    ]);
+
+        $semesters = Semester::where('semester_id', '=', $request->semester)->first();
+        $academics = AcademicYears::where('academic_year_id', '=', $request->tahun)->first();
+
+        return view('pages.penilaian.penilaian-extra', compact('student','semesters','academics', 'employee'));
+    }
+
+    public function penilaianExtraStore(Request $request)
+    {
+        foreach($request->student_id as $key => $value){
+                if($request->nilai[$key] > 100 || $request->nilai[$key] < 0){
+                    return response()->json([
+                        'error' => "Nilai Melebihi Batas yang Ditentukan"
+                    ]);
+                }
+                PenilaianExtra::create([
+                    'student_id' => $request->student_id[$key],
+                    'nilai' => $request->nilai[$key],
+                    'semester_id' => $request->semester_id,
+                    'extracurricular_id' => $request->extracurricular_id,
+                    'academic_year_id' => $request->academic_year_id,
+                    'status' => "acc",
+                ]);
+        }
+
+        return redirect('/penilaian-extra')->with('status', 'Penilaian Extrakurikuler Berhasil Terisi!');
+    }
+
+    public function riwayatExtra()
+    {
+        $semester = Semester::get();
+        $academic = AcademicYears::get();
+
+        return view('pages.penilaian.riwayat-penilaian-extra-blank',
+            compact('semester','academic')
+        );
+    }
+
+    public function getRiwayatExtra(Request $request)
+    {
+        $data = $request->all();
+
+        $validate = Validator::make($data,[
+            'semester' => 'required',
+            'tahun' => 'required'
+        ],
+        [
+            'semester.required' => 'Semester Harus Diisi.',
+            'tahun.required' => 'Tahun Akademik Harus Diisi.'
+        ]
+        );
+
+        if ($validate->fails()) {
+            return response()->json([
+                'error' => $validate->errors()->toArray()
+            ]);
+        }
+
+        $user = Auth::user();
+        $employee = Employee::join('extra_schedules', 'employees.employee_id', '=', 'extra_schedules.teacher_id')
+                ->where('user_id', '=', $user->id)
+                ->first();
+
+        $student = PenilaianExtra::where('penilaian_extras.extracurricular_id', '=', $employee->extracurricular_id)
+                    ->join('students', 'penilaian_extras.student_id', '=', 'students.student_id')
+                    ->get([
+                        "students.student_id",
+                        "nisn",
+                        "first_name",
+                        "last_name",
+                        "nilai"
+                    ]);
+
+        $semesters = Semester::where('semester_id', '=', $request->semester)->first();
+        $academics = AcademicYears::where('academic_year_id', '=', $request->tahun)->first();
+
+        return view('pages.penilaian.riwayat-penilaian-extra', compact('student','semesters','academics'));
     }
 }

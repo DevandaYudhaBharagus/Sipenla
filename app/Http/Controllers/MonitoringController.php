@@ -7,6 +7,7 @@ use App\Models\Subject;
 use App\Models\Employee;
 use App\Models\StudentAttendance;
 use App\Models\StudentGrade;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Models\LessonSchedule;
 use Illuminate\Support\Facades\Auth;
@@ -75,5 +76,35 @@ class MonitoringController extends Controller
         }
 
         return redirect('/monitoring')->with('status', 'Monitoring Pembelajaran Terisi!');
+    }
+
+    public function getMonitoringByUser()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', '=', $user->id)
+                ->join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
+                ->join('grades', 'student_grades.grade_id', '=', 'grades.grade_id')
+                ->first();
+
+        $attend = StudentAttendance::where('student_id', '=', $student->student_id)
+                    ->where('status', '=', 'mas')
+                    ->count();
+
+        $absence = StudentAttendance::where('student_id', '=', $student->student_id)
+                    ->where('status', '=', 'mes')
+                    ->count();
+
+        $sick = StudentAttendance::where('student_id', '=', $student->student_id)
+                    ->where('status', '=', 'mss')
+                    ->count();
+
+        $izin = StudentAttendance::where('student_id', '=', $student->student_id)
+                    ->where('status', '=', 'mls')
+                    ->count();
+
+        $listAbsen = StudentAttendance::where('student_id', '=', $student->student_id)
+                    ->get();
+
+        return view('pages.tabel-data.absensi-siswa', compact('student', 'attend', 'absence', 'sick', 'izin', 'listAbsen'));
     }
 }

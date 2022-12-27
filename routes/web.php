@@ -23,8 +23,10 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\MutationController;
 use App\Http\Controllers\PaymentWebController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RaportController;
@@ -75,9 +77,6 @@ Route::get('/master-tarik-saldo', function(){
 });
 
 // Fokus Yang Dikerjain;
-Route::get('/absensi-siswa', function(){
-    return view('pages.tabel-data.absensi-siswa');
-});
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
@@ -264,6 +263,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{id}', [PenilaianController::class, 'update']);
     });
 
+    //Route Penilaian Extra
+    Route::prefix('penilaian-extra')->group(function (){
+        Route::post('/store', [PenilaianController::class, 'penilaianExtraStore'])->name('penilaianExtraStore');
+        Route::get('/', [PenilaianController::class, 'getFilteringPenilaianExtra']);
+        Route::get('/riwayat', [PenilaianController::class, 'riwayatExtra']);
+        Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayatExtra'])->name('getRiwayatExtra');
+        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianExtra'])->name('PenilaianExtra');
+    });
+
     //Route Jadwal Mapel Guru
     Route::prefix('mapel-guru')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByUser']);
@@ -278,6 +286,16 @@ Route::group(['middleware' => ['auth']], function () {
     // Jadwal Mapel Siswa
     Route::prefix('mapel-siswa')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByStudent']);
+    });
+
+    // Jadwal Ekstra Pembina
+    Route::prefix('extra-pembina')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getExtraByUser']);
+    });
+
+    // Jadwal Ekstra siswa
+    Route::prefix('extra-siswa')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getExtraByStudent']);
     });
 
     //Route Blank Space Master
@@ -295,12 +313,26 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('monitoring')->group(function (){
         Route::post('/store', [MonitoringController::class, 'monitoringStore'])->name('monitoringStore');
         Route::get('/', [MonitoringController::class, 'index']);
+        Route::get('/student', [MonitoringController::class, 'getMonitoringByUser']);
         Route::get('/filteringpembelajaran', [MonitoringController::class, 'filteringPembelajaran'])->name('filteringPembelajaran');
     });
 
     // Raport
     Route::prefix('raport')->group(function (){
         Route::get('/', [RaportController::class, 'index']);
+    });
+
+    // Route Mutasi
+    Route::prefix('mutasi')->group(function(){
+        Route::get('/', [MutationController::class, 'index']);
+        Route::get('/choice', [MutationController::class, 'choice']);
+        Route::get('/pengajuan', [MutationController::class, 'pengajuan']);
+        Route::get('/riwayat', [MutationController::class, 'riwayat']);
+        Route::get('/pengajuan/{mutasi:mutasi_id}', [MutationController::class, 'pengajuanShow']);
+        Route::post('/pengajuan/{mutasi:mutasi_id}', [MutationController::class, 'pengajuanUpdate']);
+        Route::get('/ajukan', [MutationController::class, 'create']);
+        Route::post("/ajukan", [MutationController::class, 'insert'])->name('createMutation');
+        Route::get("/ajukan/{mutasi:mutasi_id}", [MutationController::class, 'show']);
     });
 
      // Raport

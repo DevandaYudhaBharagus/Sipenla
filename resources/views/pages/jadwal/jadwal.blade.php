@@ -35,6 +35,15 @@
                             </div>
                         </a>
                     </div>
+                    <div class="col-md-3 col-12 mb-3 mb-md-0">
+                        {{-- catetan ini munculin hanya pada role student --}}
+                        <a href="{{ url('/extra-siswa') }}">
+                            <div class="box-icon-schedule">
+                                <img src="{{ asset('images/internal-images/icon-pelajaran.png') }}" alt="">
+                                <div class="text-blank-schedule">Jadwal Ekstrakurikuler</div>
+                            </div>
+                        </a>
+                    </div>
                     @elseif (Auth::User()->role == 'guru')
                     <div class="col-md-3  col-12">
                         {{-- catetan ini munculin hanya role guru --}}

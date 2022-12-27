@@ -122,7 +122,7 @@ class LessonSchedulesController extends Controller
         $ekstras = Extracurricular::all();
         $teachers = Employee::join('users','employees.user_id', '=', 'users.id')
                             ->join('workshifts','employees.workshift_id','=','workshifts.workshift_id')
-                            ->where('role' ,'=','guru')->get();
+                            ->where('role' ,'=','pembinaextra')->get();
 
         $schedule = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
                 ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
@@ -282,12 +282,10 @@ class LessonSchedulesController extends Controller
                         ->where('student_id', '=', $student->student_id)
                         ->get();
 
-            // dd($senin);
-
             return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
         }else{
 
-    
+
         $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
         ->join('students', 'student_guardians.student_id', '=', 'students.student_id')->first();
 
@@ -333,8 +331,148 @@ class LessonSchedulesController extends Controller
 
 
             return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
-
-        // dd($guardian);
         }
+    }
+
+    public function getExtraByUser()
+    {
+        $user = Auth::user();
+        $employee = Employee::where('user_id', '=', $user->id)->first();
+        $senin = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
+                ->where('day_name', '=', 'senin')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                ]);
+
+        $selasa = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
+                ->where('day_name', '=', 'selasa')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                ]);
+
+        $rabu = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
+                ->where('day_name', '=', 'rabu')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                ]);
+
+        $kamis = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
+                ->where('day_name', '=', 'kamis')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                ]);
+
+        $jumat = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->where('extra_schedules.teacher_id', '=', $employee->employee_id)
+                ->where('day_name', '=', 'jumat')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                ]);
+
+        return view('pages.jadwal.jadwal-ekstra-pmbn',compact(
+                                                        'senin',
+                                                        'selasa',
+                                                        'rabu',
+                                                        'kamis',
+                                                        'jumat'
+                                                    ));
+    }
+
+    public function getExtraByStudent()
+    {
+        $user = Auth::user();
+        $student = Student::where('user_id', '=', $user->id)->first();
+
+        $senin = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->where('extra_schedules.extracurricular_id', '=', $student->extracurricular_id)
+                ->where('day_name', '=', 'senin')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                ]);
+
+        $selasa = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->where('extra_schedules.extracurricular_id', '=', $student->extracurricular_id)
+                ->where('day_name', '=', 'selasa')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                ]);
+
+        $rabu = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->where('extra_schedules.extracurricular_id', '=', $student->extracurricular_id)
+                ->where('day_name', '=', 'rabu')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                ]);
+
+        $kamis = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->where('extra_schedules.extracurricular_id', '=', $student->extracurricular_id)
+                ->where('day_name', '=', 'kamis')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                ]);
+
+        $jumat = ExtraSchedule::join('days', 'extra_schedules.days_id', '=', 'days.day_id')
+                ->join('extracurriculars', 'extra_schedules.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
+                ->join('employees', 'extra_schedules.teacher_id', '=', 'employees.employee_id')
+                ->where('extra_schedules.extracurricular_id', '=', $student->extracurricular_id)
+                ->where('day_name', '=', 'jumat')
+                ->get([
+                    'extracurricular_name',
+                    'start_time',
+                    'end_time',
+                    'first_name',
+                    'last_name',
+                ]);
+
+        return view('pages.jadwal.jadwal-ekstra-siswa', compact(
+            'senin',
+            'selasa',
+            'rabu',
+            'kamis',
+            'jumat'
+        ));
     }
 }
