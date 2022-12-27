@@ -77,17 +77,11 @@ Route::get('/master-tarik-saldo', function(){
 });
 
 // Fokus Yang Dikerjain;
-Route::get('/raport', function(){
-    return view('pages.raport.raport-siswa');
-});
 Route::get('/riwayat-raport', function(){
     return view('pages.raport.riwayat-raport');
 });
 Route::get('/detail-raport-kelas', function(){
     return view('pages.raport.detail-raport-kelas');
-});
-Route::get('/walkel-detail-raport', function(){
-    return view('pages.raport.riwayat-walkel-raport');
 });
 
 
@@ -320,6 +314,7 @@ Route::group(['middleware' => ['auth']], function () {
     // Raport
     Route::prefix('raport')->group(function (){
         Route::get('/', [RaportController::class, 'index']);
+        Route::get('/walikelas', [RaportController::class, 'getApproval']);
     });
 
     // Route Mutasi
@@ -335,8 +330,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get("/ajukan/{mutasi:mutasi_id}", [MutationController::class, 'show']);
     });
 
-     // Raport
-     Route::prefix('payment')->group(function (){
+     // Route Laporan Pembayaran
+    Route::prefix('payment')->group(function (){
         Route::get('/', [PaymentWebController::class, 'index']);
     });
 });
