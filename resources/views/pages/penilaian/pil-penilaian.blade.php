@@ -25,6 +25,7 @@
         <div class="container">
             <div class="box-profile ">
                 <div class="row justify-content-center schedule ">
+                    @if (Auth::User()->role == 'guru')
                     <div class="col-md-3 col-12 mb-3 mb-md-0">
                         <a href="{{ url('/penilaian') }}">
                             <div class="box-icon-schedule">
@@ -34,7 +35,6 @@
                         </a>
                     </div>
                     <div class="col-md-3  col-12">
-                        {{-- ini ke riwayat penilaian --}}
                         <a href="{{ url('/penilaian/riwayat') }}">
                             <div class="box-icon-schedule">
                                 <img src="{{ asset('images/internal-images/icon-pil-penilaian.png') }}" alt="">
@@ -42,6 +42,24 @@
                             </div>
                         </a>
                     </div>
+                    @elseif (Auth::User()->role == 'pembinaextra')
+                    <div class="col-md-3 col-12 mb-3 mb-md-0">
+                        <a href="{{ url('/penilaian-extra') }}">
+                            <div class="box-icon-schedule">
+                                <img src="{{ asset('images/internal-images/icon-pil-penilaian.png') }}" alt="">
+                                <div class="text-blank-schedule text-center">Masukkan Nilai Ekstrakurikuler</div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-md-3  col-12">
+                        <a href="{{ url('/penilaian-extra/riwayat') }}">
+                            <div class="box-icon-schedule">
+                                <img src="{{ asset('images/internal-images/icon-pil-penilaian.png') }}" alt="">
+                                <div class="text-blank-schedule text-center">Riwayat Penilaian Ekstrakurikuler</div>
+                            </div>
+                        </a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <div class="row justify-content-between mb-3" data-aos="fade-up" data-aos-delay="100">
     <div class="col-md-3 col-6 mb-3">
-        <a href="{{ url('/absensi/landpage') }}">
+        <a href="{{ url('/monitoring/student') }}">
             <div class="card-category">
                 <div class="card-body-category">
                     <div class="card-image">

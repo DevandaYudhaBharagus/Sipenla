@@ -34,17 +34,17 @@
                             <tr>
                                 <td style="width:25%;font-weight:600">Nama</td>
                                 <td style="width:5%;text-align:center;font-weight:600">:</td>
-                                <td style="width:70%;font-weight:600">Doni Pamungkas S.Pd</td>
+                                <td style="width:70%;font-weight:600">{{ $student->first_name }} {{ $student->last_name }}</td>
                             </tr>
                             <tr>
                                 <td style="width:25%;">Nisn</td>
                                 <td style="width:5%;text-align:center"> :</td>
-                                <td style="width:70%;">1457875214</td>
+                                <td style="width:70%;">{{ $student->nisn }}</td>
                             </tr>
                             <tr>
                                 <td style="width:25%;">Kelas</td>
                                 <td style="width:5%;text-align:center"> :</td>
-                                <td style="width:70%;">8A</td>
+                                <td style="width:70%;">{{ $student->grade_name }}</td>
                             </tr>
                         </table>
                     </div>
@@ -55,19 +55,22 @@
                                     <th>Alpha</th>
                                     <th>Hadir</th>
                                     <th>Izin</th>
+                                    <th>Sakit</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>0</td>
-                                    <td>20</td>
-                                    <td>0</td>
+                                    <td>{{ $absence }}</td>
+                                    <td>{{ $attend }}</td>
+                                    <td>{{ $izin }}</td>
+                                    <td>{{ $sick }}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
                 <div class="row justify-content-center mt-5 mb-4 scroll-history-present">
+                    @foreach ( $listAbsen as $newabsen )
                     <div class="col-md-7 col-12 mb-3">
                         <div class="history-present">
                             <div class="date-present">
@@ -75,14 +78,23 @@
                                     Tanggal Presensi
                                 </div>
                                 <div class="date">
-                                    26-10-2022
+                                    {{ date('d - m - Y', strtotime($newabsen->date)) }}
                                 </div>
                             </div>
                             <div class="display-present">
-                                H
+                                @if ($newabsen->status == 'mas')
+                                    H
+                                @elseif ($newabsen->status == 'mes')
+                                    A
+                                @elseif ($newabsen->status == 'mls')
+                                    I
+                                @elseif ($newabsen->status == 'mss')
+                                    S
+                                @endif
                             </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>

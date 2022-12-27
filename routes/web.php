@@ -74,9 +74,6 @@ Route::get('/master-tarik-saldo', function(){
 });
 
 // Fokus Yang Dikerjain;
-Route::get('/absensi-siswa', function(){
-    return view('pages.tabel-data.absensi-siswa');
-});
 Route::get('/raport', function(){
     return view('pages.raport.raport-siswa');
 });
@@ -267,6 +264,15 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/{id}', [PenilaianController::class, 'update']);
     });
 
+    //Route Penilaian Extra
+    Route::prefix('penilaian-extra')->group(function (){
+        Route::post('/store', [PenilaianController::class, 'penilaianExtraStore'])->name('penilaianExtraStore');
+        Route::get('/', [PenilaianController::class, 'getFilteringPenilaianExtra']);
+        Route::get('/riwayat', [PenilaianController::class, 'riwayatExtra']);
+        Route::get('/riwayat/penilaian', [PenilaianController::class, 'getRiwayatExtra'])->name('getRiwayatExtra');
+        Route::get('/inputnilai', [PenilaianController::class, 'PenilaianExtra'])->name('PenilaianExtra');
+    });
+
     //Route Jadwal Mapel Guru
     Route::prefix('mapel-guru')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByUser']);
@@ -281,6 +287,16 @@ Route::group(['middleware' => ['auth']], function () {
     // Jadwal Mapel Siswa
     Route::prefix('mapel-siswa')->group(function (){
         Route::get('/', [LessonSchedulesController::class, 'getScheduleByStudent']);
+    });
+
+    // Jadwal Ekstra Pembina
+    Route::prefix('extra-pembina')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getExtraByUser']);
+    });
+
+    // Jadwal Ekstra siswa
+    Route::prefix('extra-siswa')->group(function (){
+        Route::get('/', [LessonSchedulesController::class, 'getExtraByStudent']);
     });
 
     //Route Blank Space Master
@@ -298,6 +314,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::prefix('monitoring')->group(function (){
         Route::post('/store', [MonitoringController::class, 'monitoringStore'])->name('monitoringStore');
         Route::get('/', [MonitoringController::class, 'index']);
+        Route::get('/student', [MonitoringController::class, 'getMonitoringByUser']);
         Route::get('/filteringpembelajaran', [MonitoringController::class, 'filteringPembelajaran'])->name('filteringPembelajaran');
     });
 
