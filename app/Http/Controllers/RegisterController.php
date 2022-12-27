@@ -65,6 +65,8 @@ class RegisterController extends Controller
     {
             $data = $request->all();
 
+            $guardianData = $data;
+
             $validate = Validator::make($data,[
                 'email' => 'required|email',
                 'password' => 'required|confirmed',
@@ -84,17 +86,16 @@ class RegisterController extends Controller
                 ]);
             }
 
-            $userData = User::create([
+            $userDatas = User::create([
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'role' => 'walimurid'
             ]);
 
             $userData = Guardian::create([
-                'user_id' => $userData['id'],
-                'student_id' => $data['student_id']
+                'user_id' => $userDatas['id'],
+                'student_id' => $data['studentid']
             ]);
-
 
             return redirect('/dashboard')->with('status', 'Berhasil Daftar');
     }

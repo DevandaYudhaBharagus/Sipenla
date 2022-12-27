@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Day;
 use App\Models\Grade;
+use App\Models\Student;
 use App\Models\Subject;
 use App\Models\Employee;
-use App\Models\Student;
+use App\Models\Guardian;
 use Illuminate\Http\Request;
+use App\Models\ExtraSchedule;
 use App\Models\LessonSchedule;
 use App\Models\Extracurricular;
-use App\Models\ExtraSchedule;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class LessonSchedulesController extends Controller
 {
@@ -239,48 +240,102 @@ class LessonSchedulesController extends Controller
     public function getScheduleByStudent()
     {
         $user = Auth::user();
-        $student = Student::where('user_id', '=', $user->id)->first();
+        if($user->role == "student"){
+            $student = Student::where('user_id', '=', $user->id)->first();
+            $senin = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'senin')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get();
+
+            $selasa = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'selasa')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get();
+
+            $rabu = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'rabu')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get();
+
+            $kamis = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'kamis')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get();
+
+            $jumat = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'jumat')
+                        ->where('student_id', '=', $student->student_id)
+                        ->get();
+
+            // dd($senin);
+
+            return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
+        }else{
+
+    
+        $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
+        ->join('students', 'student_guardians.student_id', '=', 'students.student_id')->first();
+
         $senin = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
-                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
-                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                    ->where('day_name', '=', 'senin')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'senin')
+                        ->where('student_id', '=', $guardian->student_id)
+                        ->get();
 
-        $selasa = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
-                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
-                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                    ->where('day_name', '=', 'selasa')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
+            $selasa = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'selasa')
+                        ->where('student_id', '=', $guardian->student_id)
+                        ->get();
 
-        $rabu = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
-                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
-                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                    ->where('day_name', '=', 'rabu')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
+            $rabu = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'rabu')
+                        ->where('student_id', '=', $guardian->student_id)
+                        ->get();
 
-        $kamis = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
-                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
-                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                    ->where('day_name', '=', 'kamis')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
+            $kamis = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'kamis')
+                        ->where('student_id', '=', $guardian->student_id)
+                        ->get();
 
-        $jumat = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
-                    ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
-                    ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
-                    ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
-                    ->where('day_name', '=', 'jumat')
-                    ->where('student_id', '=', $student->student_id)
-                    ->get();
+            $jumat = LessonSchedule::join('subjects', 'lesson_schedules.subject_id', '=', 'subjects.subject_id')
+                        ->join('student_grades', 'lesson_schedules.grade_id', '=', 'student_grades.grade_id')
+                        ->join('days', 'lesson_schedules.days_id', '=', 'days.day_id')
+                        ->Join('employees', 'lesson_schedules.teacher_id', '=', 'employees.employee_id')
+                        ->where('day_name', '=', 'jumat')
+                        ->where('student_id', '=', $guardian->student_id)
+                        ->get();
 
-        return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
+
+            return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
+
+        // dd($guardian);
+        }
     }
 
     public function getExtraByUser()

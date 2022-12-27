@@ -27,6 +27,7 @@ use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MonitoringController;
 use App\Http\Controllers\MutationController;
+use App\Http\Controllers\PaymentWebController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RaportController;
 
@@ -87,10 +88,6 @@ Route::get('/detail-raport-kelas', function(){
 });
 Route::get('/walkel-detail-raport', function(){
     return view('pages.raport.riwayat-walkel-raport');
-});
-// keuangan
-Route::get('/keuangan', function(){
-    return view('pages.keuangan.dash-keuangan');
 });
 
 
@@ -336,5 +333,10 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/ajukan', [MutationController::class, 'create']);
         Route::post("/ajukan", [MutationController::class, 'insert'])->name('createMutation');
         Route::get("/ajukan/{mutasi:mutasi_id}", [MutationController::class, 'show']);
+    });
+
+     // Raport
+     Route::prefix('payment')->group(function (){
+        Route::get('/', [PaymentWebController::class, 'index']);
     });
 });

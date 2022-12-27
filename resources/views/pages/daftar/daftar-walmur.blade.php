@@ -54,11 +54,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="mb-3">Cari Siswa</label>
-                            <select class="form-select" name="student_id" id="single-select-field"
+                            <select class="form-select" name="studentid" id="single-select-field"
                                 data-placeholder="--- Pilih Siswa ---">
                                 <option></option>
                                 @foreach ($students as $new)
-                                    <option value="{{ $new->user_id }}">{{ $new->first_name . ' ' . $new->last_name }}
+                                    <option value="{{ $new->student_id }}">{{ $new->first_name . ' ' . $new->last_name }}
                                     </option>
                                 @endforeach
                             </select>

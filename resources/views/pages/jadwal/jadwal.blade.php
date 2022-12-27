@@ -54,6 +54,16 @@
                             </div>
                         </a>
                     </div>
+                    @elseif (Auth::User()->role == 'walimurid')
+                    <div class="col-md-3 col-12 mb-3 mb-md-0">
+                        {{-- catetan ini munculin hanya pada role student --}}
+                        <a href="{{ url('/mapel-siswa') }}">
+                            <div class="box-icon-schedule">
+                                <img src="{{ asset('images/internal-images/icon-pelajaran.png') }}" alt="">
+                                <div class="text-blank-schedule">Jadwal Pelajaran</div>
+                            </div>
+                        </a>
+                    </div>
                     @else
                     <div class="col-md-3  col-12">
                         <a href="{{ url('/jadwal/jadwal-kerja') }}">

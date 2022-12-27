@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
 use App\Models\Student;
+use App\Models\Employee;
+use App\Models\Guardian;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -46,7 +47,11 @@ class ProfleController extends Controller
             }
             return view('pages.dashboard.profil.profil-student', compact('student', 'murid'));
         }elseif($user->role == 'walimurid'){
+            $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
+            ->join('students', 'student_guardians.student_id', '=', 'students.student_id')
+            ->first();
 
+            return view('pages.dashboard.profil.profil-walimurid', compact('guardian'));
         }
         // return view('pages.dashboard.profil');
        else{
