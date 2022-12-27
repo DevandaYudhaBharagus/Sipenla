@@ -282,12 +282,10 @@ class LessonSchedulesController extends Controller
                         ->where('student_id', '=', $student->student_id)
                         ->get();
 
-            // dd($senin);
-
             return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
         }else{
 
-    
+
         $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
         ->join('students', 'student_guardians.student_id', '=', 'students.student_id')->first();
 
@@ -333,8 +331,6 @@ class LessonSchedulesController extends Controller
 
 
             return view('pages.jadwal.jadwal-mapel-siswa',compact('senin', 'selasa', 'rabu', 'kamis', 'jumat'));
-
-        // dd($guardian);
         }
     }
 
