@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use App\Models\Workshift;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class PegawaiController extends Controller
 {

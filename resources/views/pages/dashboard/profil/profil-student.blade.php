@@ -213,7 +213,7 @@
                                 <div class="row align-items-center">
                                     <div class="col-5">
                                         <div class="profile-student">
-                                            @if (!$murid->image)
+                                            @if (!$murid)
                                                 <img src="{{ asset('images/internal-images/profile-user.png') }}"
                                                     alt="" />
                                             @else
@@ -244,7 +244,7 @@
                                     </div>
                                     <div class="col-md-7 col-12">
                                         {{-- <a href="" class="btn link-profile">Data Penerimaan</a> --}}
-                                        <a href="" class="btn link-profile">Mutasi</a>
+                                        <a href="/mutasi" class="btn link-profile">Mutasi</a>
                                     </div>
                                 </div>
                             </div>

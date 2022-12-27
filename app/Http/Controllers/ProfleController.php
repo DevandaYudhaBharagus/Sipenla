@@ -42,10 +42,7 @@ class ProfleController extends Controller
             ]);
             $murid = [];
             if(!$student){
-                $murid = Student::where('user_id', '=', $user->id)
-                            ->join('users', 'students.user_id', '=', 'users.id')
-                            ->join('extracurriculars', 'students.extracurricular_id', '=', 'extracurriculars.extracurricular_id')
-                            ->first();
+                $murid = Student::with('extracurricular')->where('user_id', $user->id)->first();
             }
             return view('pages.dashboard.profil.profil-student', compact('student', 'murid'));
         }elseif($user->role == 'walimurid'){
