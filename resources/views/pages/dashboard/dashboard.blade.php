@@ -134,57 +134,44 @@
                         @endif
                     </div>
                 </div>
-                @foreach ($news as $newsku )
-                <!-- start looping announcement -->
-                <div class="announcement-item">
-                    @if (Auth::User()->role == 'admin')
-                        <div class="btn-item-annnouncement">
-                            <div class="icon-announcement">
-                                <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                            </div>
-                            <div class="icon-announcement">
-                                <a href=""><i class="fa fa-edit text-primary"></i></a>
-                            </div>
-                        </div>
-                    @endif
-                    <div class="title-announcement">
-                       {{ $newsku->news_title }}
-                    </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="image-announcement">
-                                @if(!$newsku->news_image)
-                                    <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
-                                @else
-                                    <img src="{{ $newsku->news_image }}" alt="" />
-                                @endif
-                                {{-- @if (Auth::User()->role == 'admin')
-                                <div class="btn-item-annnouncement">
-                                        <div class="icon-announcement">
-                                            <a href=""><i class="fa fa-trash-o text-danger"></i></a>
-                                        </div>
-                                        <div class="icon-announcement">
-                                            <a href=""><i class="fa fa-edit text-primary"></i></a>
-                                        </div>
-                                    </div>
-                                @endif --}}
-                            </div>
-                        </div>
-                        <div class="col-md-9">
-                            <a href="{{ url('detail-news/'.$newsku->news_id) }}">
-                                <div class="text-item-announcement">
-                                    <div class="title-item-announcement">
-                                        {{ $newsku->news_content }}
-                                    </div>
-                                    {{-- <div class="date-item-announcement">
-                                        Acara dimulai tanggal 9 Maret 2022
-                                    </div> --}}
-
+                @foreach ($news as $newsku)
+                    <!-- start looping announcement -->
+                    <div class="announcement-item">
+                        @if (Auth::User()->role == 'admin')
+                            <div class="btn-item-annnouncement">
+                                <div class="icon-announcement">
+                                    <a href=""><i class="fa fa-trash-o text-danger"></i></a>
                                 </div>
-                            </a>
+                                <div class="icon-announcement">
+                                    <a href=""><i class="fa fa-edit text-primary"></i></a>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="title-announcement">
+                            {{ $newsku->news_title }}
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="image-announcement">
+                                    @if (!$newsku->news_image)
+                                        <img src="{{ asset('images/internal-images/no-img.png') }}" alt="" />
+                                    @else
+                                        <img src="{{ $newsku->news_image }}" alt="" />
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <a href="{{ url('detail-news/' . $newsku->news_id) }}">
+                                    <div class="text-item-announcement">
+                                        <div class="title-item-announcement">
+                                            {{ $newsku->news_content }}
+                                        </div>
+
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
                 @endforeach
                 <div class="d-flex justify-content-center">
                     <a href="{{ url('/news') }}" class="btn btn-login">Lihat Selengkapnya</a>
@@ -193,10 +180,6 @@
             </div>
         </div>
     </section>
-
-    <div class="message">
-        <button><img src="{{ asset('images/internal-images/cs.png') }}" alt="" /></button>
-    </div>
 @endsection
 
 @push('addon-javascript')
