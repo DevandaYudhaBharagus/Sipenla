@@ -23,8 +23,10 @@ use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\EkstrakurikulerController;
 use App\Http\Controllers\LessonSchedulesController;
 use App\Http\Controllers\AdmissionController as ControllersAdmissionController;
+use App\Http\Controllers\API\MutasiController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\MonitoringController;
+use App\Http\Controllers\MutationController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RaportController;
 
@@ -304,5 +306,17 @@ Route::group(['middleware' => ['auth']], function () {
     // Raport
     Route::prefix('raport')->group(function (){
         Route::get('/', [RaportController::class, 'index']);
+    });
+
+    Route::prefix('mutasi')->group(function(){
+        Route::get('/', [MutationController::class, 'index']);
+        Route::get('/choice', [MutationController::class, 'choice']);
+        Route::get('/pengajuan', [MutationController::class, 'pengajuan']);
+        Route::get('/riwayat', [MutationController::class, 'riwayat']);
+        Route::get('/pengajuan/{mutasi:mutasi_id}', [MutationController::class, 'pengajuanShow']);
+        Route::post('/pengajuan/{mutasi:mutasi_id}', [MutationController::class, 'pengajuanUpdate']);
+        Route::get('/ajukan', [MutationController::class, 'create']);
+        Route::post("/ajukan", [MutationController::class, 'insert'])->name('createMutation');
+        Route::get("/ajukan/{mutasi:mutasi_id}", [MutationController::class, 'show']);
     });
 });
