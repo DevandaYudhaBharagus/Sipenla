@@ -9,4 +9,9 @@ class RaportController extends Controller
     public function index(){
         return view('pages.raport.pil-raport');
     }
+
+    public function getApproval()
+    {
+        return view('pages.raport.riwayat-walkel-raport');
+    }
 }
