@@ -335,9 +335,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('kantin')->group(function () {
+        Route::get('/transaction', [KantinController::class, 'getHistoryByUser']);
         Route::post('/', [KantinController::class, 'createKantin']);
         Route::get('/pegawai', [KantinController::class, 'getPegawai']);
         Route::get('/{kode}', [KantinController::class, 'getScan']);
         Route::get('/', [KantinController::class, 'getKantin']);
+        Route::post('/transaction/{employee_id}', [KantinController::class, 'createTransaction']);
     });
 });
