@@ -284,6 +284,7 @@ class ProfileController extends Controller
             $user = Auth::user();
             $guardian = Guardian::where('student_guardians.user_id', '=', $user->id)
             ->join('students', 'student_guardians.student_id', '=', 'students.student_id')
+            ->join('student_grades', 'students.student_id', '=', 'student_grades.student_id')
             ->first([
                 'student_guardians.user_id',
                 'student_guardians.student_id',
@@ -310,9 +311,77 @@ class ProfileController extends Controller
                 'father_education',
                 'family_address',
                 'family_profession',
+                'grade_id'
             ]);
             if(!$guardian){
-                return ResponseFormatter::error('Not Found', 404);
+                $wali = Guardian::where('student_guardians.user_id', '=', $user->id)
+                        ->join('students', 'student_guardians.student_id', '=', 'students.student_id')
+                        ->first([
+                            'student_guardians.user_id',
+                            'student_guardians.student_id',
+                            'students.image',
+                            'guardian_id',
+                            'nisn',
+                            'first_name',
+                            'last_name',
+                            'father_name',
+                            'mother_name',
+                            'gender',
+                            'student_guardians.phone',
+                            'place_of_birth',
+                            'date_of_birth',
+                            'date_school_now',
+                            'address',
+                            'religion',
+                            'school_origin',
+                            'school_now',
+                            'parent_address',
+                            'mother_profession',
+                            'father_profession',
+                            'mother_education',
+                            'father_education',
+                            'family_address',
+                            'family_profession'
+                        ]);
+
+                if(!$wali){
+                    return ResponseFormatter::error('Not Found', 404);
+                }
+
+                $date = ($guardian->date_of_birth !== null) ? date('d F Y', strtotime($guardian->date_of_birth)) : '';
+                $dateSchool = ($guardian->date_school_now !== null) ? date('d F Y', strtotime($guardian->date_school_now)) : '';
+                $guardian->date_of_birth = $date;
+                $guardian->date_school_now = $date;
+                $response = [
+                    'guardian_id' => $guardian->guardian_id,
+                    'user_id' => $guardian->user_id,
+                    'student_id' => $guardian->student_id,
+                    'nisn' => $guardian->nisn,
+                    'first_name' => $guardian->first_name,
+                    'last_name' => $guardian->last_name,
+                    'father_name' => $guardian->father_name,
+                    'mother_name' => $guardian->mother_name,
+                    'gender' => $guardian->gender,
+                    'place_of_birth' => $guardian->place_of_birth,
+                    'date_of_birth' => $guardian->date_of_birth,
+                    'date_school_now' => $guardian->date_school_now,
+                    'address' => $guardian->address,
+                    'religion' => $guardian->religion,
+                    'school_origin' => $guardian->school_origin,
+                    'school_now' => $guardian->school_now,
+                    'parent_address' => $guardian->parent_address,
+                    'mother_profession' => $guardian->mother_profession,
+                    'father_profession' => $guardian->father_profession,
+                    'mother_education' => $guardian->mother_education,
+                    'father_education' => $guardian->father_education,
+                    'family_address' => $guardian->family_address,
+                    'family_profession' => $guardian->family_profession,
+                    'phone' => $guardian->phone,
+                    'image' => $guardian->image,
+                    'grade_id' => 0,
+                    'status' => 'true',
+                ];
+                return ResponseFormatter::success($response, 'Get Wali Murid');
             }
             $date = ($guardian->date_of_birth !== null) ? date('d F Y', strtotime($guardian->date_of_birth)) : '';
             $dateSchool = ($guardian->date_school_now !== null) ? date('d F Y', strtotime($guardian->date_school_now)) : '';
@@ -344,6 +413,7 @@ class ProfileController extends Controller
                 'family_profession' => $guardian->family_profession,
                 'phone' => $guardian->phone,
                 'image' => $guardian->image,
+                'grade_id' => $guardian->grade_id,
                 'status' => 'true',
             ];
             return ResponseFormatter::success($response, 'Get Wali Murid');
