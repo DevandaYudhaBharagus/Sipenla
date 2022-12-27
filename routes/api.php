@@ -26,6 +26,7 @@ use App\Http\Controllers\API\OtherPaymentController;
 use App\Http\Controllers\API\SchoolFeeController;
 use App\Http\Controllers\API\ChatController;
 use App\Http\Controllers\API\NotificationController;
+use App\Http\Controllers\API\KantinController;
 
 /*
 |--------------------------------------------------------------------------
@@ -331,5 +332,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('notif')->group(function () {
         Route::get('/', [NotificationController::class, 'getNotif']);
+    });
+
+    Route::prefix('kantin')->group(function () {
+        Route::post('/', [KantinController::class, 'createKantin']);
+        Route::get('/pegawai', [KantinController::class, 'getPegawai']);
+        Route::get('/{kode}', [KantinController::class, 'getScan']);
+        Route::get('/', [KantinController::class, 'getKantin']);
     });
 });
