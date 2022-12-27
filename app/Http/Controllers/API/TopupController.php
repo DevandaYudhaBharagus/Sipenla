@@ -93,8 +93,9 @@ class TopupController extends Controller
                 $time = $employee->created_at;
                 $test2 = Carbon::parse($time)->format('d F, H.i');
                 $employee->waktu = $test2;
-
-                $response = $employee;
+                $response = [
+                    $employee
+                ];
                 return ResponseFormatter::success($response, 'Get Code Success');
             }
         }catch (Exception $e) {
